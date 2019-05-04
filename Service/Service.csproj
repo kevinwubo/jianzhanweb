@@ -45,8 +45,12 @@
     <Compile Include="BaseBiz\GroupService.cs" />
     <Compile Include="BaseBiz\MenuService.cs" />
     <Compile Include="BaseBiz\RoleService.cs" />
+    <Compile Include="OrderService.cs" />
+    <Compile Include="InquiryService.cs" />
     <Compile Include="NewsService.cs" />
     <Compile Include="BaseBiz\UserService.cs" />
+    <Compile Include="ArtisanService.cs" />
+    <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

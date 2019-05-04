@@ -41,12 +41,17 @@
   <ItemGroup>
     <Compile Include="GroupEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ArtisanEntity.cs" />
     <Compile Include="ViewModel\AttachmentEntity.cs" />
     <Compile Include="ViewModel\BaseDataEntity.cs" />
     <Compile Include="ViewModel\City.cs" />
+    <Compile Include="ViewModel\CodeSEntity.cs" />
+    <Compile Include="ViewModel\InquiryEntity.cs" />
     <Compile Include="ViewModel\MenuCompare.cs" />
     <Compile Include="ViewModel\MenuEntity.cs" />
     <Compile Include="ViewModel\NewsEntity.cs" />
+    <Compile Include="ViewModel\OrderEntity.cs" />
+    <Compile Include="ViewModel\ProductEntity.cs" />
     <Compile Include="ViewModel\Province.cs" />
     <Compile Include="ViewModel\RoleEntity.cs" />
     <Compile Include="ViewModel\UserEntity.cs" />

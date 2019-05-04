@@ -330,6 +330,30 @@ namespace Service.BaseBiz
 
         }
 
+
+        public static List<CodeSEntity> GetCodeValuesByRule(string code)
+        {
+            List<CodeSEntity> all = new List<CodeSEntity>();
+            BaseDataRepository mr = new BaseDataRepository();
+            List<CodeSInfo> miList = mr.GetCodeValuesByRule(code);
+
+            if (!miList.IsEmpty())
+            {
+                foreach (CodeSInfo info in miList)
+                {
+                    CodeSEntity entity = new CodeSEntity();
+                    entity.ID = info.ID;
+                    entity.Code = info.Code;
+                    entity.CodeValues = info.CodeValues;
+                    all.Add(entity);
+                }
+            }
+
+            return all;
+
+        }
+
+
         public static List<BaseDataEntity> GetAllPayType()
         {
             List<BaseDataEntity> payType = GetBaseDataAll().Where(p => p.PCode == "P00" && p.Status == 1).ToList();
@@ -343,6 +367,33 @@ namespace Service.BaseBiz
             mr.Remove(id);
         }
 
-       
+        //public static void AddVerificationCode(VerificationCodeEntity entity)
+        //{
+        //    BaseDataRepository mr = new BaseDataRepository();
+        //    VerificationCodeInfo info = new VerificationCodeInfo();
+        //    info.Mobile = entity.Mobile;
+        //    info.Email = entity.Email;
+        //    info.VCode = entity.VCode;
+        //    info.Status = entity.Status;
+        //    info.DeadLine = entity.DeadLine;
+        //    mr.AddVerificationCode(info);
+
+        //}
+
+        //public static VerificationCodeEntity CheckVerificationCode(string telephone, string vcode)
+        //{
+        //    BaseDataRepository mr = new BaseDataRepository();
+        //    VerificationCodeInfo info=  mr.CheckVerificationCode(telephone, vcode);
+        //    VerificationCodeEntity entity = new VerificationCodeEntity();
+        //    if (info != null)
+        //    {
+        //        entity.Mobile = info.Mobile;
+        //        entity.Email = info.Email;
+        //        entity.VCode = info.VCode;
+        //        entity.Status = info.Status;
+        //        entity.DeadLine = info.DeadLine;
+        //    }
+        //    return entity;
+        //}
     }
 }

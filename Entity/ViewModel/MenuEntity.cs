@@ -38,5 +38,7 @@ namespace Entity.ViewModel
         public string GroupCode { get; set; }
 
         public BaseDataEntity BaseData { get; set; }
+
+        public bool IsShow { get; set; }
     }
 }

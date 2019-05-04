@@ -109,6 +109,25 @@ namespace DataRepository.DataAccess.BaseData
             return result;
         }
 
+        public List<CodeSInfo> GetCodeValuesByRule(string code)
+        {
+            List<CodeSInfo> result = new List<CodeSInfo>();
+            string sqlText = BaseDataStatement.GetCodeValuesByRule;
+            if (!string.IsNullOrEmpty(code))
+            {
+                sqlText += " AND code=@code";
+            }
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            if (!string.IsNullOrEmpty(code))
+            {
+                command.AddInputParameter("@code", DbType.String, code);
+            }
+
+            result = command.ExecuteEntityList<CodeSInfo>();
+            return result;
+        }
+
         public List<BaseDataInfo> GetBaseDataByRule(string desc)
         {
             List<BaseDataInfo> result = new List<BaseDataInfo>();
@@ -171,41 +190,5 @@ namespace DataRepository.DataAccess.BaseData
             int result=command.ExecuteNonQuery();
             return result;
         }
-
-
-        /// <summary>
-        /// 短信验证码信息
-        /// </summary>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        public int AddVerificationCode(VerificationCodeInfo info)
-        {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.InsertVerificationCodeSql, "Text"));
-            command.AddInputParameter("@ID", DbType.Int32, info.ID);
-            command.AddInputParameter("@Mobile", DbType.String, info.Mobile);
-            command.AddInputParameter("@Email", DbType.String, info.Email);
-            command.AddInputParameter("@VCode", DbType.String, info.VCode);
-            command.AddInputParameter("@Status", DbType.Int32, info.Status);
-            command.AddInputParameter("@DeadLine", DbType.DateTime, info.DeadLine);
-            command.AddInputParameter("@CreateDate", DbType.DateTime, DateTime.Now);
-            return command.ExecuteNonQuery();
-        }
-
-        /// <summary>
-        /// 判断手机号 VCODE 是否有效
-        /// </summary>
-        /// <param name="telephone"></param>
-        /// <param name="vcode"></param>
-        /// <returns></returns>
-        public VerificationCodeInfo CheckVerificationCode(string telephone, string vcode)
-        {
-            VerificationCodeInfo result = new VerificationCodeInfo();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.CheckVerificationCodeSql, "Text"));
-            command.AddInputParameter("@Mobile", DbType.String, telephone);
-            command.AddInputParameter("@VCode", DbType.String, vcode);
-            result = command.ExecuteEntity<VerificationCodeInfo>();
-            return result;
-        }
-
     }
 }

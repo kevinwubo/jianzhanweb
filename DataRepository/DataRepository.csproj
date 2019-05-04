@@ -50,10 +50,18 @@
   <ItemGroup>
     <Compile Include="DataAccess\Advise\AdviseStatement.cs" />
     <Compile Include="DataAccess\Advise\AdviseRepository.cs" />
+    <Compile Include="DataAccess\Artisan\ArtisanRepository.cs" />
+    <Compile Include="DataAccess\Artisan\ArtisanSatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataStatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
+    <Compile Include="DataAccess\Inquiry\InquiryRepository.cs" />
+    <Compile Include="DataAccess\Inquiry\InquiryStatement.cs" />
     <Compile Include="DataAccess\News\NewsRepository.cs" />
     <Compile Include="DataAccess\News\NewsStatement.cs" />
+    <Compile Include="DataAccess\Order\OrderInfoRepository.cs" />
+    <Compile Include="DataAccess\Order\OrderInfotatement.cs" />
+    <Compile Include="DataAccess\Product\ProductRepository.cs" />
+    <Compile Include="DataAccess\Product\ProductSatement.cs" />
     <Compile Include="DataModel\AdviseInfo.cs" />
     <Compile Include="DataAccess\CommonStatement.cs" />
     <Compile Include="DataAccess\Group\GroupRepository.cs" />
@@ -64,12 +72,17 @@
     <Compile Include="DataAccess\Role\RoleStatement.cs" />
     <Compile Include="DataAccess\User\UserRepository.cs" />
     <Compile Include="DataAccess\User\UserStatement.cs" />
+    <Compile Include="DataModel\ArtisanInfo.cs" />
     <Compile Include="DataModel\AttachmentInfo.cs" />
     <Compile Include="DataModel\BaseDataInfo.cs" />
     <Compile Include="DataModel\CityInfo.cs" />
+    <Compile Include="DataModel\CodeSInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
+    <Compile Include="DataModel\InquiryInfo.cs" />
     <Compile Include="DataModel\MenuInfo.cs" />
     <Compile Include="DataModel\NewsInfo.cs" />
+    <Compile Include="DataModel\OrderInfo.cs" />
+    <Compile Include="DataModel\ProductInfo.cs" />
     <Compile Include="DataModel\ProvinceInfo.cs" />
     <Compile Include="DataModel\RoleInfo.cs" />
     <Compile Include="DataModel\UserInfo.cs" />
