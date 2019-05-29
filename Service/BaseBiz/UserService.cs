@@ -189,9 +189,16 @@ namespace Service.BaseBiz
         public static UserEntity GetLoginUser(string name, string pwd)
         {
             UserEntity result = new UserEntity();
-            UserRepository mr = new UserRepository();
-            UserInfo info = mr.GetLoginUser(name,pwd);
-            result = TranslateUserEntity(info);
+            try
+            {
+                UserRepository mr = new UserRepository();
+                UserInfo info = mr.GetLoginUser(name, pwd);
+                result = TranslateUserEntity(info);
+            }
+            catch (Exception ex)
+            {
+                Log.WriteTextLog(ex.ToString(), DateTime.Now);               
+            }
             return result;
         }
 

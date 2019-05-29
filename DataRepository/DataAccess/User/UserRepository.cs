@@ -94,10 +94,18 @@ namespace DataRepository.DataAccess.User
         public UserInfo GetLoginUser(string name,string password)
         {
             UserInfo result = new UserInfo();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(UserStatement.GetLoginUser, "Text"));
-            command.AddInputParameter("@UserName", DbType.String, name);
-            command.AddInputParameter("@Password", DbType.String, password);
-            result = command.ExecuteEntity<UserInfo>();
+            try
+            {
+                DataCommand command = new DataCommand(ConnectionString, GetDbCommand(UserStatement.GetLoginUser, "Text"));
+                command.AddInputParameter("@UserName", DbType.String, name);
+                command.AddInputParameter("@Password", DbType.String, password);
+                result = command.ExecuteEntity<UserInfo>();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                
+            }
             return result;
         }
 

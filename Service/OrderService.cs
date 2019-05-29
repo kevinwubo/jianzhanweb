@@ -313,5 +313,71 @@ namespace Service
             return all;
         }
         #endregion
+
+        #region 页面编辑
+        /// <summary>
+        ///财务审核人员填  实际收款
+        //仓储审核员填  运单号、发货时间
+        //销售人员  其他
+        /// </summary>
+        /// <param name="Roles"></param>
+        /// <returns></returns>
+        public static OrderButtonEntity ConvertButton(List<RoleEntity> Roles)
+        {
+            OrderButtonEntity entity = new OrderButtonEntity();
+
+            if (Roles != null && Roles.Count > 0)
+            {
+                RoleEntity xsEntity = Roles.Find(s => s.RoleName.Equals("销售组"));
+                
+                
+                if (xsEntity != null)
+                {
+                    entity.CollectedAmountCss = "readonly='readonly'";
+                    entity.TransportNumberCss = "readonly='readonly'";
+                    entity.DeliveryDateCss = "readonly='readonly'";
+                    entity.isOperator = true;
+                }
+                RoleEntity cwEntity = Roles.Find(s => s.RoleName.Equals("财务组"));
+                if (cwEntity != null)
+                {
+                    entity.OrderNoCss = "readonly='readonly'";
+                    entity.PayWayCss = "readonly='readonly'";
+                    entity.CollectedAmountCss = "";
+                    entity.CollectedDateCss = "readonly='readonly'";
+                    entity.TransportNumberCss = "readonly='readonly'";
+                    entity.DeliveryDateCss = "readonly='readonly'";
+                    entity.ProvinceCss = "readonly='readonly'";
+                    entity.CityCss = "readonly='readonly'";
+                    entity.AddressCss = "readonly='readonly'";
+                    entity.ReceiverNameCss = "readonly='readonly'";
+                    entity.TelephoneCss = "readonly='readonly'";
+                    entity.RemarkCss = "readonly='readonly'";
+                    entity.isOperator = false;
+                }
+
+                RoleEntity ccEntity = Roles.Find(s => s.RoleName.Equals("仓储组"));
+                if (ccEntity != null)
+                {
+                    entity.OrderNoCss = "readonly='readonly'";
+                    entity.PayWayCss = "readonly='readonly'";
+                    entity.CollectedAmountCss = "readonly='readonly'";
+                    entity.CollectedDateCss = "readonly='readonly'";
+                    entity.TransportNumberCss = "";
+                    entity.DeliveryDateCss = "";
+                    entity.ProvinceCss = "readonly='readonly'";
+                    entity.CityCss = "readonly='readonly'";
+                    entity.AddressCss = "readonly='readonly'";
+                    entity.ReceiverNameCss = "readonly='readonly'";
+                    entity.TelephoneCss = "readonly='readonly'";
+                    entity.RemarkCss = "readonly='readonly'";
+                    entity.isOperator = false;
+                }
+            }
+
+            return entity;
+        }
+
+        #endregion
     }
 }

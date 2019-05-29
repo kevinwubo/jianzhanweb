@@ -92,6 +92,62 @@ namespace Entity.ViewModel
     }
 
 
+    public class OrderButtonEntity
+    {
+        /// <summary>
+        /// 订单编号
+        /// </summary>
+        public string OrderNoCss { get; set; }
+
+        /// <summary>
+        /// 支付方式
+        /// </summary>
+        public string PayWayCss { get; set; }
+        /// <summary>
+        /// 实际收款
+        /// </summary>
+        public string CollectedAmountCss { get; set; }
+        /// <summary>
+        /// 收款时间
+        /// </summary>
+        public string CollectedDateCss { get; set; }
+        /// <summary>
+        /// 运单号
+        /// </summary>
+        public string TransportNumberCss { get; set; }
+        /// <summary>
+        /// 发货时间
+        /// </summary>
+        public string DeliveryDateCss { get; set; }
+        /// <summary>
+        /// 省份
+        /// </summary>
+        public string ProvinceCss { get; set; }
+        /// <summary>
+        /// 城市
+        /// </summary>
+        public string CityCss { get; set; }
+        /// <summary>
+        /// 详细地址
+        /// </summary>
+        public string AddressCss { get; set; }
+        /// <summary>
+        /// 收件人
+        /// </summary>
+        public string ReceiverNameCss { get; set; }
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string TelephoneCss { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string RemarkCss { get; set; }
+
+        public bool isOperator { get; set; }
+    }
+
+
     [Serializable]
     public class OrderJsonEntity
     {

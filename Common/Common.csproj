@@ -48,6 +48,7 @@
     <Compile Include="EncryptHelper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="PagerInfo.cs" />
     <Compile Include="StringHelper.cs" />
