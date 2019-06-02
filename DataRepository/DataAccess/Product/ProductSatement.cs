@@ -28,6 +28,8 @@ namespace DataRepository.DataAccess.Product
 
         public static string GetAllProductByRule = @"SELECT * FROM dt_Product(NOLOCK) WHERE 1=1 ";
 
+        public static string GetAllProductTopCountByRule = @"SELECT {0} * FROM dt_Product(NOLOCK) WHERE 1=1 ";
+
         public static string GetProductByKey = @"SELECT * FROM dt_Product(NOLOCK) WHERE PPId=@PPId";
 
         public static string Remove = @"UPDATE dt_Product SET datastatus=0 WHERE PPId=@PPId";
@@ -68,7 +70,7 @@ namespace DataRepository.DataAccess.Product
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 
 		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY DealStatus) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
 		                                                  SELECT *  FROM Product 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
@@ -89,7 +91,7 @@ namespace DataRepository.DataAccess.Product
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 		                                                  ---------分页查询-----------
 		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY DealStatus) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 ";
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 ";
         public static string GetAllProductInfoPagerFooter = @")as T ) 
 		                                                  SELECT *  FROM Product 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize

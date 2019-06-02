@@ -175,19 +175,18 @@ namespace DataRepository.DataAccess.Product
         }
 
 
-        public List<ProductInfo> GetAllInventoryByRule(string title, int status)
+        public List<ProductInfo> GetAllProductByRule(string author,int count,string orderdesc)
         {
             List<ProductInfo> result = new List<ProductInfo>();
-            string sqlText = ProductSatement.GetAllProductByRule;
-            if (!string.IsNullOrEmpty(title))
+            string sqlText = count > 0 ? String.Format(ProductSatement.GetAllProductTopCountByRule, " TOP " + count) : ProductSatement.GetAllProductByRule;
+            if (!string.IsNullOrEmpty(author))
             {
-                sqlText += " AND Title like '%" + title + "'%";
+                sqlText += " AND Author = '" + author + "'";
             }
-            if (status != -1)
+            if (!string.IsNullOrEmpty(orderdesc))
             {
-                sqlText += " AND Status = '" + status + "'";
+                sqlText += orderdesc;
             }
-
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             result = command.ExecuteEntityList<ProductInfo>();
             return result;
@@ -280,42 +279,67 @@ namespace DataRepository.DataAccess.Product
 
 
         #region 分页方法
-        public List<ProductInfo> GetAllProductInfoByRule(string customerName, string title, int dealStatus, PagerInfo pager)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type2">工艺釉色</param>
+        /// <param name="type3">器型</param>
+        /// <param name="type4">口径尺寸</param>
+        /// <param name="type7">价格区间</param>
+        /// <param name="author">作者</param>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public List<ProductInfo> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author, PagerInfo pager)
         {
             List<ProductInfo> result = new List<ProductInfo>();
 
 
             StringBuilder builder = new StringBuilder();
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    builder.Append(" AND AdviseTitle LIKE '%'+@AdviseTitle+'%' ");
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    builder.Append(" AND DealStatus=@DealStatus ");
-            //}
-
+            if (!string.IsNullOrEmpty(type2))
+            {
+                builder.Append(" AND Type2=@Type2 ");
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                builder.Append(" AND Type3=@Type3 ");
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                builder.Append(" AND Type4=@Type4 ");
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                builder.Append(" AND Type7=@Type7 ");
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                builder.Append(" AND Author=@Author ");
+            }
             string sql = ProductSatement.GetAllProductInfoPagerHeader + builder.ToString() + ProductSatement.GetAllProductInfoPagerFooter;
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    command.AddInputParameter("@CustomerName", DbType.Int64, customerName);
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    command.AddInputParameter("@AdviseTitle", DbType.String, title);
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
+            if (!string.IsNullOrEmpty(type2))
+            {
+                command.AddInputParameter("@Type2", DbType.String, type2);
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                command.AddInputParameter("@Type3", DbType.String, type3);
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                command.AddInputParameter("@Type4", DbType.String, type4);
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                command.AddInputParameter("@Type7", DbType.String, type7);
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                command.AddInputParameter("@Author", DbType.String, author);
+            }            
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
@@ -325,37 +349,53 @@ namespace DataRepository.DataAccess.Product
         }
 
 
-        public int GetProductCount(string customerName, string title, int dealStatus)
+        public int GetProductCount(string type2, string type3, string type4, string type7,string author)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(ProductSatement.GetProductCount);
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    builder.Append(" AND AdviseTitle LIKE '%'+@AdviseTitle+'%' ");
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    builder.Append(" AND DealStatus=@DealStatus ");
-            //}
+            if (!string.IsNullOrEmpty(type2))
+            {
+                builder.Append(" AND Type2=@Type2 ");
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                builder.Append(" AND Type3=@Type3 ");
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                builder.Append(" AND Type4=@Type4 ");
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                builder.Append(" AND Type7=@Type7 ");
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                builder.Append(" AND Author=@Author ");
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    command.AddInputParameter("@CustomerName", DbType.Int64, customerName);
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    command.AddInputParameter("@AdviseTitle", DbType.String, title);
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
+            if (!string.IsNullOrEmpty(type2))
+            {
+                command.AddInputParameter("@Type2", DbType.String, type2);
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                command.AddInputParameter("@Type3", DbType.String, type3);
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                command.AddInputParameter("@Type4", DbType.String, type4);
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                command.AddInputParameter("@Type7", DbType.String, type7);
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                command.AddInputParameter("@Author", DbType.String, author);
+            }   
 
 
             var o = command.ExecuteScalar<object>();

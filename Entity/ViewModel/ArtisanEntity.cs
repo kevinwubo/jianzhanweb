@@ -88,5 +88,24 @@ namespace Entity.ViewModel
         /// 是否推荐到商城
         /// </summary>
         public string IsPushMall { get; set; }
+
+
+        /// <summary>
+        /// 代表作品
+        /// </summary>
+        public List<ProductEntity> listProduct { get; set; }
+    }
+
+
+    public class SimpleArtisanEntity
+    {
+        /// <summary>
+        /// artisanID
+        /// </summary>
+        public int artisanID { get; set; }
+        /// <summary>
+        /// 艺人姓名
+        /// </summary>
+        public string artisanName { get; set; }
     }
 }
