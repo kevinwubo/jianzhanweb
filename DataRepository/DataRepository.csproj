@@ -56,7 +56,9 @@
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryRepository.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryStatement.cs" />
+    <Compile Include="DataAccess\News\ArticleRepository.cs" />
     <Compile Include="DataAccess\News\NewsRepository.cs" />
+    <Compile Include="DataAccess\News\ArticleSatement.cs" />
     <Compile Include="DataAccess\News\NewsStatement.cs" />
     <Compile Include="DataAccess\Order\OrderInfoRepository.cs" />
     <Compile Include="DataAccess\Order\OrderInfotatement.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="DataAccess\Role\RoleStatement.cs" />
     <Compile Include="DataAccess\User\UserRepository.cs" />
     <Compile Include="DataAccess\User\UserStatement.cs" />
+    <Compile Include="DataModel\ArticleInfo.cs" />
     <Compile Include="DataModel\ArtisanInfo.cs" />
     <Compile Include="DataModel\AttachmentInfo.cs" />
     <Compile Include="DataModel\BaseDataInfo.cs" />

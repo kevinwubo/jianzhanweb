@@ -110,7 +110,7 @@ namespace Service
                 entity.Type5 = info.Type5;
                 entity.Type6 = info.Type6;
                 entity.Type7 = info.Type7;
-                entity.Images = info.Images;
+                entity.Images = "http://116.62.124.214/" + info.Images;
                 entity.summary = info.summary;
                 entity.ProductDetail = info.ProductDetail;
                 entity.ProImageDetail = info.ProImageDetail;

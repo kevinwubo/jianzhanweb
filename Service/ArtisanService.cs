@@ -13,6 +13,24 @@ namespace Service
     public class ArtisanService : BaseService
     {
 
+        public static ArtisanEntity GetArtisanByKey(string artisanID)
+        {
+            ArtisanEntity entity = new ArtisanEntity();
+            ArtisanInfo info = Cache.Get<ArtisanInfo>("GetArtisanByKey" + artisanID);
+            ArtisanRepository mr = new ArtisanRepository();
+            if (info == null)
+            {
+                info = mr.GetArtisanByKey(artisanID);
+                Cache.Add("GetArtisanByKey" + artisanID, info);
+            }
+
+            if (info != null)
+            {
+                entity = TranslateArtisanEntity(info, true, 0);
+            }
+            return entity;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +70,7 @@ namespace Service
             return listR;
         }
 
-        public static ArtisanEntity TranslateArtisanEntity(ArtisanInfo info, bool IsReader = false)
+        public static ArtisanEntity TranslateArtisanEntity(ArtisanInfo info, bool IsReader = false, int count = 3)
         {
             ArtisanEntity entity = new ArtisanEntity();
             entity.artisanID = info.artisanID;
@@ -68,7 +86,7 @@ namespace Service
             entity.masterWorker = info.masterWorker;
             entity.artisanSpecial = info.artisanSpecial;
             entity.introduction = info.introduction;
-            entity.IDHead = info.IDHead;
+            entity.IDHead = "http://116.62.124.214/" + info.IDHead;
             entity.DetailedIntroduction = info.DetailedIntroduction;
             entity.VideoUrl = info.VideoUrl;
             entity.IsCooperation = info.IsCooperation;
@@ -76,7 +94,7 @@ namespace Service
             entity.IsPushMall = info.IsPushMall;
             if (IsReader)
             {
-                entity.listProduct = ProductService.GetAllProductByRule(info.artisanName, 3, " order by AddDate desc ");
+                entity.listProduct = ProductService.GetAllProductByRule(info.artisanName, count, " order by AddDate desc ");
             }
             return entity;
         }
