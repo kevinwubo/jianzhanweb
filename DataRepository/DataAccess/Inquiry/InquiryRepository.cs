@@ -34,7 +34,7 @@ namespace DataRepository.DataAccess.News
             return result;
         }
 
-        public List<InquiryInfo> GetInquiryByRule(string name, int status)
+        public List<InquiryInfo> GetInquiryByRule(string productid, string telephone, string name,string sqlwhere, int status)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
             string sqlText = InquiryStatement.GetAllInquiryByRule;
@@ -44,9 +44,20 @@ namespace DataRepository.DataAccess.News
             }
             if (status > -1)
             {
-                sqlText += " AND Status=@Status";
+                sqlText += " AND Status=@Status ";
             }
-
+            if (!string.IsNullOrEmpty(productid))
+            {
+                sqlText += " AND ProductID=@ProductID ";
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                sqlText += " AND telphone=@telphone ";
+            }
+            if (!string.IsNullOrEmpty(sqlwhere) )
+            {
+                sqlText += sqlwhere;
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             if (!string.IsNullOrEmpty(name))
@@ -56,6 +67,15 @@ namespace DataRepository.DataAccess.News
             if (status > -1)
             {
                 command.AddInputParameter("@Status", DbType.Int32, status);
+            }
+            if (!string.IsNullOrEmpty(productid))
+            {
+                command.AddInputParameter("@ProductID", DbType.String, productid);
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                sqlText += " AND telphone=@telphone";
+                command.AddInputParameter("@telphone", DbType.String, telephone);
             }
 
             result = command.ExecuteEntityList<InquiryInfo>();
@@ -93,6 +113,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
             command.AddInputParameter("@AddDate", DbType.String, info.AddDate);
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
+            command.AddInputParameter("@HistoryOperatorID", DbType.String, info.HistoryOperatorID);
             //command.AddInputParameter("@datastatus", DbType.String, info.datastatus);
             return command.ExecuteNonQuery();
             var o = command.ExecuteScalar<object>();
@@ -132,26 +153,59 @@ namespace DataRepository.DataAccess.News
             int result = command.ExecuteNonQuery();
             return result;
         }
+        #region 自定义方法
 
-
-        public List<InquiryInfo> GetAllInventoryByRule(string title, int status)
+        public List<DefineInquiryInfo> GetLastSaleName(string salenames)
         {
-            List<InquiryInfo> result = new List<InquiryInfo>();
-            string sqlText = InquiryStatement.GetAllInquiryByRule;
-            if (!string.IsNullOrEmpty(title))
-            {
-                sqlText += " AND Title like '%" + title + "'%";
-            }
-            if (status != -1)
-            {
-                sqlText += " AND Status = '" + status + "'";
-            }
-
+            List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
+            string sqlText = InquiryStatement.GetLastSaleName;     
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
-            result = command.ExecuteEntityList<InquiryInfo>();
+            if (!string.IsNullOrEmpty(salenames))
+            {
+                command.AddInputParameter("@real_name", DbType.String, salenames);
+            }
+            DataSet  ds= command.ExecuteDataSet();
+            result = ListByDataSet(ds);
             return result;
         }
 
+        /// <summary>
+        /// 转换
+        /// </summary>
+        /// <param name="ds"></param>
+        /// <returns></returns>
+        private List<DefineInquiryInfo> ListByDataSet(DataSet ds)
+        {
+            List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        DefineInquiryInfo info = new DefineInquiryInfo();
+                        info.countCurrentDay = dr["countCurrentDay"].ToString().ToInt(0);
+                        info.SaleName = dr["real_name"].ToString();
+                        info.salesCount = dr["salesCount"].ToString().ToInt(0);
+                        result.Add(info);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<DefineInquiryInfo> GetLastSaleNameByCodes(string salenames)
+        {
+            List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
+            string sqlText = string.Format(InquiryStatement.GetLastSaleNameByCodes, salenames);
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            DataSet ds = command.ExecuteDataSet();
+            result = ListByDataSet(ds);
+            return result;
+        }
+
+        #endregion
 
         #region 分页方法
         public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, PagerInfo pager)

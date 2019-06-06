@@ -331,9 +331,9 @@ namespace Service.BaseBiz
         }
 
 
-        public static List<CodeSEntity> GetCodeValuesByRule(string code)
+        public static CodeSEntity GetCodeValuesByRule(string code)
         {
-            List<CodeSEntity> all = new List<CodeSEntity>();
+            CodeSEntity entity = new CodeSEntity();
             BaseDataRepository mr = new BaseDataRepository();
             List<CodeSInfo> miList = mr.GetCodeValuesByRule(code);
 
@@ -341,15 +341,13 @@ namespace Service.BaseBiz
             {
                 foreach (CodeSInfo info in miList)
                 {
-                    CodeSEntity entity = new CodeSEntity();
                     entity.ID = info.ID;
                     entity.Code = info.Code;
                     entity.CodeValues = info.CodeValues;
-                    all.Add(entity);
                 }
             }
 
-            return all;
+            return entity;
 
         }
 

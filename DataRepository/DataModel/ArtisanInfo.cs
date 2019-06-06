@@ -113,5 +113,9 @@ namespace DataRepository.DataModel
         /// </summary>
         [DataMapping("Sort", DbType.Int32)]
         public int Sort { get; set; }
+
+        
+        [DataMapping("Adddate", DbType.DateTime)]
+        public DateTime Adddate { get; set; }
     }
 }

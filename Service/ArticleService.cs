@@ -31,7 +31,12 @@ namespace Service
             entity.articleTitle = info.title;
             entity.articleType = getArticleType(info.category_id);
             entity.id = info.id.ToString();
-            entity.img_url = info.img_url;
+            entity.img_url = info.img_url;            
+            if (string.IsNullOrEmpty(info.img_url))
+            {
+                int i = info.id & 5;
+                entity.img_url = "/Images/" + i + ".jpg";
+            }
             entity.zhaiyao = info.zhaiyao;
             entity.content = info.content;
             return entity;

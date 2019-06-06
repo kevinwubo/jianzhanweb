@@ -129,15 +129,18 @@ namespace Service
                 entity.Adddate = info.Adddate;
                 Regex r = new Regex(@"<img[\s\S]*?>", RegexOptions.IgnoreCase);
 
-                // 定义正则表达式用来匹配 img 标签            
-                MatchCollection collImages = r.Matches(info.summary);
+                // 定义正则表达式用来匹配 img 标签     
                 List<string> lstImages = new List<string>();
-                List<string> lstImagesUrl = new List<string>();
-                foreach (Match item in collImages)
+                if (!string.IsNullOrEmpty(info.summary))
                 {
-                    lstImages.Add(item.Value);
+                    MatchCollection collImages = r.Matches(info.summary);                    
+                    List<string> lstImagesUrl = new List<string>();
+                    foreach (Match item in collImages)
+                    {
+                        lstImages.Add(item.Value);
+                    }
+                    //}
                 }
-                //}
                 entity.lstImages = lstImages;
                 entity.UpdateDate = info.UpdateDate;
             }
@@ -145,19 +148,19 @@ namespace Service
         }
 
         #region 分页相关
-        public static int GetProductCount(string type2, string type3, string type4, string type7, string author)
+        public static int GetProductCount(string type2, string type3, string type4, string type7, string author, string sqlwhere)
         {
-            return new ProductRepository().GetProductCount(type2, type3, type4, type7, author);
+            return new ProductRepository().GetProductCount(type2, type3, type4, type7, author,sqlwhere);
         }
 
-        public static List<ProductEntity> GetProductInfoPager(PagerInfo pager)
+        public static List<ProductEntity> GetProductInfoPager(string pagename, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
             List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoPager");
             if (miList.IsEmpty())
             {
-                miList = mr.GetAllProductInfoPager(pager);
+                miList = mr.GetAllProductInfoPager(pagename, pager);
                 Cache.Add("GetAllProductInfoPager", miList);
             }
 
@@ -172,7 +175,7 @@ namespace Service
             return all;
         }
 
-        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author, PagerInfo pager)
+        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author,string sqlwhere,string pagename, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
@@ -180,7 +183,7 @@ namespace Service
 
             if (miList.IsEmpty())
             {
-                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, pager);
+                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, pagename, pager);
                 Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author, miList);
             }
             if (!miList.IsEmpty())

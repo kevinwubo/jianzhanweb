@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Entity.ViewModel;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -113,6 +117,46 @@ namespace Common
             Htmlstring = HttpContext.Current.Server.HtmlEncode(Htmlstring).Trim();
 
             return Htmlstring.Length > 50 ? Htmlstring.Substring(0, 49) : Htmlstring;
+        }
+
+        /// <summary>
+        /// 获取省份城市信息
+        /// </summary>
+        /// <param name="telephone"></param>
+        /// <returns></returns>
+        public static ProCityEntity getCity(string telephone)
+        {
+            ProCityEntity info = new ProCityEntity();
+            try
+            {
+                string url = "http://apis.juhe.cn/mobile/get?phone=" + telephone + "&key=f6b3c53f05453d39221ac36b31bf170e";
+                //请求数据
+                HttpWebRequest res = (HttpWebRequest)WebRequest.Create(url);
+                //方法名
+                res.Method = "GET";
+                //获取响应数据
+                HttpWebResponse resp = (HttpWebResponse)res.GetResponse();
+                //读取数据流
+                StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8);
+                //编译成字符串
+                string resphtml = sr.ReadToEnd();
+
+                TelephoneJson result = JsonConvert.DeserializeObject<TelephoneJson>(resphtml);
+                if (result != null)
+                {
+                    result re = result.result;
+                    if (re != null)
+                    {
+                        info.city = !string.IsNullOrEmpty(re.city) ? re.city : "";
+                        info.province = !string.IsNullOrEmpty(re.province) ? re.province : "";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                info = null;
+            }
+            return info;
         }
     }
 }

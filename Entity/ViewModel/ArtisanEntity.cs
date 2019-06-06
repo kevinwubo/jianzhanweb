@@ -89,7 +89,7 @@ namespace Entity.ViewModel
         /// </summary>
         public string IsPushMall { get; set; }
 
-
+        public DateTime adddate { get; set; }
         /// <summary>
         /// 代表作品
         /// </summary>

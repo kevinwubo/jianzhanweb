@@ -113,7 +113,12 @@ namespace DataRepository.DataModel
         /// </summary>
         [DataMapping("OperatorID", DbType.String)]
         public string OperatorID { get; set; }
+        /// <summary>
+        /// 历史操作员ID
+        /// </summary>
 
+        [DataMapping("HistoryOperatorID", DbType.String)]
+        public string HistoryOperatorID { get; set; }
         /// <summary>
         /// 销售电话
         /// </summary>
@@ -138,6 +143,28 @@ namespace DataRepository.DataModel
         /// </summary>
         [DataMapping("ChangeDate", DbType.DateTime)]
         public DateTime ChangeDate { get; set; }
+
+
+        public string smsMess { get; set; }
        
+    }
+
+    public class DefineInquiryInfo
+    {
+        /// <summary>
+        /// 销售姓名
+        /// </summary>
+        [DataMapping("SaleName", DbType.String)]
+        public string SaleName { get; set; }
+        /// <summary>
+        /// 当天配置咨询总数量
+        /// </summary>
+        [DataMapping("salesCount", DbType.Int32)]
+        public int salesCount { get; set; }
+        /// <summary>
+        /// 当天咨询量
+        /// </summary>
+        [DataMapping("countCurrentDay", DbType.Int32)]
+        public int countCurrentDay { get; set; }
     }
 }

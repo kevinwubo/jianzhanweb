@@ -54,6 +54,8 @@
     <Compile Include="DataAccess\Artisan\ArtisanSatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataStatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
+    <Compile Include="DataAccess\BaseData\ManagerRepository.cs" />
+    <Compile Include="DataAccess\BaseData\ManagerStatement.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryRepository.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryStatement.cs" />
     <Compile Include="DataAccess\News\ArticleRepository.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="DataModel\CodeSInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
     <Compile Include="DataModel\InquiryInfo.cs" />
+    <Compile Include="DataModel\ManagerInfo.cs" />
     <Compile Include="DataModel\MenuInfo.cs" />
     <Compile Include="DataModel\NewsInfo.cs" />
     <Compile Include="DataModel\OrderInfo.cs" />

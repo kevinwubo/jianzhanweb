@@ -48,10 +48,12 @@
     <Compile Include="ViewModel\City.cs" />
     <Compile Include="ViewModel\CodeSEntity.cs" />
     <Compile Include="ViewModel\InquiryEntity.cs" />
+    <Compile Include="ViewModel\ManagerEntity.cs" />
     <Compile Include="ViewModel\MenuCompare.cs" />
     <Compile Include="ViewModel\MenuEntity.cs" />
     <Compile Include="ViewModel\NewsEntity.cs" />
     <Compile Include="ViewModel\OrderEntity.cs" />
+    <Compile Include="ViewModel\ProCityEntity.cs" />
     <Compile Include="ViewModel\ProductEntity.cs" />
     <Compile Include="ViewModel\Province.cs" />
     <Compile Include="ViewModel\RoleEntity.cs" />

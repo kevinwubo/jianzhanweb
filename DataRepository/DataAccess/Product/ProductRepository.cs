@@ -181,7 +181,7 @@ namespace DataRepository.DataAccess.Product
             string sqlText = count > 0 ? String.Format(ProductSatement.GetAllProductTopCountByRule, " TOP " + count) : ProductSatement.GetAllProductByRule;
             if (!string.IsNullOrEmpty(author))
             {
-                sqlText += " AND Author = '" + author + "'";
+                sqlText += " AND Author = '" + author + "' OR (Type2 like '%" + author + "%' or Type3 like '%" + author + "%') ";
             }
             if (!string.IsNullOrEmpty(orderdesc))
             {
@@ -289,7 +289,7 @@ namespace DataRepository.DataAccess.Product
         /// <param name="author">作者</param>
         /// <param name="pager"></param>
         /// <returns></returns>
-        public List<ProductInfo> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author, PagerInfo pager)
+        public List<ProductInfo> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author,string sqlwhere,string pagename, PagerInfo pager)
         {
             List<ProductInfo> result = new List<ProductInfo>();
 
@@ -316,7 +316,17 @@ namespace DataRepository.DataAccess.Product
             {
                 builder.Append(" AND Author=@Author ");
             }
+
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
+            }
+
             string sql = ProductSatement.GetAllProductInfoPagerHeader + builder.ToString() + ProductSatement.GetAllProductInfoPagerFooter;
+            if (pagename.Equals("mn_souchang"))
+            {
+                sql = ProductSatement.GetAllProductInfoSouChangPagerHeader + builder.ToString() + ProductSatement.GetAllProductInfoSouChangPagerFooter;
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
 
@@ -343,13 +353,12 @@ namespace DataRepository.DataAccess.Product
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
-
             result = command.ExecuteEntityList<ProductInfo>();
             return result;
         }
 
 
-        public int GetProductCount(string type2, string type3, string type4, string type7,string author)
+        public int GetProductCount(string type2, string type3, string type4, string type7,string author,string sqlwhere)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(ProductSatement.GetProductCount);
@@ -372,6 +381,11 @@ namespace DataRepository.DataAccess.Product
             if (!string.IsNullOrEmpty(author))
             {
                 builder.Append(" AND Author=@Author ");
+            }
+
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
             }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
@@ -402,10 +416,10 @@ namespace DataRepository.DataAccess.Product
             return Convert.ToInt32(o);
         }
 
-        public List<ProductInfo> GetAllProductInfoPager(PagerInfo pager)
+        public List<ProductInfo> GetAllProductInfoPager(string pagename,PagerInfo pager)
         {
             List<ProductInfo> result = new List<ProductInfo>();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.GetAllProductInfoPager, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(pagename.Equals("mn_souchang")? ProductSatement.GetAllProductInfoSouChangPager: ProductSatement.GetAllProductInfoPager, "Text"));
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);

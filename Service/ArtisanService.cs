@@ -37,11 +37,11 @@ namespace Service
         /// <param name="artisanType">艺人类型</param>
         /// <param name="IsCooperation">是否合作</param>
         /// <returns></returns>
-        public static List<ArtisanEntity> GetArtisansByRule(string artisanType,int count=0, string IsCooperation="1")
+        public static List<ArtisanEntity> GetArtisansByRule(string artisanType, int count = 0, string IsCooperation = "", string sqlwhere="")
         {
             List<ArtisanEntity> lstNews = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
-            List<ArtisanInfo> lstInfo = mr.GetArtisansByRule(artisanType, count, IsCooperation);
+            List<ArtisanInfo> lstInfo = mr.GetArtisansByRule(artisanType, count, IsCooperation, sqlwhere);
             if (lstInfo != null && lstInfo.Count > 0)
             {
                 foreach (ArtisanInfo info in lstInfo)
@@ -92,6 +92,7 @@ namespace Service
             entity.IsCooperation = info.IsCooperation;
             entity.IsRecommend = info.IsRecommend;
             entity.IsPushMall = info.IsPushMall;
+            entity.adddate = info.Adddate;
             if (IsReader)
             {
                 entity.listProduct = ProductService.GetAllProductByRule(info.artisanName, count, " order by AddDate desc ");

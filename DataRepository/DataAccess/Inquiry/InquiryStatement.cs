@@ -79,5 +79,14 @@ namespace DataRepository.DataAccess.News
 	                                                  END";
         #endregion     
 
+        #region 自定义SQL
+        /// <summary>
+        /// 获取当前队列销售数据
+        /// </summary>
+        public static string GetLastSaleName = @"select  b.real_name ,b.salesCount,COUNT(1) as countCurrentDay from dt_proInquiry a ,dt_manager b where a.OperatorID=b.id and b.real_name =@real_name  and   status='新' and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' group by real_name,b.salesCount ";
+
+        public static string GetLastSaleNameByCodes = @"select top 1 b.real_name,salesCount,0 as countCurrentDay from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and b.real_name in({0}) order by PPId desc ";
+        #endregion
+        
     }
 }

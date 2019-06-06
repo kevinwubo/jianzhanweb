@@ -38,7 +38,7 @@ namespace DataRepository.DataAccess.Artisan
             return result;
         }
 
-        public List<ArtisanInfo> GetArtisansByRule(string artisanType,int count, string IsCooperation)
+        public List<ArtisanInfo> GetArtisansByRule(string artisanType,int count, string IsCooperation,string sqlwhere)
         {
             List<ArtisanInfo> result = new List<ArtisanInfo>();
             string sqlText = count > 0 ? ArtisanSatement.GetTopCountArtisanByRule : ArtisanSatement.GetAllArtisanByRule;
@@ -51,6 +51,12 @@ namespace DataRepository.DataAccess.Artisan
             {
                 sqlText += " AND IsCooperation =@IsCooperation";
             }
+
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                sqlText += sqlwhere;
+            }
+
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text")); ;
             if (count > 0)
             {
