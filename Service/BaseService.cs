@@ -10,6 +10,7 @@ namespace Service
 {
     public class BaseService
     {
+        public static string URL = "http://116.62.124.214/";
         protected static CacheRuntime Cache
         {
             get

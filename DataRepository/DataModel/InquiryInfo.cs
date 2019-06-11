@@ -166,5 +166,9 @@ namespace DataRepository.DataModel
         /// </summary>
         [DataMapping("countCurrentDay", DbType.Int32)]
         public int countCurrentDay { get; set; }
+
+
+        [DataMapping("OperatorID", DbType.String)]
+        public string OperatorID { get; set; }
     }
 }

@@ -110,10 +110,10 @@ namespace Service
                 entity.Type5 = info.Type5;
                 entity.Type6 = info.Type6;
                 entity.Type7 = info.Type7;
-                entity.Images = "http://116.62.124.214/" + info.Images;
-                entity.summary = info.summary;
+                entity.Images = URL + info.Images;
+                entity.summary = info.summary.Replace("http://121.42.156.253", URL);
                 entity.ProductDetail = info.ProductDetail;
-                entity.ProImageDetail = info.ProImageDetail;
+                entity.ProImageDetail = info.ProImageDetail.Replace("http://121.42.156.253", URL);
                 entity.IsPushMall = info.IsPushMall;
                 entity.Material = info.Material;
                 entity.Volume = info.Volume;
@@ -133,7 +133,7 @@ namespace Service
                 List<string> lstImages = new List<string>();
                 if (!string.IsNullOrEmpty(info.summary))
                 {
-                    MatchCollection collImages = r.Matches(info.summary);                    
+                    MatchCollection collImages = r.Matches(entity.summary);                    
                     List<string> lstImagesUrl = new List<string>();
                     foreach (Match item in collImages)
                     {
@@ -148,9 +148,9 @@ namespace Service
         }
 
         #region 分页相关
-        public static int GetProductCount(string type2, string type3, string type4, string type7, string author, string sqlwhere)
+        public static int GetProductCount(string type2, string type3, string type4, string type7, string author, string sqlwhere,string Keyword)
         {
-            return new ProductRepository().GetProductCount(type2, type3, type4, type7, author,sqlwhere);
+            return new ProductRepository().GetProductCount(type2, type3, type4, type7, author, sqlwhere, Keyword);
         }
 
         public static List<ProductEntity> GetProductInfoPager(string pagename, PagerInfo pager)
@@ -175,16 +175,16 @@ namespace Service
             return all;
         }
 
-        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author,string sqlwhere,string pagename, PagerInfo pager)
+        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author,string sqlwhere,string keyword,string pagename, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author);
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename);
 
             if (miList.IsEmpty())
             {
-                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, pagename, pager);
-                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author, miList);
+                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, keyword, pagename, pager);
+                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename, miList);
             }
             if (!miList.IsEmpty())
             {

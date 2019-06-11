@@ -23,5 +23,6 @@ namespace Entity.ViewModel
         public int is_lock { get; set; }
         public DateTime add_time { get; set; }
 
+        public int currentSalesCount { get;set;}
     }
 }

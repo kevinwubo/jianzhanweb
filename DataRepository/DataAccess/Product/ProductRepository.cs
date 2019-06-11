@@ -289,7 +289,7 @@ namespace DataRepository.DataAccess.Product
         /// <param name="author">作者</param>
         /// <param name="pager"></param>
         /// <returns></returns>
-        public List<ProductInfo> GetAllProductInfoByRule(string type2, string type3, string type4, string type7,string author,string sqlwhere,string pagename, PagerInfo pager)
+        public List<ProductInfo> GetAllProductInfoByRule(string type2, string type3, string type4, string type7, string author, string sqlwhere, string KEYWORD, string pagename, PagerInfo pager)
         {
             List<ProductInfo> result = new List<ProductInfo>();
 
@@ -316,10 +316,14 @@ namespace DataRepository.DataAccess.Product
             {
                 builder.Append(" AND Author=@Author ");
             }
-
             if (!string.IsNullOrEmpty(sqlwhere))
             {
                 builder.Append(sqlwhere);
+            }
+
+            if (!string.IsNullOrEmpty(KEYWORD))
+            {
+                builder.Append("and ProductID='" + KEYWORD + "' or ProductName like '%" + KEYWORD + "%' or Author like '%" + KEYWORD + "%' or Type2 like '" + KEYWORD + "' or Type3 like '" + KEYWORD + "' or Type4 like '" + KEYWORD + "' or Type5 like '" + KEYWORD + "'");
             }
 
             string sql = ProductSatement.GetAllProductInfoPagerHeader + builder.ToString() + ProductSatement.GetAllProductInfoPagerFooter;
@@ -358,7 +362,7 @@ namespace DataRepository.DataAccess.Product
         }
 
 
-        public int GetProductCount(string type2, string type3, string type4, string type7,string author,string sqlwhere)
+        public int GetProductCount(string type2, string type3, string type4, string type7, string author,string sqlwhere, string KEYWORD)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(ProductSatement.GetProductCount);
@@ -386,6 +390,11 @@ namespace DataRepository.DataAccess.Product
             if (!string.IsNullOrEmpty(sqlwhere))
             {
                 builder.Append(sqlwhere);
+            }
+
+            if (!string.IsNullOrEmpty(KEYWORD))
+            {
+                builder.Append("and ProductID='" + KEYWORD + "' or ProductName like '%" + KEYWORD + "%' or Author like '%" + KEYWORD + "%' or Type2 like '" + KEYWORD + "' or Type3 like '" + KEYWORD + "' or Type4 like '" + KEYWORD + "' or Type5 like '" + KEYWORD + "'");
             }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
