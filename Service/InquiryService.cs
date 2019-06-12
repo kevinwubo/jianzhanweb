@@ -14,6 +14,8 @@ namespace Service
 {
     public class InquiryService
     {
+        #region 咨询量逻辑
+
         public static string CreateInquiry(string telephone, string productID, string sourceform)
         {
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
@@ -40,9 +42,151 @@ namespace Service
                 string code = GetTimeRangleCode(telephone);
                 ManagerEntity entity = GetSalesNameNew(code);
                 InquiryInfo info = AddInquiry(telephone, productID, sourceform, entity);
-                sendSMS(SmsTempletText, entity, info);
+                sendSMS(SmsTempletText, productID, info.smsMess, entity);
             }
             return "";
+        }
+
+        /// <summary>
+        /// 短信模板
+        /// </summary>
+        /// <param name="SmsTempletText"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private static bool sendSMS(string SmsTempletText, string productID, string smsMess, ManagerEntity entity)
+        {
+            string SmsMess = string.Format(SmsTempletText, "不详", "不详", "不详", DateTime.Now.ToString());
+
+            if (!string.IsNullOrEmpty(productID))
+            {
+                ProductEntity proEntity = ProductService.GetProductByProductID(productID);
+                SmsMess = string.Format(SmsTempletText, proEntity.Author, proEntity.ProductName, proEntity.ProductID, DateTime.Now.ToString()) + smsMess;
+                if (entity != null)
+                {
+                    SmsMess += "跟踪销售：" + entity.real_name;
+                }
+                SmsMess = SmsMess.Replace("-", "-");
+
+                //SMSHelper.SeedSMS(mInfo.telephone, SmsMess);               
+                ////发送给老板
+                //SMSHelper.SeedSMS("13916116545", SmsMess);
+
+                ////发送城市对应的主管销售人员
+                //if (mInfo.CityName.Equals("厦门"))
+                //{
+                //    SMSHelper.SeedSMS("17359271665", SmsMess);
+                //}
+                //else if (mInfo.CityName.Equals("武夷山"))
+                //{
+                //    SMSHelper.SeedSMS("13163806316", SmsMess);
+                //}
+            }
+            return true;
+        }        
+
+        public static ManagerEntity GetSalesNameNew(string code)
+        {
+            ManagerRepository mmr = new ManagerRepository();
+            List<ManagerEntity> allList = ManagerService.GetManagerAll();
+            //当前销售队列
+            string codes = BaseDataService.GetCodeValuesByRule(code).CodeValues;
+            //当前销售队列
+            List<ManagerEntity> listCurrent = getCurrentSalesListQuence(codes, allList);
+            //执行排除队列
+            List<ManagerEntity> listTask = getOutSalesList(listCurrent);
+            //获取最终销售
+            ManagerEntity entity = GetManagerByOperatorID(listTask);
+
+            return entity;
+        }
+        /// <summary>
+        /// 当前队列所有信息
+        /// </summary>
+        /// <returns></returns>
+        private static List<ManagerEntity> getCurrentSalesListQuence(string codes, List<ManagerEntity> allList)
+        {
+            List<ManagerEntity> list = new List<ManagerEntity>();
+            if (!string.IsNullOrEmpty(codes) && allList.Count > 0)
+            {
+                string[] codeList = codes.Split(',');
+                foreach (string name in codeList)
+                {
+                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount < p.currentSalesCount || p.currentSalesCount == 0));
+                    if (entity != null)
+                    {
+                        list.Add(entity);
+                    }
+                }
+
+                //如果销售都分配满了 按照队列去自动分配
+                if (list == null || list.Count == 0)
+                {
+                    foreach (string name in codeList)
+                    {
+                        ManagerEntity entity = allList.Find(p => p.real_name.Equals(name));
+                        if (entity != null)
+                        {
+                            list.Add(entity);
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 排除队列
+        /// </summary>
+        /// <param name="currentList"></param>
+        /// <returns></returns>
+        private static List<ManagerEntity> getOutSalesList(List<ManagerEntity> currentList)
+        {
+            List<ManagerEntity> removeList = new List<ManagerEntity>();
+            string OutSalesCodes = GetOutSalesName();//排除队列
+            string wxCodes = BaseDataService.GetCodeValuesByRule("WXChartList").CodeValues;//当天在微信队列中的排除销售咨询队列
+            if (!string.IsNullOrEmpty(OutSalesCodes))
+            {
+                //排除队列
+                foreach (string sale in OutSalesCodes.Split(','))
+                {
+                    if (!string.IsNullOrEmpty(sale))
+                    {
+                        for (int i = 0; i < currentList.Count; i++)
+                        {
+                            if (sale.Equals(currentList[i].real_name))
+                            {
+                                currentList.Remove(currentList[i]);
+                            }
+                        }
+                    }
+                }
+            }
+            //当天在微信队列中的排除销售咨询队列
+            string code = GetWXCode();
+            if (!string.IsNullOrEmpty(code))
+            {
+                for (int i = 0; i < currentList.Count; i++)
+                {
+                    if (code.Equals(currentList[i].telephone))
+                    {
+                        currentList.Remove(currentList[i]);
+                    }
+                }
+            }
+
+            return currentList;
+        }
+        
+
+        /// <summary>
+        /// 获取排除队列数据
+        /// </summary>
+        /// <returns></returns>
+        public static string GetOutSalesName()
+        {
+            string XMsales = BaseDataService.GetCodeValuesByRule("XiaMenSales").CodeValues;
+            string WYSsales = BaseDataService.GetCodeValuesByRule("WuYiShanSales").CodeValues;
+            return XMsales.TrimEnd(',') + "," + WYSsales;
         }
 
         /// <summary>
@@ -107,6 +251,18 @@ namespace Service
             return code;
         }
 
+        public static List<DefineInquiryInfo> GetLastSaleNameBySaleName(string salenames)
+        {
+            InquiryRepository mr = new InquiryRepository();
+            return mr.GetLastSaleName(salenames);
+        }
+
+
+        public static List<DefineInquiryInfo> GetLastSaleNameByCodes(string salenames)
+        {
+            InquiryRepository mr = new InquiryRepository();
+            return mr.GetLastSaleNameByCodes(salenames);
+        }
 
         /// <summary>
         /// 短信模板
@@ -191,27 +347,13 @@ namespace Service
                 info.OperatorID = mEntity.id.ToString();
                 info.SaleTelephone = mEntity.telephone;
             }
-            ir.CreateNew(info);
+            ir.CreateSimpleInquiry(info);
             return info;
         }
 
         #region 最新获取
 
-        public static ManagerEntity GetSalesNameNew(string code)
-        {
-            ManagerRepository mmr = new ManagerRepository();
-            List<ManagerEntity> allList = ManagerService.GetManagerAll();
-            //当前销售队列
-            string codes = BaseDataService.GetCodeValuesByRule(code).CodeValues;
-            //当前销售队列
-            List<ManagerEntity> listCurrent = getCurrentSalesListQuence(codes, allList);
-            //执行排除队列
-            List<ManagerEntity> listTask = getOutSalesList(listCurrent);
-            //获取最终销售
-            ManagerEntity entity = GetManagerByOperatorID(listTask);
 
-            return entity;
-        }
 
         /// <summary>
         /// 获取最终分配销售
@@ -234,7 +376,7 @@ namespace Service
 
             int index = currentindex + 1;
 
-            if (index > listTask.Count)
+            if (index >= listTask.Count)
             {
                 entity = listTask[0];
             }
@@ -246,6 +388,38 @@ namespace Service
             return entity;
         }
 
+        #endregion
+
+        #region 超过15分钟未处理，重新分配
+        public static void AutoAllocation()
+        {
+            List<InquiryEntity> list = new List<InquiryEntity>();
+            list = GetInquiryByRule("", "", "", " AND datediff(mi,AddDate,GETDATE())>15 AND status='新' and ProcessingState='0' ", "", "");
+            if (list != null && list.Count > 0)
+            {
+                LogHelper.WriteAutoSystemLog("重新分配", JsonHelper.ToJson(list), DateTime.Now);
+                string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
+                foreach (InquiryEntity item in list)
+                {
+                    string code = GetTimeRangleCode(item.telphone);
+                    ManagerEntity entity = GetSalesNameNew(code);
+                    sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
+
+                    //更新OperatorID
+                    InquiryRepository ir = new InquiryRepository();
+                    InquiryInfo infoU = new InquiryInfo();
+                    infoU.OperatorID = entity.id.ToString();
+                    infoU.PPId = item.PPId;
+                    infoU.ChangeDate = DateTime.Now;
+                    ir.UpdateOperatorIDByPPId(infoU);
+                }
+            }
+        }
+        #endregion
+
+
+        
+
         /// <summary>
         /// 队列中最新资讯
         /// </summary>
@@ -255,82 +429,9 @@ namespace Service
         {
             InquiryRepository mr = new InquiryRepository();
             return mr.GetLastSaleNameByOperatorID(OperatorID);
-        }
-        /// <summary>
-        /// 当前队列所有信息
-        /// </summary>
-        /// <returns></returns>
-        private static List<ManagerEntity> getCurrentSalesListQuence(string codes, List<ManagerEntity> allList)
-        {
-            List<ManagerEntity> list = new List<ManagerEntity>();
-            if (!string.IsNullOrEmpty(codes) && allList.Count > 0)
-            {
-                string[] codeList = codes.Split(',');
-                foreach (string name in codeList)
-                {
-                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount < p.currentSalesCount || p.currentSalesCount == 0));
-                    if (entity != null)
-                    {
-                        list.Add(entity);
-                    }
-                }
+        }        
 
-                //如果销售都分配满了 按照队列去自动分配
-                if (list == null || list.Count == 0)
-                {
-                    foreach (string name in codeList)
-                    {
-                        ManagerEntity entity = allList.Find(p => p.real_name.Equals(name));
-                        if (entity != null)
-                        {
-                            list.Add(entity);
-                        }
-                    }
-                }
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// 排除队列
-        /// </summary>
-        /// <param name="currentList"></param>
-        /// <returns></returns>
-        private static List<ManagerEntity> getOutSalesList(List<ManagerEntity> currentList)
-        {
-            string OutSalesCodes = GetOutSalesName();//排除队列
-            string wxCodes = BaseDataService.GetCodeValuesByRule("WXChartList").CodeValues;//当天在微信队列中的排除销售咨询队列
-            if (!string.IsNullOrEmpty(OutSalesCodes))
-            {
-                //排除队列
-                foreach (string sale in OutSalesCodes.Split(','))
-                {
-                    if (!string.IsNullOrEmpty(sale))
-                    {
-                        foreach (ManagerEntity entity in currentList)
-                        {
-                            if (sale.Equals(entity.real_name))
-                            {
-                                currentList.Remove(entity);
-                            }
-                        }
-                    }
-                }
-            }
-            //当天在微信队列中的排除销售咨询队列
-            string code = GetWXCode();
-            if (!string.IsNullOrEmpty(code))
-            {
-                foreach (ManagerEntity entity in currentList)
-                {
-                    if (code.Equals(entity.telephone))
-                    {
-                        currentList.Remove(entity);
-                    }
-                }
-            }
-            return currentList;
-        }
+        
 
         /// <summary>
         /// 获取当天的微信号
@@ -364,17 +465,6 @@ namespace Service
                 code = wxCodes.Split(',')[0];
             }
             return code;
-        }
-
-        /// <summary>
-        /// 获取排除队列数据
-        /// </summary>
-        /// <returns></returns>
-        public static string GetOutSalesName()
-        {
-            string XMsales = BaseDataService.GetCodeValuesByRule("XiaMenSales").CodeValues;
-            string WYSsales = BaseDataService.GetCodeValuesByRule("WuYiShanSales").CodeValues;
-            return XMsales.TrimEnd(',') + "," + WYSsales;
         }
 
         #endregion

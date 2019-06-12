@@ -20,6 +20,17 @@ namespace DataRepository.DataAccess.News
             return result;
         }
 
+        public List<DefineInquiryInfo> GetLastSaleNameByOperatorID(string OperatorID)
+        {
+            List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
+            string sqlText = string.Format(InquiryStatement.GetLastSaleNameByOperatorID, OperatorID);
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            DataSet ds = command.ExecuteDataSet();
+            result = ListByDataSet(ds);
+            return result;
+        }
+
+
         public List<InquiryInfo> GetInquiryByKeys(string keys)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
@@ -34,17 +45,6 @@ namespace DataRepository.DataAccess.News
             return result;
         }
 
-
-        public List<DefineInquiryInfo> GetLastSaleNameByOperatorID(string OperatorID)
-        {
-            List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
-            string sqlText = string.Format(InquiryStatement.GetLastSaleNameByOperatorID, OperatorID);
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
-            DataSet ds = command.ExecuteDataSet();
-            result = ListByDataSet(ds);
-            return result;
-        }
-
         public List<InquiryInfo> GetInquiryByRule(string productid, string telephone, string name, string sqlwhere, string status, string OperatorID)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
@@ -55,7 +55,7 @@ namespace DataRepository.DataAccess.News
             }
             if (!string.IsNullOrEmpty(status))
             {
-                sqlText += " AND Status=@Status ";
+                sqlText += " AND status=@status ";
             }
             if (!string.IsNullOrEmpty(productid))
             {
@@ -64,6 +64,10 @@ namespace DataRepository.DataAccess.News
             if (!string.IsNullOrEmpty(telephone))
             {
                 sqlText += " AND telphone=@telphone ";
+            }
+            if (!string.IsNullOrEmpty(OperatorID))
+            {
+                sqlText += " AND OperatorID=@OperatorID ";
             }
             if (!string.IsNullOrEmpty(sqlwhere) )
             {
@@ -87,7 +91,10 @@ namespace DataRepository.DataAccess.News
             {
                 command.AddInputParameter("@telphone", DbType.String, telephone);
             }
-
+            if (!string.IsNullOrEmpty(OperatorID))
+            {
+                command.AddInputParameter("@OperatorID", DbType.String, OperatorID);
+            }
             result = command.ExecuteEntityList<InquiryInfo>();
             return result;
         }
@@ -100,8 +107,6 @@ namespace DataRepository.DataAccess.News
             result = command.ExecuteEntity<InquiryInfo>();
             return result;
         }
-
-        //ProductID,telphone,WebChartID,Provence,City,InquiryContent,CustomerName,OperatorID,status,ProcessingState,SourceForm,TraceState,HistoryOperatorID
 
         public long CreateSimpleInquiry(InquiryInfo info)
         {
@@ -123,6 +128,7 @@ namespace DataRepository.DataAccess.News
             return Convert.ToInt64(o);
         }
 
+
         public long CreateNew(InquiryInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateNewInquiry, "Text"));
@@ -132,21 +138,22 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@InquiryContent", DbType.String, info.InquiryContent);
             command.AddInputParameter("@CommentContent", DbType.String, info.CommentContent);
             command.AddInputParameter("@ProcessingState", DbType.String, info.ProcessingState);
-            command.AddInputParameter("@ProcessingTime", DbType.DateTime, info.ProcessingTime);
+            command.AddInputParameter("@ProcessingTime", DbType.String, info.ProcessingTime);
             command.AddInputParameter("@Provence", DbType.String, info.Provence);
             command.AddInputParameter("@City", DbType.String, info.City);
             command.AddInputParameter("@TraceContent", DbType.String, info.TraceContent);
             command.AddInputParameter("@TraceState", DbType.String, info.TraceState);
-            command.AddInputParameter("@NextVisitTime", DbType.DateTime, info.NextVisitTime);
+            command.AddInputParameter("@NextVisitTime", DbType.String, info.NextVisitTime);
             command.AddInputParameter("@CustomerName", DbType.String, info.CustomerName);
             command.AddInputParameter("@sex", DbType.String, info.Sex);
 
             command.AddInputParameter("@status", DbType.String, info.status);
             command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
-            command.AddInputParameter("@AddDate", DbType.DateTime, info.AddDate);
+            command.AddInputParameter("@AddDate", DbType.String, info.AddDate);
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
             command.AddInputParameter("@HistoryOperatorID", DbType.String, info.HistoryOperatorID);
-            command.AddInputParameter("@datastatus", DbType.Int32, 0);
+            command.AddInputParameter("@datastatus", DbType.String, info.datastatus);
+            return command.ExecuteNonQuery();
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt64(o);
         }
@@ -176,6 +183,15 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@PPId", DbType.String, info.PPId);
             return command.ExecuteNonQuery();
         }
+
+        public int UpdateOperatorIDByPPId(InquiryInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.UpdateOperatorIDByPPId, "Text"));          
+            command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);            
+            command.AddInputParameter("@PPId", DbType.String, info.PPId);
+            return command.ExecuteNonQuery();
+        }
+        
 
         public int Remove(long InquiryID)
         {

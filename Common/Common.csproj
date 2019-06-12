@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="EncryptHelper.cs" />
     <Compile Include="EnumHelper.cs" />
+    <Compile Include="HtmlHelper.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogHelper.cs" />

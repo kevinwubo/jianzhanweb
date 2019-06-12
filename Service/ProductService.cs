@@ -111,9 +111,9 @@ namespace Service
                 entity.Type6 = info.Type6;
                 entity.Type7 = info.Type7;
                 entity.Images = URL + info.Images;
-                entity.summary = info.summary.Replace("http://121.42.156.253", URL);
+                entity.summary = string.IsNullOrEmpty(info.summary) ? "" : info.summary.Replace("http://121.42.156.253", URL);
                 entity.ProductDetail = info.ProductDetail;
-                entity.ProImageDetail = info.ProImageDetail.Replace("http://121.42.156.253", URL);
+                entity.ProImageDetail = string.IsNullOrEmpty(info.ProImageDetail) ? "" : info.ProImageDetail.Replace("http://121.42.156.253", URL);
                 entity.IsPushMall = info.IsPushMall;
                 entity.Material = info.Material;
                 entity.Volume = info.Volume;

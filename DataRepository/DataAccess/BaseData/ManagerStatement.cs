@@ -11,7 +11,7 @@ namespace DataRepository.DataAccess.BaseData
 
         public static string GetManagerByRule = @"SELECT * FROM dt_manager(NOLOCK) WHERE 1=1";
 
-        public static string GetAllManager = @"SELECT * FROM dt_manager(NOLOCK)";
+        public static string GetAllManager = @"SELECT * FROM dt_manager(NOLOCK) WHERE is_lock=0 ";
 
         public static string GetBaseDataBySalesName = @"SELECT * FROM dt_manager(NOLOCK) WHERE real_name=@real_name";
 

@@ -19,10 +19,13 @@ namespace Entity.ViewModel
         public string telephone { get; set; }
         public string email { get; set; }
         public int salesCount { get; set; }
+        /// <summary>
+        /// 当天 所有新咨询量
+        /// </summary>
+        public int currentSalesCount { get; set; }
         public string CityName { get; set; }
         public int is_lock { get; set; }
         public DateTime add_time { get; set; }
 
-        public int currentSalesCount { get;set;}
     }
 }

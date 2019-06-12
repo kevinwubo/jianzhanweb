@@ -24,6 +24,7 @@ namespace DataRepository.DataAccess.News
                                                    (ProductID,telphone,WebChartID,Provence,City,InquiryContent,CustomerName,OperatorID,status,ProcessingState,SourceForm,TraceState,HistoryOperatorID)
                                                     VALUES(@ProductID,@telphone,@WebChartID,@Provence,@City,@InquiryContent,@CustomerName,@OperatorID,@status,@ProcessingState,@SourceForm,@TraceState,@HistoryOperatorID) select @@IDENTITY";
 
+
         public static string CreateNewInquiry = @"INSERT INTO [dt_proInquiry]
                                             ([ProductID],[telphone],[WebChartID],[InquiryContent],[CommentContent],[ProcessingState],[ProcessingTime],[Provence]
                                             ,[City],[TraceContent],[TraceState],[NextVisitTime],[CustomerName],[sex],[status],[SourceForm],[AddDate],[OperatorID],[datastatus])
@@ -87,11 +88,14 @@ namespace DataRepository.DataAccess.News
         /// <summary>
         /// 获取当前队列销售数据
         /// </summary>
-        public static string GetLastSaleName = @"select  b.real_name ,b.salesCount,COUNT(1) as countCurrentDay,OperatorID from dt_proInquiry a ,dt_manager b where a.OperatorID=b.id and b.real_name =@real_name  and   status='新' and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' group by real_name,b.salesCount ";
+        public static string GetLastSaleName = @"select  b.real_name ,b.salesCount,COUNT(1) as countCurrentDay,a.OperatorID from dt_proInquiry a ,dt_manager b where a.OperatorID=b.id and b.real_name =@real_name  and   status='新' and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' group by real_name,b.salesCount ";
 
-        public static string GetLastSaleNameByCodes = @"select top 1 b.real_name,salesCount,0 as countCurrentDay,OperatorID from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and b.real_name in({0}) order by PPId desc ";
+        public static string GetLastSaleNameByCodes = @"select top 1 b.real_name,salesCount,0 as countCurrentDay,a.OperatorID from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and b.real_name in({0}) order by PPId desc ";
 
         public static string GetLastSaleNameByOperatorID = @"select top 1 b.real_name,a.OperatorID,salesCount,0 as countCurrentDay from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and a.OperatorID in({0}) order by PPId desc ";
+
+        public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='1' WHERE PPId=@PPId";
+
         #endregion
         
     }
