@@ -65,21 +65,20 @@ namespace Common
         {
             if (!string.IsNullOrEmpty(result))
             {
-                if (string.IsNullOrEmpty(createpath))
-                {
-                    createpath = "/default.html";
-                }
-                string filepath = createpath.Substring(createpath.LastIndexOf(@"\"));
-                createpath = createpath.Substring(0, createpath.LastIndexOf(@"\"));
-                if (!Directory.Exists(createpath))
-                {
-                    Directory.CreateDirectory(createpath);
-                }
-                createpath = createpath + filepath;
+                string path = AppDomain.CurrentDomain.BaseDirectory;//+ @"Html\";
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                string fileFullPath = path + "/" + createpath;
 
                 try
-                {
-                    FileStream fs2 = new FileStream(createpath, FileMode.Create);
+                {                    
+                    if (File.Exists(fileFullPath))
+                    {
+                        File.Delete(fileFullPath);
+                    }
+
+                    FileStream fs2 = new FileStream(fileFullPath, FileMode.Create);
                     StreamWriter sw = new StreamWriter(fs2, new System.Text.UTF8Encoding(false));//去除UTF-8 BOM
                     sw.Write(result);
                     sw.Close();
@@ -111,12 +110,6 @@ namespace Common
                 //获取模板Html
                 string TemplateContent = GetHtml(temppath, System.Text.Encoding.UTF8);
 
-                //初始化结果
-                //string result = string.Empty;
-
-                ////解析模板生成静态页Html代码
-                //result = Razor.Parse(TemplateContent, t);
-
                 //创建静态文件
                 return CreateFileHtmlByTemp(TemplateContent, path);
             }
@@ -126,7 +119,5 @@ namespace Common
             }
         }
         #endregion
-
-
     }
 }

@@ -15,6 +15,28 @@ namespace Service
     public class ProductService : BaseService
     {
 
+        public static List<ProductEntity> GetAllProduct()
+        {
+            List<ProductEntity> all = new List<ProductEntity>();
+            ProductRepository mr = new ProductRepository();
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProduct");
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllProduct();
+                Cache.Add("GetAllProduct", miList);
+            }
+
+            if (!miList.IsEmpty())
+            {
+                foreach (ProductInfo mInfo in miList)
+                {
+                    ProductEntity carEntity = TranslateProductEntity(mInfo);
+                    all.Add(carEntity);
+                }
+            }
+            return all;
+        }
+
         public static ProductEntity GetProductByProductID(string ProductID)
         {
             if (string.IsNullOrEmpty(ProductID))

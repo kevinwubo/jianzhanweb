@@ -12,7 +12,27 @@ namespace Service
 {
     public class ArtisanService : BaseService
     {
+        public static List<ArtisanEntity> GetAllArtisan()
+        {
+            List<ArtisanEntity> all = new List<ArtisanEntity>();
+            ArtisanRepository mr = new ArtisanRepository();
+            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetAllArtisan");
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllArtisan();
+                Cache.Add("GetAllArtisan", miList);
+            }
 
+            if (!miList.IsEmpty())
+            {
+                foreach (ArtisanInfo mInfo in miList)
+                {
+                    ArtisanEntity carEntity = TranslateArtisanEntity(mInfo);
+                    all.Add(carEntity);
+                }
+            }
+            return all;
+        }
         public static ArtisanEntity GetArtisanByKey(string artisanID)
         {
             ArtisanEntity entity = new ArtisanEntity();
