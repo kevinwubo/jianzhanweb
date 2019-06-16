@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuoChe", "GuoChe\GuoChe.csproj", "{9A56A0A0-008E-4755-A9F8-6B6871227198}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JianZhanWeb", "GuoChe\JianZhanWeb.csproj", "{9A56A0A0-008E-4755-A9F8-6B6871227198}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataRepository", "DataRepository\DataRepository.csproj", "{2C07FF57-595D-4717-8C90-3DA248898D6D}"
 EndProject
