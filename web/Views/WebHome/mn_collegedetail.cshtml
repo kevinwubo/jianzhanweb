@@ -1,0 +1,66 @@
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_collegedetail";
+    Layout = "~/Views/Shared/_Layout_web.cshtml";
+
+    ArticleEntity entity = (ArticleEntity)ViewBag.ArticleModel;
+}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    @if (entity != null)
+    {
+        <title>@entity.articleTitle —建盏学院 -@entity.articleType</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="@entity.articleTitle,建盏天下" />
+        <meta name="Description" content="@(entity.zhaiyao.Length > 150 ? entity.zhaiyao.Substring(0, 149) : entity.zhaiyao)" />
+    }
+
+    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/1905_style.css">
+    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <style>
+        body {
+            background: #fff;
+            max-width: 750px;
+            margin: auto;
+            /*-webkit-overflow-scrolling: touch;*/
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="flex-row college-hd">
+            <div class="back" onclick="javascript:window.history.back()">
+                返回
+            </div>
+            <div class="txt px36">建盏学院</div>
+            <div class="menu">
+                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="div-h-8"></div>
+    @if (entity != null)
+    {
+        <section class="college-wrap">
+            <div class="wrap-title">
+                <h1 class="px36 clamp1">@entity.articleTitle</h1>
+                <span class="px16">日期：@entity.AddDate.ToString() 版块：<em>@entity.articleType</em></span>
+            </div>
+            <div class="wrap-con">
+                <h2 class="px24">
+                    @entity.zhaiyao
+                </h2>
+                @Html.Raw(entity.content)
+            </div>
+        </section>  
+    } 
+</body>
+
+</html>
+

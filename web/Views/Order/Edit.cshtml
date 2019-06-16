@@ -1,0 +1,225 @@
+﻿@using Common
+@using Entity.ViewModel;
+@{
+    ViewBag.Title = "仓库信息";
+    List<Province> plist = (List<Province>)ViewBag.Province;
+    OrderEntity entity = (OrderEntity)ViewBag.Order;
+    OrderButtonEntity button = (OrderButtonEntity)ViewBag.OrderButton;
+}
+@section Header{
+<link href="~/source/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+<script src="/source/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <style>
+        .picRemove {
+            height: 15px;
+            width: 15px;
+            background-color: #e4e5e6;
+            position: absolute;
+            margin-top: 15px;
+            /*filter: alpha(opacity:70);
+            opacity: 0.7;
+            -moz-opacity: 0.7;
+            -khtml-opacity: 0.7;*/
+        }
+    </style>
+}
+<div class="row-fluid">
+    <form class="form-horizontal" id="OrderForm" action="/Order/Modify" method="post">
+        <div class="widget widget-padding span12">
+            <div class="widget-header" style="margin-top:30px">
+                <i class="icon-list-alt"></i><h5>仓库信息</h5>
+            </div>
+            <div class="widget-body" style="overflow: hidden; display: block;">
+                <div class="widget-forms clearfix">
+                    <input type="hidden" id="ID" name="ID" value="@entity.ID">
+                    <input type="hidden" id="OrderDetailJson" name="OrderDetailJson"  value="@entity.OrderDetailJson">
+                    <div class="control-group">
+                        <label class="control-label">订单号</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="订单号" id="OrderNo" @button.OrderNoCss name="OrderNo" value="@entity.OrderNo" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">付款方式</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="付款方式" id="PayWay" @button.PayWayCss name="PayWay" value="@entity.PayWay" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">实际收款</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="实际收款" id="CollectedAmount" @button.CollectedAmountCss name="CollectedAmount" value="@entity.CollectedAmount" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">收款时间</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="收款时间" id="CollectedDate" @button.CollectedDateCss name="CollectedDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="@entity.CollectedDate.ToString("yyyy-MM-dd")" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">运单号</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="运单号" id="TransportNumber" @button.TransportNumberCss name="TransportNumber" value="@entity.TransportNumber" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">发货时间</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="发货时间" id="DeliveryDate" @button.DeliveryDateCss onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" name="DeliveryDate" value="@entity.DeliveryDate.ToString("yyyy-MM-dd")" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">省份</label>
+                        <div class="controls">
+                            <input type="hidden" id="hid_cityid" value="@entity.City" />
+                            <input type="hidden" id="hid_provinceid" value="@entity.Province" />
+                            <select tabindex="1" class="span2" @button.ProvinceCss id="Province" name="Province">
+                                <option value="">--省份--</option>
+                                @foreach (var item in plist)
+                                {
+                                    <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">城市</label>
+                        <div class="controls">
+                            <select tabindex="1" @button.CityCss class="span2" id="City" name="City">
+                                <option value="">--城市--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">详细地址</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="地址" @button.AddressCss id="Address" name="Address" value="@entity.Address" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">收件人</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="收件人" @button.ReceiverNameCss id="ReceiverName" name="ReceiverName" value="@entity.ReceiverName" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">手机号</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="手机号" @button.TelephoneCss id="Telephone" name="Telephone" value="@entity.Telephone" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">备注</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="备注" @button.RemarkCss id="Remark" name="Remark" value="@entity.Remark" maxlength="200">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-header" style="margin-top:30px">
+                <i class="icon-list-alt"></i><h5>新增加联系人</h5>
+                <div class="widget-buttons">
+                    @if (button.isOperator)
+                    { 
+                        <a href="javascript:addTr(oneTr())"><i class="icon-user"></i> 新增</a>
+                    }
+                </div>
+            </div>
+            <div class="widget-body" style="overflow: hidden; display: block;">
+                <div class="widget-forms clearfix">
+                    <table class="table table-bordered" id="parentTbody">
+                        <thead>
+                            <tr>
+                                <th><input type="hidden" value="Head">师傅</th>
+                                <th>产品编号</th>
+                                <th>作品名称</th>
+                                <th>数量</th>
+                                @*<th>成本</th>*@
+                                <th>售价</th>
+                                <th>实际卖价</th>
+                                @*<th>毛利率</th>*@
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (entity.orderDetailList != null && entity.orderDetailList.Count > 0)
+                            {
+                                foreach (OrderDetailEntity cc in entity.orderDetailList)
+                                {
+                                    <tr>
+                                        <td><input type="text" id="Author" style="width:150px" value="@cc.Author" class="form-control"></td>
+                                        <td><input type="text" id="ProductID" style="width:150px" value="@cc.ProductID" class="form-control "></td>
+                                        <td><input type="text" id="ProductName" style="width:150px" value="@cc.ProductName" class="form-control "></td>
+                                        <td><input type="text" id="Quantity" style="width:150px" value="@cc.Quantity" class="form-control "></td>
+                                        <td><input type="text" id="SalePrice" style="width:150px" value="@cc.SalePrice" class="form-control "></td>
+                                        <td><input type="text" id="CollectedSalePrice" style="width:150px" value="@cc.CollectedSalePrice" class="form-control "></td>
+                                        <td>
+                                            <input type="hidden" id="OrderDetailID" value="@cc.DetailID" />
+                                            @if (button.isOperator)
+                                            { 
+                                                <span style="cursor:pointer" class="label label-warning" onclick="delTr(this,@cc.DetailID)">移除</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td><input type="text" id="Author" style="width:150px" class="form-control"></td>
+                                    <td><input type="text" id="ProductID" style="width:150px" class="form-control "></td>
+                                    <td><input type="text" id="ProductName" style="width:150px" class="form-control "></td>
+                                    <td><input type="text" id="Quantity" style="width:150px" class="form-control "></td>
+                                    <td><input type="text" id="SalePrice" style="width:150px" class="form-control "></td>
+                                    <td><input type="text" id="CollectedSalePrice" style="width:150px" class="form-control "></td>
+                                    <td><input type="hidden" id="OrderDetailID" value="0" /><span style="cursor:pointer" class="label label-warning" onclick="delTr(this,0)">移除</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="widget-footer">
+                <button class="btn btn-primary" type="button" id="save">保存</button>
+                <button class="btn btn-primary" type="button" id="goback">返回</button>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+<div class="window-mask" style="display:none"></div>
+<div id="imgContainer" style="z-index:999;display:none">
+    <div class="row-fluid" style="margin-top:30px">
+        <div class="widget widget-padding span12">
+            <div class="widget-header">
+                <div class="widget-buttons">
+                    <a href="javascript:void(0)" id="closeDeal"><i class="icon-remove"></i>关闭</a>
+                </div>
+            </div>
+            <div class="widget-body" id="imgshow" style="text-align: center;"></div>
+        </div>
+    </div>
+</div>
+@section Footer{
+<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
+<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript" src="~/source/Order/Order.js"></script>
+<script type="text/javascript" src="~/source/BaseData/Table.js"></script>    
+<script>
+    $(document).ready(function () {
+        orderInfo.init();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+}

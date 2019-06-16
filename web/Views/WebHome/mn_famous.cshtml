@@ -1,0 +1,132 @@
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_famous";
+    Layout = "~/Views/Shared/_Layout_web.cshtml";
+
+    List<ArtisanEntity> list = (List<ArtisanEntity>)ViewBag.ArtisanList;
+    PagerInfo p = (PagerInfo)ViewBag.Pager;
+}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>名家名堂 - 建盏天下网</title>
+    <meta name="keywords" content="建盏名家,卓立旗,李达,孙建新,黄美金,陈大鹏" />
+    <meta name="description" content="名家名堂是建盏天下网第一手发布建窑建盏大师名家资讯和个人介绍，业界大师：孙建新、李达、黄美金、陈大鹏、卓立旗、陆金喜；老牌传承人：蔡炳盛、蔡炳昆、叶礼旺、叶礼忠；知名品牌：飞惺、吉玉坊、芦花坪......" />
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/1905_style.css">
+    <link rel="stylesheet" href="~/source/static/css/1905_pagination.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <style>
+        body {
+            background: #fff;
+            max-width: 750px;
+            margin: auto;
+            /*-webkit-overflow-scrolling: touch;*/
+        }
+
+        .famous-list .list {
+            height: auto;
+            display: none;
+        }
+
+        .famous-list .ssbtn {
+            width: 1.2rem;
+            height: .56rem;
+            line-height: .56rem;
+            background: #B32735;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="flex-row college-hd">
+            <div class="back"><a href="/m_index.html" style="color: #ffffff;">返回</a></div>
+            <div class="txt px36">名家名堂</div>
+            <div class="menu">
+                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="div-h-8"></div>
+    <section class="famous-list">
+        <div class="flex-row bg_color_f navheight" style="align-items: center;max-width: 750px;height: 1.2rem;">
+            <div class="flex-col search  mar-l-30">
+
+                <div class="flex-row" style="align-items: center;height: .56rem">
+
+                    <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" src="~/source/static/images/jianzhan/ic_search.png"  alt="">
+                    <input style="width: 4rem;background: #f7f7f7;text-align: left;border: 0px;" class="px24" id="keyword" type="text" placeholder="大师或者编号" />
+                </div>
+            </div>
+            <div class="ssbtn px24 mar-r-30" id="btnSearch">搜索</div>
+        </div>
+        <div class="list-box">
+            @if (list != null && list.Count > 0)
+            {
+                foreach (ArtisanEntity entity in list)
+                {
+                    <div class="list-con-wrap">
+                        <div class="list-con">
+                            <div class="con-img">
+                                <a href="/m_art@(entity.artisanID).html"><img src="@entity.IDHead" alt=""></a>
+                            </div>
+                            <div class="con-txt">
+                                <h1>@entity.artisanName<span>@*【@entity.reviewDate】*@</span></h1>
+                                <p class="clamp3">
+                                    简介：@entity.introduction
+                                </p>
+                                <div class="morebtn">代表作品</div>
+                            </div>
+                        </div>
+                        <div class="list">
+                            @if (entity.listProduct != null && entity.listProduct.Count > 0)
+                            {
+                                foreach (ProductEntity entityPro in entity.listProduct)
+                                {
+                                    <div class="item">
+                                        <div style="margin: 0 .1rem">
+                                            <div class="t1 color_red_c9">ID:@entityPro.ProductID</div>
+                                            <a href="/m_@(entityPro.ProductID).html"><div class="pimg" style="background:url(@entityPro.Images)"></div></a>
+                                        </div>
+                                        <div class="t1 clamp1">【@entityPro.Author】@entityPro.ProductName</div>
+                                        <img class="bt-zx" onclick="javascript:show_zixun('@entityPro.ProductID','@entityPro.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                                    </div>
+                                }
+                            }
+
+                            
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+        <!-- 分页器 -->
+        @{ Html.RenderPartial("../Pager_mm", p); }
+        <div class="div-h-8"></div>  
+    </section>
+    
+</body>
+
+</html>
+<script src="~/source/static/js/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    $('.morebtn').click(function () {
+        var list = $(this).parents('.list-con-wrap').find('.list')
+        if (list.is(':hidden')) {
+            list.show()
+        } else {
+            list.hide();
+        }
+    })
+
+    $("#btnSearch").bind("click", function (e) {
+        var keyword = $("#keyword").val();
+        window.location.href = "/WebHome/mn_famous?artisanname=" + keyword;
+    });
+</script>

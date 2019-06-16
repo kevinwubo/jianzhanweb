@@ -1,0 +1,228 @@
+﻿@{
+    ViewBag.Title = "mn_about";
+    Layout = "~/Views/Shared/_Layout_web.cshtml";    
+}
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="关于我们" http-equiv="keywords">
+    <meta name="description" content="关于我们">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+    <title>关于我们</title>
+    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/1905_style.css">
+    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <style>
+        body {
+            background: #fff;
+            max-width: 750px;
+            margin: auto;
+            /*-webkit-overflow-scrolling: touch;*/
+        }
+
+        input {
+            -webkit-appearance: radio;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="flex-row college-hd">
+            <div class="back" onclick="javascript:window.history.back()">
+                返回
+            </div>
+            <div class="txt px36">关于我们</div>
+            <div class="menu">
+                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="div-h-8"></div>
+    <section class="about-wrap">
+        <div class="about-tab">
+            <div class="tab-item @(ViewBag.Type == "gywm" ? "active" : "")"><span>关于我们</span></div>
+            <div class="tab-item @(ViewBag.Type == "fwbz" ? "active" : "")"><span>服务保障</span></div>
+            <div class="tab-item @(ViewBag.Type == "zxfk" ? "active" : "")"><span>在线反馈</span></div>
+            <div class="tab-item @(ViewBag.Type == "xmd" ? "active" : "")"><span>厦门店</span></div>
+        </div>
+        <div class="about-con">
+            <div class="con-item active">
+                <h1>关于建盏天下</h1>
+                <h3>日期：2017-12-16 版块：<span>关于我们</span></h3>
+                <div class="con-main">
+                    <p>
+                        “建盏天下”由腾讯大闽网、登嘉资本、建盏君、武夷山国际
+                        会展中心，及业内诸位实力名家联合发起并投资的首席建盏品牌
+                        商城，品牌隶属于福建省盏天下电子商务有限公司。
+                    </p>
+                    <p>
+                        福建省盏天下电子商务有限公司致力于为广大建盏爱好
+                        者，提供原产地、名家大师直供的兔毫盏、油滴盏、曜变盏、鹧
+                        鸪斑、金油滴、黑釉银斑等精品建盏。
+                    </p>
+                    <p>
+                        建盏天下传播千年的建盏文化和历史，第一手的艺人权
+                        威资料，提供建盏品鉴、投资收藏、名家押窑和私人定制服务！
+                    </p>
+                    <strong>建盏天下，中国大型的高端建盏零售平台!</strong>
+                </div>
+            </div>
+            <div class="con-item">
+                <div class="fea-box">
+                    <div class="fea-item">艺人直销</div>
+                    <div class="fea-item">一手货源</div>
+                    <div class="fea-item active">原矿铁胎</div>
+                    <div class="fea-item">实物视频</div>
+                    <div class="fea-item">实体门店</div>
+                    <div class="fea-item">1对1客服</div>
+                    <div class="fea-item">赝品赔付</div>
+                    <div class="fea-item">15天退换</div>
+                </div>
+                <div class="fea-main">
+                    <h2>建盏天下承诺：</h2>
+                    <p>
+                        将严格按照国家法律、法规进行各项买卖经营活动，严
+                        于律己，恪守行业道德，规范运作。作为非物质文化遗产传
+                        承，建盏天下谨以推荐建盏大师作品，自觉维护行业的可持
+                        续发展为宗旨，坚持网站平台的良性操作。所有商品均为建
+                        盏技师正品，均获作者本人、所有者的许可及授权，保真承
+                        诺。凡建盏天下出售商品，均统一出具《建盏天下保证书》，
+                        《保证书》由公司法定代表人亲自签发，并提供可查询的作
+                        品编号，从源头上杜绝赝品的出现。
+                    </p>
+                    <p>
+                        如您对作品真实性产生质疑，请随时致电建盏天下，服
+                        务热线：400-607-9898。我们愿意配合您通过监督部
+                        （或其他任何权威的、中立的检测机构）进行专门的检测评定。
+                        若经鉴定系“赝品”，并出具相应的评定报告，我们承诺将负
+                        担发生的一切费用，并按照商品价格的10倍予以赔偿。
+                    </p>
+                    <p>
+                        建盏天下将虚心接受各级主管行政主管部门、新闻媒体
+                        以及广大参与者对本公司经营行为的检验和监督。如未能认
+                        真履行上述承诺，本商家自愿接受相关企业、机构以及消费
+                        者的通报批评和舆论的谴责。请给予我们信任、监督，我们
+                        将尽力改进工作，为所有建盏爱好者及藏家提供一个“放心、
+                        安心、舒心”的网上购物环境。
+                    </p>
+                </div>
+                <div class="part1" style="border-top:0px">
+                    <div class="flex-row" style="align-items: center;padding:.25rem 0">
+                        <div class="flex-col"></div>
+                        <div class="px32 color_57 mar-r-16">每日严选</div>
+                        <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+                        <div class="flex-col"></div>
+                    </div>
+                    <div class="list">
+                        <div class="item">
+                            <div style="margin: 0 .1rem">
+                                <div class="t1 color_red_c9">ID:10161</div>
+                                <div class="pimg" style="background:url(../static/images/jianzhan/img3.png)"></div>
+                            </div>
+                            <div class="t1 clamp1">【吴继旺】柴烧鹧鸪</div>
+                            <img class="bt-zx" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                        </div>
+                        <div class="item">
+                            <div style="margin: 0 .1rem">
+                                <div class="t1 color_red_c9">ID:10161</div>
+                                <div class="pimg" style="background:url(../static/images/jianzhan/img3.png)"></div>
+                            </div>
+                            <div class="t1 clamp1">【吴继旺】柴烧鹧鸪</div>
+                            <img class="bt-zx" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                        </div>
+                        <div class="item">
+                            <div style="margin: 0 .1rem">
+                                <div class="t1 color_red_c9">ID:10161</div>
+                                <div class="pimg" style="background:url(../static/images/jianzhan/img3.png)"></div>
+                            </div>
+                            <div class="t1 clamp1">【吴继旺】柴烧鹧鸪</div>
+                            <img class="bt-zx" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                        </div>
+
+                        <div class="item">
+                            <div style="margin: 0 .1rem">
+                                <div class="t1 color_red_c9">ID:10161</div>
+                                <div class="pimg" style="background:url(../static/images/jianzhan/img3.png)"></div>
+                            </div>
+                            <div class="t1 clamp1">【吴继旺】柴烧鹧鸪</div>
+                            <img class="bt-zx" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                        </div>
+
+                        <div class="item">
+                            <div style="margin: 0 .1rem">
+                                <div class="t1 color_red_c9">ID:10161</div>
+                                <div class="pimg" style="background:url(../static/images/jianzhan/img3.png)"></div>
+                            </div>
+                            <div class="t1 clamp1">【吴继旺】柴烧鹧鸪</div>
+                            <img class="bt-zx" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; padding: .4rem" class="showmore">
+                        <div class="color_red_c9 px28">展示更多</div>
+                        <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="con-item">
+                <div class="feedback-con">
+                    <div class="feedback-tit">
+                        <img src="~/source/static/images/about/CEO.png" alt="">
+                    </div>
+                    <div class="sel-box">
+                        <div class="sel-tip">我要：</div>
+                        <div class="input_radio">
+                            <input type="radio" name="item" value="投诉">
+                            <label>投诉</label>
+                        </div>
+                        <div class="input_radio">
+                            <input type="radio" name="item" value="建议">
+                            <label>建议</label>
+                        </div>
+                        <div class="input_radio">
+                            <input type="radio" name="item" value="表扬">
+                            <label>表扬</label>
+                        </div>
+                        <div class="input_radio">
+                            <input type="radio" name="item" value="感谢">
+                            <label>感谢</label>
+                        </div>
+                    </div>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="请输入你的内容"></textarea>
+                    <div class="inf-box">
+                        <span>我的姓名：</span>
+                        <input type="text" placeholder="请输入您的名称">
+                    </div>
+                    <div class="inf-box">
+                        <span>我的电话：</span>
+                        <input type="text" placeholder="请输入联系电话">
+                    </div>
+                    <p>
+                        您反馈的境况，我们将尽快查实，争取尽快妥善处理，给
+                        您一个满意的答复！
+                    </p>
+                    <div class="ask-btn">立即咨询</div>
+                </div>
+            </div>
+            <div class="con-item">
+                <img src="~/source/static/images/about/showimg1.png" alt="">
+            </div>
+        </div>        
+    </section>
+  
+</body>
+
+</html>
+<script src="~/source/static/js/jquery-2.1.4.js"></script>
+<script>
+    $(".tab-item").click(function () {
+        var index = $(this).index();
+        globalType = index;
+        $(this).addClass("active").siblings().removeClass("active");
+        $(".about-con .con-item").eq(index).addClass("active").siblings().removeClass("active");
+    });
+</script>

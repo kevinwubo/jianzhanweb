@@ -1,0 +1,104 @@
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_jingdiandetail";
+    Layout = "~/Views/Shared/_Layout_web.cshtml";
+
+    ArtisanEntity entity = (ArtisanEntity)ViewBag.ArtisanModel;
+}
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    @if (entity != null)
+    {
+        <title>建盏名家大师【@entity.artisanName 】 - 建盏天下网</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="建盏名家,建盏老师,@entity.artisanName ,建盏品牌" />
+        <meta name="Description" content="【@entity.artisanName】@(StringHelper.NoHTML(entity.introduction))" />
+    }
+    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/1905_style.css">
+    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <style>
+        body {
+            background: #fff;
+            max-width: 750px;
+            margin: auto;
+            /*-webkit-overflow-scrolling: touch;*/
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="flex-row college-hd">
+            <div class="back" onclick="javascript:window.history.back()">
+                返回
+            </div>
+            <div class="txt px36">器型|釉色</div>
+            <div class="menu">
+                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="div-h-8"></div>
+
+@if (entity != null)
+ {
+    <section class="intro-wrap about-wrap">
+        <div class="intro-tit" style="padding-bottom:.3rem;border-bottom: 0px solid #f0f0f0">
+            <div class="con-img">
+                <img src="@entity.IDHead" alt="">
+            </div>
+            <div class="con-txt">
+                <h1>@entity.artisanName</h1>
+                <span></span>
+                <p>
+                    简介：@Html.Raw(entity.introduction)
+                </p>
+            </div>
+        </div>
+        <div class="about-con">
+            <div class="fea-main" style="margin-bottom:0rem;margin-top: 0">
+                <h2>个人介绍</h2>
+                <p>
+                    @Html.Raw(entity.DetailedIntroduction)
+                </p>
+            </div>
+        </div>
+        <div class="part1" style="border-top: none;">
+            <div class="flex-row" style="align-items: center;padding:.25rem 0">
+                <div class="flex-col"></div>
+                <div class="px32 color_57 mar-r-16">@(entity.artisanName)赏析</div>
+                <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+                <div class="flex-col"></div>
+            </div>
+            <div class="list">
+                @if (entity.listProduct != null && entity.listProduct.Count > 0)
+                {
+                    foreach (ProductEntity entityPro in entity.listProduct)
+                    {
+                        <div class="item">
+                            <div style="margin: 0 .1rem">
+                                <div class="t1 color_red_c9">ID:@entityPro.ProductID</div>
+                                    <a href="/m_@(entityPro.ProductID).html">
+                                        <div class="pimg" style="background:url(@entityPro.Images)"></div>
+                                    </a>
+                                </div>
+                            <div class="t1 clamp1">【@entityPro.Author】@entityPro.ProductName</div>
+                            <img class="bt-zx" onclick="javascript:show_zixun('@entityPro.ProductID','@entityPro.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                        </div>
+                    }
+                }
+            </div>
+            <div style="text-align: center; padding: .4rem" class="showmore">
+                <div class="color_red_c9 px28">展示更多</div>
+                <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+            </div>
+        </div>
+    </section>   
+}
+</body>
+</html>

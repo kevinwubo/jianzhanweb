@@ -1,0 +1,123 @@
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_shopdetail";
+    Layout = "~/Views/Shared/_Layout_web.cshtml";
+    ProductEntity entity = (ProductEntity)ViewBag.ProductInfo;
+}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    @if (entity != null)
+    {
+        <title>【@entity.Author 】@entity.ProductName —建盏天下</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="建盏名家,@entity.Author ,@entity.Type2 ,@entity.Type3 ,@entity.MarketPrice " />
+        <meta name="Description" content="【@entity.Author 】@entity.ProductName ,@entity.Volume @StringHelper.NoHTML(entity.summary) " />
+    }
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+    <link rel="stylesheet" href="~/source/static/css/1905_swiper.min.css">
+    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/1905_style.css">
+    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <style>
+        body {
+            background: #fff;
+            max-width: 750px;
+            margin: auto;
+            /*-webkit-overflow-scrolling: touch;*/
+        }
+
+        .details-wrap .infp-wrap .info-l {
+            color: #000000;
+            font-size: .26rem;
+            height: .3rem;
+            margin-top: .07rem;
+            width: .9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="flex-row college-hd">
+            <div class="back" onclick="javascript:window.history.back()">
+                返回
+            </div>
+            <div class="txt px36">作品详情</div>
+            <div class="menu">
+                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="div-h-8"></div>
+    @if (entity != null)
+    {
+        <section class="details-wrap">
+            <div class="bannner-carousel">
+                <div class="swiper-container-1 swiper-container">
+                    <div class="swiper-wrapper">
+                        @if (entity.lstImages != null && entity.lstImages.Count > 0)
+                        {
+                            foreach (string str in entity.lstImages)
+                            {
+                                <div class="swiper-slide">
+                                    @Html.Raw(str)
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="swiper-pagination-1 swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="goods-info flex-row">
+                <div class="flex-col">
+                    <div class="tit">@entity.ProductName</div>
+                    <span>ID:18056</span>
+                </div>
+                <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" style="margin-top: 0;margin-right: .3rem;height: .7rem;width: 1.8rem" src="~/source/static/images/jianzhan/btn_ljzx.png">
+            </div>
+            <div class="details-info">
+                <div class="infp-wrap flex-row">
+                    <div class="info-l">信息：</div>
+                    <div class="info-r flex-col">
+                        <div> 釉色：<span>@entity.Type2</span></div>
+                        <div>
+                            器形：
+                            <span>
+                                @entity.Type3
+                            </span>
+                        </div>
+                        <div>
+                            尺寸：
+                            <span>
+                                @entity.Type4
+                            </span>
+                        </div>
+                        <div>
+                            作者：
+                            <span>
+                                @entity.Author
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="infp-wrap flex-row">
+                        <div class="info-l">介绍：</div>
+                        <div class="info-r flex-col">
+                            <div class="txt">
+                                @Html.Raw(entity.summary.Replace("900", "730"))
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="img-show" style="padding:.3rem">
+                @Html.Raw(entity.summary.Replace("900", "730"))
+                @Html.Raw(entity.ProImageDetail)
+            </div>
+        </section>
+    }
+</body>
+</html>

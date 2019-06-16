@@ -1,0 +1,393 @@
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_web.cshtml";    
+    List<ProductEntity> listYX=(List<ProductEntity>)ViewBag.listYX;
+    List<ProductEntity> listNew = (List<ProductEntity>)ViewBag.listYX;
+    List<ProductEntity> listHot = (List<ProductEntity>)ViewBag.listYX;
+    List<ProductEntity> listDSTJ = (List<ProductEntity>)ViewBag.listDSTJ;
+
+    List<ArtisanEntity> listMJMT = (List<ArtisanEntity>)ViewBag.listMJMT;
+    List<ArtisanEntity> listQXYS = (List<ArtisanEntity>)ViewBag.listQXYS;
+}
+
+
+<!doctype html>
+<html>
+
+<head>    
+    <meta charset="utf-8">
+    <title>建盏天下网(JianZhanShop.com) - 建窑建盏首席品牌商城</title>
+    <meta name="keywords" content="建盏,建窑,天目盏,兔毫盏,油滴盏" />
+    <meta name="description" content="建盏天下(JianZhanShop.com)是国内首家专注于建窑建盏的专业门户，提供产地艺人直供的精品兔毫盏、油滴盏、曜变盏、鹧鸪斑、金油滴、敛口盏、束口盏。建盏天下传播千年的建盏文化和历史，大师名家，老盏等权威信息，提供建盏品鉴、收藏和定制服务。" />
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+    <link rel="stylesheet" href="~/source/static/css/1905_jquery-weui.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <style>
+         .swiper-container {
+            width: 5.32rem;
+            height: 3.26rem;
+        } 
+    </style>
+</head>
+
+<body>
+    <div class="flex-row bg_color_f navheight" style="align-items: center;max-width: 750px;">
+        <div class="flex-row pad-l-30" style="align-items: center">
+            <img class="mar-r-16" style="width: .5rem" src="~/source/static/images/jianzhan/logo.png" />
+        </div>
+        <div class="flex-col search">
+
+            <div class="flex-row" style="align-items: center;height: .56rem">
+
+                <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" id="btnSearch" src="~/source/static/images/jianzhan/ic_search.png"
+                     alt="">
+                <input style="background: #f7f7f7" class="px24" type="text" id="keyword" placeholder="大师或者编号" />
+            </div>
+        </div>
+        <div class="ssbtn px24 mar-r-30" id="btnSearch_index">搜索</div>
+    </div>
+    <!-- <div style="height:1rem"></div> -->
+    <div class="banner">
+        <img src="~/source/static/images/jianzhan/banner.png" alt="" />
+    </div>
+
+    <div class="flex-row pad-l-30 pad-r-30 pad-t-40 pad-b-40" style="text-align: center;align-items: center;">
+        <a href="/m_product_list.html" class="flex-col">
+            <img style="height: 1.2rem;
+            width: .7rem;" src="~/source/static/images/jianzhan/sc.png" alt="">
+        </a>
+        <a href="/m_artisan_list.html" class="flex-col">
+            <img style="height: 1.2rem;
+            width: .7rem;" src="~/source/static/images/jianzhan/ic_xt.png" alt="">
+        </a>
+        <a href="/m_school.html" class="flex-col">
+            <img style="height: 1.2rem;
+            width: .7rem;" src="~/source/static/images/jianzhan/iic_xy.png" alt="" />
+        </a>
+        <a href="###" class="flex-col">
+            <img style="height: 1.2rem;
+            width: .7rem;" src="~/source/static/images/jianzhan/ic_zt.png" alt="" />
+        </a>
+        <a href="/m_collection.html" class="flex-col">
+            <img style="height: 1.2rem;
+            width: .7rem;" src="~/source/static/images/jianzhan/ic_sc.png" alt="" />
+        </a>
+    </div>
+
+    <div class="part1">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">新品推荐</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div class="list">
+            @if(listNew!=null&&listNew.Count>0)
+            { 
+                foreach(ProductEntity entity in listNew)
+                { 
+                    <div class="item">
+                        <div style="margin: 0 .1rem">
+                            <div class="t1 color_red_c9">ID:@entity.ProductID</div>                            
+                            <a href="/m_@(entity.ProductID).html">
+                                <div class="pimg" style="background:url(@entity.Images)"></div>
+                            </a>
+                        </div>
+                        <div class="t1 clamp1">【@entity.Author】@entity.ProductName</div>
+                        <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div style="text-align: center; padding: .4rem" class="showmore">
+        <div class="color_red_c9 px28">展示更多</div>
+        <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+    </div>
+    <div class="part1">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">人气推荐</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div class="list">
+            @if (listHot != null && listHot.Count > 0)
+            {
+                foreach (ProductEntity entity in listHot)
+                {
+                    <div class="item">
+                        <div style="margin: 0 .1rem">
+                            <div class="t1 color_red_c9">ID:@entity.ProductID</div>
+                            <a href="/m_@(entity.ProductID).html">
+                                <div class="pimg" style="background:url(@entity.Images)"></div>
+                            </a>
+                        </div>
+                        <div class="t1 clamp1">【@entity.Author】@entity.ProductName</div>
+                        <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
+                    </div>
+                }
+            }
+        </div>
+        <div style="text-align: center; padding: .4rem" class="showmore">
+            <div class="color_red_c9 px28">展示更多</div>
+            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+        </div>
+    </div>
+
+    <div class="part1">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">名家名堂</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div class="list" style="height: auto;padding-top: .3rem;">
+            @if (listMJMT != null && listMJMT.Count>0)
+            {
+                foreach (ArtisanEntity entity in listMJMT)
+                {
+                    <div class="mj-item">
+                        <a href="/m_art@(entity.artisanID).html"><img src="@entity.IDHead" alt=""></a>
+                            <div class="t1">@entity.artisanTitle 【@entity.artisanName】</div>
+                            <div class="t2"></div>
+                    </div>         
+                }    
+            }
+            
+        </div>
+        <a href="#" style=" text-align:center; display: block;padding: .4rem">
+            <div class="color_red_c9 px28">展示更多</div>
+            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+        </a>
+    </div>
+    <div class="part1">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">器形 | 釉色</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div class="list" style="height: auto;padding-top: .3rem;">
+                @if (listQXYS != null && listQXYS.Count > 0)
+                {
+                    foreach (ArtisanEntity entity in listQXYS)
+                    {
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=@entity.artisanID" class="qxys-item flex-row">
+                            <img src="@entity.IDHead" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【@entity.artisanName】</div>
+                                <div class="t2 clamp2">
+                                    @(entity.introduction.Length > 15 ? entity.introduction.Substring(0, 14) : entity.introduction)
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                    }
+                }           
+        </div>
+        <a href="#" style=" text-align:center; padding: .4rem;display: block;">
+            <div class="color_red_c9 px28">展示更多</div>
+            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+        </a>
+    </div>
+    <div class="part1" style="background: #fbfbfb;border-top:0px">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">大师推荐</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div class="ds-list">
+            @if (listDSTJ != null && listDSTJ.Count > 0)
+            {
+                foreach (ProductEntity entity in listDSTJ)
+                {
+                     <div class="ds-item">
+                        
+                         <a href="/m_@(entity.ProductID).html">
+                             <div class="pimg" style="background:url(@entity.Images)"></div>
+                         </a>
+                        <div class="flex-row" style="flex-direction: column">
+                            <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
+                                <div class="flex-col t1 clamp1">【@entity.ProductName】</div>
+                                <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan_0509/ds_zx.png" />
+                            </div>
+
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">编号：@entity.ProductID</div>
+                                <div class="t2 clamp1 flex-col">作者：@entity.Author</div>
+                            </div>
+
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">器形：@entity.Type3</div>
+                                <div class="t2 clamp1 flex-col">釉色：@entity.Type2</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div style="text-align: center; padding: .4rem" class="showmore">
+            <div class="color_red_c9 px28">展示更多</div>
+            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+        </div>
+    </div>
+    <div class="part1" style="border-top:0px">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">专题推荐</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div style="height: .3rem"></div>
+        <div class="swiper_container_suz2" id="pb2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="~/source/static/images/jianzhan_0509/zttj1.png">
+                </div>
+                <div class="swiper-slide">
+                    <img src="~/source/static/images/jianzhan_0509/zttj2.png">
+                </div>
+            </div>
+            <div id="snext" class="swiper-button-next"></div>
+            <div id="sprev" class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <div class="part1" style="border-top:0px; padding-left:0rem;padding-right:0rem;position: relative">
+        <div class="flex-row" style="align-items: center;padding:.25rem 0">
+            <div class="flex-col"></div>
+            <div class="px32 color_57 mar-r-16">连锁门店</div>
+            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
+            <div class="flex-col"></div>
+        </div>
+        <div class="lsmd-bg">
+            <div style="height:auto;padding: .4rem 1rem 0.15rem">
+                <div class="px24 color_57">客服：4008-276-376 </div>
+                <div class="px24 color_57 mar-t-20" id="address" style="line-height:.4rem">
+                    地址：厦门市思明区台东路66号宝业营运中心705室
+                </div>
+                <div class="px24 color_57 mar-t-20">时间：周一至周日（9.30-18.30) </div>
+                <div class="px24 color_57 mar-t-20" style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（其他时间请提前联系我们）</div>
+                <div class="flex-row " style="bottom: 0;height: 1rem;text-align: center;align-items: center;border-top: 1px solid #f6f6f6;width: 100%;z-index: 99;">
+                    <div class="flex-col searchzx" style="background: #fff;height: .5rem;border: 1px solid #eee;">
+                        <input style="height: 100%;width: 90%; background: #fff" class="px24 pad-l-30"
+                               type="text" placeholder="请输入手机号码咨询详情" />
+                    </div>
+                    <div class="ssbtnzx px24" style="height: .5rem;margin-left: .12rem;width:1.34rem;line-height: .5rem">立即咨询</div>
+                </div>
+                <div class="flex-row" style="text-align: center; padding-top: .2rem">
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/2.png" />
+                            <div class="px24 clamp1 pad-t-20">厂家直销</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/6.png" />
+                            <div class="px24 clamp1 pad-t-20">一手资源</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/7.png" />
+                            <div class="px24 clamp1 pad-t-20">原矿建盏</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/5.png" />
+                            <div class="px24 clamp1 pad-t-20">破损补发</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row pad-b-40 " style="text-align: center;padding-top: .4rem">
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/4.png" />
+                            <div class="px24 clamp1 pad-t-20">免费拿样</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/8.png" />
+                            <div class="px24 clamp1 pad-t-20">专业品牌</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/3.png" />
+                            <div class="px24 clamp1 pad-t-20">来样定制</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/1.png" />
+                            <div class="px24 clamp1 pad-t-20">15天退换</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height:.2rem"></div>
+        <div style="position:relative;align-items: center" class="flex-row">
+            <div class="flex-col"></div>
+            <div id="dpprev" style="position:relative;margin-top:0" class="swiper-button-prev"></div>
+
+            <div id="storeswiper0" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN1.png" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN2.png" />
+                    </div>
+                </div>
+            </div>
+            <div id="storeswiper1" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem;display: none">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN6.png" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN7.png" />
+                    </div>
+                </div>
+            </div>
+            <div id="storeswiper2" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem;display: none">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN10.png" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN11.png" />
+                    </div>
+                </div>
+            </div>
+            <div id="dpnext" style="position:relative;margin-top:0" class="swiper-button-next"></div>
+            <div class="flex-col"></div>
+        </div>
+        <div class="flex-row mar-t-40 mar-b-30">
+            <div class="flex-col"></div>
+            <a href="javaScript:selectStore(0)" class="dp-t1 dpact">厦门店</a>
+            <div style="height:.32rem;width: 1px;background: #aaa;margin:0 .2rem"></div>
+            <a href="javaScript:selectStore(1)" class="dp-t1">北京店</a>
+            <div style="height:.32rem;width: 1px;background: #aaa;margin:0 .2rem"></div>
+            <a href="javaScript:selectStore(2)" class="dp-t1">武夷山店</a>
+            <div class="flex-col"></div>
+        </div>
+    </div>  
+</body>
+
+</html>
+<script src="~/source/static/js/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    $("#btnSearch_index").bind("click", function (e) {
+        var keyword = $("#keyword").val();
+        window.location.href = "/WebHome/mn_shop?keyword=" + keyword;
+    });
+</script>
