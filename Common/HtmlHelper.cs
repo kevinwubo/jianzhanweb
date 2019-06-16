@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Common
-{
+{ 
     public class HtmlHelper
     {
         #region 获取模板页的Html代码
