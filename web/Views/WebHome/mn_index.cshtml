@@ -53,9 +53,9 @@
     <div class="banner">
         <img src="~/source/static/images/jianzhan/banner.png" alt="" />
     </div>
-
+		
     <div class="flex-row pad-l-30 pad-r-30 pad-t-40 pad-b-40" style="text-align: center;align-items: center;">
-        <a href="/m_product_list.html" class="flex-col">
+        <a href="/m_school.html" class="flex-col">
             <img style="height: 1.2rem;
             width: .7rem;" src="~/source/static/images/jianzhan/sc.png" alt="">
         </a>
@@ -63,15 +63,15 @@
             <img style="height: 1.2rem;
             width: .7rem;" src="~/source/static/images/jianzhan/ic_xt.png" alt="">
         </a>
-        <a href="/m_school.html" class="flex-col">
+        <a href="/m_product_list.html" class="flex-col">
             <img style="height: 1.2rem;
             width: .7rem;" src="~/source/static/images/jianzhan/iic_xy.png" alt="" />
         </a>
-        <a href="###" class="flex-col">
+        <a href="/m_collection.html" class="flex-col">
             <img style="height: 1.2rem;
             width: .7rem;" src="~/source/static/images/jianzhan/ic_zt.png" alt="" />
         </a>
-        <a href="/m_collection.html" class="flex-col">
+        <a href="#" class="flex-col">
             <img style="height: 1.2rem;
             width: .7rem;" src="~/source/static/images/jianzhan/ic_sc.png" alt="" />
         </a>
@@ -80,7 +80,7 @@
     <div class="part1">
         <div class="flex-row" style="align-items: center;padding:.25rem 0">
             <div class="flex-col"></div>
-            <div class="px32 color_57 mar-r-16">新品推荐</div>
+            <div class="px32 color_57 mar-r-16">新品好货</div>
             <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
             <div class="flex-col"></div>
         </div>
@@ -138,27 +138,30 @@
         </div>
     </div>
 
-    <div class="part1">
-        <div class="flex-row" style="align-items: center;padding:.25rem 0">
-            <div class="flex-col"></div>
-            <div class="px32 color_57 mar-r-16">名家名堂</div>
-            <img style="height: 0.17rem;width: .17rem" src="~/source/static/images/jianzhan/ic_next.png" alt="" />
-            <div class="flex-col"></div>
-        </div>
-        <div class="list" style="height: auto;padding-top: .3rem;">
-            @if (listMJMT != null && listMJMT.Count>0)
-            {
-                foreach (ArtisanEntity entity in listMJMT)
-                {
+    <div class="list" style="height: auto;padding-top: .3rem;">
                     <div class="mj-item">
-                        <a href="/m_art@(entity.artisanID).html"><img src="@entity.IDHead" alt=""></a>
-                            <div class="t1">@entity.artisanTitle 【@entity.artisanName】</div>
-                            <div class="t2"></div>
+                        <a href="/m_art63.html"><img src="http://116.62.124.214:8080/source/static/images/jianzhan_0509/ls01.jpg" alt=""></a>
+                            <div class="t1">孙建兴</div>
+                            <div class="t2">国大师</div>
                     </div>         
-                }    
-            }
+                    <div class="mj-item">
+                        <a href="/m_art19.html"><img src="http://116.62.124.214:8080/source/static/images/jianzhan_0509/ls02.jpg" alt=""></a>
+                            <div class="t1">陈大鹏</div>
+                            <div class="t2">国大师</div>
+                    </div>         
+                    <div class="mj-item">
+                        <a href="/m_art82.html"><img src="http://116.62.124.214:8080/source/static/images/jianzhan_0509/ls03.jpg" alt=""></a>
+                            <div class="t1">陆金喜</div>
+                            <div class="t2">国大师</div>
+                    </div>         
+                    <div class="mj-item">
+                        <a href="/m_art87.html"><img src="http://116.62.124.214:8080/source/static/images/jianzhan_0509/ls04.jpg" alt=""></a>
+                            <div class="t1">黄美金</div>
+                            <div class="t2">国大师</div>
+                    </div>         
             
         </div>
+		
         <a href="#" style=" text-align:center; display: block;padding: .4rem">
             <div class="color_red_c9 px28">展示更多</div>
             <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
@@ -172,22 +175,86 @@
             <div class="flex-col"></div>
         </div>
         <div class="list" style="height: auto;padding-top: .3rem;">
-                @if (listQXYS != null && listQXYS.Count > 0)
-                {
-                    foreach (ArtisanEntity entity in listQXYS)
-                    {
-                        <a href="/WebHome/mn_jingdiandetail?artisanid=@entity.artisanID" class="qxys-item flex-row">
-                            <img src="@entity.IDHead" alt="">
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=120" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/sk.jpg" alt="">
                             <div class="flex-col">
-                                <div class="t1 clamp1">【@entity.artisanName】</div>
+                                <div class="t1 clamp1">【束口盏】</div>
                                 <div class="t2 clamp2">
-                                    @(entity.introduction.Length > 15 ? entity.introduction.Substring(0, 14) : entity.introduction)
+                                    束口盏是宋代的斗茶神器...
                                 </div>
                                 <div class="t3">详情</div>
                             </div>
                         </a>
-                    }
-                }           
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=118" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/zhegu.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【油滴/鹧鸪斑】</div>
+                                <div class="t2 clamp2">
+                                    【油滴/鹧鸪斑】
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=117" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/bk.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【撇口盏】</div>
+                                <div class="t2 clamp2">
+                                    因为口沿明显外撇，所以叫撇口盏...
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=119" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/tuhao.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【兔毫】</div>
+                                <div class="t2 clamp2">
+                                    兔毫盏的析晶斑纹为黑色釉层中...
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=116" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/lk.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【敛口盏】</div>
+                                <div class="t2 clamp2">
+                                    总体特征是口沿微内收，造型丰满...
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=121" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/yaobian.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【曜变】</div>
+                                <div class="t2 clamp2">
+                                    曜变盏的斑纹，非但是彩色的...
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=124" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/ck.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【敞口盏】</div>
+                                <div class="t2 clamp2">
+                                    盏壁平直，因倒扣后形似斗笠...
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
+                        <a href="/WebHome/mn_jingdiandetail?artisanid=123" class="qxys-item flex-row">
+                            <img src="http://116.62.124.214//upload/201905/20/wujin.jpg" alt="">
+                            <div class="flex-col">
+                                <div class="t1 clamp1">【乌金釉】</div>
+                                <div class="t2 clamp2">
+                                    乌金釉即纯黑釉。有部分斑纹较...
+                                </div>
+                                <div class="t3">详情</div>
+                            </div>
+                        </a>
         </div>
         <a href="#" style=" text-align:center; padding: .4rem;display: block;">
             <div class="color_red_c9 px28">展示更多</div>
@@ -282,51 +349,51 @@
                 <div class="flex-row" style="text-align: center; padding-top: .2rem">
                     <div class="flex-col">
                         <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/1.png" />
+                            <div class="px24 clamp1 pad-t-20">艺人直销</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
                             <img class="ic_52" src="~/source/static/images/jianzhan_0509/2.png" />
-                            <div class="px24 clamp1 pad-t-20">厂家直销</div>
+                            <div class="px24 clamp1 pad-t-20">一手货源</div>
                         </div>
                     </div>
                     <div class="flex-col">
                         <div style="margin: 0 .1rem">
-                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/6.png" />
-                            <div class="px24 clamp1 pad-t-20">一手资源</div>
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/3.png" />
+                            <div class="px24 clamp1 pad-t-20">原矿铁胎</div>
                         </div>
                     </div>
                     <div class="flex-col">
                         <div style="margin: 0 .1rem">
-                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/7.png" />
-                            <div class="px24 clamp1 pad-t-20">原矿建盏</div>
-                        </div>
-                    </div>
-                    <div class="flex-col">
-                        <div style="margin: 0 .1rem">
-                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/5.png" />
-                            <div class="px24 clamp1 pad-t-20">破损补发</div>
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/4.png" />
+                            <div class="px24 clamp1 pad-t-20">实物视频</div>
                         </div>
                     </div>
                 </div>
                 <div class="flex-row pad-b-40 " style="text-align: center;padding-top: .4rem">
                     <div class="flex-col">
                         <div style="margin: 0 .1rem">
-                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/4.png" />
-                            <div class="px24 clamp1 pad-t-20">免费拿样</div>
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/5.png" />
+                            <div class="px24 clamp1 pad-t-20">实体门店</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/6.png" />
+                            <div class="px24 clamp1 pad-t-20">1对1顾问</div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+                        <div style="margin: 0 .1rem">
+                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/7.png" />
+                            <div class="px24 clamp1 pad-t-20">赝品赔付</div>
                         </div>
                     </div>
                     <div class="flex-col">
                         <div style="margin: 0 .1rem">
                             <img class="ic_52" src="~/source/static/images/jianzhan_0509/8.png" />
-                            <div class="px24 clamp1 pad-t-20">专业品牌</div>
-                        </div>
-                    </div>
-                    <div class="flex-col">
-                        <div style="margin: 0 .1rem">
-                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/3.png" />
-                            <div class="px24 clamp1 pad-t-20">来样定制</div>
-                        </div>
-                    </div>
-                    <div class="flex-col">
-                        <div style="margin: 0 .1rem">
-                            <img class="ic_52" src="~/source/static/images/jianzhan_0509/1.png" />
                             <div class="px24 clamp1 pad-t-20">15天退换</div>
                         </div>
                     </div>
@@ -337,34 +404,34 @@
         <div style="position:relative;align-items: center" class="flex-row">
             <div class="flex-col"></div>
             <div id="dpprev" style="position:relative;margin-top:0" class="swiper-button-prev"></div>
-
-            <div id="storeswiper0" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN1.png" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN2.png" />
-                    </div>
-                </div>
-            </div>
+            
             <div id="storeswiper1" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem;display: none">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN6.png" />
+                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN6.jpg" />
                     </div>
                     <div class="swiper-slide">
-                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN7.png" />
+                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN7.jpg" />
+                    </div>
+                </div>
+            </div>
+			<div id="storeswiper0" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN1.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN2.jpg" />
                     </div>
                 </div>
             </div>
             <div id="storeswiper2" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem;display: none">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN10.png" />
+                        <img id='lunbo1' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN10.jpg" />
                     </div>
                     <div class="swiper-slide">
-                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN11.png" />
+                        <img id='lunbo2' style="width: 100%;" src="~/source/static//images/jianzhan_0509/lunN11.jpg" />
                     </div>
                 </div>
             </div>
@@ -373,9 +440,9 @@
         </div>
         <div class="flex-row mar-t-40 mar-b-30">
             <div class="flex-col"></div>
-            <a href="javaScript:selectStore(0)" class="dp-t1 dpact">厦门店</a>
+			<a href="javaScript:selectStore(1)" class="dp-t1">北京店</a>
             <div style="height:.32rem;width: 1px;background: #aaa;margin:0 .2rem"></div>
-            <a href="javaScript:selectStore(1)" class="dp-t1">北京店</a>
+            <a href="javaScript:selectStore(0)" class="dp-t1 dpact">厦门店</a>
             <div style="height:.32rem;width: 1px;background: #aaa;margin:0 .2rem"></div>
             <a href="javaScript:selectStore(2)" class="dp-t1">武夷山店</a>
             <div class="flex-col"></div>
