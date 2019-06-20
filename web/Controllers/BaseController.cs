@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using Infrastructure.Helper;
 using Common;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class BaseController : Controller
     {

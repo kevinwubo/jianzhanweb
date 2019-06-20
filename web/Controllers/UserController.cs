@@ -10,7 +10,7 @@ using Infrastructure.Helper;
 using System.Text;
 using System.Web.Security;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class UserController : BaseController
     {

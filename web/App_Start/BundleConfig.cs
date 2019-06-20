@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace GuoChe
+namespace web
 {
     public class BundleConfig
     {

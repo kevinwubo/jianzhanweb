@@ -8,10 +8,10 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using GuoChe.Filters;
-using GuoChe.Models;
+using web.Filters;
+using web.Models;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]

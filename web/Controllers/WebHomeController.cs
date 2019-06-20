@@ -10,7 +10,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class WebHomeController : BaseWebontroller
     {

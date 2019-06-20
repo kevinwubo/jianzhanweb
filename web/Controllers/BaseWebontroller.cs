@@ -10,7 +10,7 @@ using Infrastructure.Helper;
 using Common;
 using System.Configuration;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class BaseWebontroller : Controller
     {

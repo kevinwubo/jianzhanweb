@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class StorageController : BaseController
     {

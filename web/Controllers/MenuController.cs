@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Common;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class MenuController : BaseController
     {

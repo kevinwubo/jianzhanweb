@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Common;
 using Service.BaseBiz;
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class OrderController : BaseController
     {

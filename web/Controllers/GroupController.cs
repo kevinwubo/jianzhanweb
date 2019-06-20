@@ -10,7 +10,7 @@ using System.Text;
 using Infrastructure.Helper;
 
 
-namespace GuoChe.Controllers
+namespace web.Controllers
 {
     public class GroupController : BaseController
     {
