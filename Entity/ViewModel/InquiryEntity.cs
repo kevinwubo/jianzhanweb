@@ -108,5 +108,10 @@ namespace Entity.ViewModel
         /// 关联产品信息
         /// </summary>
         public ProductEntity product { get; set; }
+
+        /// <summary>
+        ///  关联销售
+        /// </summary>
+        public ManagerEntity manager { get; set; }
     }
 }

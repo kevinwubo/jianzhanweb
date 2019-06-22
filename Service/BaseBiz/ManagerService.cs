@@ -15,11 +15,11 @@ namespace Service.BaseBiz
         {
             List<ManagerEntity> all = new List<ManagerEntity>();
             ManagerRepository mr = new ManagerRepository();
-            List<ManagerInfo> miList = Cache.Get<List<ManagerInfo>>("ManagerALL");
+            List<ManagerInfo> miList = Cache.Get<List<ManagerInfo>>("ManagerALLNEW1");
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllManager();
-                Cache.Add("ManagerALL", miList);
+                Cache.Add("ManagerALLNEW1", miList);
             }
             if (!miList.IsEmpty())
             {

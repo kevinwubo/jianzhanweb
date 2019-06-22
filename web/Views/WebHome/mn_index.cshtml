@@ -3,13 +3,13 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_web.cshtml";    
-    List<ProductEntity> listYX=(List<ProductEntity>)ViewBag.listYX;
-    List<ProductEntity> listNew = (List<ProductEntity>)ViewBag.listYX;
-    List<ProductEntity> listHot = (List<ProductEntity>)ViewBag.listYX;
+    
+    List<ProductEntity> listNew = (List<ProductEntity>)ViewBag.listNew;
+    List<ProductEntity> listHot = (List<ProductEntity>)ViewBag.listHot;
     List<ProductEntity> listDSTJ = (List<ProductEntity>)ViewBag.listDSTJ;
 
     List<ArtisanEntity> listMJMT = (List<ArtisanEntity>)ViewBag.listMJMT;
-    List<ArtisanEntity> listQXYS = (List<ArtisanEntity>)ViewBag.listQXYS;
+   
 }
 
 
@@ -96,7 +96,8 @@
                                 <div class="pimg" style="background:url(@entity.Images)"></div>
                             </a>
                         </div>
-                        <div class="t1 clamp1">【@entity.Author】@entity.ProductName</div>
+                        <div class="t1 clamp1">【@entity.Author】</div>
+                        <div class="t1 clamp1">@entity.ProductName</div>
                         <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
                     </div>
                 }
@@ -104,8 +105,10 @@
         </div>
     </div>
     <div style="text-align: center; padding: .4rem" class="showmore">
-        <div class="color_red_c9 px28">展示更多</div>
-        <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+        <a href="/m_product_list.html">
+            <div class="color_red_c9 ">展示更多</div>
+            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+        </a>
     </div>
     <div class="part1">
         <div class="flex-row" style="align-items: center;padding:.25rem 0">
@@ -126,15 +129,18 @@
                                 <div class="pimg" style="background:url(@entity.Images)"></div>
                             </a>
                         </div>
-                        <div class="t1 clamp1">【@entity.Author】@entity.ProductName</div>
+                        <div class="t1 clamp1">【@entity.Author】</div>
+                        <div class="t1 clamp1">@entity.ProductName</div>
                         <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
                     </div>
                 }
             }
         </div>
         <div style="text-align: center; padding: .4rem" class="showmore">
-            <div class="color_red_c9 px28">展示更多</div>
-            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+            <a href="/m_product_list.html">
+                <div class="color_red_c9 px28">展示更多</div>
+                <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+            </a>
         </div>
     </div>
 
@@ -162,11 +168,10 @@
             
         </div>
 		
-        <a href="#" style=" text-align:center; display: block;padding: .4rem">
-            <div class="color_red_c9 px28">展示更多</div>
-            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
-        </a>
-    </div>
+    <a href="/m_artisan_list.html" style=" text-align:center; display: block;padding: .4rem">
+        <div class="color_red_c9 px28">展示更多</div>
+        <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+    </a>
     <div class="part1">
         <div class="flex-row" style="align-items: center;padding:.25rem 0">
             <div class="flex-col"></div>
@@ -256,7 +261,7 @@
                             </div>
                         </a>
         </div>
-        <a href="#" style=" text-align:center; padding: .4rem;display: block;">
+        <a href="/WebHome/mn_jingdian" style=" text-align:center; padding: .4rem;display: block;">
             <div class="color_red_c9 px28">展示更多</div>
             <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
         </a>
@@ -299,8 +304,10 @@
             }
         </div>
         <div style="text-align: center; padding: .4rem" class="showmore">
-            <div class="color_red_c9 px28">展示更多</div>
-            <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+            <a href="/m_product_list.html">
+                <div class="color_red_c9 px28">展示更多</div>
+                <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+            </a>
         </div>
     </div>
     <div class="part1" style="border-top:0px">

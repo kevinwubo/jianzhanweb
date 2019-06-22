@@ -314,7 +314,8 @@ namespace DataRepository.DataAccess.Product
             }
             if (!string.IsNullOrEmpty(author))
             {
-                builder.Append(" AND Author=@Author ");
+                //builder.Append(" AND Author in (@Author) ");
+                builder.Append(" AND Author in(" + author + ")");
             }
             if (!string.IsNullOrEmpty(sqlwhere))
             {
@@ -350,10 +351,10 @@ namespace DataRepository.DataAccess.Product
             {
                 command.AddInputParameter("@Type7", DbType.String, type7);
             }
-            if (!string.IsNullOrEmpty(author))
-            {
-                command.AddInputParameter("@Author", DbType.String, author);
-            }            
+            //if (!string.IsNullOrEmpty(author))
+            //{
+            //    command.AddInputParameter("@Author", DbType.String, author);
+            //}            
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
@@ -384,7 +385,8 @@ namespace DataRepository.DataAccess.Product
             }
             if (!string.IsNullOrEmpty(author))
             {
-                builder.Append(" AND Author=@Author ");
+                //builder.Append(" AND Author=@Author ");
+                builder.Append(" AND Author in(" + author + ")");
             }
 
             if (!string.IsNullOrEmpty(sqlwhere))
@@ -415,10 +417,10 @@ namespace DataRepository.DataAccess.Product
             {
                 command.AddInputParameter("@Type7", DbType.String, type7);
             }
-            if (!string.IsNullOrEmpty(author))
-            {
-                command.AddInputParameter("@Author", DbType.String, author);
-            }   
+            //if (!string.IsNullOrEmpty(author))
+            //{
+            //    command.AddInputParameter("@Author", DbType.String, author);
+            //}   
 
 
             var o = command.ExecuteScalar<object>();

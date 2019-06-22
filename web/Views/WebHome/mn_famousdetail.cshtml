@@ -55,7 +55,7 @@
             </div>
             <div class="con-txt">
                 <h1>@entity.artisanName</h1>
-                <span>【@entity.reviewDate】</span>
+                <span>【@entity.artisanTitle】</span>
                 <p>
                     简介：@Html.Raw(entity.introduction)
                 </p>
@@ -89,15 +89,18 @@
                                     <div class="pimg" style="background:url(@entityPro.Images)"></div>
                                 </a>
                             </div>
-                            <div class="t1 clamp1">【@entityPro.Author】@entityPro.ProductName</div>
+                            <div class="t1 clamp1">【@entityPro.Author】</div>
+                            <div class="t1 clamp1">@entityPro.ProductName</div>
                             <img class="bt-zx" onclick="javascript:show_zixun('@entityPro.ProductID','@entityPro.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
                         </div>
                     }
                 }
             </div>
             <div style="text-align: center; padding: .4rem" class="showmore">
-                <div class="color_red_c9 px28">展示更多</div>
-                <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+                <a href="/WebHome/mn_shop?author=@entity.artisanName">
+                    <div class="color_red_c9 px28">展示更多</div>
+                    <img style="width: 0.21rem;margin-top: 0.1rem" src="~/source/static/images/jianzhan/more.png" alt="">
+                </a>
             </div>
         </div>        
     </section>  

@@ -37,7 +37,7 @@
 
 .list {
     overflow: hidden;
-    height: 7rem;
+    /*height: 7rem;*/
     position: relative;
 }
 

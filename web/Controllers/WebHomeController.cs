@@ -83,22 +83,48 @@ namespace web.Controllers
                 }
                 sqlwhere = " and Author in(" + sb.ToString().TrimEnd(',') + ")";
             }
-            List<ProductEntity> listYX = ProductService.GetProductsBySqlWhere(9, 2, sqlwhere);//每日严选
-            List<ProductEntity> listNew = ProductService.GetProductsBySqlWhere(9, 2, "");//新品推荐
-            List<ProductEntity> listHot = ProductService.GetProductsBySqlWhere(9, 1, " and MarketPrice>5000 ");//热门推荐
+            
+            List<ProductEntity> listNew = ProductService.GetProductsBySqlWhere(9, 2, "");//新品好货
 
-            List<ArtisanEntity> listqxys = ArtisanService.GetArtisansByRule("", 8, "", "and artisanType in('器型','釉色')");
-            List<ProductEntity> listDSTJ = new List<ProductEntity>();//大师推荐
-            CodeSEntity entity = BaseDataService.GetCodeValuesByRule("MSY_DSSJ");
-            if (entity != null)
+            #region 人气推荐
+            List<ProductEntity> listHot = new List<ProductEntity>();//人气推荐
+            CodeSEntity entityrq = BaseDataService.GetCodeValuesByRule("MB_RQTJ");
+            if (entityrq != null)
             {
-                listDSTJ = ProductService.GetProductsBySqlWhere(9, "and ProductID in(" + entity.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                if (!string.IsNullOrEmpty(entityrq.CodeValues))
+                {
+                    listHot = ProductService.GetProductsBySqlWhere(9, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                }
             }
+            #endregion
+
+            
+            //List<ArtisanEntity> listqxys = ArtisanService.GetArtisansByRule("", 8, "", "and artisanType in('器型','釉色')");
+
+            #region 大师推荐
+            List<ProductEntity> listDSTJ = new List<ProductEntity>();//大师推荐
+            List<BaseDataEntity> listBase = BaseDataService.GetBaseDataByType("DSZP001");
+            if (listBase != null && listBase.Count>0)
+            {
+                string  DSTJ=listBase[0].ValueInfo;
+                string[] authors = DSTJ.Split(',');
+                foreach(string author  in authors)
+                {
+                    List<ProductEntity> listProduct = ProductService.GetAllProductByRule(author, 1, " Order By InventoryCount desc,Adddate desc");
+                    if (listProduct != null && listProduct.Count > 0)
+                    {
+                        listDSTJ.Add(listProduct[0]);
+                    }
+                }
+                
+            }
+            #endregion
+            
 
             List<ArtisanEntity> listArt = ArtisanService.GetArtisansByRule("名家工艺师", 4, "1");
-            ViewBag.listQXYS=listqxys;
+            //ViewBag.listQXYS=listqxys;
             ViewBag.listMJMT = listArt;//名家名堂
-            ViewBag.listYX = listYX;
+            //ViewBag.listYX = listYX;
             ViewBag.listNew = listNew;
             ViewBag.listHot = listHot;
             ViewBag.listDSTJ = listDSTJ;
@@ -111,10 +137,33 @@ namespace web.Controllers
         /// 商城首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult mn_shop(string type2, string type3, string type4, string type7, string author, string keyword = "", int p = 1)
+        public ActionResult mn_shop(string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
         {
             List<ProductEntity> mList = null;
-            int count = ProductService.GetProductCount(type2, type3, type4, type7, author, "", keyword);
+
+            if (string.IsNullOrEmpty(type2) && string.IsNullOrEmpty(type3) && string.IsNullOrEmpty(type4) && string.IsNullOrEmpty(type7) && string.IsNullOrEmpty(author) && string.IsNullOrEmpty(artisanType) && string.IsNullOrEmpty(keyword))
+            {
+                artisanType = "业界大师";
+            }
+
+            if (!string.IsNullOrEmpty(author))
+            {
+                author = "'" + author + "'";
+            }
+
+            if (!string.IsNullOrEmpty(artisanType))
+            {
+                List<ArtisanEntity> listArt = ArtisanService.GetArtisansByRule(artisanType);
+                if (listArt != null && listArt.Count > 0)
+                {
+                    foreach (ArtisanEntity entity in listArt)
+                    {
+                        author += "'" + entity.artisanName + "',";
+                    }
+                }
+            }
+
+            int count = ProductService.GetProductCount(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -122,9 +171,12 @@ namespace web.Controllers
             pager.SumCount = count;
             pager.URL = "/WebHome/mn_shop";
 
+            
+
             if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
             {
-                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, author,"", keyword, " mn_shop", pager);
+
+                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword, " mn_shop", pager);
             }
             else
             {
@@ -136,7 +188,7 @@ namespace web.Controllers
             ViewBag.MJGYSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("名家工艺师"));//名家工艺师
             ViewBag.QXJson = JsonHelper.ToJson(BaseDataService.GetBaseDataAll().Where(t => t.PCode == "QX000" && t.Status == 1).ToList());//器型
             ViewBag.YSJson = JsonHelper.ToJson(BaseDataService.GetBaseDataAll().Where(t => t.PCode == "YS000" && t.Status == 1).ToList());//釉色
-
+            ViewBag.ArtisanType = artisanType;
             ViewBag.Product = mList;
             ViewBag.Pager = pager;
             return View();
@@ -244,7 +296,7 @@ namespace web.Controllers
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
-            pager.PageSize = 9;
+            pager.PageSize = 15;
             pager.SumCount = count;
             pager.URL = "/WebHome/mn_souchang";
 

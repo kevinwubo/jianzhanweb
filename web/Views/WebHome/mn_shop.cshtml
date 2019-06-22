@@ -87,10 +87,10 @@
             <input type="hidden" id="hid_mjgys" value="@ViewBag.MJGYSJson" />
             <input type="hidden" id="hid_qx" value="@ViewBag.QXJson" />
             <input type="hidden" id="hid_ys" value="@ViewBag.YSJson" />
-            <div class="tab-item active" id="div_yjds"><span>业界大师</span></div>
-            <div class="tab-item" id="div_lpccr"><span>老牌传承人</span></div>
-            <div class="tab-item" id="div_mjgys"><span>名家工艺师</span></div>
-            <div class="tab-item" id="div_qxys"><span>器形/釉色</span></div>
+            <div class="tab-item @(ViewBag.ArtisanType == "业界大师"?"active":"")" id="div_yjds"><span>业界大师</span></div>
+            <div class="tab-item @(ViewBag.ArtisanType == "老牌传承人" ? "active" : "")" id="div_lpccr"><span>老牌传承人</span></div>
+            <div class="tab-item @(ViewBag.ArtisanType == "名家工艺师" ? "active" : "")" id="div_mjgys"><span>名家工艺师</span></div>
+            <div class="tab-item @(ViewBag.ArtisanType == "器形/釉色" ? "active" : "")" id="div_qxys"><span>器形/釉色</span></div>
         </div>
         <div id="mark" style="background: rgba(0,0,0,.5);width: 100%;position: absolute;z-index: 1;display: none">
             <div style="padding: .2rem .32rem 0.1rem; background:white;overflow: hidden;" id="div_showinfo">
@@ -114,7 +114,8 @@
                                 <a href="/m_@(entity.ProductID).html">
                                     <div class="pimg" style="background: url(@entity.Images) no-repeat"></div>
                                 </a>
-                                <div class="t1 clamp1">【@entity.Author】@entity.ProductName</div>
+                                <div class="t1 clamp1">【@entity.Author】</div>
+                                <div class="t1 clamp1">@entity.ProductName</div>
                                 <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png">
                             </div>
                         </div>

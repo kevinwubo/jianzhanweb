@@ -46,7 +46,7 @@ namespace Service
 
             if (info != null)
             {
-                entity = TranslateArtisanEntity(info, true, 0);
+                entity = TranslateArtisanEntity(info, true, 9);
             }
             return entity;
         }

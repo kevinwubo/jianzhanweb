@@ -16,9 +16,9 @@
 <body>
 
     @RenderBody()
-    <div class="totop" style="display: block;">
+    @*<div class="totop" style="display: block;">
         <img style="height:.8rem;width:.8rem" src="~/source/static/images/jianzhan/to_top.png">
-    </div>
+    </div>*@
     <!-- 添加 -->
     <div style="background: #fbfbfb;padding: .5rem .6rem;margin-bottom: .2rem">
         <div class="flex-row" style="text-align:center">
@@ -212,9 +212,9 @@
             <div class="div-h-3"></div>
         </div>
     </div>
-    <div class="totop" style="display: block;">
+    @*<div class="totop" style="display: block;">
         <img style="height:.8rem;width:.8rem" src="~/source/static/images/jianzhan/to_top.png">
-    </div>
+    </div>*@
     <script src="~/source/static/js/jquery-2.1.4.js"></script>
     <script src="~/source/static/js/jquery-weui.js"></script>
     @*<script src="~/source/static/js/jquery.pagination.js"></script>*@
@@ -366,10 +366,10 @@
         })
 
 
-        $('.showmore').on('click', function () {
-            $(this).parent().find('.list').css('height', 'unset')
-            $(this).hide()
-        })
+        //$('.showmore').on('click', function () {
+        //    $(this).parent().find('.list').css('height', 'unset')
+        //    $(this).hide()
+        //})
 
 
         //点击隐藏在线咨询面板或拨号面板
@@ -396,18 +396,18 @@
             utils.toggleBody(true)
         }
         // 返回顶部
-        var backButton = $('.totop');
-        function backToTop() {
-            window.scrollTo(0, 0)
-        }
-        backButton.on('click', backToTop);
+        //var backButton = $('.totop');
+        //function backToTop() {
+        //    window.scrollTo(0, 0)
+        //}
+        //backButton.on('click', backToTop);
 
-        $(window).on('scroll', function () {/*当滚动条的垂直位置大于浏览器所能看到的页面的那部分的高度时，回到顶部按钮就显示 */
-            if ($(window).scrollTop() > $(window).height())
-                backButton.fadeIn();
-            else
-                backButton.fadeOut();
-        });
+        //$(window).on('scroll', function () {/*当滚动条的垂直位置大于浏览器所能看到的页面的那部分的高度时，回到顶部按钮就显示 */
+        //    if ($(window).scrollTop() > $(window).height())
+        //        backButton.fadeIn();
+        //    else
+        //        backButton.fadeOut();
+        //});
         $(window).trigger('scroll');
 
         isTouchDevice();
