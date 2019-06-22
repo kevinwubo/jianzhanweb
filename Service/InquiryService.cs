@@ -111,7 +111,7 @@ namespace Service
                 string[] codeList = codes.Split(',');
                 foreach (string name in codeList)
                 {
-                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount < p.currentSalesCount || p.currentSalesCount == 0));
+                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount > p.currentSalesCount || p.currentSalesCount == 0));
                     if (entity != null)
                     {
                         list.Add(entity);
@@ -413,6 +413,10 @@ namespace Service
                 {
                     entity = listManager[0];
                 }
+                //else if (index == listManager.Count)
+                //{
+                //    entity = listManager[index - 1];
+                //}
                 else
                 {
                     entity = listManager[index];
