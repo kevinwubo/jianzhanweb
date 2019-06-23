@@ -54,7 +54,7 @@ namespace Common
             }
         }
 
-        const int SHOW_COUNT = 6; //这个常量表示两边都有省略号时，中间的分页链接的个数,如 1..4 5 6 7 8 9 .. 100
+        const int SHOW_COUNT = 3; //这个常量表示两边都有省略号时，中间的分页链接的个数,如 1..4 5 6 7 8 9 .. 100
         private List<int> CalcPages()
         {
             List<int> pages = new List<int>();
