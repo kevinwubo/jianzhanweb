@@ -61,7 +61,7 @@
                 </p>
             </div>
         </div>
-        <div class="about-con">
+        <div class="about-con about-con1">
             <div class="fea-main" style="margin-bottom:0rem">
                 <h2>个人介绍</h2>
                 <p>
@@ -106,5 +106,17 @@
     </section>  
 }
 </body>
-
 </html>
+
+<script src="~/source/static/js/jquery-2.1.4.js"></script>
+<script>
+    $('.close-all').click(function () {
+        if ($('.about-con1').is(':hidden')) {
+            $('.about-con1').show();
+            $(this).html('收起全部');
+        } else {
+            $('.about-con1').hide();
+            $(this).html('展开全部');
+        }
+    })
+</script>

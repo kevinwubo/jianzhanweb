@@ -334,6 +334,7 @@
 .colList-wrap .list-con .con-txt h1{
     font-size: .34rem;
     color: #303030;
+    line-height:.36rem;
     font-weight: bold;
     margin-top: .1rem;
 }
