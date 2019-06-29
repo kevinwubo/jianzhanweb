@@ -162,5 +162,11 @@ namespace DataRepository.DataModel
 
         [DataMapping("UpdateDate", DbType.DateTime)]
         public DateTime UpdateDate { get; set; }
+
+        /// <summary>
+        /// 介绍
+        /// </summary>
+        [DataMapping("Introduction", DbType.String)]
+        public string Introduction { get; set; }
     }
 }

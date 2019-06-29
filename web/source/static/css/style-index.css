@@ -417,7 +417,7 @@ body {
          /* 大师推荐 */
          .ds-list {
             overflow: hidden;
-            /*height: 8.6rem;*/
+            height: auto;
             position: relative;
         }
         .ds-list .ds-item:nth-child(2n+1){
@@ -428,46 +428,47 @@ body {
             /* width: 3.39rem; */
             width: 48.5%;
             float: left;
-            height: 3.97rem;
+            /* height: 3.97rem; */
             margin-left: .2rem;
             margin-top: .2rem;
             background: #f0f0f0;
         }
+        .ds-list .dhxj {
+            margin-top: .2rem !important;
+            background: #B32B2B;
+            color: #fff;
+            height: .6rem !important;
+            width: 100% !important;
+            line-height: .6rem;
+            border-radius: 0px !important;
+        }
 
-        .ds-list .ds-item  .t1 {
-            height:.2rem;
-            font-size:.2rem;
-            line-height: .22rem;
-            font-family:SourceHanSansCN-Light;
+
+        .ds-list .ds-item .t1 {
+            height: .26rem;
+            font-size: .24rem;
+            line-height: .26rem;
+            font-family: SourceHanSansCN-Light;
             margin-left: -.1rem;
-            text-align: left;
-            color:rgba(38,38,38,1);
+            text-align: center;
+            color: rgba(38,38,38,1);
         }
         .ds-list .ds-item  .t2 {
-            height:.17rem;
+            height:.22rem;
             text-align: left;
-            font-size:.15rem;
+            line-height: .22rem;
+            font-size:.2rem;
             font-family:SourceHanSansCN-Normal;
             color:rgba(153,153,153,1);
         }
 
-        /*.ds-list .ds-item  .pimg {
-            height: 2.56rem;
-
-            width: 100%;
-            background-size: 100% !important;
-            background-position: center !important;
-        }*/     
         .ds-list .ds-item  .pimg {
-            height: 2.56rem;
+            height: 2.36rem;
             /* margin-top: .1rem; */
             width: 100%;
             background-size: 100% !important;
             background-position: center !important;
-            background-repeat: no-repeat !important;
-        }
-
-
+        }     
         .ds-list .ds-item .bt-zx  {
             margin-top: 0;
             height: .32rem;
@@ -475,14 +476,13 @@ body {
             border-radius: 5px;
         }
         .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
-        background-image: url("../images/jianzhan_0509/right.png")
-        right: 0px;
+        background-image: url(/source/static/images/jianzhan_0509/right.png);
+        right: 28px;
         left: auto;
         }
-
         .swiper-button-prev, .swiper-container-rtl .swiper-button-next {
-        background-image: url("../images/jianzhan_0509/left.png");
-        left: 0px;
+        background-image: url(/source/static/images/jianzhan_0509/left.png);
+        left: 28px;
         right: auto;
         }
         .lsmd-bg{
@@ -496,10 +496,16 @@ body {
         }
         .dp-t1{
             font-size: .28rem;
-            color: #999
+            color: #333;
+            padding: .1rem .2rem;
+            background:#f0f0f0;
+            border-radius: .05rem;
         }
         .dpact{
-            color: #B32B2B
+            color: #fff;
+            padding: .1rem .2rem;
+            background:#B32B2B;
+            border-radius: .05rem;
         }
 
         #guanzhuweixin-s input {

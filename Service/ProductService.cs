@@ -165,6 +165,7 @@ namespace Service
                 }
                 entity.lstImages = lstImages;
                 entity.UpdateDate = info.UpdateDate;
+                entity.Introduction = info.Introduction;
             }
             return entity;
         }

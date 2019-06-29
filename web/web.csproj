@@ -786,6 +786,8 @@
     <Content Include="source\static\images\jianzhan\banner2.png" />
     <Content Include="source\static\images\jianzhan\btn_ljzx.png" />
     <Content Include="source\static\images\jianzhan\btn_ljzx_y.png" />
+    <Content Include="source\static\images\jianzhan\detail1.png" />
+    <Content Include="source\static\images\jianzhan\detail2.png" />
     <Content Include="source\static\images\jianzhan\ic-zx.png" />
     <Content Include="source\static\images\jianzhan\ic_15.png" />
     <Content Include="source\static\images\jianzhan\ic_code.png" />
@@ -812,6 +814,15 @@
     <Content Include="source\static\images\jianzhan\to_top.png" />
     <Content Include="source\static\images\jianzhan\wxa1dd.jpg" />
     <Content Include="source\static\images\jianzhan\wxadd.jpg" />
+    <Content Include="source\static\images\jianzhan_0509\01.png" />
+    <Content Include="source\static\images\jianzhan_0509\02.png" />
+    <Content Include="source\static\images\jianzhan_0509\03.png" />
+    <Content Include="source\static\images\jianzhan_0509\04.png" />
+    <Content Include="source\static\images\jianzhan_0509\05.png" />
+    <Content Include="source\static\images\jianzhan_0509\06.png" />
+    <Content Include="source\static\images\jianzhan_0509\07.png" />
+    <Content Include="source\static\images\jianzhan_0509\08.png" />
+    <Content Include="source\static\images\jianzhan_0509\09.png" />
     <Content Include="source\static\images\jianzhan_0509\1.png" />
     <Content Include="source\static\images\jianzhan_0509\2.png" />
     <Content Include="source\static\images\jianzhan_0509\201.png" />
@@ -845,6 +856,7 @@
     <Content Include="source\static\images\jianzhan_0509\lunN6.png" />
     <Content Include="source\static\images\jianzhan_0509\lunN7.png" />
     <Content Include="source\static\images\jianzhan_0509\mjmt.png" />
+    <Content Include="source\static\images\jianzhan_0509\more_w.jpeg" />
     <Content Include="source\static\images\jianzhan_0509\right.png" />
     <Content Include="source\static\images\jianzhan_0509\ys1.png" />
     <Content Include="source\static\images\jianzhan_0509\ys2.png" />

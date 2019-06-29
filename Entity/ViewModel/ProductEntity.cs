@@ -135,7 +135,10 @@ namespace Entity.ViewModel
 
         public DateTime UpdateDate { get; set; }
 
-
+        /// <summary>
+        /// 介绍
+        /// </summary>
+        public string Introduction { get; set; }
         ///// <summary>
         ///// 获取图片URL
         ///// </summary>
