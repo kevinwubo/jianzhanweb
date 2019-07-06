@@ -8,73 +8,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Helper;
+using System.Text.RegularExpressions;
 
 namespace Service
 {
-    public class ProductService
+    public class ProductService : BaseService
     {
-        public static ProductEntity GetProductByKey(string id)
+
+        public static List<ProductEntity> GetAllProduct()
         {
-            if (string.IsNullOrEmpty(id))
+            List<ProductEntity> all = new List<ProductEntity>();
+            ProductRepository mr = new ProductRepository();
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProduct");
+            if (miList.IsEmpty())
             {
-                return null;
+                miList = mr.GetAllProduct();
+                Cache.Add("GetAllProduct", miList);
             }
-            ProductEntity entity = new ProductEntity();
-            ProductRepository mr = new ProductRepository();
-            return TranslateProductEntity(mr.GetProductByKey(id.ToInt(0)));
-        }
 
-        public static void ModifyProduct(ProductEntity entity)
-        {
-            ProductRepository mr = new ProductRepository();
-            ProductInfo info=new ProductInfo();
-            info = TranslateProductInfo(entity);
-            mr.ModifyProduct(info);
-        }
-
-        public static void Remove(string id)
-        {
-            ProductRepository mr = new ProductRepository();
-            mr.Remove(id.ToInt(0));
-        }
-
-
-        public static ProductInfo TranslateProductInfo(ProductEntity entity)
-        {
-            ProductInfo info = new ProductInfo();
-            if (info != null)
+            if (!miList.IsEmpty())
             {
-                info.ID = entity.ID;
-                info.ProductID = entity.ProductID;
-                info.ProductName = entity.ProductName;
-                info.SubTitle = entity.SubTitle;
-                info.Type1 = entity.Type1;
-                info.Type2 = entity.Type2;
-                info.Type3 = entity.Type3;
-                info.Type4 = entity.Type4;
-                info.Type5 = entity.Type5;
-                info.Type6 = entity.Type6;
-                info.Type7 = entity.Type7;
-                info.Images = entity.Images;
-                info.summary = entity.summary;
-                info.ProductDetail = entity.ProductDetail;
-                info.ProImageDetail = entity.ProImageDetail;
-                info.IsPushMall = entity.IsPushMall;
-                info.Material = entity.Material;
-                info.Volume = entity.Volume;
-                info.CostPrice = entity.CostPrice;
-                info.MarketPrice = entity.MarketPrice;
-                info.LowPrice = entity.LowPrice;
-                info.ArtisanID = entity.ArtisanID;
-                info.VideoUrl = entity.VideoUrl;
-                info.VideoDetail = entity.VideoDetail;
-                info.PlatePosition = entity.PlatePosition;
-                info.InventoryCount = entity.InventoryCount;
-                info.Author = entity.Author;
-                info.Adddate = entity.Adddate;
-                info.UpdateDate = entity.UpdateDate;
+                foreach (ProductInfo mInfo in miList)
+                {
+                    ProductEntity carEntity = TranslateProductEntity(mInfo);
+                    all.Add(carEntity);
+                }
             }
-            return info;
+            return all;
         }
 
         public static ProductEntity GetProductByProductID(string ProductID)
@@ -86,6 +46,29 @@ namespace Service
             ProductEntity entity = new ProductEntity();
             ProductRepository mr = new ProductRepository();
             return TranslateProductEntity(mr.GetProductByProductID(ProductID));
+        }
+
+
+        public static List<ProductEntity> GetAllProductByRule(string author, int count, string orderdesc)
+        {
+            List<ProductEntity> all = new List<ProductEntity>();
+            ProductRepository mr = new ProductRepository();
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetProductByAuthor" + author + count + orderdesc);
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllProductByRule(author, count, orderdesc);
+                Cache.Add("GetProductByAuthor" + author + count + orderdesc, miList);
+            }
+
+            if (!miList.IsEmpty())
+            {
+                foreach (ProductInfo mInfo in miList)
+                {
+                    ProductEntity carEntity = TranslateProductEntity(mInfo);
+                    all.Add(carEntity);
+                }
+            }
+            return all;
         }
 
         public static List<ProductEntity> GetProductsBySqlWhere(int count, int pCount, string sqlwhere)
@@ -116,7 +99,7 @@ namespace Service
                 }
             }
             return list;
-        }        
+        }
 
         public static List<ProductEntity> GetNews(string title, int status)
         {
@@ -149,10 +132,10 @@ namespace Service
                 entity.Type5 = info.Type5;
                 entity.Type6 = info.Type6;
                 entity.Type7 = info.Type7;
-                entity.Images = info.Images;
-                entity.summary = info.summary;
+                entity.Images = URL + info.Images;
+                entity.summary = string.IsNullOrEmpty(info.summary) ? "" : info.summary.Replace("http://121.42.156.253", URL);
                 entity.ProductDetail = info.ProductDetail;
-                entity.ProImageDetail = info.ProImageDetail;
+                entity.ProImageDetail = string.IsNullOrEmpty(info.ProImageDetail) ? "" : info.ProImageDetail.Replace("http://121.42.156.253", URL);
                 entity.IsPushMall = info.IsPushMall;
                 entity.Material = info.Material;
                 entity.Volume = info.Volume;
@@ -166,37 +149,66 @@ namespace Service
                 entity.InventoryCount = info.InventoryCount;
                 entity.Author = info.Author;
                 entity.Adddate = info.Adddate;
+                Regex r = new Regex(@"<img[\s\S]*?>", RegexOptions.IgnoreCase);
 
+                // 定义正则表达式用来匹配 img 标签     
+                List<string> lstImages = new List<string>();
+                if (!string.IsNullOrEmpty(info.summary))
+                {
+                    MatchCollection collImages = r.Matches(entity.summary);
+                    List<string> lstImagesUrl = new List<string>();
+                    foreach (Match item in collImages)
+                    {
+                        lstImages.Add(item.Value);
+                    }
+                    //}
+                }
+                entity.lstImages = lstImages;
                 entity.UpdateDate = info.UpdateDate;
+                entity.Introduction = info.Introduction;
             }
             return entity;
         }
 
         #region 分页相关
-        public static int GetProductCount(string type)
+        public static int GetProductCount(string type2, string type3, string type4, string type7, string author, string sqlwhere, string Keyword)
         {
-            return new ProductRepository().GetProductCount(type);
+            return new ProductRepository().GetProductCount(type2, type3, type4, type7, author, sqlwhere, Keyword);
         }
 
-        public static List<ProductEntity> GetProductInfoPager(PagerInfo pager)
+        public static List<ProductEntity> GetProductInfoPager(string pagename, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = mr.GetAllProductInfoPager(pager);
-            foreach (ProductInfo mInfo in miList)
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoPager");
+            if (miList.IsEmpty())
             {
-                ProductEntity carEntity = TranslateProductEntity(mInfo);
-                all.Add(carEntity);
+                miList = mr.GetAllProductInfoPager(pagename, pager);
+                Cache.Add("GetAllProductInfoPager", miList);
+            }
+
+            if (!miList.IsEmpty())
+            {
+                foreach (ProductInfo mInfo in miList)
+                {
+                    ProductEntity carEntity = TranslateProductEntity(mInfo);
+                    all.Add(carEntity);
+                }
             }
             return all;
         }
 
-        public static List<ProductEntity> GetAllProductInfoByRule(string type, PagerInfo pager)
+        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7, string author, string sqlwhere, string keyword, string pagename, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = mr.GetAllProductInfoByRule(type, pager);
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename);
 
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, keyword, pagename, pager);
+                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename, miList);
+            }
             if (!miList.IsEmpty())
             {
                 foreach (ProductInfo mInfo in miList)
@@ -205,7 +217,6 @@ namespace Service
                     all.Add(storeEntity);
                 }
             }
-
             return all;
         }
         #endregion

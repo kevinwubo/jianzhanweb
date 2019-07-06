@@ -27,13 +27,9 @@ namespace DataRepository.DataAccess.Artisan
 {
     public class ArtisanRepository : DataAccessBase
     {
-        public ArtisanInfo GetArtisanByArtisanID(int ArtisanID)
-        {
-            ArtisanInfo result = new ArtisanInfo();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.GetArtisanByArtisanID, "Text"));
-            result = command.ExecuteEntity<ArtisanInfo>();
-            return result;
-        }
+
+
+
         public List<ArtisanInfo> GetAllArtisan()
         {
             List<ArtisanInfo> result = new List<ArtisanInfo>();
@@ -42,10 +38,10 @@ namespace DataRepository.DataAccess.Artisan
             return result;
         }
 
-        public  List<ArtisanInfo> GetArtisansByRule(string artisanType, string IsCooperation)
+        public List<ArtisanInfo> GetArtisansByRule(string artisanType, int count, string IsCooperation, string sqlwhere)
         {
             List<ArtisanInfo> result = new List<ArtisanInfo>();
-            string sqlText=ArtisanSatement.GetAllArtisanByRule;
+            string sqlText = count > 0 ? ArtisanSatement.GetTopCountArtisanByRule : ArtisanSatement.GetAllArtisanByRule;
             if (!string.IsNullOrEmpty(artisanType))
             {
                 sqlText += " AND artisanType =@artisanType";
@@ -56,8 +52,17 @@ namespace DataRepository.DataAccess.Artisan
                 sqlText += " AND IsCooperation =@IsCooperation";
             }
 
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                sqlText += sqlwhere;
+            }
 
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text")); ;
+            if (count > 0)
+            {
+                command = new DataCommand(ConnectionString, GetDbCommand(string.Format(sqlText, " TOP " + count), "Text"));
+            }
+
             if (!string.IsNullOrEmpty(artisanType))
             {
                 command.AddInputParameter("@artisanType", DbType.String, artisanType);
@@ -66,12 +71,12 @@ namespace DataRepository.DataAccess.Artisan
             {
                 command.AddInputParameter("@IsCooperation", DbType.String, IsCooperation);
             }
-           
+
             result = command.ExecuteEntityList<ArtisanInfo>();
             return result;
         }
 
-        public  ArtisanInfo GetArtisanByKey(string artisanID)
+        public ArtisanInfo GetArtisanByKey(string artisanID)
         {
             ArtisanInfo result = new ArtisanInfo();
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.GetArtisanByArtisanID, "Text"));
@@ -80,7 +85,7 @@ namespace DataRepository.DataAccess.Artisan
             return result;
         }
 
-        public  List<ArtisanInfo> GetArtisanByKeys(string keys)
+        public List<ArtisanInfo> GetArtisanByKeys(string keys)
         {
             List<ArtisanInfo> result = new List<ArtisanInfo>();
             string sqlText = ArtisanSatement.GetArtisanByKeys;
@@ -90,68 +95,52 @@ namespace DataRepository.DataAccess.Artisan
             return result;
         }
 
-        public  int Remove(int artisanID)
+
+
+        public int RemoveArtisan(long mid)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.Remove, "Text"));
-            command.AddInputParameter("@ArtisanID", DbType.Int32, artisanID);
+            command.AddInputParameter("@ArtisanID", DbType.Int64, mid);
             int result = command.ExecuteNonQuery();
             return result;
         }
 
-        public  long CreateNew(ArtisanInfo info)
-        {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.CreateArtisan, "Text"));
-
-            //return command.ExecuteNonQuery();
-            var o = command.ExecuteScalar<object>();
-            return Convert.ToInt64(o);
-        }
-
-        public  int ModifyArtisan(ArtisanInfo info)
-        {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.ModifyArtisan, "Text"));
-            command.AddInputParameter("@artisanID", DbType.Int32, info.artisanID);
-            return command.ExecuteNonQuery();
-        }
-
 
         #region 分页方法
-        public  List<ArtisanInfo> GetAllArtisanInfoByRule(string type, PagerInfo pager)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="artisantype">艺人类型</param>
+        /// <returns></returns>
+        public List<ArtisanInfo> GetAllArtisanInfoByRule(string artisantype, string artisanname, PagerInfo pager)
         {
             List<ArtisanInfo> result = new List<ArtisanInfo>();
 
 
             StringBuilder builder = new StringBuilder();
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    builder.Append(" AND AdviseTitle LIKE '%'+@AdviseTitle+'%' ");
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    builder.Append(" AND DealStatus=@DealStatus ");
-            //}
+            if (!string.IsNullOrEmpty(artisantype))
+            {
+                builder.Append(" AND ArtisanType=@ArtisanType ");
+            }
+            if (!string.IsNullOrEmpty(artisanname))
+            {
+                builder.Append(" AND artisanName=@artisanName ");
+            }
 
             string sql = ArtisanSatement.GetAllArtisanInfoPagerHeader + builder.ToString() + ArtisanSatement.GetAllArtisanInfoPagerFooter;
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    command.AddInputParameter("@CustomerName", DbType.Int64, customerName);
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    command.AddInputParameter("@AdviseTitle", DbType.String, title);
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
+            if (!string.IsNullOrEmpty(artisantype))
+            {
+                command.AddInputParameter("@ArtisanType", DbType.String, artisantype);
+            }
+            if (!string.IsNullOrEmpty(artisanname))
+            {
+                command.AddInputParameter("@artisanName", DbType.String, artisanname);
+            }
+
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
@@ -161,38 +150,34 @@ namespace DataRepository.DataAccess.Artisan
         }
 
 
-        public int GetArtisanCount(string type)
+        /// <summary>
+        ///         
+        /// </summary>
+        /// <param name="artisantype">艺人类型</param>
+        /// <returns></returns>
+        public int GetArtisanCount(string artisantype, string artisanname)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(ArtisanSatement.GetArtisanCount);
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    builder.Append(" AND AdviseTitle LIKE '%'+@AdviseTitle+'%' ");
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    builder.Append(" AND DealStatus=@DealStatus ");
-            //}
+            if (!string.IsNullOrEmpty(artisantype))
+            {
+                builder.Append(" AND ArtisanType=@ArtisanType ");
+            }
+            if (!string.IsNullOrEmpty(artisanname))
+            {
+                builder.Append(" AND artisanName=@artisanName ");
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    command.AddInputParameter("@CustomerName", DbType.Int64, customerName);
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    command.AddInputParameter("@AdviseTitle", DbType.String, title);
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
-
+            if (!string.IsNullOrEmpty(artisantype))
+            {
+                command.AddInputParameter("@ArtisanType", DbType.String, artisantype);
+            }
+            if (!string.IsNullOrEmpty(artisanname))
+            {
+                command.AddInputParameter("@artisanName", DbType.String, artisanname);
+            }
 
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);
@@ -209,5 +194,6 @@ namespace DataRepository.DataAccess.Artisan
             return result;
         }
         #endregion
+
     }
 }

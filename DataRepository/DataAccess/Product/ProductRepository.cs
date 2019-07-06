@@ -78,11 +78,11 @@ namespace DataRepository.DataAccess.Product
             return result;
         }
 
-        public ProductInfo GetProductByKey(int id)
+        public ProductInfo GetProductByKey(long gid)
         {
             ProductInfo result = new ProductInfo();
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.GetProductByKey, "Text"));
-            command.AddInputParameter("@id", DbType.Int32, id);
+            command.AddInputParameter("@ProductID", DbType.String, gid);
             result = command.ExecuteEntity<ProductInfo>();
             return result;
         }
@@ -90,7 +90,7 @@ namespace DataRepository.DataAccess.Product
         public long CreateNew(ProductInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.CreateNewProduct, "Text"));
-            
+
             command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
             command.AddInputParameter("@ProductName", DbType.String, info.ProductName);
             command.AddInputParameter("@SubTitle", DbType.String, info.SubTitle);
@@ -121,10 +121,10 @@ namespace DataRepository.DataAccess.Product
             command.AddInputParameter("@IsPushMall", DbType.String, info.IsPushMall);
 
             command.AddInputParameter("@AddDate", DbType.DateTime, info.Adddate);
-            command.AddInputParameter("@UpdateDate", DbType.DateTime, info.UpdateDate); 
+            command.AddInputParameter("@UpdateDate", DbType.DateTime, info.UpdateDate);
 
-            
-            //return command.ExecuteNonQuery();
+
+            return command.ExecuteNonQuery();
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt64(o);
         }
@@ -166,44 +166,43 @@ namespace DataRepository.DataAccess.Product
             return command.ExecuteNonQuery();
         }
 
-        public int Remove(int id)
+        public int Remove(long ProductID)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.Remove, "Text"));
-            command.AddInputParameter("@id", DbType.Int32, id);
+            command.AddInputParameter("@ProductID", DbType.Int64, ProductID);
             int result = command.ExecuteNonQuery();
             return result;
         }
 
 
-        public List<ProductInfo> GetAllInventoryByRule(string title, int status)
+        public List<ProductInfo> GetAllProductByRule(string author, int count, string orderdesc)
         {
             List<ProductInfo> result = new List<ProductInfo>();
-            string sqlText = ProductSatement.GetAllProductByRule;
-            if (!string.IsNullOrEmpty(title))
+            string sqlText = count > 0 ? String.Format(ProductSatement.GetAllProductTopCountByRule, " TOP " + count) : ProductSatement.GetAllProductByRule;
+            if (!string.IsNullOrEmpty(author))
             {
-                sqlText += " AND Title like '%" + title + "'%";
+                sqlText += " AND Author = '" + author + "' OR (Type2 like '%" + author + "%' or Type3 like '%" + author + "%') ";
             }
-            if (status != -1)
+            if (!string.IsNullOrEmpty(orderdesc))
             {
-                sqlText += " AND Status = '" + status + "'";
+                sqlText += orderdesc;
             }
-
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             result = command.ExecuteEntityList<ProductInfo>();
             return result;
         }
 
-        public List<ProductInfo> GetProductsByRule(string name,int status)
+        public List<ProductInfo> GetProductsByRule(string name, int status)
         {
             List<ProductInfo> result = new List<ProductInfo>();
-            string sqlText=ProductSatement.GetAllProductByRule;
-            if(!string.IsNullOrEmpty(name))
+            string sqlText = ProductSatement.GetAllProductByRule;
+            if (!string.IsNullOrEmpty(name))
             {
-                sqlText+=" AND ProductName LIKE '%'+@key+'%'";
+                sqlText += " AND ProductName LIKE '%'+@key+'%'";
             }
-            if(status>-1)
+            if (status > -1)
             {
-                sqlText+=" AND Status=@Status";
+                sqlText += " AND Status=@Status";
             }
 
 
@@ -216,7 +215,7 @@ namespace DataRepository.DataAccess.Product
             {
                 command.AddInputParameter("@Status", DbType.Int32, status);
             }
-           
+
             result = command.ExecuteEntityList<ProductInfo>();
             return result;
         }
@@ -228,13 +227,13 @@ namespace DataRepository.DataAccess.Product
             command.AddInputParameter("@ProductID", DbType.String, ProductID);
             result = command.ExecuteEntity<ProductInfo>();
             return result;
-        }       
+        }
 
         public int RemoveProduct(long mid)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.Remove, "Text"));
             command.AddInputParameter("@ProductID", DbType.Int64, mid);
-            int result=command.ExecuteNonQuery();
+            int result = command.ExecuteNonQuery();
             return result;
         }
 
@@ -276,96 +275,162 @@ namespace DataRepository.DataAccess.Product
             return result;
         }
         #endregion
-        
+
 
 
         #region 分页方法
-        public List<ProductInfo> GetAllProductInfoByRule(string type, PagerInfo pager)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type2">工艺釉色</param>
+        /// <param name="type3">器型</param>
+        /// <param name="type4">口径尺寸</param>
+        /// <param name="type7">价格区间</param>
+        /// <param name="author">作者</param>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public List<ProductInfo> GetAllProductInfoByRule(string type2, string type3, string type4, string type7, string author, string sqlwhere, string KEYWORD, string pagename, PagerInfo pager)
         {
             List<ProductInfo> result = new List<ProductInfo>();
 
 
             StringBuilder builder = new StringBuilder();
 
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    builder.Append(" AND AdviseTitle LIKE '%'+@AdviseTitle+'%' ");
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    builder.Append(" AND DealStatus=@DealStatus ");
-            //}
+            if (!string.IsNullOrEmpty(type2))
+            {
+                builder.Append(" AND Type2=@Type2 ");
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                builder.Append(" AND Type3=@Type3 ");
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                builder.Append(" AND Type4=@Type4 ");
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                builder.Append(" AND Type7=@Type7 ");
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                //builder.Append(" AND Author in (@Author) ");
+                builder.Append(" AND Author in(" + author + ")");
+            }
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
+            }
+
+            if (!string.IsNullOrEmpty(KEYWORD))
+            {
+                builder.Append("and ProductID='" + KEYWORD + "' or ProductName like '%" + KEYWORD + "%' or Author like '%" + KEYWORD + "%' or Type2 like '" + KEYWORD + "' or Type3 like '" + KEYWORD + "' or Type4 like '" + KEYWORD + "' or Type5 like '" + KEYWORD + "'");
+            }
 
             string sql = ProductSatement.GetAllProductInfoPagerHeader + builder.ToString() + ProductSatement.GetAllProductInfoPagerFooter;
+            if (pagename.Equals("mn_souchang"))
+            {
+                sql = ProductSatement.GetAllProductInfoSouChangPagerHeader + builder.ToString() + ProductSatement.GetAllProductInfoSouChangPagerFooter;
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
 
-            //if (!string.IsNullOrEmpty(customerName))
+            if (!string.IsNullOrEmpty(type2))
+            {
+                command.AddInputParameter("@Type2", DbType.String, type2);
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                command.AddInputParameter("@Type3", DbType.String, type3);
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                command.AddInputParameter("@Type4", DbType.String, type4);
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                command.AddInputParameter("@Type7", DbType.String, type7);
+            }
+            //if (!string.IsNullOrEmpty(author))
             //{
-            //    command.AddInputParameter("@CustomerName", DbType.Int64, customerName);
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    command.AddInputParameter("@AdviseTitle", DbType.String, title);
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
+            //    command.AddInputParameter("@Author", DbType.String, author);
+            //}            
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
-
             result = command.ExecuteEntityList<ProductInfo>();
             return result;
         }
 
 
-        public int GetProductCount(string type)
+        public int GetProductCount(string type2, string type3, string type4, string type7, string author, string sqlwhere, string KEYWORD)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(ProductSatement.GetProductCount);
-            //if (!string.IsNullOrEmpty(customerName))
-            //{
-            //    builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    builder.Append(" AND AdviseTitle LIKE '%'+@AdviseTitle+'%' ");
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    builder.Append(" AND DealStatus=@DealStatus ");
-            //}
+            if (!string.IsNullOrEmpty(type2))
+            {
+                builder.Append(" AND Type2=@Type2 ");
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                builder.Append(" AND Type3=@Type3 ");
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                builder.Append(" AND Type4=@Type4 ");
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                builder.Append(" AND Type7=@Type7 ");
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                //builder.Append(" AND Author=@Author ");
+                builder.Append(" AND Author in(" + author + ")");
+            }
+
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
+            }
+
+            if (!string.IsNullOrEmpty(KEYWORD))
+            {
+                builder.Append("and ProductID='" + KEYWORD + "' or ProductName like '%" + KEYWORD + "%' or Author like '%" + KEYWORD + "%' or Type2 like '" + KEYWORD + "' or Type3 like '" + KEYWORD + "' or Type4 like '" + KEYWORD + "' or Type5 like '" + KEYWORD + "'");
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
 
-            //if (!string.IsNullOrEmpty(customerName))
+            if (!string.IsNullOrEmpty(type2))
+            {
+                command.AddInputParameter("@Type2", DbType.String, type2);
+            }
+            if (!string.IsNullOrEmpty(type3))
+            {
+                command.AddInputParameter("@Type3", DbType.String, type3);
+            }
+            if (!string.IsNullOrEmpty(type4))
+            {
+                command.AddInputParameter("@Type4", DbType.String, type4);
+            }
+            if (!string.IsNullOrEmpty(type7))
+            {
+                command.AddInputParameter("@Type7", DbType.String, type7);
+            }
+            //if (!string.IsNullOrEmpty(author))
             //{
-            //    command.AddInputParameter("@CustomerName", DbType.Int64, customerName);
-            //}
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    command.AddInputParameter("@AdviseTitle", DbType.String, title);
-            //}
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
+            //    command.AddInputParameter("@Author", DbType.String, author);
+            //}   
 
 
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);
         }
 
-        public List<ProductInfo> GetAllProductInfoPager(PagerInfo pager)
+        public List<ProductInfo> GetAllProductInfoPager(string pagename, PagerInfo pager)
         {
             List<ProductInfo> result = new List<ProductInfo>();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.GetAllProductInfoPager, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(pagename.Equals("mn_souchang") ? ProductSatement.GetAllProductInfoSouChangPager : ProductSatement.GetAllProductInfoPager, "Text"));
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);

@@ -23,22 +23,16 @@ namespace DataRepository.DataAccess.Artisan
     {
         public static string GetAllArtisan = @"SELECT * FROM dt_Artisan(NOLOCK) ";
 
-        public static string GetAllArtisanByRule = @"SELECT * FROM dt_Artisan(NOLOCK) WHERE 1=1 ";
+        public static string GetAllArtisanByRule = @"SELECT  * FROM dt_Artisan(NOLOCK) WHERE 1=1 ";
 
-        public static string GetArtisanByArtisanID= @"SELECT * FROM dt_Artisan(NOLOCK) WHERE ArtisanID=@ArtisanID";
+        public static string GetTopCountArtisanByRule = @"SELECT {0} * FROM dt_Artisan(NOLOCK) WHERE 1=1 ";
+
+        public static string GetArtisanByArtisanID = @"SELECT * FROM dt_Artisan(NOLOCK) WHERE ArtisanID=@ArtisanID";
 
         public static string Remove = @"UPDATE dt_Artisan SET Status=0 WHERE ArtisanID=@ArtisanID";
 
         public static string GetArtisanByKeys = @"SELECT * FROM dt_Artisan(NOLOCK) WHERE ID IN (#ids#)";
 
-        public static string CreateArtisan = @"INSERT INTO dbo.dt_Artisan(artisanName,artisanName2,sex,IDNumber,birthday,workPlace,reviewDate,artisanType
-                                                ,artisanTitle,masterWorker,artisanSpecial,introduction,IDHead,DetailedIntroduction,VideoUrl,IsCooperation,IsRecommend,IsPushMall,Sort,Adddate,update_time)
-                                            VALUES(@artisanName,@artisanName2,@sex,@IDNumber,@birthday,@workPlace,@reviewDate,@artisanType
-                                                ,@artisanTitle,@masterWorker,@artisanSpecial,@introduction,@IDHead,@DetailedIntroduction,@VideoUrl,@IsCooperation,@IsRecommend,@IsPushMall,@Sort,@Adddate,@update_time)";
-        public static string ModifyArtisan = @"UPDATE dbo.dt_Artisan SET artisanName = @artisanName,artisanName2 = @artisanName2,sex = @sex,IDNumber = @IDNumber,birthday = @birthday
-                                            ,workPlace = @workPlace,reviewDate = @reviewDate,artisanType = @artisanType,artisanTitle = @artisanTitle,masterWorker = @masterWorker
-                                            ,artisanSpecial = @artisanSpecial,introduction = @introduction,IDHead = @IDHead,DetailedIntroduction = @DetailedIntroduction,VideoUrl = @VideoUrl
-                                            ,IsCooperation = @IsCooperation,IsRecommend = @IsRecommend,IsPushMall = @IsPushMall,Sort = @Sort,update_time = @update_time WHERE artisanID=@artisanID";
 
         #region 分页相关
         public static string GetArtisanCount = @"SELECT COUNT(1) AS C FROM dt_Artisan(NOLOCK) WHERE 1=1 ";
@@ -58,7 +52,7 @@ namespace DataRepository.DataAccess.Artisan
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 
 		                                                  WITH Artisan AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate Desc) AS RowNumber FROM (SELECT * FROM dt_Artisan WHERE 1=1 )as T ) 
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Sort) AS RowNumber FROM (SELECT * FROM dt_Artisan WHERE 1=1 )as T ) 
 		                                                  SELECT *  FROM Artisan 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
@@ -79,11 +73,16 @@ namespace DataRepository.DataAccess.Artisan
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 		                                                  ---------分页查询-----------
 		                                                  WITH Artisan AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate Desc) AS RowNumber FROM (SELECT * FROM dt_Artisan WHERE 1=1 ";
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Sort) AS RowNumber FROM (SELECT * FROM dt_Artisan WHERE 1=1 ";
         public static string GetAllArtisanInfoPagerFooter = @")as T ) 
 		                                                  SELECT *  FROM Artisan 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
-        #endregion     
+        #endregion
+
+        #region 自定义SQL
+
+        #endregion
+
     }
 }

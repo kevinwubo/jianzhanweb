@@ -8,17 +8,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Helper;
-
 namespace Service
 {
     public class ArtisanService : BaseService
     {
-        public static ArtisanEntity GetArtisanByArtisanID(int ArtisanID)
+        public static List<ArtisanEntity> GetAllArtisan()
         {
+            List<ArtisanEntity> all = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
-            ArtisanInfo info = mr.GetArtisanByArtisanID(ArtisanID);
+            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetAllArtisan");
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllArtisan();
+                Cache.Add("GetAllArtisan", miList);
+            }
 
-            return TranslateArtisanEntity(info);
+            if (!miList.IsEmpty())
+            {
+                foreach (ArtisanInfo mInfo in miList)
+                {
+                    ArtisanEntity carEntity = TranslateArtisanEntity(mInfo);
+                    all.Add(carEntity);
+                }
+            }
+            return all;
+        }
+        public static ArtisanEntity GetArtisanByKey(string artisanID)
+        {
+            ArtisanEntity entity = new ArtisanEntity();
+            ArtisanInfo info = Cache.Get<ArtisanInfo>("GetArtisanByKey" + artisanID);
+            ArtisanRepository mr = new ArtisanRepository();
+            if (info == null)
+            {
+                info = mr.GetArtisanByKey(artisanID);
+                Cache.Add("GetArtisanByKey" + artisanID, info);
+            }
+
+            if (info != null)
+            {
+                entity = TranslateArtisanEntity(info, true, 9);
+            }
+            return entity;
         }
 
         /// <summary>
@@ -27,11 +57,11 @@ namespace Service
         /// <param name="artisanType">艺人类型</param>
         /// <param name="IsCooperation">是否合作</param>
         /// <returns></returns>
-        public static List<ArtisanEntity> GetArtisansByRule(string artisanType, string IsCooperation)
+        public static List<ArtisanEntity> GetArtisansByRule(string artisanType, int count = 0, string IsCooperation = "", string sqlwhere = "")
         {
             List<ArtisanEntity> lstNews = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
-            List<ArtisanInfo> lstInfo = mr.GetArtisansByRule(artisanType, IsCooperation);
+            List<ArtisanInfo> lstInfo = mr.GetArtisansByRule(artisanType, count, IsCooperation, sqlwhere);
             if (lstInfo != null && lstInfo.Count > 0)
             {
                 foreach (ArtisanInfo info in lstInfo)
@@ -42,7 +72,25 @@ namespace Service
             return lstNews;
         }
 
-        public static ArtisanEntity TranslateArtisanEntity(ArtisanInfo info)
+
+        public static List<SimpleArtisanEntity> getSimpleArtisanList(string artisanType, int count = 0, string IsCooperation = "1")
+        {
+            List<SimpleArtisanEntity> listR = new List<SimpleArtisanEntity>();
+            List<ArtisanEntity> list = GetArtisansByRule(artisanType, count, IsCooperation);
+            if (list != null && list.Count > 0)
+            {
+                foreach (ArtisanEntity entity in list)
+                {
+                    SimpleArtisanEntity model = new SimpleArtisanEntity();
+                    model.artisanID = entity.artisanID;
+                    model.artisanName = entity.artisanName;
+                    listR.Add(model);
+                }
+            }
+            return listR;
+        }
+
+        public static ArtisanEntity TranslateArtisanEntity(ArtisanInfo info, bool IsReader = false, int count = 3)
         {
             ArtisanEntity entity = new ArtisanEntity();
             entity.artisanID = info.artisanID;
@@ -58,96 +106,67 @@ namespace Service
             entity.masterWorker = info.masterWorker;
             entity.artisanSpecial = info.artisanSpecial;
             entity.introduction = info.introduction;
-            entity.IDHead = info.IDHead;
+            entity.IDHead = "http://116.62.124.214/" + info.IDHead;
             entity.DetailedIntroduction = info.DetailedIntroduction;
             entity.VideoUrl = info.VideoUrl;
             entity.IsCooperation = info.IsCooperation;
             entity.IsRecommend = info.IsRecommend;
             entity.IsPushMall = info.IsPushMall;
+            entity.adddate = info.Adddate;
+            if (IsReader)
+            {
+                entity.listProduct = ProductService.GetAllProductByRule(info.artisanName, count, " order by AddDate desc ");
+            }
             return entity;
         }
 
-
-        public static ArtisanInfo TranslateArtisanInfo(ArtisanEntity entity)
-        {
-            ArtisanInfo info = new ArtisanInfo();
-            info.artisanID = entity.artisanID;
-            info.artisanName = entity.artisanName;
-            info.artisanName2 = entity.artisanName2;
-            info.sex = entity.sex;
-            info.IDNumber = entity.IDNumber;
-            info.birthday = entity.birthday;
-            info.workPlace = entity.workPlace;
-            info.reviewDate = entity.reviewDate;
-            info.artisanType = entity.artisanType;
-            info.artisanTitle = entity.artisanTitle;
-            info.masterWorker = entity.masterWorker;
-            info.artisanSpecial = entity.artisanSpecial;
-            info.introduction = entity.introduction;
-            info.IDHead = entity.IDHead;
-            info.DetailedIntroduction = entity.DetailedIntroduction;
-            info.VideoUrl = entity.VideoUrl;
-            info.IsCooperation = entity.IsCooperation;
-            info.IsRecommend = entity.IsRecommend;
-            info.IsPushMall = entity.IsPushMall;
-            return info;
-        }
-
-        public static void Remove(int artisanID)
-        {
-            ArtisanRepository mr = new ArtisanRepository();
-            mr.Remove(artisanID);
-        }
-
-        public static void ModifyArtisan(ArtisanEntity entity)
-        {
-            ArtisanRepository mr = new ArtisanRepository();
-            ArtisanInfo info= TranslateArtisanInfo(entity);
-            if (entity.artisanID > 0)
-            {
-                mr.ModifyArtisan(info);
-            }
-            else
-            {                
-                mr.CreateNew(info);
-            }
-        }
-
-
         #region 分页相关
-        public static int GetArtisanCount(string type)
+        public static int GetArtisanCount(string artisantype, string artisanname)
         {
-            return new ArtisanRepository().GetArtisanCount(type);
+            return new ArtisanRepository().GetArtisanCount(artisantype, artisanname);
         }
 
         public static List<ArtisanEntity> GetArtisanInfoPager(PagerInfo pager)
         {
             List<ArtisanEntity> all = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
-            List<ArtisanInfo> miList = mr.GetAllArtisanInfoPager(pager);
-            foreach (ArtisanInfo mInfo in miList)
+            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetArtisanInfoPager");
+            if (miList.IsEmpty())
             {
-                ArtisanEntity carEntity = TranslateArtisanEntity(mInfo);
-                all.Add(carEntity);
+                miList = mr.GetAllArtisanInfoPager(pager);
+                Cache.Add("GetAllArtisanInfoPager", miList);
             }
-            return all;
-        }
-
-        public static List<ArtisanEntity> GetAllArtisanInfoByRule(string type, PagerInfo pager)
-        {
-            List<ArtisanEntity> all = new List<ArtisanEntity>();
-            ArtisanRepository mr = new ArtisanRepository();
-            List<ArtisanInfo> miList = mr.GetAllArtisanInfoByRule(type, pager);
 
             if (!miList.IsEmpty())
             {
                 foreach (ArtisanInfo mInfo in miList)
                 {
-                    ArtisanEntity storeEntity = TranslateArtisanEntity(mInfo);
+                    ArtisanEntity carEntity = TranslateArtisanEntity(mInfo, true);
+                    all.Add(carEntity);
+                }
+            }
+            return all;
+        }
+
+        public static List<ArtisanEntity> GetAllArtisanInfoByRule(string artisantype, string artisanname, PagerInfo pager)
+        {
+            List<ArtisanEntity> all = new List<ArtisanEntity>();
+            ArtisanRepository mr = new ArtisanRepository();
+            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetAllArtisanInfoByRule" + artisantype + artisanname);
+
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllArtisanInfoByRule(artisantype, artisanname, pager);
+                Cache.Add("GetAllArtisanInfoByRule" + artisantype + artisanname, miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (ArtisanInfo mInfo in miList)
+                {
+                    ArtisanEntity storeEntity = TranslateArtisanEntity(mInfo, true);
                     all.Add(storeEntity);
                 }
             }
-
             return all;
         }
         #endregion
