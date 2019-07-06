@@ -1,0 +1,62 @@
+html {
+    background: #fff;
+}
+
+.part1 {
+    background: #fff;
+    border-top: .1rem solid #fff;
+    height: auto;
+}
+
+.navlist {
+    display: none;
+}
+
+.down:hover .navlist {
+    display: block;
+    position: relative;
+    background: white;
+    width: 100%;
+    height: auto;
+}
+
+.mar-t-20 {
+    margin-top: .2rem;
+}
+
+.pad-t-16 {
+    padding-top: .1rem !important;
+}
+
+
+.cell-list {
+    overflow: hidden;
+    max-height: 24.3rem;
+    padding: .25rem;
+}
+
+    .cell-list .li {
+        /* background: #fff; */
+        height: 4.42rem;
+        width: 2.77rem;
+        margin-right: .1rem;
+        margin-bottom: .1rem;
+        float: left;
+        background: url('/source/static/images/pc/5_bg1.png');
+        background-size: 100% 100%;
+    }
+
+        .cell-list .li img {
+            width: 90%;
+            margin: .2rem 5%;
+        }
+
+.zxbt-big {
+    width: 2.58rem;
+    height: .5rem;
+    line-height: .5rem;
+    background: #B32735;
+    text-align: center;
+    margin: auto;
+    color: #fff;
+}

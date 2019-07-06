@@ -737,6 +737,18 @@
     <Content Include="source\static\css\1905_pagination.css" />
     <Content Include="source\static\css\1905_style.css" />
     <Content Include="source\static\css\1905_swiper.min.css" />
+    <Content Include="source\static\css\1906_pagination.css" />
+    <Content Include="source\static\css\pc_collegelist.css" />
+    <Content Include="source\static\css\pc_collegedetail.css" />
+    <Content Include="source\static\css\pc_college.css" />
+    <Content Include="source\static\css\pc_jingdian.css" />
+    <Content Include="source\static\css\pc_souchang.css" />
+    <Content Include="source\static\css\pc_jingdiandetail.css" />
+    <Content Include="source\static\css\pc_famousdetail.css" />
+    <Content Include="source\static\css\pc_famous.css" />
+    <Content Include="source\static\css\pc_shopdetail.css" />
+    <Content Include="source\static\css\pc_shop.css" />
+    <Content Include="source\static\css\pc_home.css" />
     <Content Include="source\static\css\pcstyle.css" />
     <Content Include="source\static\css\style-index.css" />
     <Content Include="source\static\images\315\315img1.jpg" />
@@ -985,6 +997,16 @@
     <Content Include="Views\Shared\_Layout_PC_web.cshtml" />
     <Content Include="Views\WebHomePC\home.cshtml" />
     <Content Include="source\static\images\pc\.DS_Store" />
+    <Content Include="Views\WebHomePC\shop.cshtml" />
+    <Content Include="Views\WebHomePC\shopdetail.cshtml" />
+    <Content Include="Views\WebHomePC\famous.cshtml" />
+    <Content Include="Views\WebHomePC\famousdetail.cshtml" />
+    <Content Include="Views\WebHomePC\college.cshtml" />
+    <Content Include="Views\WebHomePC\collegelist.cshtml" />
+    <Content Include="Views\WebHomePC\collegedetail.cshtml" />
+    <Content Include="Views\WebHomePC\souchang.cshtml" />
+    <Content Include="Views\WebHomePC\jingdian.cshtml" />
+    <Content Include="Views\WebHomePC\jingdiandetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
