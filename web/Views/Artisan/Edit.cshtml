@@ -1,0 +1,282 @@
+﻿@using Common
+@using Entity.ViewModel;
+@{
+    ViewBag.Title = "艺人更新";
+    List<BaseDataEntity> listAType = ((List<BaseDataEntity>)ViewBag.listAType) ?? new List<BaseDataEntity>();
+    ArtisanEntity entity = (ArtisanEntity)ViewBag.Artisan;    
+}
+@section Header{
+    <link href="~/source/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+    <style>
+        .picRemove {
+            height: 15px;
+            width: 15px;
+            background-color: #e4e5e6;
+            position: absolute;
+            margin-top: 15px;
+            /*filter: alpha(opacity:70);
+            opacity: 0.7;
+            -moz-opacity: 0.7;
+            -khtml-opacity: 0.7;*/
+        }
+    </style>
+}
+<div class="row-fluid">
+    <form class="form-horizontal" id="StorageForm" action="/Product/Modify" method="post">
+        <div class="widget widget-padding span12">
+            <div class="widget-header" style="margin-top:30px">
+                <i class="icon-list-alt"></i><h5>艺人更新</h5>
+            </div>
+            <div class="widget-body" style="overflow: hidden; display: block;">
+                <div class="widget-forms clearfix">
+                    <input type="hidden" id="artisanID" name="artisanID" value="@entity.artisanID">
+                    <div class="control-group">
+                        <label class="control-label">工艺师类别</label>
+                        <div class="controls">
+                            <select tabindex="1" class="span2" id="Type2" name="Type2">
+                                @foreach (var item in listAType)
+                                {
+                                    <option value="@item.ValueInfo" @(entity.artisanType == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">姓名</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="姓名" id="artisanName" name="artisanName" value="@entity.artisanName" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">用户性别</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="用户性别" id="sex" name="sex" value="@entity.sex" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">身份证号</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="身份证号" id="IDNumber" name="IDNumber" value="@entity.IDNumber" maxlength="100">
+                        </div>
+                    </div>                    
+                    <div class="control-group">
+                        <label class="control-label">荣誉称号</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="荣誉称号" id="artisanTitle" name="artisanTitle" value="@entity.artisanTitle" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">师从</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="师从" id="masterWorker" name="masterWorker" value="@entity.masterWorker" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">特点</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="特点" id="artisanSpecial" name="artisanSpecial" value="@entity.artisanSpecial" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">简介</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="简介" id="introduction" name="introduction" value="@entity.introduction" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">身份证头像</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="身份证头像" id="IDHead" name="IDHead" value="@entity.IDHead" maxlength="200">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">详细介绍</label>
+                        <div class="controls">
+                            @*<input class="span5" type="text" placeholder="详细介绍" id="DetailedIntroduction" name="DetailedIntroduction" value="@entity.DetailedIntroduction" maxlength="200">*@
+                            <asp:TextBox ID="DetailedIntroduction" name="DetailedIntroduction" runat="server" TextMode="MultiLine" Height="400px" Width="1000px" ClientIDMode="Static" value="@entity.DetailedIntroduction"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">是否合作</label>
+                        <div class="controls">
+                            <input type="checkbox" value="1" id="IsCooperation" name="IsCooperation" @(entity.IsCooperation == "1" ? "checked" : "")>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">是否推荐到首页</label>
+                        <div class="controls">
+                            <input type="checkbox" value="1" id="IsRecommend" name="IsRecommend" @(entity.IsRecommend == "1" ? "checked" : "")>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">是否推荐到商城</label>
+                        <div class="controls">
+                            <input type="checkbox" value="1" id="IsPushMall" name="IsPushMall" @(entity.IsPushMall == "1" ? "checked" : "")>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="widget-footer">
+                <button class="btn btn-primary" type="button" id="save">保存</button>
+                <button class="btn btn-primary" type="button" id="goback">返回</button>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+<div class="window-mask" style="display:none"></div>
+<div id="imgContainer" style="z-index:999;display:none">
+    <div class="row-fluid" style="margin-top:30px">
+        <div class="widget widget-padding span12">
+            <div class="widget-header">
+                <div class="widget-buttons">
+                    <a href="javascript:void(0)" id="closeDeal"><i class="icon-remove"></i>关闭</a>
+                </div>
+            </div>
+            <div class="widget-body" id="imgshow" style="text-align: center;"></div>
+        </div>
+    </div>
+</div>
+@section Footer{
+<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
+<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var ues = UE.getEditor('DetailedIntroduction');//初始化对象
+    $(document).ready(function () {
+        var ues = UE.getEditor('DetailedIntroduction');
+        var proinfo = $("#showcode").text();
+
+        ues.ready(function () {//编辑器初始化完成再赋值
+            ues.setContent(proinfo);  //赋值给UEditor
+        });
+
+    });
+
+    jQuery("#save").click(function () {
+        var arr = [];
+        arr.push(UE.getEditor('DetailedIntroduction').getContent());
+        jQuery("#Content").val(arr.join("\n"));
+        jQuery("#newsForm").submit();
+    });
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('DetailedIntroduction');
+
+
+    function isFocus(e) {
+        alert(UE.getEditor('editor').isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e) {
+        UE.getEditor('editor').blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        UE.getEditor('editor').execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        UE.getEditor('editor');
+    }
+    function getAllHtml() {
+        alert(UE.getEditor('editor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UE.getEditor('editor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UE.getEditor('editor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UE.getEditor('editor').selection.getRange();
+        range.select();
+        var txt = UE.getEditor('editor').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UE.getEditor('editor').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UE.getEditor('editor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UE.getEditor('editor').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UE.getEditor('editor').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData() {
+        alert(UE.getEditor('editor').execCommand("getlocaldata"));
+    }
+
+    function clearLocalData() {
+        UE.getEditor('editor').execCommand("clearlocaldata");
+        alert("已清空草稿箱")
+    }
+
+</script>
+
+}

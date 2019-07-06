@@ -28,13 +28,11 @@ namespace DataRepository.DataAccess.Product
 
         public static string GetAllProductByRule = @"SELECT * FROM dt_Product(NOLOCK) WHERE 1=1 ";
 
-        public static string GetAllProductTopCountByRule = @"SELECT {0} * FROM dt_Product(NOLOCK) WHERE 1=1 ";
+        public static string GetProductByKey = @"SELECT * FROM dt_Product(NOLOCK) WHERE id=@id";
 
-        public static string GetProductByKey = @"SELECT * FROM dt_Product(NOLOCK) WHERE PPId=@PPId";
+        public static string Remove = @"UPDATE dt_Product SET datastatus=0 WHERE id=@id";
 
-        public static string Remove = @"UPDATE dt_Product SET datastatus=0 WHERE PPId=@PPId";
-
-        public static string GetProductByKeys = @"SELECT * FROM dt_Product(NOLOCK) WHERE PPId IN (#ids#)";
+        public static string GetProductByKeys = @"SELECT * FROM dt_Product(NOLOCK) WHERE id IN (#ids#)";
 
         public static string CreateNewProduct = @"INSERT INTO [dbo].[dt_Product]
                                                 ([ProductID],[ProductName],[SubTitle],[Type1],[Type2],[Type3],[Type4],[Type5],[Type6],[Type7],[Images],[summary]
@@ -70,7 +68,7 @@ namespace DataRepository.DataAccess.Product
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 
 		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate,InventoryCount Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
 		                                                  SELECT *  FROM Product 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
@@ -91,51 +89,8 @@ namespace DataRepository.DataAccess.Product
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 		                                                  ---------分页查询-----------
 		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate,InventoryCount Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 ";
+		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 ";
         public static string GetAllProductInfoPagerFooter = @")as T ) 
-		                                                  SELECT *  FROM Product 
-		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
-	                                                  END";
-
-
-        public static string GetAllProductInfoSouChangPager = @"	  DECLARE @UP INT
-
-                                                      IF(@recordCount<@PageSize*(@PageIndex-1)) 
-                                                      BEGIN
-                                                        SET @PageIndex= @recordCount/@PageSize+1
-                                                      END
-   
-	                                                  IF(@PageIndex<1)
-	                                                     SET @PageIndex=1
-             
-	                                                  IF(@recordCount>@PageSize*(@PageIndex-1))
-	                                                  BEGIN
-		                                                  SET @UP=@PageSize*(@PageIndex-1);
-
-		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY MarketPrice Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
-		                                                  SELECT *  FROM Product 
-		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
-	                                                  END";
-
-        public static string GetAllProductInfoSouChangPagerHeader = @"	  DECLARE @UP INT
-        
-	                                                  ---------分页区间计算-------------最大页数
-                                                      IF(@recordCount<@PageSize*(@PageIndex-1)) 
-                                                      BEGIN
-                                                        SET @PageIndex= @recordCount/@PageSize+1
-                                                      END
-                                                      --最小页数
-	                                                  IF(@PageIndex<1)
-	                                                     SET @PageIndex=1
-                                                      --当前页起始游标值
-	                                                  IF(@recordCount>@PageSize*(@PageIndex-1))
-	                                                  BEGIN
-		                                                  SET @UP=@PageSize*(@PageIndex-1);
-		                                                  ---------分页查询-----------
-		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY MarketPrice Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 ";
-        public static string GetAllProductInfoSouChangPagerFooter = @")as T ) 
 		                                                  SELECT *  FROM Product 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";

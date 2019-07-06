@@ -907,7 +907,9 @@
     <Content Include="UploadFiles\20180630\力帆.jpg" />
     <Content Include="UploadFiles\20180716\1331138218-ABM.jpg" />
     <Content Include="UploadFiles\20180716\ABM.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -915,6 +917,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Artisan\Edit.cshtml" />
+    <Content Include="Views\Artisan\Index.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

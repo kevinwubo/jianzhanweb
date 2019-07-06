@@ -95,7 +95,7 @@ namespace Service
             //执行排除队列
             List<ManagerEntity> listTask = getOutSalesList(listCurrent);
             //获取最终销售
-            ManagerEntity entity = GetManagerByOperatorID(listTask, codes, allList);
+            ManagerEntity entity = GetManagerByOperatorID(listTask);
 
             return entity;
         }
@@ -111,7 +111,7 @@ namespace Service
                 string[] codeList = codes.Split(',');
                 foreach (string name in codeList)
                 {
-                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount > p.currentSalesCount || p.currentSalesCount == 0));
+                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount < p.currentSalesCount || p.currentSalesCount == 0));
                     if (entity != null)
                     {
                         list.Add(entity);
@@ -128,28 +128,6 @@ namespace Service
                         {
                             list.Add(entity);
                         }
-                    }
-                }
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// 当前队列所有信息
-        /// </summary>
-        /// <returns></returns>
-        private static List<ManagerEntity> getCurrentSalesList(string codes, List<ManagerEntity> allList)
-        {
-            List<ManagerEntity> list = new List<ManagerEntity>();
-            if (!string.IsNullOrEmpty(codes) && allList.Count > 0)
-            {
-                string[] codeList = codes.Split(',');
-                foreach (string name in codeList)
-                {
-                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name));
-                    if (entity != null)
-                    {
-                        list.Add(entity);
                     }
                 }
             }
@@ -382,45 +360,29 @@ namespace Service
         /// </summary>
         /// <param name="listTask"></param>
         /// <returns></returns>
-        private static ManagerEntity GetManagerByOperatorID(List<ManagerEntity> listTask, string codes,List<ManagerEntity> allList)
+        private static ManagerEntity GetManagerByOperatorID(List<ManagerEntity> listTask)
         {
             ManagerEntity entity = new ManagerEntity();
             //获取当前队列中最新资讯销售
             string OperatorIDs = "";
-            
-            //
-            List<ManagerEntity> listManager = listTask;
-
-            if (listTask == null || listTask.Count == 0)
-            {
-                listManager = getCurrentSalesList(codes, allList);
-            }
-
-            foreach (ManagerEntity item in listManager)
+            foreach (ManagerEntity item in listTask)
             {
                 OperatorIDs += item.id + ",";
             }
-            if (!string.IsNullOrEmpty(OperatorIDs))
+            List<DefineInquiryInfo> listLastName = GetLastSaleNameByOperatorID(OperatorIDs.TrimEnd(','));
+            string lastOperatorID = listLastName[0].OperatorID;
+
+            int currentindex = listTask.FindIndex(p => p.id == lastOperatorID.ToInt(0));
+
+            int index = currentindex + 1;
+
+            if (index >= listTask.Count)
             {
-                List<DefineInquiryInfo> listLastName = GetLastSaleNameByOperatorID(OperatorIDs.TrimEnd(','));
-                string lastOperatorID = listLastName[0].OperatorID;
-
-                int currentindex = listManager.FindIndex(p => p.id == lastOperatorID.ToInt(0));
-
-                int index = currentindex + 1;
-
-                if (index >= listManager.Count)
-                {
-                    entity = listManager[0];
-                }
-                //else if (index == listManager.Count)
-                //{
-                //    entity = listManager[index - 1];
-                //}
-                else
-                {
-                    entity = listManager[index];
-                }
+                entity = listTask[0];
+            }
+            else
+            {
+                entity = listTask[index];
             }
 
             return entity;
@@ -516,7 +478,7 @@ namespace Service
             return result;
         }
 
-        private static InquiryEntity TranslateInquiryEntity(InquiryInfo info, List<ManagerEntity> listManager = null)
+        private static InquiryEntity TranslateInquiryEntity(InquiryInfo info)
         {
             InquiryEntity entity = new InquiryEntity();
             entity.PPId = info.PPId;
@@ -541,14 +503,6 @@ namespace Service
             entity.SourceForm = info.SourceForm;
 
             entity.product = ProductService.GetProductByProductID(info.ProductID);
-            if (listManager != null && listManager.Count > 0)
-            {
-                ManagerEntity mEntity = listManager.Find(p => p.id.ToString().Equals(entity.OperatorID));
-                if (mEntity != null)
-                {
-                    entity.manager = mEntity;
-                }
-            }
             return entity;
         }
 
@@ -701,10 +655,9 @@ namespace Service
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
             List<InquiryInfo> miList = mr.GetAllInquiryInfoPager(pager);
-            List<ManagerEntity> listManager = ManagerService.GetManagerAll();
             foreach (InquiryInfo mInfo in miList)
             {
-                InquiryEntity carEntity = TranslateInquiryEntity(mInfo, listManager);
+                InquiryEntity carEntity = TranslateInquiryEntity(mInfo);
                 all.Add(carEntity);
             }
             return all;
@@ -715,12 +668,12 @@ namespace Service
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
             List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(name, tracestate, status, pager);
-            List<ManagerEntity> listManager = ManagerService.GetManagerAll();
+
             if (!miList.IsEmpty())
             {
                 foreach (InquiryInfo mInfo in miList)
                 {
-                    InquiryEntity storeEntity = TranslateInquiryEntity(mInfo, listManager);
+                    InquiryEntity storeEntity = TranslateInquiryEntity(mInfo);
                     all.Add(storeEntity);
                 }
             }
