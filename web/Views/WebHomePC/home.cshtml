@@ -1,656 +1,494 @@
-﻿@{
+﻿@using Entity.ViewModel;
+@using Common;
+@{
     ViewBag.Title = "home";
-    Layout = "/Views/Shared/_Layout_PC_web.cshtml";    
+    Layout = "/Views/Shared/_Layout_PC_web.cshtml";
+
+    List<ProductEntity> listNew = (List<ProductEntity>)ViewBag.listNew;
+    List<ProductEntity> listHot = (List<ProductEntity>)ViewBag.listHot;
+    List<ProductEntity> listDSTJ = (List<ProductEntity>)ViewBag.listDSTJ;
+
+    List<ArtisanEntity> listMJMT = (List<ArtisanEntity>)ViewBag.listMJMT;
+    List<ProductEntity> listArtisanProduct = (List<ProductEntity>)ViewBag.listArtisanProduct;
 }
 
 <head>
     <meta charset="utf-8">
-    <meta content="小匠专场拍卖" http-equiv="keywords">
+    <meta name="keywords" content="建盏,建窑,天目盏,兔毫盏,油滴盏" />
+    <meta name="description" content="建盏天下(JianZhanShop.com)是国内首家专注于建窑建盏的专业门户，提供产地艺人直供的精品兔毫盏、油滴盏、曜变盏、鹧鸪斑、金油滴、敛口盏、束口盏。建盏天下传播千年的建盏文化和历史，大师名家，老盏等权威信息，提供建盏品鉴、收藏和定制服务。" />
     <meta name="description" content="小匠专场拍卖">
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>首页</title>
+    <title>建盏天下网(JianZhanShop.com) - 建窑建盏首席品牌商城</title>
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
     <link rel="stylesheet" href="~/source/static/css/pc_home.css" type="text/css" />
 </head>
-    <div class="banner">
-        <img src="/source/static/images/pc/banner.png" alt="">
-    </div>
+<div class="banner">
+    <img src="/source/static/images/pc/banner.png" alt="">
+</div>
 
-    <div class="body" style="margin-top:.37rem">
-        <div class="flex-row" style="width:12rem">
-            <div class="flex-col" style="background:#fff">
-                <div class="part1" style="background: #fff;border-top:0px">
-                    <div class="flex-row" style="padding:.2rem .2rem 0">
-                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
+<div class="body" style="margin-top:.37rem">
+    <div class="flex-row" style="width:12rem">
+        <div class="flex-col" style="background:#fff">
+            <div class="part1" style="background: #fff;border-top:0px">
+                <div class="flex-row" style="padding:.2rem .2rem 0">
+                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                     font-weight:bold;">新品推荐</div>
-                        <div class="flex-col"></div>
-                        <div class="px14 color_73">更多 》</div>
-                    </div>
-                    <div class="ds-list">
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" onclick="showzx()" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">更多 》</div>
                 </div>
-                <div class="div-h-2" style="background:#fff"></div>
+                <div class="ds-list">
+                    @if (listNew != null && listNew.Count > 0)
+                    {
+                        foreach (ProductEntity entity in listNew)
+                        {
+                            <div class="ds-item">
+                                <a href="/@(entity.ProductID).html">
+                                    <div class="pimg" style="background:url(@entity.Images)"></div>
+                                </a>
+                                <div class="flex-row" style="flex-direction: column">
+                                    <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
+                                        <div class="flex-col t1 clamp1">【@entity.ProductName】</div>
+                                        <img class="bt-zx" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
+                                    </div>
+
+                                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                        <div class="t2 clamp1 flex-col">编号：@entity.ProductID</div>
+                                        <div class="t2 clamp1 flex-col">作者：@entity.Author</div>
+                                    </div>
+
+                                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                        <div class="t2 clamp1 flex-col">器形：@entity.Type3</div>
+                                        <div class="t2 clamp1 flex-col">釉色：@entity.Type2</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="div-h-2" style="background:#fff"></div>
+        </div>
+
+        <div class="flex-col mar-l-20" style="background:#fff">
+            <div class="part1" style="background: #fff;border-top:0px">
+                <div class="flex-row" style="padding:.2rem .2rem 0">
+                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
+                                font-weight:bold;">新品推荐</div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">更多 》</div>
+                </div>
+                <div class="ds-list">
+                    @if (listHot != null && listHot.Count > 0)
+                    {
+                        foreach (ProductEntity entity in listHot)
+                        {
+                            <div class="ds-item">
+                                <a href="/@(entity.ProductID).html">
+                                    <div class="pimg" style="background:url(@entity.Images)"></div>
+                                </a>
+                                <div class="flex-row" style="flex-direction: column">
+                                    <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
+                                        <div class="flex-col t1 clamp1">【@entity.ProductName】</div>
+                                        <img class="bt-zx" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')"  src="/source/static/images/jianzhan_0509/ds_zx.png">
+                                    </div>
+
+                                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                        <div class="t2 clamp1 flex-col">编号：@entity.ProductID</div>
+                                        <div class="t2 clamp1 flex-col">作者：@entity.Author</div>
+                                    </div>
+
+                                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                        <div class="t2 clamp1 flex-col">器形：@entity.Type3</div>
+                                        <div class="t2 clamp1 flex-col">釉色：@entity.Type2</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="div-h-2" style="background:#fff"></div>
+        </div>
+    </div>
+    <div class="div-h-4"></div>
+    <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
+    <div class="div-h-4"></div>
+    <div class="part1" style="background: #fff;border-top:0px">
+        <div class="flex-row" style="padding:.2rem .2rem 0">
+            <div class="px16" style="font-family:SourceHanSansCN-Bold;
+                                font-weight:bold;">名家名堂</div>
+            <div class="flex-col"></div>
+            <div class="px14 color_73">更多 》</div>
+        </div>
+        <div class="mj-list">
+            <div class="mj-item" style="height:4.5rem !important;margin-left:.2rem;margin-right:.2rem ">
+                <div class="pimg" style="height: 100%;background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
             </div>
 
-            <div class="flex-col mar-l-20" style="background:#fff">
-                <div class="part1" style="background: #fff;border-top:0px">
-                    <div class="flex-row" style="padding:.2rem .2rem 0">
-                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
+            @if (listArtisanProduct != null && listArtisanProduct.Count > 0)
+            {
+                foreach (ProductEntity entity in listArtisanProduct)
+                {
+                    <div class="mj-item">
+                        <a href="/@(entity.ProductID).html">
+                            <div class="pimg" style="background:url(@entity.Images)"></div>
+                        </a>
+                        <div class="flex-row" style="flex-direction: column">
+                            <div class="flex-col t1 clamp1">【@entity.ProductName】</div>
+                            <div class="t2 clamp1 flex-col">编号：@entity.ProductID</div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="div-h-2"></div>
+    </div>
+    <div class="div-h-4" style="background:#f7f7f7"></div>
+
+    <div class="flex-row" style="width:12rem">
+        <div class="flex-col" style="background:#fff">
+            <div class="part1" style="background: #fff;border-top:0px">
+                <div class="flex-row" style="padding:.2rem .2rem 0">
+                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
+                                    font-weight:bold;">新品推荐</div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">更多 》</div>
+                </div>
+                <div class="ds-list">
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/ys1.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【兔毫】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【曜变】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【曜变】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【曜变】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+            <div class="div-h-2" style="background:#fff"></div>
+        </div>
+
+        <div class="flex-col mar-l-20" style="background:#fff">
+            <div class="part1" style="background: #fff;border-top:0px">
+                <div class="flex-row" style="padding:.2rem .2rem 0">
+                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">新品推荐</div>
-                        <div class="flex-col"></div>
-                        <div class="px14 color_73">更多 》</div>
-                    </div>
-                    <div class="ds-list">
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">更多 》</div>
+                </div>
+                <div class="ds-list">
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/b.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【敞口盏】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
                             </div>
+                            <div class="t3">详情</div>
                         </div>
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
+                    </a>
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/a.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【敛口盏】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
                             </div>
+                            <div class="t3">详情</div>
                         </div>
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
+                    </a>
 
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/b.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【敞口盏】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
                             </div>
+                            <div class="t3">详情</div>
                         </div>
-                        <div class="ds-item">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
+                    </a>
+                    <a href="#" class="qxys-item flex-row">
+                        <img src="/source/static/images/jianzhan_0509/b.png" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【敞口盏】</div>
+                            <div class="t2 clamp2">
+                                简介：在黑色釉中透露出均...
                             </div>
+                            <div class="t3">详情</div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="div-h-2" style="background:#fff"></div>
             </div>
         </div>
-        <div class="div-h-4"></div>
-        <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
-        <div class="div-h-4"></div>
-        <div class="part1" style="background: #fff;border-top:0px">
-            <div class="flex-row" style="padding:.2rem .2rem 0">
+    </div>
+    <div class="div-h-4"></div>
+    <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
+    <div class="div-h-4"></div>
+    <div class="flex-row" style="width:12rem">
+        <div class="flex-col" style="background:#fff">
+            <div class="part1" style="background: #fff;border-top:0px">
+                <div class="flex-row" style="padding:.2rem .2rem 0">
+                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
+                                font-weight:bold;">大师推荐</div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">更多 》</div>
+                </div>
+                <div class="ds-list">
+                    @if (listDSTJ != null && listDSTJ.Count > 0)
+                    {
+                        foreach (ProductEntity entity in listDSTJ)
+                        {
+                            <div class="ds-item" style="width:2.75rem;height:3.22rem&quot;">
+                                <a href="/@(entity.ProductID).html">
+                                    <div class="pimg" style="background:url(@entity.Images)"></div>
+                                </a>
+                                <div class="flex-row" style="flex-direction: column">
+                                    <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
+                                        <div class="flex-col t1 clamp1">【@entity.ProductName】</div>
+                                        <img class="bt-zx" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
+                                    </div>
+
+                                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                        <div class="t2 clamp1 flex-col">编号：@entity.ProductID</div>
+                                        <div class="t2 clamp1 flex-col">作者：@entity.Author</div>
+                                    </div>
+
+                                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                        <div class="t2 clamp1 flex-col">器形：@entity.Type3</div>
+                                        <div class="t2 clamp1 flex-col">釉色：@entity.Type2</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="div-h-2" style="background:#fff"></div>
+        </div>
+    </div>
+    <div class="div-h-4"></div>
+    <!-- 建盏学院/专题推荐 -->
+    <div class="flex-row">
+        <div style="width:3.17rem;background: #fff;height: 3.53rem">
+            <div class="flex-row" style="padding:.2rem .2rem 0;background: #fafafe;padding-bottom: .2rem">
                 <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                font-weight:bold;">名家名堂</div>
+                            font-weight:bold;">建盏学院</div>
                 <div class="flex-col"></div>
                 <div class="px14 color_73">更多 》</div>
             </div>
-            <div class="mj-list">
-                <div class="mj-item" style="height:4.5rem !important;margin-left:.2rem;margin-right:.2rem ">
-                    <div class="pimg" style="height: 100%;background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
+            <div class="jz-list">
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
-
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-        </div>
-        <div class="div-h-4" style="background:#f7f7f7"></div>
-
-        <div class="flex-row" style="width:12rem">
-            <div class="flex-col" style="background:#fff">
-                <div class="part1" style="background: #fff;border-top:0px">
-                    <div class="flex-row" style="padding:.2rem .2rem 0">
-                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                    font-weight:bold;">新品推荐</div>
-                        <div class="flex-col"></div>
-                        <div class="px14 color_73">更多 》</div>
-                    </div>
-                    <div class="ds-list">
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/ys1.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【兔毫】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【曜变】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【曜变】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【曜变】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
-                <div class="div-h-2" style="background:#fff"></div>
-            </div>
-
-            <div class="flex-col mar-l-20" style="background:#fff">
-                <div class="part1" style="background: #fff;border-top:0px">
-                    <div class="flex-row" style="padding:.2rem .2rem 0">
-                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                font-weight:bold;">新品推荐</div>
-                        <div class="flex-col"></div>
-                        <div class="px14 color_73">更多 》</div>
-                    </div>
-                    <div class="ds-list">
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/b.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【敞口盏】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/a.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【敛口盏】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/b.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【敞口盏】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-                        <a href="#" class="qxys-item flex-row">
-                            <img src="/source/static/images/jianzhan_0509/b.png" alt="">
-                            <div class="flex-col">
-                                <div class="t1 clamp1">【敞口盏】</div>
-                                <div class="t2 clamp2">
-                                    简介：在黑色釉中透露出均...
-                                </div>
-                                <div class="t3">详情</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="div-h-2" style="background:#fff"></div>
+                <div class="jz-cell">
+                    · 容易 “中毒” 的紫砂壶？
                 </div>
             </div>
         </div>
-        <div class="div-h-4"></div>
-        <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
-        <div class="div-h-4"></div>
-        <div class="flex-row" style="width:12rem">
-            <div class="flex-col" style="background:#fff">
-                <div class="part1" style="background: #fff;border-top:0px">
-                    <div class="flex-row" style="padding:.2rem .2rem 0">
-                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                font-weight:bold;">大师推荐</div>
-                        <div class="flex-col"></div>
-                        <div class="px14 color_73">更多 》</div>
-                    </div>
-                    <div class="ds-list">
-                        <div class="ds-item" style="width:2.75rem;height:3.22rem&quot;">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
 
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ds-item" style="width:2.75rem;height:3.22rem&quot;">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ds-item" style="width:2.75rem;height:3.22rem&quot;">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ds-item" style="width:2.75rem;height:3.22rem&quot;">
-                            <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                            <div class="flex-row" style="flex-direction: column">
-                                <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
-                                    <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                                    <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">编号：67047</div>
-                                    <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                                </div>
-
-                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                    <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                                    <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-h-2" style="background:#fff"></div>
-            </div>
-        </div>
-        <div class="div-h-4"></div>
-        <!-- 建盏学院/专题推荐 -->
-        <div class="flex-row">
-            <div style="width:3.17rem;background: #fff;height: 3.53rem">
-                <div class="flex-row" style="padding:.2rem .2rem 0;background: #fafafe;padding-bottom: .2rem">
-                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                            font-weight:bold;">建盏学院</div>
-                    <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
-                </div>
-                <div class="jz-list">
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                    <div class="jz-cell">
-                        · 容易 “中毒” 的紫砂壶？
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex-col mar-l-20" style="width:8.63rem;background: #fff">
-                <div class="flex-row" style="padding:.2rem .2rem 0;background: #fff;padding-bottom: .2rem">
-                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
+        <div class="flex-col mar-l-20" style="width:8.63rem;background: #fff">
+            <div class="flex-row" style="padding:.2rem .2rem 0;background: #fff;padding-bottom: .2rem">
+                <div class="px16" style="font-family:SourceHanSansCN-Bold;
                             font-weight:bold;">专题推荐</div>
-                    <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
-                </div>
-                <div class="div-h-1"></div>
-                <div class="swiper_container_suz2 swiper-container-horizontal" id="pb2">
-                    <div class="swiper-wrapper" style="transform: translate3d(-624.75px, 0px, 0px); transition-duration: 0ms;">
-                        <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div><div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div>
-                        <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="0" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div>
-                        <div class="swiper-slide swiper-slide-next" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div>
-                        <div class="swiper-slide" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div>
-                        <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
-                            <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                        </div>
-                    </div>
-                    <div id="snext" class="swiper-button-next"></div>
-                    <div id="sprev" class="swiper-button-prev"></div>
-                </div>
+                <div class="flex-col"></div>
+                <div class="px14 color_73">更多 》</div>
             </div>
-        </div>
-        <div class="div-h-4"> </div>
-        <div class="flex-row" style="width:12rem">
-            <div class="flex-col" style="background:#fff">
-                <div class="part1" style="background: #fff;border-top:0px">
-                    <div class="flex-row" style="padding:.2rem .2rem 0">
-                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                font-weight:bold;">连锁门店</div>
-
-                        <div class="px14" style="margin-left:.4rem">厦门点</div>
-                        <div class="shux"></div>
-                        <div class="px14">北京店</div>
-                        <div class="shux"></div>
-                        <div class="px14">武夷山店</div>
-                        <div class="flex-col"></div>
-                        <div class="px14 color_73">更多 》</div>
+            <div class="div-h-1"></div>
+            <div class="swiper_container_suz2 swiper-container-horizontal" id="pb2">
+                <div class="swiper-wrapper" style="transform: translate3d(-624.75px, 0px, 0px); transition-duration: 0ms;">
+                    <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                    </div><div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
                     </div>
-                    <div class="flex-row">
-                        <div style="width:5.39rem;height: 4.52rem;padding: .2rem 0 .2rem .2rem">
-                            <div style="height:auto; padding: .3rem;background: #f7f7f7">
-                                <div class="px16 color_57">客服：13888888888（xx）</div>
-                                <div class="px16 color_57 mar-t-1" id="address" style="line-height:.4rem">
-                                    地址：厦门市思明区台东路66号宝业营运中心705室
-                                </div>
-                                <div class="px16 color_57 mar-t-1">时间：周一至周日（9.30-18.30) </div>
-                                <div class="px16 color_57 mar-t-1" style="">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（其他时间请提前联系我们）
-                                </div>
-                                <div class="div-h-2"></div>
-                                <div class="flex-row " style="bottom: 0;height: .45rem;text-align: center;align-items: center;border-top: 1px solid #f6f6f6;width: 100%;z-index: 99;">
-                                    <div class="flex-col searchzx" style="background: #f7f7f7;height: .45rem;border: 1px solid #e6e6e6;">
-                                        <input style="height: 95%;width: 90%; background: #f7f7f7" class="px16 pad-l-20" type="text" placeholder="请输入手机号码咨询详情">
-                                    </div>
-                                    <div class="ssbtnzx px16" style="height: .45rem;margin-left: .12rem;width:1.34rem;line-height: .45rem">
-                                        立即咨询
-                                    </div>
-                                </div>
-                                <div class="flex-row" style="text-align: center; padding-top: .3rem">
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/2.png">
-                                            <div class="px13 clamp1 pad-t-20">厂家直销</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/6.png">
-                                            <div class="px13 clamp1 pad-t-20">一手资源</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/7.png">
-                                            <div class="px13 clamp1 pad-t-20">原矿建盏</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/5.png">
-                                            <div class="px13 clamp1 pad-t-20">破损补发</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-row pad-b-40 " style="text-align: center;padding-top: .3rem">
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/4.png">
-                                            <div class="px13 clamp1 pad-t-20">免费拿样</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/8.png">
-                                            <div class="px13 clamp1 pad-t-20">专业品牌</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/3.png">
-                                            <div class="px13 clamp1 pad-t-20">来样定制</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-col">
-                                        <div style="margin: 0 .1rem">
-                                            <img class="ic_42" src="/source/static/images/jianzhan_0509/1.png">
-                                            <div class="px13 clamp1 pad-t-20">15天退换</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex-col">
-
-                            <div id="storeswiper0" class="swiper-container storedp swiper-container-horizontal" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
-                                <div class="swiper-wrapper" style="transform: translate3d(-1863px, 0px, 0px); transition-duration: 0ms;">
-                                    <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="1" style="width: 621px;">
-                                        <img id="lunbo2" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN2.png">
-                                    </div>
-                                    <div class="swiper-slide" data-swiper-slide-index="0" style="width: 621px;">
-                                        <img id="lunbo1" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN1.png">
-                                    </div>
-                                    <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="1" style="width: 621px;">
-                                        <img id="lunbo2" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN2.png">
-                                    </div>
-                                    <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="0" style="width: 621px;">
-                                        <img id="lunbo1" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN1.png">
-                                    </div>
-                                </div>
-                                <div id="dpnext" class="swiper-button-next"></div>
-                                <div id="dpprev" class="swiper-button-prev"></div>
-                            </div>
-
-                        </div>
+                    <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="0" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                    </div>
+                    <div class="swiper-slide swiper-slide-next" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                    </div>
+                    <div class="swiper-slide" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                    </div>
+                    <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                    </div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
                     </div>
                 </div>
-                <div class="div-h-2" style="background:#fff"></div>
+                <div id="snext" class="swiper-button-next"></div>
+                <div id="sprev" class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
+    <div class="div-h-4"> </div>
+    <div class="flex-row" style="width:12rem">
+        <div class="flex-col" style="background:#fff">
+            <div class="part1" style="background: #fff;border-top:0px">
+                <div class="flex-row" style="padding:.2rem .2rem 0">
+                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
+                                font-weight:bold;">连锁门店</div>
+
+                    <div class="px14" style="margin-left:.4rem">厦门点</div>
+                    <div class="shux"></div>
+                    <div class="px14">北京店</div>
+                    <div class="shux"></div>
+                    <div class="px14">武夷山店</div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">更多 》</div>
+                </div>
+                <div class="flex-row">
+                    <div style="width:5.39rem;height: 4.52rem;padding: .2rem 0 .2rem .2rem">
+                        <div style="height:auto; padding: .3rem;background: #f7f7f7">
+                            <div class="px16 color_57">客服：13888888888（xx）</div>
+                            <div class="px16 color_57 mar-t-1" id="address" style="line-height:.4rem">
+                                地址：厦门市思明区台东路66号宝业营运中心705室
+                            </div>
+                            <div class="px16 color_57 mar-t-1">时间：周一至周日（9.30-18.30) </div>
+                            <div class="px16 color_57 mar-t-1" style="">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（其他时间请提前联系我们）
+                            </div>
+                            <div class="div-h-2"></div>
+                            <div class="flex-row " style="bottom: 0;height: .45rem;text-align: center;align-items: center;border-top: 1px solid #f6f6f6;width: 100%;z-index: 99;">
+                                <div class="flex-col searchzx" style="background: #f7f7f7;height: .45rem;border: 1px solid #e6e6e6;">
+                                    <input style="height: 95%;width: 90%; background: #f7f7f7" class="px16 pad-l-20" type="text" placeholder="请输入手机号码咨询详情">
+                                </div>
+                                <div class="ssbtnzx px16" style="height: .45rem;margin-left: .12rem;width:1.34rem;line-height: .45rem">
+                                    立即咨询
+                                </div>
+                            </div>
+                            <div class="flex-row" style="text-align: center; padding-top: .3rem">
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/2.png">
+                                        <div class="px13 clamp1 pad-t-20">厂家直销</div>
+                                    </div>
+                                </div>
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/6.png">
+                                        <div class="px13 clamp1 pad-t-20">一手资源</div>
+                                    </div>
+                                </div>
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/7.png">
+                                        <div class="px13 clamp1 pad-t-20">原矿建盏</div>
+                                    </div>
+                                </div>
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/5.png">
+                                        <div class="px13 clamp1 pad-t-20">破损补发</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-row pad-b-40 " style="text-align: center;padding-top: .3rem">
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/4.png">
+                                        <div class="px13 clamp1 pad-t-20">免费拿样</div>
+                                    </div>
+                                </div>
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/8.png">
+                                        <div class="px13 clamp1 pad-t-20">专业品牌</div>
+                                    </div>
+                                </div>
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/3.png">
+                                        <div class="px13 clamp1 pad-t-20">来样定制</div>
+                                    </div>
+                                </div>
+                                <div class="flex-col">
+                                    <div style="margin: 0 .1rem">
+                                        <img class="ic_42" src="/source/static/images/jianzhan_0509/1.png">
+                                        <div class="px13 clamp1 pad-t-20">15天退换</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-col">
+
+                        <div id="storeswiper0" class="swiper-container storedp swiper-container-horizontal" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
+                            <div class="swiper-wrapper" style="transform: translate3d(-1863px, 0px, 0px); transition-duration: 0ms;">
+                                <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="1" style="width: 621px;">
+                                    <img id="lunbo2" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN2.png">
+                                </div>
+                                <div class="swiper-slide" data-swiper-slide-index="0" style="width: 621px;">
+                                    <img id="lunbo1" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN1.png">
+                                </div>
+                                <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="1" style="width: 621px;">
+                                    <img id="lunbo2" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN2.png">
+                                </div>
+                                <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="0" style="width: 621px;">
+                                    <img id="lunbo1" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN1.png">
+                                </div>
+                            </div>
+                            <div id="dpnext" class="swiper-button-next"></div>
+                            <div id="dpprev" class="swiper-button-prev"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="div-h-2" style="background:#fff"></div>
+        </div>
+    </div>
+</div>

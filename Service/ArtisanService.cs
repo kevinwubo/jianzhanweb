@@ -126,7 +126,7 @@ namespace Service
             return new ArtisanRepository().GetArtisanCount(artisantype, artisanname);
         }
 
-        public static List<ArtisanEntity> GetArtisanInfoPager(PagerInfo pager)
+        public static List<ArtisanEntity> GetArtisanInfoPager(PagerInfo pager,int count=3)
         {
             List<ArtisanEntity> all = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
@@ -141,14 +141,14 @@ namespace Service
             {
                 foreach (ArtisanInfo mInfo in miList)
                 {
-                    ArtisanEntity carEntity = TranslateArtisanEntity(mInfo, true);
+                    ArtisanEntity carEntity = TranslateArtisanEntity(mInfo, true, count);
                     all.Add(carEntity);
                 }
             }
             return all;
         }
 
-        public static List<ArtisanEntity> GetAllArtisanInfoByRule(string artisantype, string artisanname, PagerInfo pager)
+        public static List<ArtisanEntity> GetAllArtisanInfoByRule(string artisantype, string artisanname, PagerInfo pager, int count = 3)
         {
             List<ArtisanEntity> all = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
@@ -163,7 +163,7 @@ namespace Service
             {
                 foreach (ArtisanInfo mInfo in miList)
                 {
-                    ArtisanEntity storeEntity = TranslateArtisanEntity(mInfo, true);
+                    ArtisanEntity storeEntity = TranslateArtisanEntity(mInfo, true,count);
                     all.Add(storeEntity);
                 }
             }

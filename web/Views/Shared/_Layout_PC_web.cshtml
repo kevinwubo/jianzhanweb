@@ -118,12 +118,12 @@
                     <div class="div-h-1"></div>
                     <div class="flex-row" style="height: .75rem;padding: 0 .3rem">
                         <div class="flex-col">
-                            <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
-                            <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
+                            <div style="height:.375rem;line-height: .375rem;text-align: left">编号：<label id="lb_ProductID"/></div>
+                            <div style="height:.375rem;line-height: .375rem;text-align: left">作者：<label id="lb_ProductName" /></div>
                         </div>
                         <div class="flex-col">
-                            <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
-                            <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
+                            <div style="height:.375rem;line-height: .375rem;text-align: left">器型：<label id="lb_Type3" /></div>
+                            <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：<label id="lb_Type2"/></div>
                         </div>
                     </div>
                     <div class="div-h-1"></div>
@@ -132,7 +132,7 @@
 
                     <div class="flex-row" style="align-items: center">
                         <img src="/source/static/images/pc/zxphone.png" alt="">
-                        <input class="flex-col" style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" placeholder="请输入您的名称">
+                        <input class="flex-col" style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" placeholder="请输入您的手机号">
                         <div style="width:.2rem"></div>
                     </div>
 
@@ -141,7 +141,7 @@
                     <div class="flex-row" style="align-items: center">
                         <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" placeholder="请输入您的称呼">
                         <div class="input_radio" style="margin-left:.2rem">
-                            <input type="radio" name="item" value="先生">
+                            <input type="radio" checked="checked" name="item" value="先生">
                             <label>先生</label>
                         </div>
                         <div class="input_radio" style="margin-left:.2rem">
@@ -151,7 +151,7 @@
                     </div>
                     <div class="div-h-2"></div>
 
-                    <div style="margin-left: .7rem;width:1.9rem;height:.4rem;background: #B32735;color:#fff;line-height: .4rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即咨询</div>
+                    <div id="btn_zixun" style="margin-left: .7rem;width:1.9rem;height:.4rem;background: #B32735;color:#fff;line-height: .4rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即咨询</div>
 
                 </div>
             </div>
@@ -273,20 +273,74 @@
     </div>
     <script src="/source/static/js/jquery-2.1.4.js"></script>
     <script src="/source/static/js/jquery-weui.js"></script>
-    <script src="/source/static/js/jquery.pagination.js"></script>
+    @*<script src="/source/static/js/jquery.pagination.js"></script>*@
     <script src="/source/static/js/utils.js"></script>
     <script src="/source/static/js/showdiv.js"></script>
     <script src="/source/static/js/swiper.js"></script>
     <script>
-        function showzx(productid, productname) {
+        function showzx(productid, productname, type3, type2) {
             utils.toggleBody(1)
+            $("#lb_ProductID").text(productid);
+            $("#lb_ProductName").text(productname);
+            $("#lb_Type3").text(type3);
+            $("#lb_Type2").text(type2);
             $('#tixing').show()
         }
+        $("#btn_zixun").click(function () {
+            var Telephone = $("#txt_telephone").val();
+            var ProductID = $("#Hid_ProductID").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID, "", "");
+        })
+
+        function ZiXun(Telephone, ProductID, ContactName, WxChartID) {
+            $.ajax({
+                url: "/WebHome/CreateInquiry",
+                type: 'POST',
+                async: false,
+                data: {
+                    telephone: Telephone,
+                    productID: ProductID,
+                    sourceform: "MB"
+                },
+                success: function (data) {
+                    alert(data);
+                    $("#txt_telephone").val("");
+                    $("#Hid_ProductID").val("");
+                }
+            });
+        }
+
+        $("#LJTJ_ZiXun").click(function () {
+            var Telephone = $("#txt_telephone").val();
+            var ProductID = 0;
+            var ContactName = $("#txt_ContactName").val();
+            var WxChartID = $("#txt_WxChartID").val();
+            var Content = $("#txt_Content").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID, ContactName, WxChartID);
+
+        })
+        
     </script>
     <script>
-        $('.M-box').pagination({
-            mode: 'fixed'
-        });
+        //$('.M-box').pagination({
+        //    mode: 'fixed'
+        //});
 
         function hideTiXing() {
             $('#tixing').hide()

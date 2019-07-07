@@ -1,14 +1,27 @@
-﻿@{
-    ViewBag.Title = "jingdiandetail";
-    Layout = "/Views/Shared/_Layout_PC_web.cshtml";  
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_jingdiandetail";
+    Layout = "~/Views/Shared/_Layout_PC_web.cshtml";
+
+    ArtisanEntity entity = (ArtisanEntity)ViewBag.ArtisanModel;
+    List<ProductEntity> listPro = (List<ProductEntity>)ViewBag.listHot;
+    List<ProductEntity> listTJ = (List<ProductEntity>)ViewBag.listTJ;
 }
+
+
+
 
 <head>
     <meta charset="utf-8">
-    <meta content="小匠专场拍卖" http-equiv="keywords">
-    <meta name="description" content="小匠专场拍卖">
+    @if (entity != null)
+    {
+        <title>建盏名家大师【@entity.artisanName 】 - 建盏天下网</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="建盏名家,建盏老师,@entity.artisanName ,建盏品牌" />
+        <meta name="Description" content="【@entity.artisanName】@(StringHelper.NoHTML(entity.introduction))" />
+    }
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>名家</title>
     <!--<link rel="stylesheet" href="/source/css/register/base.css" type="text/css">-->
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
@@ -28,61 +41,63 @@
 
     <div class="flex-row" style="align-items: center;padding: 0 .2rem">
         <div class="flex-col p6-item  p6-item-act">
-            学院首页
+            <a href="/WebHomePC/college">学院首页</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            新闻资讯
+            <a href="/WebHomePC/collegelist?category_id=1">新闻资讯</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            实拍行情
+            <a href="/WebHomePC/collegelist?category_id=3">实拍行情</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            建盏工艺
+            <a href="/WebHomePC/collegelist?category_id=5">建盏工艺</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            百科知识
+            <a href="/WebHomePC/collegelist?category_id=6">百科知识</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            选盏技巧
+            <a href="/WebHomePC/collegelist?category_id=7">选盏技巧</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            文化历史
+            <a href="/WebHomePC/collegelist?category_id=8">文化历史</a>
         </div>
     </div>
     <!-- <img src="/source/static//images/pc/5_top_line.png" alt=""> -->
 
     <div class="flex-row jz-body">
         <div class="right flex-col">
-            <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff;">
-                <div class="px18" style="font-family:SourceHanSansCN-Bold;
+            @if (entity != null)
+            {
+                <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff;">
+                    <div class="px18" style="font-family:SourceHanSansCN-Bold;
                                                             font-weight:bold;"><span style="color:#B32735">釉色</span>·赏析</div>
-                <div class="flex-col"></div>
-                <div class="px14 color_73">MORE 》</div>
-            </div>
-            <img src="/source/static//images/pc/6_top_line.png" alt="">
-            <a class="flex-row" style="padding: .2rem 0;
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">MORE 》</div>
+                </div>
+                <img src="/source/static//images/pc/6_top_line.png" alt="">
+                <a class="flex-row" style="padding: .2rem 0;
                     border-bottom: #eee solid 0px;">
-                <div style="width: 3rem;height: 3rem;position: relative;background: #fff">
-                    <img style="margin:.07rem;height:2.86rem;width:2.86rem" src="/source/static/images/jianzhan_0509/ys1.png" alt="">
-                </div>
-                <div style="width:.28rem"></div>
-                <div class="flex-col">
-                    <div class="color_3" style="font-size:21px">兔毫.简介</div>
-                    <div class="div-h-1"></div>
-                    <div style="height:1px;background:#aaa;"></div>
-                    <div class="div-h-1"></div>
-                    <div style="line-height:.35rem;position: relative;font-size: .15rem;color: #666">
-                        1945年出生于美丽的厦门鼓浪屿，中国国家工艺师，中国古代陶瓷 研究会会员。以其陶瓷 研究会会员。以其手艺超凡，作品表现陶瓷 研究会会员。以其手艺超凡，作品表现陶瓷 研究会会员。以其手艺超凡，作品表现陶瓷 研究会会员。以其手艺超凡，作品表现手艺超凡，作品表现力极强，业内
+                    <div style="width: 3rem;height: 3rem;position: relative;background: #fff">
+                        <img style="margin:.07rem;height:2.86rem;width:2.86rem" src="@entity.IDHead" alt="">
                     </div>
-                </div>
-            </a>
-
+                    <div style="width:.28rem"></div>
+                    <div class="flex-col">
+                        <div class="color_3" style="font-size:21px">兔毫.简介</div>
+                        <div class="div-h-1"></div>
+                        <div style="height:1px;background:#aaa;"></div>
+                        <div class="div-h-1"></div>
+                        <div style="line-height:.35rem;position: relative;font-size: .15rem;color: #666">
+                            @Html.Raw(entity.DetailedIntroduction)
+                        </div>
+                    </div>
+                </a>
+            }
 
             <div class="div-h-4"></div>
             <!-- 热门建盏 -->
@@ -95,222 +110,40 @@
             <div style="height:2px;background:#333;"></div>
             <div class="div-h-1"></div>
             <div class="cell-list">
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
+                @if (listPro != null && listPro.Count > 0)
+                {
+                    foreach (ProductEntity item in listPro)
+                    {
+                        <a class="li">
+                            <div class="div-h-2"></div>
+                            <div class="px16 color_7 texta-c actcolor">NO:@item.ProductID</div>
+                            <img src="@item.Images" alt="">
+                            <div class="div-h-1"></div>
+                            <div class="px16 color_7 texta-c">@item.ProductName</div>
+                            <div class="div-h-1"></div>
+                            <div class="px13 color_7 flex-row">
+                                <div class="flex-col texta-c">
+                                    器形:@item.Type3
+                                </div>
+                                <div class="flex-col texta-c">
+                                    釉色:@item.Type2
+                                </div>
+                            </div>
+                            <div class="div-h-1"></div>
+                            <div class="px13 color_7 flex-row">
+                                <div class="flex-col texta-c">
+                                    口径:@item.Volume
+                                </div>
+                                <div class="flex-col texta-c">
+                                    作者:@item.Author
+                                </div>
+                            </div>
+                            <div class="div-h-2"></div>
+                            <div class="zxbt-big" onclick="javascript:showzx('@item.ProductID','@item.ProductName','@item.Type3','@item.Type2')">点击咨询</div>
+                        </a>
+
+                    }
+                }
             </div>
             <!-- 留言评论 -->
             <!-- <div class="flex-row" style="border: 1px #bbb solid;background:#fff;height: 4rem;padding: .35rem .66rem;align-items: center">
@@ -377,63 +210,32 @@
                 <div class="flex-col"></div>
                 <div class="px14 color_73">MORE 》</div>
             </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">陈大鹏  中国国家工艺师</div>
-                        <!-- <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png"> -->
+            @if (listTJ != null && listTJ.Count > 0)
+            {
+                foreach (ProductEntity entityPro in listTJ)
+                {
+                    <div class="div-h-2"></div>
+                    <div class="ds-item">
+                        <div class="pimg" style="background:url(@entityPro.Images)"></div>
+                        <div class="flex-row" style="flex-direction: column">
+                            <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
+                                <div class="flex-col t1 clamp1">【@entityPro.ProductName】</div>
+                                <img class="bt-zx" onclick="javascript:showzx('@entityPro.ProductID','@entityPro.ProductName','@entityPro.Type3','@entityPro.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
+                            </div>
+
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">编号：@entityPro.ProductID</div>
+                                <div class="t2 clamp1 flex-col">作者：@entityPro.Author</div>
+                            </div>
+
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">器形：@entityPro.Type3</div>
+                                <div class="t2 clamp1 flex-col">釉色：@entityPro.Type2</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dst4 clamp2">
-                        兔毫盏是宋朝建窑最具代兔毫盏是宋朝建窑最具代表的具代表的具代 密的筋脉，因具代表的具代具代表 的具代...
-                    </div>
-                    <div class="dst3">【查看详情】</div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">陈大鹏  中国国家工艺师</div>
-                        <!-- <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png"> -->
-                    </div>
-                    <div class="dst4 clamp2">
-                        兔毫盏是宋朝建窑最具代兔毫盏是宋朝建窑最具代表的具代表的具代 密的筋脉，因具代表的具代具代表 的具代...
-                    </div>
-                    <div class="dst3">【查看详情】</div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">陈大鹏  中国国家工艺师</div>
-                        <!-- <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png"> -->
-                    </div>
-                    <div class="dst4 clamp2">
-                        兔毫盏是宋朝建窑最具代兔毫盏是宋朝建窑最具代表的具代表的具代 密的筋脉，因具代表的具代具代表 的具代...
-                    </div>
-                    <div class="dst3">【查看详情】</div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">陈大鹏  中国国家工艺师</div>
-                        <!-- <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png"> -->
-                    </div>
-                    <div class="dst4 clamp2">
-                        兔毫盏是宋朝建窑最具代兔毫盏是宋朝建窑最具代表的具代表的具代 密的筋脉，因具代表的具代具代表 的具代...
-                    </div>
-                    <div class="dst3">【查看详情】</div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
+                }
+            }
         </div>
     </div>
     <div class="div-h-4"></div>

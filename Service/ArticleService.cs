@@ -63,6 +63,28 @@ namespace Service
             return type;
         }
 
+
+        public static List<ArticleEntity> GetAllArticleInfoByCategoryID(int category_id,int count)
+        {
+            List<ArticleEntity> all = new List<ArticleEntity>();
+            ArticleRepository mr = new ArticleRepository();
+            List<ArticleInfo> miList = Cache.Get<List<ArticleInfo>>("GetAllArticleInfoByCategoryID" + category_id + count);
+            if (miList.IsEmpty())
+            {
+                miList = mr.GetAllArticleInfoByCategoryID(category_id, count);
+                Cache.Add("GetAllArticleInfoByCategoryID" + category_id + count, miList);
+            }
+            if (!miList.IsEmpty())
+            {
+                foreach (ArticleInfo mInfo in miList)
+                {
+                    ArticleEntity carEntity = TranslateArticleEntity(mInfo);
+                    all.Add(carEntity);
+                }
+            }
+            return all;
+        }
+
         #region 分页相关
         public static int GetArticleCount(int category_id)
         {

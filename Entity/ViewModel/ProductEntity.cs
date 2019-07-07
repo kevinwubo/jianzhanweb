@@ -127,6 +127,7 @@ namespace Entity.ViewModel
         /// </summary>
         public List<string> lstImages { get; set; }
 
+        public List<string> lstImagesUrl { get; set; }
 
         /// <summary>
         /// 添加时间

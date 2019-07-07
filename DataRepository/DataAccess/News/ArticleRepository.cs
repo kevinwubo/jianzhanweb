@@ -20,7 +20,40 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@id", DbType.String, id);
             result = command.ExecuteEntity<ArticleInfo>();
             return result;
-        }   
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category_id"></param>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public List<ArticleInfo> GetAllArticleInfoByCategoryID(int category_id, int count)
+        {
+            List<ArticleInfo> result = new List<ArticleInfo>();
+
+
+            StringBuilder builder = new StringBuilder();
+
+            if (category_id > 0)
+            {
+                builder.Append(" AND category_id=@category_id ");
+            }
+            string sql = string.Format(ArticleSatement.GetArticleByCategoryID, "");
+            if (count > 0)
+            {
+                sql = string.Format(ArticleSatement.GetArticleByCategoryID, " TOP " + count);
+            }
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql + " Order By add_time desc ", "Text"));
+
+            if (category_id > 0)
+            {
+                command.AddInputParameter("@category_id", DbType.Int32, category_id);
+            }
+
+            result = command.ExecuteEntityList<ArticleInfo>();
+            return result;
+        }
+
 
 
         #region 分页方法

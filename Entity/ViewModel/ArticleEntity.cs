@@ -44,6 +44,7 @@ namespace Entity.ViewModel
         /// 文章分类
         /// </summary>
         public string articleType { get; set; }
+        
     }
 
 

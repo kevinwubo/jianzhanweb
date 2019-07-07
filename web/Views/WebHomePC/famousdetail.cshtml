@@ -1,27 +1,37 @@
-﻿@{
-    ViewBag.Title = "famousdetail";
-    Layout = "/Views/Shared/_Layout_PC_web.cshtml";    
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_famousdetail";
+    Layout = "~/Views/Shared/_Layout_PC_web.cshtml";
+
+    ArtisanEntity entity = (ArtisanEntity)ViewBag.ArtisanModel;
+    List<ProductEntity> listHot = (List<ProductEntity>)ViewBag.listHot;
+    List<ProductEntity> listTJ = (List<ProductEntity>)ViewBag.listTJ;
 }
+
 
 <head>
     <meta charset="utf-8">
-    <meta content="小匠专场拍卖" http-equiv="keywords">
-    <meta name="description" content="小匠专场拍卖">
-    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>名家</title>
+    @if (entity != null)
+    {
+        <title>建盏名家大师【@entity.artisanName 】 - 建盏天下网</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="建盏名家,建盏老师,@entity.artisanName ,建盏品牌" />
+        <meta name="Description" content="【@entity.artisanName】@(StringHelper.NoHTML(entity.introduction))" />
+    }
     <!--<link rel="stylesheet" href="/source/css/register/base.css" type="text/css">-->
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/1906_pagination.css" type="text/css">
-    <link rel="stylesheet" href="/source/static/css/pc_famousdetail.css" type="text/css">    
+    <link rel="stylesheet" href="/source/static/css/pc_famousdetail.css" type="text/css">
 </head>
 
 
 <div class="body" style="margin-top:.25rem">
     <div class="flex-row">
-        <a href="">建盏商城</a>
-        <div>&nbsp; &gt;&nbsp; </div>
-        <a href="">孙建兴大师</a>
+        <a href="">名家名堂</a>
+        @*<div>&nbsp; &gt;&nbsp; </div>
+            <a href="">孙建兴大师</a>*@
     </div>
     <div class="div-h-2"></div>
     <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
@@ -29,354 +39,135 @@
     <img src="/source/static//images/pc/5_top_line.png" alt="">
 
     <div class="flex-row jz-body">
-        <div class="right flex-col">
-            <a class="flex-row" style="padding: .2rem 0;
+        @if (entity != null)
+        {
+            <div class="right flex-col">
+                <a class="flex-row" style="padding: .2rem 0;
                     border-bottom: #eee solid 0px;">
-                <div style="width: 3rem;height: 3rem;position: relative;background: #fff">
-                    <img style="margin:.07rem;height:2.86rem;width:2.86rem" src="/source/static/images/pc/jz1.png" alt="">
-                </div>
-                <div style="width:.28rem"></div>
-                <div class="flex-col">
-                    <div class="color_3" style="font-size:21px"> 陈大鹏简介</div>
+                    <div style="width: 3rem;height: 3rem;position: relative;background: #fff">
+                        <img style="margin:.07rem;height:2.86rem;width:2.86rem" src="@entity.IDHead" alt="">
+                    </div>
+                    <div style="width:.28rem"></div>
+                    <div class="flex-col">
+                        <div class="color_3" style="font-size:21px">@entity.artisanName</div>
+                        <div class="div-h-1"></div>
+                        <div style="height:1px;background:#aaa;"></div>
+                        <div class="div-h-1"></div>
+                        <div style="line-height:.29rem;position: relative;">
+                            @Html.Raw(entity.introduction)
+                        </div>
+                    </div>
+                </a>
+                <!-- 个人简介-->
+                <div class="about-wrap">
+                    <div class="color_3" style="font-size:21px">个人简介</div>
                     <div class="div-h-1"></div>
                     <div style="height:1px;background:#aaa;"></div>
-                    <div class="div-h-1"></div>
-                    <div style="line-height:.29rem;position: relative;">
-                        业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                        业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
+                    <div class="div-h-2"></div>
+                    <div class="about-con about-con1">
+                        <div class="fea-main" style="margin-top:0rem">
+                            @Html.Raw(entity.DetailedIntroduction)
+                        </div>
                     </div>
+                    <div class="close-all">收起全部</div>
                 </div>
-            </a>
-            <!-- 个人简介-->
-            <div class="about-wrap">
-                <div class="color_3" style="font-size:21px">个人简介</div>
-                <div class="div-h-1"></div>
-                <div style="height:1px;background:#aaa;"></div>
-                <div class="div-h-2"></div>
-                <div class="about-con about-con1">
-                    <div class="fea-main" style="margin-top:0rem">
-
-                        <h2>获奖</h2>
-                        <p>
-                            1983年，油滴黑釉瓷研制项目通过省级鉴定，获市科技成果
-                            一等奖、地区科技成果二等奖。
-                            1984年，仿宋油滴黑釉器获南平科技成果一等奖。
-                            1988年，仿宋油滴黑釉器项目获建阳地区一等奖；油滴建盏
-                            作品荣获中国工艺美术百花(珍品)金杯奖。
-                            1990年，仿宋银兔毫黑釉、方口钵作品获全省陶瓷评比优秀
-                            创作设计奖。
-                        </p>
-                        <h2>荣誉</h2>
-                        <p>
-                            1984年，2件仿宋瓷器入选中共中央“党的工作者代表团”访
-                            问罗马尼亚礼品，作为国礼赠送外宾。
-                            1985年，油滴黑釉瓷被选送香港与日本，参加中国陶瓷博览
-                            会与日本筑波国际博览会展览。
-                            1987年，油滴产品被选为国家科委出国访问礼物。
-                            1988年，油滴瓷器被国家南宋官窑博物馆、福建省博物馆和
-                            北京钓鱼台国家宾馆列为收藏品或陈列品。
-                            1990年，受中共南平市组织部评为“一级专业技术拔尖人才”
-                            荣誉称号。
-                            1997年，《油滴喇叭碗》、《鹧鸪斑建盏》入选中国当代陶
-                            艺展，作品被中华人民共和国文化部收藏。
-                            1999年，油滴喇叭碗入选中国现代美术全集《陶瓷》卷即《
-                            中国现代陶瓷艺术》第二卷。
-                            2001年，赴日本东京，参加由日本（NHK）放送协会、朝日
-                            新闻等联合赞助的中日陶瓷交流会。
-                            2002年，特邀参加日本青森县世界薪窑大会，作品被永久收
-                            藏。
-                        </p>
-                        <h2>盏天下点评</h2>
-                        <p>
-                            陈大鹏大师年事已高，对于研究兔毫天目、鹧鸪斑天目、
-                            乌金天目瓷已有40余载，作品个人风格强烈，获得荣誉奖项
-                            不计其数，是业内公认的资深建盏大师。其收藏价值不言而
-                            喻。
-                        </p>
-                    </div>
-                </div>
-                <div class="close-all">收起全部</div>
-            </div>
-            <div class="div-h-4"></div>
-            <!-- 热门建盏 -->
-            <div class="flex-row" style="padding:.2rem 0 .1rem;background: #fff;border-bottom: 1px #b3b3b3 solid">
-                <div style="font-size: .21rem;font-family:SourceHanSansCN-Bold;
+                <div class="div-h-4"></div>
+                <!-- 热门建盏 -->
+                <div class="flex-row" style="padding:.2rem 0 .1rem;background: #fff;border-bottom: 1px #b3b3b3 solid">
+                    <div style="font-size: .21rem;font-family:SourceHanSansCN-Bold;
                                         font-weight:bold;">热门建盏</div>
-                <div class="flex-col"></div>
-                <div class="px14 color_73">MORE 》</div>
-            </div>
-            <div style="height:2px;background:#333;"></div>
-            <div class="div-h-1"></div>
-            <div class="cell-list">
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-                <a class="li">
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-1"></div>
-                    <div class="px16 color_7 texta-c">杨义东 手握杯</div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            器形:禅定
-                        </div>
-                        <div class="flex-col texta-c">
-                            釉色:乌金
-                        </div>
-                    </div>
-                    <div class="div-h-1"></div>
-                    <div class="px13 color_7 flex-row">
-                        <div class="flex-col texta-c">
-                            口径:9.0*5.4
-                        </div>
-                        <div class="flex-col texta-c">
-                            作者:徐国清
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt-big">点击咨询</div>
-                </a>
-            </div>
-            <!-- 留言评论 -->
-
-            <div class="flex-row" style="border: 1px #bbb solid;background:#fff;height: 4rem;padding: .35rem .66rem;align-items: center">
-                <div style="width:4.7rem">
-                    <img src="/source/static/images/pc/5_pl.png" alt="">
-                    <div class="div-h-3"></div>
-
-                    <div class="flex-row" style="align-items: center">
-                        <div class="px14">您的称呼：</div>
-                        <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的名称">
-                        <div class="input_radio" style="margin-left:.2rem">
-                            <input type="radio" name="item" value="先生">
-                            <label>先生</label>
-                        </div>
-                        <div class="input_radio" style="margin-left:.2rem">
-                            <input type="radio" name="item" value="女士">
-                            <label>女士</label>
-                        </div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="flex-row" style="align-items: center">
-                        <div class="px14">联系电话：</div>
-                        <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的名称">
-                        <div style="width:.2rem"></div>
-                        <div class="px14">微信：</div>
-                        <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的名称">
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div class="flex-row">
-                        <div class="px14">完善内容：</div>
-
-                        <textarea class="flex-col" style="height:1rem;padding: 0 .1rem;border:#ddd 1px solid;width: 1rem;" type="text" placeholder="请输入您的名称">                        </textarea>
-                        <div style="width:.92rem"></div>
-                    </div>
-                    <div class="div-h-2"></div>
-                    <div style="margin-left: .7rem;width:1.9rem;height:.4rem;background: #B32735;color:#fff;line-height: .4rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即提交</div>
+                    <div class="flex-col"></div>
+                    <div class="px14 color_73">MORE 》</div>
+                </div>
+                <div style="height:2px;background:#333;"></div>
+                <div class="div-h-1"></div>
+                <div class="cell-list">
+                    @if (listHot != null && listHot.Count > 0)
+                    {
+                        foreach (ProductEntity entityPro in listHot)
+                        {
+                            <a class="li" >
+                                <div class="div-h-2"></div>
+                                <div class="px16 color_7 texta-c actcolor">NO:@entityPro.ProductID</div>       
+                                <img src="/source/static/images/pc/zj2.png" alt="">
+                                <div class="div-h-1"></div>
+                                <div class="px16 color_7 texta-c">@entityPro.ProductName</div>
+                                <div class="div-h-1"></div>
+                                <div class="px13 color_7 flex-row">
+                                    <div class="flex-col texta-c">
+                                        器形:@entityPro.Type3
+                                    </div>
+                                    <div class="flex-col texta-c">
+                                        釉色:@entityPro.Type2
+                                    </div>
+                                </div>
+                                <div class="div-h-1"></div>
+                                <div class="px13 color_7 flex-row">
+                                    <div class="flex-col texta-c">
+                                        口径:@entityPro.Volume
+                                    </div>
+                                    <div class="flex-col texta-c">
+                                        作者:@entityPro.Author
+                                    </div>
+                                </div>
+                                <div class="div-h-2"></div>
+                                <div class="zxbt-big" onclick="javascript:showzx('@entityPro.ProductID','@entityPro.ProductName','@entityPro.Type3','@entityPro.Type2')">点击咨询</div>
+                            </a>
+                        }
+                    }
 
                 </div>
-                <img src="/source/static/images/pc/ly_shu.png" alt="">
+                <!-- 留言评论 -->
+                <div class="flex-row" style="border: 1px #bbb solid;background:#fff;height: 4rem;padding: .35rem .66rem;align-items: center">
+                    <div style="width:4.7rem">
+                        <img src="/source/static/images/pc/5_pl.png" alt="">
+                        <div class="div-h-3"></div>
 
-                <div style="margin-left: .4rem">
-                    <div class="px18 texta-c">拨打热线，直接沟通</div>
-                    <div class="div-h-1"></div>
-                    <div class="texta-c" style="font-size:.22rem;color: #B32735">400-607-9898</div>
-                    <div class="div-h-1"></div>
-                    <div style="height:1px;background:#ddd;"></div>
-                    <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="/source/static/images/pc/5_code.png" alt="">
-                    <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看事物视频)</div>
+                        <div class="flex-row" style="align-items: center">
+                            <div class="px14">您的称呼：</div>
+                            <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的称呼">
+                            <div class="input_radio" style="margin-left:.2rem">
+                                <input type="radio" name="item" value="先生">
+                                <label>先生</label>
+                            </div>
+                            <div class="input_radio" style="margin-left:.2rem">
+                                <input type="radio" name="item" value="女士">
+                                <label>女士</label>
+                            </div>
+                        </div>
+                        <div class="div-h-2"></div>
+                        <div class="flex-row" style="align-items: center">
+                            <div class="px14">联系电话：</div>
+                            <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_telephone" placeholder="请输入您的联系电话">
+                            <div style="width:.2rem"></div>
+                            <div class="px14">微信：</div>
+                            <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_ContactName" placeholder="请输入您的微信">
+                        </div>
+                        <div class="div-h-2"></div>
+                        <div class="flex-row">
+                            <div class="px14">完善内容：</div>
+                            <textarea class="flex-col" style="height:1rem;padding: 0 .1rem;border:#ddd 1px solid;width: 1rem;" id="txt_Content" type="text" placeholder="请输入您的内容">                        </textarea>
+                            <div style="width:.92rem"></div>
+                        </div>
+                        <div class="div-h-2"></div>
+                        <div id="LJTJ_ZiXun" style="margin-left: .7rem;width:1.9rem;height:.4rem;background: #B32735;color:#fff;line-height: .4rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即提交</div>
+
+                    </div>
+                    <img src="/source/static/images/pc/ly_shu.png" alt="">
+
+                    <div style="margin-left: .4rem">
+                        <div class="px18 texta-c">拨打热线，直接沟通</div>
+                        <div class="div-h-1"></div>
+                        <div class="texta-c" style="font-size:.22rem;color: #B32735">400-607-9898</div>
+                        <div class="div-h-1"></div>
+                        <div style="height:1px;background:#ddd;"></div>
+                        <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="/source/static/images/pc/5_code.png" alt="">
+                        <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看事物视频)</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style="width:.45rem"></div>
+            <div style="width:.45rem"></div>
+        }
         <!-- 右边的布局 -->
         <div class="left">
             <div class="flex-row" style="padding:.2rem 0 .1rem;background: #fff;border-bottom: 1px #b3b3b3 solid">
@@ -385,87 +176,33 @@
                 <div class="flex-col"></div>
                 <div class="px14 color_73">MORE 》</div>
             </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
+            @if (listTJ != null && listTJ.Count > 0)
+            {
+                foreach (ProductEntity entityPro in listTJ)
+                {
+                    <div class="div-h-2"></div>
+                    <div class="ds-item">
+                        <div class="pimg" style="background:url(@entityPro.Images)"></div>
+                        <div class="flex-row" style="flex-direction: column">
+                            <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
+                                <div class="flex-col t1 clamp1">【@entityPro.ProductName】</div>
+                                <img class="bt-zx" onclick="javascript:showzx('@entityPro.ProductID','@entityPro.ProductName','@entityPro.Type3','@entityPro.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
+                            </div>
 
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">编号：@entityPro.ProductID</div>
+                                <div class="t2 clamp1 flex-col">作者：@entityPro.Author</div>
+                            </div>
 
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">器形：@entityPro.Type3</div>
+                                <div class="t2 clamp1 flex-col">釉色：@entityPro.Type2</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
+                }
+            }
 
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
         </div>
     </div>
     <div class="div-h-4"></div>

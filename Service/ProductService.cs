@@ -153,21 +153,45 @@ namespace Service
 
                 // 定义正则表达式用来匹配 img 标签     
                 List<string> lstImages = new List<string>();
+                List<string> lstImagesUrl = new List<string>();
                 if (!string.IsNullOrEmpty(info.summary))
                 {
                     MatchCollection collImages = r.Matches(entity.summary);
-                    List<string> lstImagesUrl = new List<string>();
+                    
                     foreach (Match item in collImages)
                     {
                         lstImages.Add(item.Value);
+                        lstImagesUrl.Add(GetHtmlImageUrlList(item.Value));
                     }
                     //}
                 }
                 entity.lstImages = lstImages;
+                entity.lstImagesUrl = lstImagesUrl;
                 entity.UpdateDate = info.UpdateDate;
                 entity.Introduction = info.Introduction;
             }
             return entity;
+        }
+
+        /// <summary> 
+        /// 取得HTML中所有图片的 URL。 
+        /// </summary> 
+        /// <param name="sHtmlText">HTML代码</param> 
+        /// <returns>图片的URL列表</returns> 
+        public static string GetHtmlImageUrlList(string sHtmlText)
+        {
+            // 定义正则表达式用来匹配 img 标签 
+            Regex regImg = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", RegexOptions.IgnoreCase);
+
+            // 搜索匹配的字符串 
+            MatchCollection matches = regImg.Matches(sHtmlText);
+            int i = 0;
+            //string[] sUrlList = new string[matches.Count];
+            string str = string.Empty;
+            // 取得匹配项列表 
+            foreach (Match match in matches)
+                str = match.Groups["imgUrl"].Value;
+            return str;
         }
 
         #region 分页相关

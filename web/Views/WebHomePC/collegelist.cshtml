@@ -1,14 +1,19 @@
-﻿@{
+﻿@using Entity.ViewModel;
+@using Common;
+@{
     ViewBag.Title = "collegelist";
-    Layout = "/Views/Shared/_Layout_PC_web.cshtml";   
+    Layout = "/Views/Shared/_Layout_PC_web.cshtml";
+    List<ArticleEntity> list = (List<ArticleEntity>)ViewBag.ArticleList;
+    PagerInfo p = (PagerInfo)ViewBag.Pager;  
 }
 
 <head>
     <meta charset="utf-8">
-    <meta content="小匠专场拍卖" http-equiv="keywords">
-    <meta name="description" content="小匠专场拍卖">
+    <title>@(ViewBag.Keyword) - 建盏学院</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="建盏知识,选盏技巧,建盏新闻,建盏百科,建盏文化" />
+    <meta name="Description" content="@(ViewBag.Keyword)是建盏学院六大板块之一，我们立志传播千年的建盏文化和历史，建盏工艺，选盏技巧，百科知识，建盏新闻，拍卖行情，建盏历史，一站式指导盏友们如何鉴赏和入门的频道。" />
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>名家</title>
     <!--<link rel="stylesheet" href="/source/css/register/base.css" type="text/css">-->
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
@@ -19,9 +24,9 @@
 
 <div class="body" style="margin-top:.25rem">
     <div class="flex-row">
-        <a href="">建盏商城</a>
+        <a href="">建盏学院</a>
         <div>&nbsp; &gt;&nbsp; </div>
-        <a href="">孙建兴大师</a>
+        <a href="">@(ViewBag.Keyword)</a>
     </div>
     <div class="div-h-2"></div>
     <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
@@ -29,31 +34,30 @@
 
     <div class="flex-row" style="align-items: center;padding: 0 .2rem">
         <div class="flex-col p6-item  p6-item-act">
-            学院首页
+            <a href="/WebHomePC/college">学院首页</a>
+        </div>
+        <<div class="flex-col p6-item">
+            <a href="/WebHomePC/collegelist?category_id=1">新闻资讯</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            新闻资讯
+            <a href="/WebHomePC/collegelist?category_id=3">实拍行情</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            实拍行情
+            <a href="/WebHomePC/collegelist?category_id=5">建盏工艺</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            建盏工艺
+            <a href="/WebHomePC/collegelist?category_id=6">百科知识</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            百科知识
+            <a href="/WebHomePC/collegelist?category_id=7">选盏技巧</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            选盏技巧
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            文化历史
+            <a href="/WebHomePC/collegelist?category_id=8">文化历史</a>
         </div>
     </div>
 
@@ -63,170 +67,45 @@
             <div class="list-4">
                 <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff;">
                     <div class="px18" style="font-family:SourceHanSansCN-Bold;
-                                                font-weight:bold;">新闻资讯</div>
+                                                font-weight:bold;">@(ViewBag.Keyword)</div>
                     <div class="flex-col"></div>
                     <div class="px14 color_73">MORE 》</div>
                 </div>
                 <img src="/source/static//images/pc/6_top_line.png" alt="">
-
-
-                <a class="flex-row itemp7">
-                    <div style="width: 2.25rem;
+                @if (list != null && list.Count > 0)
+                {
+                    foreach (ArticleEntity entity in list)
+                    {
+                        <a class="flex-row itemp7" href="/@(entity.id).html">
+                            <div style="width: 2.25rem;
                         height: 1.5rem;position: relative;background: #fff">
-                        <img style="height:1.5rem;width:2.25rem" src="/source/static/images/pc/jz1.png" alt="">
-                    </div>
-                    <div style="width:.28rem"></div>
-                    <div class="flex-col">
-                        <div class="color_3" style="font-size:21px"> 陈大鹏【非物质文化传承人】</div>
-                        <div class="div-h-1"></div>
-                        <div style="color:#999">【时间】2018-12-07</div>
-                        <div class="div-h-1"></div>
-                        <div class="clamp2" style="line-height:.29rem;position: relative;">
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
-                            <span style="position: absolute;
+                                <img style="height:1.5rem;width:2.25rem" src="@entity.img_url" alt="">
+                            </div>
+                            <div style="width:.28rem"></div>
+                            <div class="flex-col">
+                                <div class="color_3" style="font-size:21px"> @entity.articleTitle</div>
+                                <div class="div-h-1"></div>
+                                <div style="color:#999">【时间】@entity.AddDate.ToShortDateString()</div>
+                                <div class="div-h-1"></div>
+                                <div class="clamp2" style="line-height:.29rem;position: relative;">
+                                    @entity.zhaiyao
+                                    <span style="position: absolute;
                                     color: #B32735;
                                     font-size: .14rem;
                                     background: #fff;
                                     right: 0;
                                     bottom: 0;
                                     padding: 0 .2rem;">[查看详情]</span>
-                        </div>
+                                </div>
 
-                    </div>
-                </a>
-
-                <a class="flex-row itemp7">
-                    <div style="width: 2.25rem;
-                        height: 1.5rem;position: relative;background: #fff">
-                        <img style="height:1.5rem;width:2.25rem" src="/source/static/images/pc/jz1.png" alt="">
-                    </div>
-                    <div style="width:.28rem"></div>
-                    <div class="flex-col">
-                        <div class="color_3" style="font-size:21px"> 陈大鹏【非物质文化传承人】</div>
-                        <div class="div-h-1"></div>
-                        <div style="color:#999">【时间】2018-12-07</div>
-                        <div class="div-h-1"></div>
-                        <div class="clamp2" style="line-height:.29rem;position: relative;">
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
-                            <span style="position: absolute;
-                                    color: #B32735;
-                                    font-size: .14rem;
-                                    background: #fff;
-                                    right: 0;
-                                    bottom: 0;
-                                    padding: 0 .2rem;">[查看详情]</span>
-                        </div>
-
-                    </div>
-                </a>
-
-                <a class="flex-row itemp7">
-                    <div style="width: 2.25rem;
-                        height: 1.5rem;position: relative;background: #fff">
-                        <img style="height:1.5rem;width:2.25rem" src="/source/static/images/pc/jz1.png" alt="">
-                    </div>
-                    <div style="width:.28rem"></div>
-                    <div class="flex-col">
-                        <div class="color_3" style="font-size:21px"> 陈大鹏【非物质文化传承人】</div>
-                        <div class="div-h-1"></div>
-                        <div style="color:#999">【时间】2018-12-07</div>
-                        <div class="div-h-1"></div>
-                        <div class="clamp2" style="line-height:.29rem;position: relative;">
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
-                            <span style="position: absolute;
-                                    color: #B32735;
-                                    font-size: .14rem;
-                                    background: #fff;
-                                    right: 0;
-                                    bottom: 0;
-                                    padding: 0 .2rem;">[查看详情]</span>
-                        </div>
-
-                    </div>
-                </a>
-
-                <a class="flex-row itemp7">
-                    <div style="width: 2.25rem;
-                        height: 1.5rem;position: relative;background: #fff">
-                        <img style="height:1.5rem;width:2.25rem" src="/source/static/images/pc/jz1.png" alt="">
-                    </div>
-                    <div style="width:.28rem"></div>
-                    <div class="flex-col">
-                        <div class="color_3" style="font-size:21px"> 陈大鹏【非物质文化传承人】</div>
-                        <div class="div-h-1"></div>
-                        <div style="color:#999">【时间】2018-12-07</div>
-                        <div class="div-h-1"></div>
-                        <div class="clamp2" style="line-height:.29rem;position: relative;">
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
-                            <span style="position: absolute;
-                                    color: #B32735;
-                                    font-size: .14rem;
-                                    background: #fff;
-                                    right: 0;
-                                    bottom: 0;
-                                    padding: 0 .2rem;">[查看详情]</span>
-                        </div>
-
-                    </div>
-                </a>
-                <a class="flex-row itemp7">
-                    <div style="width: 2.25rem;
-                        height: 1.5rem;position: relative;background: #fff">
-                        <img style="height:1.5rem;width:2.25rem" src="/source/static/images/pc/jz1.png" alt="">
-                    </div>
-                    <div style="width:.28rem"></div>
-                    <div class="flex-col">
-                        <div class="color_3" style="font-size:21px"> 陈大鹏【非物质文化传承人】</div>
-                        <div class="div-h-1"></div>
-                        <div style="color:#999">【时间】2018-12-07</div>
-                        <div class="div-h-1"></div>
-                        <div class="clamp2" style="line-height:.29rem;position: relative;">
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
-                            <span style="position: absolute;
-                                    color: #B32735;
-                                    font-size: .14rem;
-                                    background: #fff;
-                                    right: 0;
-                                    bottom: 0;
-                                    padding: 0 .2rem;">[查看详情]</span>
-                        </div>
-
-                    </div>
-                </a>
-                <a class="flex-row itemp7">
-                    <div style="width: 2.25rem;
-                        height: 1.5rem;position: relative;background: #fff">
-                        <img style="height:1.5rem;width:2.25rem" src="/source/static/images/pc/jz1.png" alt="">
-                    </div>
-                    <div style="width:.28rem"></div>
-                    <div class="flex-col">
-                        <div class="color_3" style="font-size:21px"> 陈大鹏【非物质文化传承人】</div>
-                        <div class="div-h-1"></div>
-                        <div style="color:#999">【时间】2018-12-07</div>
-                        <div class="div-h-1"></div>
-                        <div class="clamp2" style="line-height:.29rem;position: relative;">
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利亚、港、澳、台地区
-                            业内早已闻名遐迩，获邀多次赴海外天目陶瓷文化交流大会，作品被日本、美国、英国、加 坡、马来西亚、韩国、澳大利
-                            <span style="position: absolute;
-                                    color: #B32735;
-                                    font-size: .14rem;
-                                    background: #fff;
-                                    right: 0;
-                                    bottom: 0;
-                                    padding: 0 .2rem;">[查看详情]</span>
-                        </div>
-
-                    </div>
-                </a>
-            </div>
-            <!-- 分页 -->
-            <div class="div-h-3"></div>
-            <div class="flex-row M-box m-style" style="justify-content: flex-end"><a href="javascript:;" class="prev">&lt;</a><span class="active">1</span><a href="javascript:;" data-page="2">2</a><a href="javascript:;" data-page="3">3</a><a href="javascript:;" data-page="4">4</a><a href="javascript:;" data-page="5">5</a><a href="javascript:;" class="next">&gt;</a></div>
+                            </div>
+                        </a>
+                    }
+                }
+                
+            </div>           
+            <!-- 分页器 -->
+            @{ Html.RenderPartial("../Pager_pc", p); }            
 
         </div>
         <div style="width:.45rem"></div>

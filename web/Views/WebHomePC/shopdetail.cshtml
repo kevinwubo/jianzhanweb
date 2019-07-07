@@ -1,71 +1,76 @@
-﻿@{
-    ViewBag.Title = "shopdetail";
-    Layout = "/Views/Shared/_Layout_PC_web.cshtml";
+﻿@using Entity.ViewModel;
+@using Common;
+@{
+    ViewBag.Title = "mn_shopdetail";
+    Layout = "~/Views/Shared/_Layout_PC_web.cshtml";
+    ProductEntity entity = (ProductEntity)ViewBag.ProductInfo;
+    List<ProductEntity> listPro = (List<ProductEntity>)ViewBag.ListByAuthor;//
 }
 <head>
     <meta charset="utf-8">
-    <meta content="小匠专场拍卖" http-equiv="keywords">
-    <meta name="description" content="小匠专场拍卖">
-    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>名家</title>
+    @if (entity != null)
+    {
+        <title>【@entity.Author 】@entity.ProductName —建盏天下</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Keywords" content="建盏名家,@entity.Author ,@entity.Type2 ,@entity.Type3 ,@entity.MarketPrice " />
+        <meta name="Description" content="【@entity.Author 】@entity.ProductName ,@entity.Volume @StringHelper.NoHTML(entity.summary) " />
+    }
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/1906_pagination.css" type="text/css">
-    <link rel="stylesheet" href="/source/static/css/pc_shopdetail.css" type="text/css">    
+    <link rel="stylesheet" href="/source/static/css/pc_shopdetail.css" type="text/css">
 </head>
 
 
 <div class="body" style="margin-top:.25rem">
     <div class="flex-row">
-        <a href="">建盏商城</a>
+        <a href="WebHomePC/shop">建盏商城</a>
         <div>&nbsp; &gt;&nbsp; </div>
-        <a href="">孙建兴大师</a>
+        <a href="">@entity.Author</a>
     </div>
     <div class="div-h-2"></div>
     <img src="/source//static//images/pc/0809.png" style="height:1.2rem" alt="">
     <div class="div-h-4"></div>
-    <div class="flex-row jz-body">
-        <div class="detail flex-row">
-            <div class="left">
-                <img style="width:5rem" src="/source//static/images/pc/zj3.png" alt="">
-                <div class="div-h-4"></div>
-                <div class="swiper_container_d swiper-container-horizontal" id="pb2">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide swiper-slide-active" style="width: 89px; margin-right: 28px;">
-                            <img src="/source//static/images/pc/zj3.png" alt="">
+    @if (entity != null)
+    {
+        <div class="flex-row jz-body">
+            <div class="detail flex-row">
+                <div class="left">
+                    <img style="width:5rem" id="img_urls" src="@entity.Images" alt="">
+                    <div class="div-h-4"></div>
+                    <div class="swiper_container_d swiper-container-horizontal" id="pb2">
+                        <div class="swiper-wrapper">
+                            @if (entity.lstImagesUrl != null && entity.lstImagesUrl.Count > 0)
+                            {
+                                foreach (string str in entity.lstImagesUrl)
+                                {
+                                    <div class="swiper-slide swiper-slide-active" style="width: 89px; margin-right: 28px;">
+                                        <img src="@str" onclick="javascript: ShowImage('@str')" alt="">
+                                    </div>
+                                }
+                            }
+
+
                         </div>
-                        <div class="swiper-slide swiper-slide-next" style="width: 89px; margin-right: 28px;">
-                            <img src="/source//static/images/pc/zj3.png" alt="">
-                        </div>
-                        <div class="swiper-slide" style="width: 89px; margin-right: 28px;">
-                            <img src="/source//static/images/pc/zj3.png" alt="">
-                        </div>
-                        <div class="swiper-slide" style="width: 89px; margin-right: 28px;">
-                            <img src="/source//static/images/pc/zj3.png" alt="">
-                        </div>
-                        <div class="swiper-slide" style="width: 89px; margin-right: 28px;">
-                            <img src="/source//static/images/pc/zj2.png" alt="">
-                        </div>
+                        <div id="dnext" class="swiper-button-next"></div>
+                        <div id="dprev" class="swiper-button-prev swiper-button-disabled"></div>
                     </div>
-                    <div id="dnext" class="swiper-button-next"></div>
-                    <div id="dprev" class="swiper-button-prev swiper-button-disabled"></div>
                 </div>
-            </div>
-            <div style="width:1px;background:#ddd"></div>
-            <div class="right flex-col" style="margin-left:.3rem">
-                <div style="height:22px;
+                <div style="width:1px;background:#ddd"></div>
+                <div class="right flex-col" style="margin-left:.3rem">
+                    <div style="height:22px;
                  font-size:22px;
                  font-family:PingFang-SC-Medium;
                  font-weight:500;
                  color:rgba(25,25,25,1);
-                 line-height:24px">知初【吴继旺】</div>
+                 line-height:24px">@entity.ProductName【@entity.Author】</div>
                 <div class="div-h-2"></div>
                 <div style="height:16px;
                 font-size:16px;
                 font-family:PingFang-SC-Medium;
                 font-weight:500;
                 color:rgba(168,22,34,1);
-                line-height:24px">编号：9743</div>
+                line-height:24px">编号：@entity.ProductID</div>
                 <div class="div-h-2"></div>
                 <div style="
                 font-size:16px;
@@ -73,26 +78,23 @@
                 font-weight:400;
                 color:rgba(117,117,117,1);
                 line-height:31px;padding-right: .3rem;">
-
-                    犹如深海中鱼儿吐出的气泡，融入这无边的蓝色
-                    中。互相纠缠，重叠。又如浩瀚星空之下闪耀的明星，耀眼夺目 /source/. /source/.
-
+                    @Html.Raw(entity.Introduction)
                 </div>
                 <div class="div-h-1"></div>
                 <div class="flex-row">
                     <div style="width:3.64rem">
                         <div class="flex-row" style="background:#f7f7f7;height: .75rem;padding: 0 .3rem">
                             <div class="flex-col">
-                                <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
-                                <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
+                                <div style="height:.375rem;line-height: .375rem;text-align: left">器型：@entity.Type3</div>
+                                <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：@entity.Type2</div>
                             </div>
                             <div class="flex-col">
-                                <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
-                                <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：兔毫</div>
+                                <div style="height:.375rem;line-height: .375rem;text-align: left">尺寸：@entity.Type4</div>
+                                <div style="height:.375rem;line-height: .375rem;text-align: left">作者：@entity.Author</div>
                             </div>
                         </div>
                         <div class="div-h-2"></div>
-                        <div style="height:.45rem;background:#B32735;color: #fff;line-height: .45rem;text-align:center;">
+                        <div onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')" style="height:.45rem;background:#B32735;color: #fff;line-height: .45rem;text-align:center;">
                             立即咨询
                         </div>
                         <div class="div-h-2"></div>
@@ -131,32 +133,30 @@
 
         <div class="div-h-4"></div>
     </div>
-    <div class="div-h-4"></div>
-    <div class="flex-row" style="align-items:center;background: #ebebeb">
-        <div style="border-left: 1px solid #ddd;border-top: 1px solid #ddd;border-right: 1px solid #ddd;" class="flex-row">
-            <div class="dt-bt act-item">商品详情</div>
-            <div class="dt-bt">使用方法</div>
-            <div class="dt-bt">付款方式</div>
+
+        <div class="div-h-4"></div>
+        <div class="flex-row" style="align-items:center;background: #ebebeb">
+            <div style="border-left: 1px solid #ddd;border-top: 1px solid #ddd;border-right: 1px solid #ddd;" class="flex-row">
+                <div class="dt-bt act-item">商品详情</div>
+                <div class="dt-bt">使用方法</div>
+                <div class="dt-bt">付款方式</div>
+            </div>
+            <div class="flex-col"></div>
+            <div style="width:1.4rem;height:.3rem;background: #B32735;color:#fff;line-height: .3rem;text-align: center;border-radius: 3px;margin-right: .3rem" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')" class="px14">立即咨询</div>
+            <div class="px15" style="margin-right:.3rem">免费热线：<span class="px20" style="color:#B32735">4008-276-376</span></div>
         </div>
-        <div class="flex-col"></div>
-        <div style="width:1.4rem;height:.3rem;background: #B32735;color:#fff;line-height: .3rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即咨询</div>
-        <div class="px15" style="margin-right:.3rem">免费热线：<span class="px20" style="color:#B32735">4008-276-376</span></div>
-    </div>
     <!-- 内容1 -->
-    <div class="content" style="background: #fff;padding: .8rem 1rem">
+        <div class="content" style="background: #fff;padding: .8rem 1rem">
 
-        <img src="/source//static/images/pc/dline.png" alt="">
-        <div class="div-h-1"></div>
-        <div style="font-size: .38rem;color: #666;text-align: center">详情介绍</div>
-        <div class="div-h-3"></div>
-        <div style="font-size: .20rem;line-height: .4rem;color: #666;text-align: left">
-            使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法使用方法
+            <img src="/source//static/images/pc/dline.png" alt="">
+            <div class="div-h-1"></div>
+            <div style="font-size: .38rem;color: #666;text-align: center">详情介绍</div>
+            <div class="div-h-3"></div>
+            @Html.Raw(entity.summary)
+            @Html.Raw(entity.ProImageDetail)
+
         </div>
-        <img src="/source//static/images/pc/zj2.png" alt="">
-        <img src="/source//static/images/pc/zj2.png" alt="">
-        <img src="/source//static/images/pc/zj2.png" alt="">
-
-    </div>
+    }
     <div class="div-h-4"></div>
     <!-- 留言 -->
     <div class="flex-row" style="background:#fff;height: 4rem;padding: .35rem .66rem;align-items: center">
@@ -165,10 +165,10 @@
             <div class="div-h-3"></div>
 
             <div class="flex-row" style="align-items: center">
-                <div class="px14">我的姓名：</div>
-                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的名称">
+                <div class="px14">您的称呼：</div>
+                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的称呼">
                 <div class="input_radio" style="margin-left:.2rem">
-                    <input type="radio" name="item" value="先生">
+                    <input type="radio" checked="checked" name="item" value="先生">
                     <label>先生</label>
                 </div>
                 <div class="input_radio" style="margin-left:.2rem">
@@ -179,20 +179,20 @@
             <div class="div-h-2"></div>
             <div class="flex-row" style="align-items: center">
                 <div class="px14">联系电话：</div>
-                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的名称">
+                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_telephone" placeholder="请输入您的手机号">
                 <div style="width:.2rem"></div>
                 <div class="px14">微信：</div>
-                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的名称">
+                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_ContactName" placeholder="请输入您的微信">
             </div>
             <div class="div-h-2"></div>
             <div class="flex-row">
                 <div class="px14">留言内容：</div>
 
-                <textarea class="flex-col" style="height:1rem;padding: 0 .1rem;border:#ddd 1px solid;width: 1rem;" type="text" placeholder="请输入您的名称">                        </textarea>
+                <textarea class="flex-col" style="height:1rem;padding: 0 .1rem;border:#ddd 1px solid;width: 1rem;" type="text" id="txt_Content" placeholder="请输入您的留言内容">                        </textarea>
                 <div style="width:.92rem"></div>
             </div>
             <div class="div-h-2"></div>
-            <div style="margin-left: .7rem;width:1.9rem;height:.4rem;background: #B32735;color:#fff;line-height: .4rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即提交</div>
+            <div id="LJTJ_ZiXun" style="margin-left: .7rem;width:1.9rem;height:.4rem;background: #B32735;color:#fff;line-height: .4rem;text-align: center;border-radius: 3px;margin-right: .3rem" class="px14">立即提交</div>
 
         </div>
         <img src="/source//static/images/pc/ly_shu.png" alt="">
@@ -226,67 +226,24 @@
                 <div class="div-h-2" style="background:#f7f7f7"></div>
                 <div class="div-h-2" style="background:#fff"></div>
                 <div class="swiper_container_suz swiper-container-horizontal" id="pb2">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide swiper-slide-active" style="width: 240.165px; margin-right: 1px;">
-                            <div class="c2">
-                                <img src="/source//static/images/pc/zj3.png" alt="">
-                                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                                <div class="div-h-1"></div>
-                                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                                <div class="div-h-1"></div>
-                                <div class="zxbt">点击咨询</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide swiper-slide-next" style="width: 240.165px; margin-right: 1px;">
-                            <div class="c2">
-                                <img src="/source//static/images/pc/zj3.png" alt="">
-                                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                                <div class="div-h-1"></div>
-                                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                                <div class="div-h-1"></div>
-                                <div class="zxbt">点击咨询</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide" style="width: 240.165px; margin-right: 1px;">
-                            <div class="c2">
-                                <img src="/source//static/images/pc/zj3.png" alt="">
-                                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                                <div class="div-h-1"></div>
-                                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                                <div class="div-h-1"></div>
-                                <div class="zxbt">点击咨询</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide" style="width: 240.165px; margin-right: 1px;">
-                            <div class="c2">
-                                <img src="/source//static/images/pc/zj3.png" alt="">
-                                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                                <div class="div-h-1"></div>
-                                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                                <div class="div-h-1"></div>
-                                <div class="zxbt">点击咨询</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide" style="width: 240.165px; margin-right: 1px;">
-                            <div class="c2">
-                                <img src="/source//static/images/pc/zj3.png" alt="">
-                                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                                <div class="div-h-1"></div>
-                                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                                <div class="div-h-1"></div>
-                                <div class="zxbt">点击咨询</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide" style="width: 240.165px; margin-right: 1px;">
-                            <div class="c2">
-                                <img src="/source//static/images/pc/zj3.png" alt="">
-                                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                                <div class="div-h-1"></div>
-                                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                                <div class="div-h-1"></div>
-                                <div class="zxbt">点击咨询</div>
-                            </div>
-                        </div>
+                    <div class="swiper-wrapper">                       
+                        @if (listPro != null && listPro.Count > 0)
+                        {
+                            foreach (ProductEntity item in listPro)
+                            {
+                                <div class="swiper-slide" style="width: 240.165px; margin-right: 1px;">
+                                    <div class="c2">
+                                        <img src="@item.Images" alt="">
+                                        <div class="px14 color_7 texta-c">@entity.Author @entity.ProductName</div>
+                                        <div class="div-h-1"></div>
+                                        <div class="px10 color_7 texta-c actcolor">NO:@entity.ProductID</div>
+                                        <div class="div-h-1"></div>
+                                        <div class="zxbt" onclick="javascript:showzx('@item.ProductID','@item.ProductName','@item.Type3','@item.Type2')">点击咨询</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
                     </div>
                     <div id="snext" class="swiper-button-next"></div>
                     <div id="sprev" class="swiper-button-prev swiper-button-disabled"></div>
@@ -298,3 +255,9 @@
     </div>
 
 </div>
+<script src="/source/static/js/jquery-2.1.4.js"></script>
+<script>
+    function ShowImage(url) {
+        $("#img_urls").attr('src', url);
+    }
+</script>
