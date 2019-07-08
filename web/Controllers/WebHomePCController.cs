@@ -98,11 +98,13 @@ namespace web.Controllers
             return View();
         }
         /// <summary>
-        /// 商城首页
+        /// 商城首页Type2釉色  type3器型 type4口径 type5功能 type7 价格
         /// </summary>
         /// <returns></returns>
-        public ActionResult shop(string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
+        public ActionResult shop(string type2, string type3, string type4, string type5, string type7, string author, string artisanType, string keyword = "", int p = 1)
         {
+
+
             List<ProductEntity> mList = null;
 
             if (string.IsNullOrEmpty(type2) && string.IsNullOrEmpty(type3) && string.IsNullOrEmpty(type4) && string.IsNullOrEmpty(type7) && string.IsNullOrEmpty(author) && string.IsNullOrEmpty(artisanType) && string.IsNullOrEmpty(keyword))
@@ -133,7 +135,7 @@ namespace web.Controllers
             pager.PageIndex = p;
             pager.PageSize = 12;
             pager.SumCount = count;
-            pager.URL = "/WebHome/mn_shop";
+            pager.URL = "/WebHomePC/shop";
 
             
 
@@ -146,15 +148,28 @@ namespace web.Controllers
             {
                 mList = ProductService.GetProductInfoPager("mn_shop", pager);
             }
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
 
-            ViewBag.YJDSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("业界大师"));//业界大师
-            ViewBag.LPCCRJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("老牌传承人"));//老牌传承人
-            ViewBag.MJGYSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("名家工艺师"));//名家工艺师
-            ViewBag.QXJson = JsonHelper.ToJson(BaseDataService.GetBaseDataAll().Where(t => t.PCode == "QX000" && t.Status == 1).ToList());//器型
-            ViewBag.YSJson = JsonHelper.ToJson(BaseDataService.GetBaseDataAll().Where(t => t.PCode == "YS000" && t.Status == 1).ToList());//釉色
+            ViewBag.YJDSList = ArtisanService.getSimpleArtisanList("业界大师");//业界大师
+            ViewBag.LPCCRList = ArtisanService.getSimpleArtisanList("老牌传承人");//老牌传承人
+            ViewBag.MJGYSList = ArtisanService.getSimpleArtisanList("名家工艺师");//名家工艺师
+            ViewBag.ZMPPList = ArtisanService.getSimpleArtisanList("知名品牌");//知名品牌
+            List<BaseDataEntity> listAll = BaseDataService.GetBaseDataAll();
+            ViewBag.QXList = listAll.Where(t => t.PCode == "QX000" && t.Status == 1).ToList();//器型
+            ViewBag.YSList = listAll.Where(t => t.PCode == "YS000" && t.Status == 1).ToList();//釉色
+            ViewBag.KJList = listAll.Where(t => t.PCode == "KJCodes" && t.Status == 1).ToList();//口径
+            ViewBag.JGList = listAll.Where(t => t.PCode == "JGCodes" && t.Status == 1).ToList();//价格
+            ViewBag.GNList = listAll.Where(t => t.PCode == "GNCodes" && t.Status == 1).ToList();//价格
             ViewBag.ArtisanType = artisanType;
-            ViewBag.Product = mList;
+            ViewBag.ProductList = mList;
             ViewBag.Pager = pager;
+
+            ViewBag.type2 = type2;
+            ViewBag.type3 = type3;
+            ViewBag.type4 = type4;
+            ViewBag.type5 = type5;
+            ViewBag.type7 = type7;
+            ViewBag.author = author;
             return View();
         }
 

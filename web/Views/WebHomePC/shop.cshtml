@@ -1,13 +1,31 @@
-﻿@{
+﻿@using Entity.ViewModel;
+@using Common;
+@{
     ViewBag.Title = "shop";
-    Layout = "/Views/Shared/_Layout_PC_web.cshtml";    
+    Layout = "/Views/Shared/_Layout_PC_web.cshtml";
+
+    List<SimpleArtisanEntity> listYJDS = (List<SimpleArtisanEntity>)ViewBag.YJDSList;//业界大师
+    List<SimpleArtisanEntity> listLPCCR = (List<SimpleArtisanEntity>)ViewBag.LPCCRList;//老牌传承人
+    List<SimpleArtisanEntity> listMJGYS = (List<SimpleArtisanEntity>)ViewBag.MJGYSList;//名家工艺师
+    List<SimpleArtisanEntity> listZMPP = (List<SimpleArtisanEntity>)ViewBag.ZMPPList;//知名品牌
+
+    List<BaseDataEntity> listQX = (List<BaseDataEntity>)ViewBag.QXList;//器型
+    List<BaseDataEntity> listYS = (List<BaseDataEntity>)ViewBag.YSList;//釉色
+    List<BaseDataEntity> listKJ = (List<BaseDataEntity>)ViewBag.KJList;//口径
+    List<BaseDataEntity> listJG = (List<BaseDataEntity>)ViewBag.JGList;//价格
+    List<BaseDataEntity> listGN = (List<BaseDataEntity>)ViewBag.GNList;//功能
+
+    List<ProductEntity> proList = (List<ProductEntity>)ViewBag.ProductList;//产品
+    List<ProductEntity> tjList = (List<ProductEntity>)ViewBag.listTJ;//推荐
+
+    PagerInfo p = (PagerInfo)ViewBag.Pager;
 }
 <head>
     <meta charset="utf-8">
-    <meta content="小匠专场拍卖" http-equiv="keywords">
-    <meta name="description" content="小匠专场拍卖">
+    <title>建盏商城 - 建盏天下网</title>
+    <meta name="keywords" content="曜变盏,天目盏,兔毫盏,油滴盏,束口盏" />
+    <meta name="description" content="建盏商城是福建省建窑建盏首席品牌商城，提供产地大师名家直供的一手精品货源：兔毫盏、油滴盏、曜变盏、鹧鸪斑、金油滴、敛口盏、束口盏，提供建盏价格、收藏、名家押窑和私人定制服务。" />
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <title>名家</title>
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/1906_pagination.css" type="text/css">
@@ -18,7 +36,6 @@
     <div class="flex-row">
         <a href="">建盏商城</a>
         <div>&nbsp; &gt;&nbsp; </div>
-        <a href="">孙建兴大师</a>
     </div>
     <div class="div-h-2"></div>
     <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
@@ -28,39 +45,21 @@
     <div class="flex-row jz-body">
         <div class="left">
             <img src="/source/static/images//pc//hot.png" style="margin: .2rem .1rem;" alt="">
+            @if (tjList != null && tjList.Count > 0)
+            {
+                foreach (ProductEntity entity in tjList)
+                {
+                    <div class="c2">
+                        <img src="@entity.Images" alt="">
+                        <div class="px14 color_7 texta-c">@entity.Author @entity.ProductName</div>
+                        <div class="div-h-1"></div>
+                        <div class="px10 color_7 texta-c actcolor">NO:@entity.ProductID</div>
+                        <div class="div-h-1"></div>
+                        <div class="zxbt" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')">点击咨询</div>
+                    </div>
+                }
+            }
 
-            <div class="c1">
-                <img src="/source/static/images/pc/jz1.png" alt="">
-                <div class="px14 color_f" style="width: 100%;line-height: .34rem;text-align: center;position: absolute;bottom: 0;left: 0;;height: .34rem;;background:rgba(0, 0, 0,.3)">
-                    红花阿瑟费几点回
-                </div>
-            </div>
-            <div class="div-h-1"></div>
-            <div class="c1">
-                <img src="/source/static/images/pc/jz1.png" alt="">
-                <div class="px14 color_f" style="width: 100%;line-height: .34rem;text-align: center;position: absolute;bottom: 0;left: 0;;height: .34rem;;background:rgba(0, 0, 0,.3)">
-                    红花阿瑟费几点回
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="c2">
-                <img src="/source/static/images/pc/zj3.png" alt="">
-                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                <div class="div-h-1"></div>
-                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                <div class="div-h-1"></div>
-                <div class="zxbt">点击咨询</div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="c2">
-                <img src="/source/static/images/pc/zj3.png" alt="">
-                <div class="px14 color_7 texta-c">孙建兴 红烧娃打完</div>
-                <div class="div-h-1"></div>
-                <div class="px10 color_7 texta-c actcolor">NO:12563</div>
-                <div class="div-h-1"></div>
-                <div class="zxbt">点击咨询</div>
-            </div>
-            <div class="div-h-2"></div>
         </div>
         <div style="width:1px;background:#ddd"></div>
         <div class="right flex-col">
@@ -70,63 +69,124 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist">
-                            <div class="li">全部</div>
-                            <div class="li">属碱性</div>
-                            <div class="li actcolor">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
+                            <div class='li @(ViewBag.author == "全部" ? "actcolor" : "")'><a href="/WebHomePC/shop?author=全部">全部</a></div>
+                            <div class='li @(ViewBag.author == "业界大师" ? "actcolor" : "")'><a href="/WebHomePC/shop?author=业界大师">业界大师</a></div>
+                            @if (listYJDS != null && listYJDS.Count > 0)
+                            {
+                                foreach (SimpleArtisanEntity entity in listYJDS)
+                                {
+                                    <div class='li @(ViewBag.author == entity.artisanName ? "actcolor" : "")'><a href="/WebHomePC/shop?author=@entity.artisanName">@entity.artisanName</a></div>
+                                }
+                            }
+                            <div class='li @(ViewBag.author == "老牌传承人" ? "actcolor" : "")'><a href="/WebHomePC/shop?author=老牌传承人">老牌传承人</a></div>
+                            @if (listLPCCR != null && listLPCCR.Count > 0)
+                            {
+                                foreach (SimpleArtisanEntity entity in listLPCCR)
+                                {
+                                    <div class='li @(ViewBag.author == entity.artisanName ? "actcolor" : "")'><a href="/WebHomePC/shop?author=@entity.artisanName">@entity.artisanName</a></div>
+                                }
+                            }                            
+                            <div class='li @(ViewBag.author == "名家工艺师" ? "actcolor" : "")'><a href="/WebHomePC/shop?author=名家工艺师">名家工艺师</a></div>
+                            @if (listMJGYS != null && listMJGYS.Count > 0)
+                            {
+                                foreach (SimpleArtisanEntity entity in listMJGYS)
+                                {
+                                    <div class='li @(ViewBag.author == entity.artisanName ? "actcolor" : "")'><a href="/WebHomePC/shop?author=@entity.artisanName">@entity.artisanName</a></div>
+                                }
+                            }                            
+                            <div class='li @(ViewBag.author == "知名品牌" ? "actcolor" : "")'><a href="/WebHomePC/shop?author=知名品牌">知名品牌</a></div>
+                            @if (listZMPP != null && listZMPP.Count > 0)
+                            {
+                                foreach (SimpleArtisanEntity entity in listZMPP)
+                                {
+                                    <div class='li @(ViewBag.author == entity.artisanName ? "actcolor" : "")'><a href="/WebHomePC/shop?author=@entity.artisanName">@entity.artisanName</a></div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
                 <div style="height:1px;background:#ddd; margin:.1rem 0"></div>
                 <div class="flex-row">
-                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">油&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;舍</div>
+                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">釉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色</div>
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist">
-                            <div class="li actcolor">全部</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
+                            <div class='li @(ViewBag.type2=="全部"? "actcolor":"")'><a href="/WebHomePC/shop?type2=全部">全部</a></div>
+                            @if (listYS != null && listYS.Count > 0)
+                            {
+                                foreach (BaseDataEntity entity in listYS)
+                                {
+                                    <div class='li @(ViewBag.type2==entity.ValueInfo? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('/WebHomePC/shop','type2=@entity.ValueInfo');">@entity.ValueInfo</a></div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
                 <div style="height:1px;background:#ddd; margin:.1rem 0"></div>
                 <div class="flex-row">
-                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">油&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;舍</div>
+                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">器&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形</div>
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist">
-                            <div class="li actcolor">全部</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
-                            <div class="li">属碱性</div>
+                            <div class='li @(ViewBag.type3=="全部"? "actcolor":"")'><a href="/WebHomePC/shop?type2=全部">全部</a></div>
+                            @if (listQX != null && listQX.Count > 0)
+                            {
+                                foreach (BaseDataEntity entity in listQX)
+                                {
+                                    <div class='li @(ViewBag.type3==entity.ValueInfo? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('/WebHomePC/shop','type3=@entity.ValueInfo');">@entity.ValueInfo</a></div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div style="height:1px;background:#ddd; margin:.1rem 0"></div>
+                <div class="flex-row">
+                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">口&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;径</div>
+                    <div class="shu"></div>
+                    <div class="flex-col">
+                        <div class="nvlist">
+                            <div class='li @(ViewBag.type4=="全部"? "actcolor":"")'><a href="/WebHomePC/shop?type2=全部">全部</a></div>
+                            @if (listKJ != null && listKJ.Count > 0)
+                            {
+                                foreach (BaseDataEntity entity in listKJ)
+                                {
+                                    <div class='li @(ViewBag.type4==entity.ValueInfo? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('/WebHomePC/shop','type4=@entity.ValueInfo');">@entity.ValueInfo</a></div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div style="height:1px;background:#ddd; margin:.1rem 0"></div>
+                <div class="flex-row">
+                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</div>
+                    <div class="shu"></div>
+                    <div class="flex-col">
+                        <div class="nvlist">
+                            <div class='li @(ViewBag.type5=="全部"? "actcolor":"")'><a href="/WebHomePC/shop?type2=全部">全部</a></div>
+                            @if (listJG != null && listJG.Count > 0)
+                            {
+                                foreach (BaseDataEntity entity in listJG)
+                                {
+                                    <div class='li @(ViewBag.type5==entity.ValueInfo? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('/WebHomePC/shop','type5=@entity.ValueInfo');">@entity.ValueInfo</a></div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div style="height:1px;background:#ddd; margin:.1rem 0"></div>
+                <div class="flex-row">
+                    <div style="width: 1.22rem;height: .3rem;line-height: .3rem" class="texta-c">功&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能</div>
+                    <div class="shu"></div>
+                    <div class="flex-col">
+                        <div class="nvlist">
+                            <div class='li @(ViewBag.type7=="全部"? "actcolor":"")'><a href="/WebHomePC/shop?type2=全部">全部</a></div>
+                            @if (listGN != null && listGN.Count > 0)
+                            {
+                                foreach (BaseDataEntity entity in listGN)
+                                {
+                                    <div class='li @(ViewBag.type7==entity.ValueInfo? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('/WebHomePC/shop','type7=@entity.ValueInfo');">@entity.ValueInfo</a></div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -145,27 +205,27 @@
                     <div class="shu"></div>
                     <div class="flex-col ">
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%;">
-                            <div class="texta-c px14 clr">默认</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
+                            <div class="texta-c px14 clr">新品</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
                         </div>
                     </div>
                     <div class="shu"></div>
                     <div class="flex-col ">
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
-                            <div class="texta-c px14 clr">默认</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
+                            <div class="texta-c px14 clr">销量</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
                         </div>
                     </div>
                     <div class="shu"></div>
                     <div class="flex-col ">
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
-                            <div class="texta-c px14 clr">默认</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
+                            <div class="texta-c px14 clr">人气</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
                         </div>
                     </div>
-                    <div class="shu"></div>
-                    <div class="flex-col ">
-                        <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
-                            <div class="texta-c px14 clr">默认</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
-                        </div>
-                    </div>
+                    @*<div class="shu"></div>
+                        <div class="flex-col ">
+                            <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
+                                <div class="texta-c px14 clr">默认</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
+                            </div>
+                        </div>*@
                 </div>
                 <div class="flex-col"></div>
                 <div class="flex-row">
@@ -182,46 +242,28 @@
             </div>
             <div class="div-h-2"></div>
             <div class="cell-list">
-                <div class="li">
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-2"></div>
-                    <div class="px18 color_7 texta-c">孙建兴 红烧娃打完</div>
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt">点击咨询</div>
-                </div>
-                <div class="li">
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-2"></div>
-                    <div class="px18 color_7 texta-c">孙建兴 红烧娃打完</div>
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt">点击咨询</div>
-                </div>
-                <div class="li">
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-2"></div>
-                    <div class="px18 color_7 texta-c">孙建兴 红烧娃打完</div>
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt">点击咨询</div>
-                </div>
-                <div class="li">
-                    <img src="/source/static/images/pc/zj2.png" alt="">
-                    <div class="div-h-2"></div>
-                    <div class="px18 color_7 texta-c">孙建兴 红烧娃打完</div>
-                    <div class="div-h-2"></div>
-                    <div class="px16 color_7 texta-c actcolor">NO:12563</div>
-                    <div class="div-h-2"></div>
-                    <div class="zxbt">点击咨询</div>
-                </div>
+                @if (proList != null && proList.Count > 0)
+                {
+                    foreach (ProductEntity entity in proList)
+                    {
+                        <div class="li">
+                            <a href="/@(entity.ProductID).html">
+                                <img src="@entity.Images" alt="">
+                            </a>
+                            <div class="div-h-2"></div>
+                            <div class="px18 color_7 texta-c">@entity.Author @entity.ProductName</div>
+                            <div class="div-h-2"></div>
+                            <div class="px16 color_7 texta-c actcolor">NO:@entity.ProductID</div>
+                            <div class="div-h-2"></div>
+                            <div class="zxbt" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')">点击咨询</div>
+                        </div>
+                    }
+
+                }
+
             </div>
             <!-- 分页 -->
-            <div class="div-h-3"></div>
-            <div class="flex-row M-box m-style" style="justify-content: center"><a href="javascript:;" class="prev">&lt;</a><span class="active">1</span><a href="javascript:;" data-page="2">2</a><a href="javascript:;" data-page="3">3</a><a href="javascript:;" data-page="4">4</a><a href="javascript:;" data-page="5">5</a><a href="javascript:;" class="next">&gt;</a></div>
+            @{ Html.RenderPartial("../Pager_pc", p); }
 
         </div>
     </div>

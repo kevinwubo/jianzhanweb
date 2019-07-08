@@ -49,6 +49,24 @@
         window.location.href = result;
 
         return false;
+    }
+    function getUrls(url,dtUrl) {
+        var result = url;
+        var thisUrl = window.location.href.split("?"), queryString = "";
+        if (thisUrl.length > 1) {
+            queryString = thisUrl[1];
+            var cq = queryString.replace(/p=\d{0,9}&?/g, "");
+            queryString = cq;
+            var newq = cq.length > 0 ?  dtUrl + "&" : dtUrl;
+            queryString = newq + cq;
+            result = thisUrl[0] + "?" + queryString;
+        }
+        else {
+            result = url + "?" + dtUrl;
+        }
+        window.location.href = result;
+
+        return false;
 
     }
 </script>
