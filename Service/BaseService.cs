@@ -10,7 +10,7 @@ namespace Service
 {
     public class BaseService
     {
-        public static string URL = "http://116.62.124.214/";
+        public static string URL =  ConfigurationManager.ConnectionStrings["FileUrl"].ToString();
         protected static CacheRuntime Cache
         {
             get

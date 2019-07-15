@@ -133,7 +133,15 @@ namespace Service
                 entity.Type6 = info.Type6;
                 entity.Type7 = info.Type7;
                 entity.Images = URL + info.Images;
-                entity.summary = string.IsNullOrEmpty(info.summary) ? "" : info.summary.Replace("http://121.42.156.253", URL);
+                if (!string.IsNullOrEmpty(info.summary) && info.summary.IndexOf("http") > -1)
+                {
+                    entity.summary = string.IsNullOrEmpty(info.summary) ? "" : info.summary.Replace("http://121.42.156.253", URL);
+                }
+                else
+                {
+                    entity.summary = string.IsNullOrEmpty(info.summary) ? "" : info.summary.Replace("/productimg", URL + "/productimg");
+                }
+                
                 entity.ProductDetail = info.ProductDetail;
                 entity.ProImageDetail = string.IsNullOrEmpty(info.ProImageDetail) ? "" : info.ProImageDetail.Replace("http://121.42.156.253", URL);
                 entity.IsPushMall = info.IsPushMall;

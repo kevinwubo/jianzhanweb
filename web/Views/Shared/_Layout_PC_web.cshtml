@@ -35,9 +35,9 @@
                                 background: #fff;
                                 text-align: left;
                                 border: 0px; padding:.15rem;width: 100%;"
-                               class="px16" type="text" placeholder="请输入釉色、作者、尺寸">
+                               class="px16" type="text" id="txt_keywords" placeholder="请输入釉色、作者、尺寸">
                     </div>
-                    <div class="ssbtn px24 mar-r-30">搜索</div>
+                    <div class="ssbtn px24 mar-r-30" id="btn_searchB">搜索</div>
                 </div>
                 <div class="px16 color_a4" style="margin-top:.15rem">如：陈大鹏 孙建兴 陆金喜 32051</div>
             </div>
@@ -286,6 +286,11 @@
     <script src="/source/static/js/showdiv.js"></script>
     <script src="/source/static/js/swiper.js"></script>
     <script>
+        $("#btn_searchB").click(function () {
+            var keyword = $("#txt_keywords").val();
+            window.location.href = "/WebHomePC/shop?keyword=" + keyword;
+        })
+
         function showzx(productid, productname, type3, type2) {
             utils.toggleBody(1)
             $("#lb_ProductID").text(productid);
