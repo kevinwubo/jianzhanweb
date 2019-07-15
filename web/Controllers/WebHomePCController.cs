@@ -138,7 +138,7 @@ namespace web.Controllers
                 else if (tag.Equals("销量"))//销量
                     OrderBy = " ORDER BY InquiryCount Desc ";
                 else if (tag.Equals("人气"))//人气
-                    OrderBy = " ORDER BY InventoryCount Desc ";
+                    OrderBy = " ORDER BY PVCount Desc ";
             }
 
             string artisanName = "";
@@ -172,7 +172,7 @@ namespace web.Controllers
             }
             else
             {
-                mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc ", pager);
+                mList = ProductService.GetProductInfoPager(OrderBy, pager);
             }
             ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
 

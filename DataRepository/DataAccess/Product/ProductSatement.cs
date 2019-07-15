@@ -70,7 +70,7 @@ namespace DataRepository.DataAccess.Product
 		                                                  SET @UP=@PageSize*(@PageIndex-1);
 
 		                                                  WITH Product AS
-		                                                  (SELECT *,ROW_NUMBER() OVER (ORDER BY Adddate,InventoryCount Desc) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
+		                                                  (SELECT *,ROW_NUMBER() OVER ({0}) AS RowNumber FROM (SELECT * FROM dt_Product WHERE 1=1 )as T ) 
 		                                                  SELECT *  FROM Product 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
