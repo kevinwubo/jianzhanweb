@@ -37,7 +37,7 @@ a {
 }
 
 * {
-    font: normal 0.22rem/100% Helvetica, Arial, sans-serif;
+    font: normal 0.26rem/100% Helvetica, Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -293,7 +293,7 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 
 .px32 {
-    font-size: .42rem !important;
+    font-size: .38rem !important;
 }
 
 .px36 {
@@ -314,7 +314,7 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 
 .color_57 {
-    color: #575757 !important;
+    color: #373737 !important;
 }
 
 .color_9 {
@@ -464,7 +464,8 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 
 .mar-r-16 {
-    margin-right: 0.16rem;
+    margin-right: 0.21rem;
+	font-weight:bold;
 }
 
 .mar-t-20 {
@@ -1021,7 +1022,7 @@ input:-moz-placeholder { /* Firefox 18- */
 .search-wrap .input-bg input {
     /*position: absolute;*/
     background: #f5f5f5;
-    line-height: 0.7rem;
+    line-height: 0.8rem;
     height: 0.7rem;
     width: 70%;
     text-align: left;
