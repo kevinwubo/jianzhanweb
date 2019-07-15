@@ -11,7 +11,7 @@ namespace DataRepository.DataAccess.New
 
         public static string GetArticleByID = @"SELECT * FROM dt_article(NOLOCK) WHERE id=@id";
 
-        public static string GetArticleByCategoryID = @"SELECT {0} * FROM dt_article(NOLOCK) WHERE category_id=@category_id";
+        public static string GetArticleByRule = @"SELECT {0} * FROM dt_article(NOLOCK) WHERE 1=1 ";
 
         #region 分页相关
         public static string GetArticleCount = @"SELECT COUNT(1) AS C FROM dt_article(NOLOCK) WHERE 1=1 ";

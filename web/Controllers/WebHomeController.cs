@@ -65,6 +65,51 @@ namespace web.Controllers
                     }
                 }
             }
+
+
+            if ("pc_index".Equals(type)) //首页
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/home", "index.html");
+            }
+            else if ("pc_shop".Equals(type))//商城
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/shop", "product_list.html");
+            }
+            else if ("pc_famous".Equals(type))//学堂
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/famous", "artisan_list.html");
+            }
+            else if ("pc_college".Equals(type))//学院
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/college", "article_list2.html");
+            }
+            else if ("pc_souchang".Equals(type))//收藏
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/souchang", "collection.html");
+            }
+            else if ("pc_allProduct".Equals(type))//所有产品
+            {
+                List<ProductEntity> list = ProductService.GetAllProduct();
+                if (list != null && list.Count > 0)
+                {
+                    foreach (ProductEntity entity in list)
+                    {
+                        Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/shopdetail?productid=" + entity.ProductID, entity.ProductID + ".html");
+                    }
+                }
+            }
+            else if ("pc_allfamous".Equals(type))//所有艺人
+            {
+                List<ArtisanEntity> list = ArtisanService.GetAllArtisan();
+                if (list != null && list.Count > 0)
+                {
+                    foreach (ArtisanEntity entity in list)
+                    {
+                        Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/mn_famousdetail?artisanid=" + entity.artisanID, "art" + entity.artisanID + ".html");
+                    }
+                }
+            }
+
             Response.Redirect("Auto");
         }
         //
@@ -176,11 +221,11 @@ namespace web.Controllers
             if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
             {
 
-                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword, " mn_shop", pager);
+                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword, " mn_shop","", pager);
             }
             else
             {
-                mList = ProductService.GetProductInfoPager("mn_shop", pager);
+                mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc", pager);
             }
 
             ViewBag.YJDSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("业界大师"));//业界大师
@@ -302,11 +347,11 @@ namespace web.Controllers
 
             if (1==1)
             {
-                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", pager);
+                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang","", pager);
             }
             else
             {
-                mList = ProductService.GetProductInfoPager("mn_souchang ", pager);
+                mList = ProductService.GetProductInfoPager(" ORDER BY MarketPrice Desc ", pager);
             }
 
 

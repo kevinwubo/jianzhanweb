@@ -64,15 +64,15 @@ namespace Service
         }
 
 
-        public static List<ArticleEntity> GetAllArticleInfoByCategoryID(int category_id,int count)
+        public static List<ArticleEntity> GetArticleByRule(int category_id, int count)
         {
             List<ArticleEntity> all = new List<ArticleEntity>();
             ArticleRepository mr = new ArticleRepository();
-            List<ArticleInfo> miList = Cache.Get<List<ArticleInfo>>("GetAllArticleInfoByCategoryID" + category_id + count);
+            List<ArticleInfo> miList = Cache.Get<List<ArticleInfo>>("GetArticleByRule" + category_id + count);
             if (miList.IsEmpty())
             {
-                miList = mr.GetAllArticleInfoByCategoryID(category_id, count);
-                Cache.Add("GetAllArticleInfoByCategoryID" + category_id + count, miList);
+                miList = mr.GetArticleByRule(category_id, count);
+                Cache.Add("GetArticleByRule" + category_id + count, miList);
             }
             if (!miList.IsEmpty())
             {

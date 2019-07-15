@@ -50,23 +50,32 @@
 
         return false;
     }
-    function getUrls(url,dtUrl) {
-        var result = url;
+    function getUrls(type, val) {
         var thisUrl = window.location.href.split("?"), queryString = "";
         if (thisUrl.length > 1) {
             queryString = thisUrl[1];
-            var cq = queryString.replace(/p=\d{0,9}&?/g, "");
-            queryString = cq;
-            var newq = cq.length > 0 ?  dtUrl + "&" : dtUrl;
-            queryString = newq + cq;
             result = thisUrl[0] + "?" + queryString;
         }
         else {
-            result = url + "?" + dtUrl;
+            result = thisUrl[0];
         }
+        var newUrl = modifyUrl(queryString, type, val);
+        var tag = newUrl.indexOf("?") > -1 ? "" : "?1=1";
+        result = "/WebHomePC/shop" + tag + newUrl;
         window.location.href = result;
-
         return false;
+    }
 
+    function modifyUrl(queryString, type, val) {
+        var newUrl = "";
+        if (queryString != "") {
+            var urlS = queryString.split('&');
+            for (var i = 0; i < urlS.length; i++) {
+                if (urlS[i] != "1=1" && urlS[i].split('=')[0].indexOf(type) < 0) {
+                    newUrl += "&" + urlS[i];
+                }
+            }
+        }
+        return newUrl = (newUrl == "" ? "?" : "&") + type + "=" + val.innerHTML + newUrl;
     }
 </script>

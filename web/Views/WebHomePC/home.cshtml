@@ -10,6 +10,8 @@
 
     List<ArtisanEntity> listMJMT = (List<ArtisanEntity>)ViewBag.listMJMT;
     List<ProductEntity> listArtisanProduct = (List<ProductEntity>)ViewBag.listArtisanProduct;
+
+    List<ArticleEntity> listArt = (List<ArticleEntity>)ViewBag.listArt;
 }
 
 <head>
@@ -91,7 +93,7 @@
                                 <div class="flex-row" style="flex-direction: column">
                                     <div class="flex-row mar-t-20" style="align-items: center;padding: 0 .13rem">
                                         <div class="flex-col t1 clamp1">【@entity.ProductName】</div>
-                                        <img class="bt-zx" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')"  src="/source/static/images/jianzhan_0509/ds_zx.png">
+                                        <img class="bt-zx" onclick="javascript:showzx('@entity.ProductID','@entity.ProductName','@entity.Type3','@entity.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
                                     </div>
 
                                     <div class="flex-row pad-t-16" style="padding: 0 .13rem">
@@ -312,30 +314,21 @@
                 <div class="px16" style="font-family:SourceHanSansCN-Bold;
                             font-weight:bold;">建盏学院</div>
                 <div class="flex-col"></div>
-                <div class="px14 color_73">更多 》</div>
+                <div class="px14 color_73"><a href="/article_list2.html">更多 》</a></div>
             </div>
             <div class="jz-list">
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
-                <div class="jz-cell">
-                    · 容易 “中毒” 的紫砂壶？
-                </div>
+
+                @if (listArt != null && listArt.Count > 0)
+                {
+                    foreach (ArticleEntity entity in listArt)
+                    {
+                        <div class="jz-cell">
+                            · <a href="/WebHomePC/collegedetail?id=@entity.id" title="@entity.articleTitle">@(entity.articleTitle.Length > 20 ? entity.articleTitle.Substring(0, 19) : entity.articleTitle)</a>
+                        </div>
+                    }
+
+                }
+
             </div>
         </div>
 

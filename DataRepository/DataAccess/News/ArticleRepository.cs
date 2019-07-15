@@ -27,7 +27,7 @@ namespace DataRepository.DataAccess.News
         /// <param name="category_id"></param>
         /// <param name="pager"></param>
         /// <returns></returns>
-        public List<ArticleInfo> GetAllArticleInfoByCategoryID(int category_id, int count)
+        public List<ArticleInfo> GetArticleByRule(int category_id, int count)
         {
             List<ArticleInfo> result = new List<ArticleInfo>();
 
@@ -38,12 +38,12 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND category_id=@category_id ");
             }
-            string sql = string.Format(ArticleSatement.GetArticleByCategoryID, "");
+            string sql = string.Format(ArticleSatement.GetArticleByRule, "");
             if (count > 0)
             {
-                sql = string.Format(ArticleSatement.GetArticleByCategoryID, " TOP " + count);
+                sql = string.Format(ArticleSatement.GetArticleByRule, " TOP " + count);
             }
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql + " Order By add_time desc ", "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql + builder.ToString() + " Order By add_time desc ", "Text"));
 
             if (category_id > 0)
             {
@@ -53,8 +53,6 @@ namespace DataRepository.DataAccess.News
             result = command.ExecuteEntityList<ArticleInfo>();
             return result;
         }
-
-
 
         #region 分页方法
         /// <summary>

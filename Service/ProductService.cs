@@ -200,15 +200,15 @@ namespace Service
             return new ProductRepository().GetProductCount(type2, type3, type4, type7, author, sqlwhere, Keyword);
         }
 
-        public static List<ProductEntity> GetProductInfoPager(string pagename, PagerInfo pager)
+        public static List<ProductEntity> GetProductInfoPager(string orderby, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoPager");
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoPager"+orderby);
             if (miList.IsEmpty())
             {
-                miList = mr.GetAllProductInfoPager(pagename, pager);
-                Cache.Add("GetAllProductInfoPager", miList);
+                miList = mr.GetAllProductInfoPager(orderby, pager);
+                Cache.Add("GetAllProductInfoPager" + orderby, miList);
             }
 
             if (!miList.IsEmpty())
@@ -222,16 +222,16 @@ namespace Service
             return all;
         }
 
-        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7, string author, string sqlwhere, string keyword, string pagename, PagerInfo pager)
+        public static List<ProductEntity> GetAllProductInfoByRule(string type2, string type3, string type4, string type7, string author, string sqlwhere, string keyword, string pagename,string orderBy, PagerInfo pager)
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename);
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy);
 
             if (miList.IsEmpty())
             {
-                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, keyword, pagename, pager);
-                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename, miList);
+                miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, keyword, pagename, orderBy, pager);
+                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy, miList);
             }
             if (!miList.IsEmpty())
             {

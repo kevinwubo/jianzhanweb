@@ -88,6 +88,7 @@ namespace web.Controllers
             }
             #endregion
 
+            ViewBag.listArt = ArticleService.GetArticleByRule(-1, 7);
 
             List<ArtisanEntity> listArt = ArtisanService.GetArtisansByRule("名家工艺师", 4, "1");
             ViewBag.listMJMT = listArt;//名家名堂
@@ -101,22 +102,46 @@ namespace web.Controllers
         /// 商城首页Type2釉色  type3器型 type4口径 type5功能 type7 价格
         /// </summary>
         /// <returns></returns>
-        public ActionResult shop(string type2, string type3, string type4, string type5, string type7, string author, string artisanType, string keyword = "", int p = 1)
+        public ActionResult shop(string type2, string type3, string type4, string type5, string type7, string author, string artisanType, string keyword = "", string tag = "", int p = 1)
         {
 
 
             List<ProductEntity> mList = null;
 
-            if (string.IsNullOrEmpty(type2) && string.IsNullOrEmpty(type3) && string.IsNullOrEmpty(type4) && string.IsNullOrEmpty(type7) && string.IsNullOrEmpty(author) && string.IsNullOrEmpty(artisanType) && string.IsNullOrEmpty(keyword))
-            {
-                artisanType = "业界大师";
-            }
+            //if (string.IsNullOrEmpty(type2) && string.IsNullOrEmpty(type3) && string.IsNullOrEmpty(type4) && string.IsNullOrEmpty(type7) && string.IsNullOrEmpty(author) && string.IsNullOrEmpty(artisanType) && string.IsNullOrEmpty(keyword))
+            //{
+            //    artisanType = "业界大师";
+            //}
+            string OrderBy = " ORDER BY Adddate Desc ";
 
             if (!string.IsNullOrEmpty(author))
             {
-                author = "'" + author + "'";
+                if (author.IndexOf("业界大师") > -1)
+                    artisanType = "业界大师";
+                else if (author.IndexOf("老牌传承人") > -1)
+                    artisanType = "老牌传承人";
+                else if (author.IndexOf("名家工艺师") > -1)
+                    artisanType = "名家工艺师";
+                else if (author.IndexOf("知名品牌") > -1)
+                    artisanType = "知名品牌";
+                else
+                    author = "'" + author + "'";
             }
 
+            //排序规则
+            if (!string.IsNullOrEmpty(tag))
+            {
+                if (tag.Equals("默认"))//默认
+                    OrderBy = " ORDER BY InventoryCount Desc ";
+                else if (tag.Equals("新品"))//新品
+                    OrderBy = " ORDER BY Adddate Desc ";
+                else if (tag.Equals("销量"))//销量
+                    OrderBy = " ORDER BY InquiryCount Desc ";
+                else if (tag.Equals("人气"))//人气
+                    OrderBy = " ORDER BY InventoryCount Desc ";
+            }
+
+            string artisanName = "";
             if (!string.IsNullOrEmpty(artisanType))
             {
                 List<ArtisanEntity> listArt = ArtisanService.GetArtisansByRule(artisanType);
@@ -124,9 +149,10 @@ namespace web.Controllers
                 {
                     foreach (ArtisanEntity entity in listArt)
                     {
-                        author += "'" + entity.artisanName + "',";
+                        artisanName += "'" + entity.artisanName + "',";
                     }
                 }
+                author = artisanName;
             }
 
             int count = ProductService.GetProductCount(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword);
@@ -138,15 +164,15 @@ namespace web.Controllers
             pager.URL = "/WebHomePC/shop";
 
             
+            
 
             if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
             {
-
-                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword, " mn_shop", pager);
+                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword, " mn_shop", OrderBy, pager);
             }
             else
             {
-                mList = ProductService.GetProductInfoPager("mn_shop", pager);
+                mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc ", pager);
             }
             ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
 
@@ -169,7 +195,7 @@ namespace web.Controllers
             ViewBag.type4 = type4;
             ViewBag.type5 = type5;
             ViewBag.type7 = type7;
-            ViewBag.author = author;
+            ViewBag.author = string.IsNullOrEmpty(artisanType) ? author : artisanType;
             return View();
         }
 
@@ -244,10 +270,10 @@ namespace web.Controllers
         /// <returns></returns>
         public ActionResult college()
         {
-            ViewBag.ListA = ArticleService.GetAllArticleInfoByCategoryID(1, 6);
-            ViewBag.ListB = ArticleService.GetAllArticleInfoByCategoryID(5, 6);
-            ViewBag.ListC = ArticleService.GetAllArticleInfoByCategoryID(6, 6);
-            ViewBag.ListD = ArticleService.GetAllArticleInfoByCategoryID(7, 6);
+            ViewBag.ListA = ArticleService.GetArticleByRule(1, 6);
+            ViewBag.ListB = ArticleService.GetArticleByRule(5, 6);
+            ViewBag.ListC = ArticleService.GetArticleByRule(6, 6);
+            ViewBag.ListD = ArticleService.GetArticleByRule(7, 6);
             ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
             return View();
         }
@@ -325,11 +351,11 @@ namespace web.Controllers
 
             if (1 == 1)
             {
-                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", pager);
+                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", "", pager);
             }
             else
             {
-                mList = ProductService.GetProductInfoPager("mn_souchang ", pager);
+                mList = ProductService.GetProductInfoPager(" ORDER BY MarketPrice Desc  ", pager);
             }
 
 
