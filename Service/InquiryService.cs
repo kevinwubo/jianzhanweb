@@ -39,7 +39,7 @@ namespace Service
             }
             else
             {
-                string code = GetTimeRangleCode(telephone);
+                string code = GetTimeRangleCode(telephone, "");
                 ManagerEntity entity = GetSalesNameNew(code);
                 InquiryInfo info = AddInquiry(telephone, productID, sourceform, entity);
                 sendSMS(SmsTempletText, productID, info.smsMess, entity);
@@ -193,7 +193,7 @@ namespace Service
         /// 确定时间范围
         /// </summary>
         /// <returns></returns>
-        public static string GetTimeRangleCode(string telephone)
+        public static string GetTimeRangleCode(string telephone,string city)
         {
             string code = "";
             DateTime dtNow = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
@@ -203,45 +203,62 @@ namespace Service
             //CSalesQueue 13点30分~18点30分分配队列
             //DSalesQueue 18点30分~21点30分分配队列
             //ESalesQueue 21点30分~凌晨2点分配队列
+            //班次分配
+            //ASalesQueue 1）凌晨班：凌晨1点016到早上5点30
+            //BSalesQueue 2）早班：5点31~9点30，这
+            //CSalesQueue 3）上午班：9点31~12点
+            //DSalesQueue 4）午睡班：12点01~14点
+            //ESalesQueue 5）下午班：14点01~18点
+            //FSalesQueue 6）晚班：18:01到21点45
+            //GSalesQueue 7）夜班：21点46到凌晨1点
             string datetime = DateTime.Now.AddDays(-1).ToShortDateString();
             string sqlTime = "";
-            if (dtNow.CompareTo(Convert.ToDateTime("02:00")) > 0 && dtNow.CompareTo(Convert.ToDateTime("12:00")) < 0)
+            if (dtNow.CompareTo(Convert.ToDateTime("01:16")) > 0 && dtNow.CompareTo(Convert.ToDateTime("05:30")) < 0)
             {
-                sqlTime = " and AddDate between '" + datetime + " 02:00' and '" + datetime + " 12:00'";
+                sqlTime = " and AddDate between '" + datetime + " 01:16' and '" + datetime + " 05:30'";
                 code = "ASalesQueue";
+            }
+            else if (dtNow.CompareTo(Convert.ToDateTime("05:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("09:30")) < 0)
+            {
+                sqlTime = " and AddDate between '" + datetime + " 05:31' and '" + datetime + " 09:30'";
+                code = "BSalesQueue";
+            }
+            else if (dtNow.CompareTo(Convert.ToDateTime("09:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("12:00")) < 0)
+            {
+                sqlTime = " and AddDate between '" + datetime + " 09:31' and '" + datetime + " 12:00'";
+                code = "CSalesQueue";
             }
             else if (dtNow.CompareTo(Convert.ToDateTime("12:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("14:00")) < 0)
             {
-                sqlTime = " and AddDate between '" + datetime + " 12:01' and '" + datetime + " 14:01'";
-                code = "BSalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("14:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("18:30")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 14:01' and '" + datetime + " 18:30'";
-                code = "CSalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("18:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("21:30")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 18:31' and '" + datetime + " 21:30'";
+                sqlTime = " and AddDate between '" + datetime + " 12:01' and '" + datetime + " 14:00'";
                 code = "DSalesQueue";
             }
-            else if (dtNow.CompareTo(Convert.ToDateTime("21:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " 01:59")) < 0)
+            else if (dtNow.CompareTo(Convert.ToDateTime("14:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("18:00")) < 0)
             {
-                sqlTime = " and AddDate between '" + datetime + " 21:31' and '" + datetime + " 01:59'";
+                sqlTime = " and AddDate between '" + datetime + " 14:01' and '" + datetime + " 18:00'";
                 code = "ESalesQueue";
+            }
+            else if (dtNow.CompareTo(Convert.ToDateTime("18:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("21:45")) < 0)
+            {
+                sqlTime = " and AddDate between '" + datetime + " 18:01' and '" + datetime + " 21:45'";
+                code = "FSalesQueue";
+            }
+            else if (dtNow.CompareTo(Convert.ToDateTime("21:46")) > 0 && dtNow.CompareTo(Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " 01:15")) < 0)
+            {
+                sqlTime = " and AddDate between '" + datetime + " 21:46' and '" + datetime + " 01:15'";
+                code = "GSalesQueue";
             }
 
             #region 城市信息优先级最高
-            ProCityEntity info = StringHelper.getCity(telephone);
-            string city = "";
-            string province = "";
-            if (info != null)
+            ProCityEntity info = StringHelper.getProCityInfo();//StringHelper.getCity(telephone);
+            String CityName = "";
+            if (info != null || !string.IsNullOrEmpty(city))
             {
-                city = info.city;
-                province = info.province;
-                if (!string.IsNullOrEmpty(info.city))
+                if (!string.IsNullOrEmpty(info.city) || !string.IsNullOrEmpty(city))
                 {
-                    if (info.city.Equals("北京") || info.city.Equals("天津") || info.city.Equals("廊坊"))
+                    CityName = !string.IsNullOrEmpty(city) ? city : info.city;
+
+                    if (CityName.Contains("北京") || CityName.Contains("天津") || CityName.Contains("廊坊"))
                     {
                         code = "BeiJingSalesQueue";
                     }
@@ -323,13 +340,14 @@ namespace Service
             info.SourceForm = sourceform;
             info.ProcessingState = "0";
             info.telphone = telephone;
-            ProCityEntity pcentity = StringHelper.getCity(telephone);
+            ProCityEntity pcentity = StringHelper.getProCityInfo(); //StringHelper.getCity(telephone);
             if (pcentity != null)
             {
+                info.IpAddress = pcentity.IpAddress;
                 info.Provence = pcentity.province;
                 info.City = pcentity.city;
             }
-
+            
             List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and (telphone='" + telephone + "' or telphone='" + StringHelper.ConvertBy123(telephone) + "') ", "", "");
             if (listInquiry != null && listInquiry.Count > 0)
             {
@@ -401,7 +419,7 @@ namespace Service
                 string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
                 foreach (InquiryEntity item in list)
                 {
-                    string code = GetTimeRangleCode(item.telphone);
+                    string code = GetTimeRangleCode(item.telphone, item.City);
                     ManagerEntity entity = GetSalesNameNew(code);
                     sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
 

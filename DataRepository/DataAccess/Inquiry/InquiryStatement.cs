@@ -21,8 +21,8 @@ namespace DataRepository.DataAccess.News
         public static string GetInquiryByKeys = @"SELECT * FROM dt_proInquiry(NOLOCK) WHERE PPId IN (#ids#)";
 
         public static string CreateSimpleInquiry = @"INSERT INTO [dt_proInquiry]
-                                                   (ProductID,telphone,WebChartID,Provence,City,InquiryContent,CustomerName,OperatorID,status,ProcessingState,SourceForm,TraceState,HistoryOperatorID)
-                                                    VALUES(@ProductID,@telphone,@WebChartID,@Provence,@City,@InquiryContent,@CustomerName,@OperatorID,@status,@ProcessingState,@SourceForm,@TraceState,@HistoryOperatorID) select @@IDENTITY";
+                                                   (ProductID,telphone,WebChartID,Provence,City,InquiryContent,CustomerName,OperatorID,status,ProcessingState,SourceForm,TraceState,HistoryOperatorID,IpAddress)
+                                                    VALUES(@ProductID,@telphone,@WebChartID,@Provence,@City,@InquiryContent,@CustomerName,@OperatorID,@status,@ProcessingState,@SourceForm,@TraceState,@HistoryOperatorID,@IpAddress) select @@IDENTITY";
 
 
         public static string CreateNewInquiry = @"INSERT INTO [dt_proInquiry]

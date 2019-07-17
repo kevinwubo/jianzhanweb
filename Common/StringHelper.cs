@@ -158,5 +158,43 @@ namespace Common
             }
             return info;
         }
+
+        public static ProCityEntity getProCityInfo()
+        {
+            ProCityEntity info = new ProCityEntity();
+            try
+            {
+                string ip = HttpContext.Current.Request.UserHostAddress;
+                string url = "http://apis.juhe.cn/ip/ipNew?ip=" + ip + "&key=5cbe82bf7bc6e5623d9424a440dc52f3";
+                //请求数据
+                HttpWebRequest res = (HttpWebRequest)WebRequest.Create(url);
+                //方法名
+                res.Method = "GET";
+                //获取响应数据
+                HttpWebResponse resp = (HttpWebResponse)res.GetResponse();
+                //读取数据流
+                StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8);
+                //编译成字符串
+                string resphtml = sr.ReadToEnd();
+                info.IpAddress = ip;
+                TelephoneJsonInfo result = JsonConvert.DeserializeObject<TelephoneJsonInfo>(resphtml);
+                if (result != null)
+                {
+                    resultinfo re = result.result;
+                    if (re != null)
+                    {
+                        info.city = !string.IsNullOrEmpty(re.City) ? re.City : "";
+                        info.province = !string.IsNullOrEmpty(re.Province) ? re.Province : "";
+                    }
+                }
+                //WriteTextLog("getProCityInfo" + resphtml, DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                info = null;
+                //BLL.Log.WriteTextLog("--异常记录getProCityInfo" + ex.ToString(), DateTime.Now);
+            }
+            return info;
+        }
     }
 }

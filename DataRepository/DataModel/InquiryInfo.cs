@@ -144,6 +144,11 @@ namespace DataRepository.DataModel
         [DataMapping("ChangeDate", DbType.DateTime)]
         public DateTime ChangeDate { get; set; }
 
+        /// <summary>
+        /// IP地址
+        /// </summary>
+        [DataMapping("IpAddress", DbType.String)]
+        public String IpAddress { get; set; }
 
         public string smsMess { get; set; }
        

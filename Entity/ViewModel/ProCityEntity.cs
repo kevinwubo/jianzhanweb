@@ -6,8 +6,33 @@ using System.Threading.Tasks;
 
 namespace Entity.ViewModel
 {
+
+
+    public class TelephoneJsonInfo
+    {
+        public string resultcode { get; set; }
+
+        public string reason { get; set; }
+
+        public resultinfo result { get; set; }
+
+        public int error_code { get; set; }
+    }
+
+    public class resultinfo
+    {
+        public string Province { get; set; }
+
+        public string City { get; set; }
+
+        public string Country { get; set; }
+
+        public string Isp { get; set; }
+
+    }
     public class ProCityEntity
     {
+        public string IpAddress { get; set; }
         public string province { get; set; }
         public string city { get; set; }
     }
