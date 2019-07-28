@@ -67,14 +67,14 @@
                                     <td><input type="checkbox" /></td>
                                     <td class=" sorting_1">@list[i].ProductID</td>
                                     <td class=" ">@(list[i].product!=null?list[i].product.ProductName:"")</td>
-                                    <td class=" ">@(list[i].product != null ? list[i].product.Author : "")</td>                                    
+                                    <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>                                    
                                     <td class=" "><span class="label label-warning">手机号:</span>：@list[i].telphone 
                                         @if (!string.IsNullOrEmpty(list[i].WebChartID))
                                         { 
                                             <span class="label label-warning">微信号:</span>@list[i].WebChartID
                                         }
                                     </td>
-                                    <td class=" ">@list[i].OperatorID</td>
+                                    <td class=" ">@(list[i].manager != null ? list[i].manager.real_name : "")</td>
                                     <td class=" ">@list[i].TraceState</td>
                                     <td class=" ">
                                         @if (list[i].ProcessingState.Equals("1"))

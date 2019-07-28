@@ -55,6 +55,13 @@ body {
   /* IE9*/
   /* iOS 4.1- */
 }
+
+  @font-face {
+            font-family: 'boldfont'; /*这里是说明调用来的字体名字*/
+            src: url('/source/static/font/SOURCEHANSANSCN-BOLD.OTF'); /*这里是字体文件路径*/
+        }
+
+div{font-family: 'boldfont'}
 .iconfont {
   font-family: "iconfont";
   display: inline-block;
@@ -479,9 +486,9 @@ left: 0;
 }
 
 .shux {
-  height: .3rem;
+  height: .17rem;
   width: .01rem;
-  margin: 0 .2rem;
+  margin: 0.07rem .2rem;
   background: #f0f0f0;
 }
 
@@ -541,8 +548,6 @@ left: 0;
 
 .actcolor{
   color:#96081B !important;
-  font-weight:900;
-
 }
 .searchzx {
   background: #f7f7f7;
@@ -564,14 +569,14 @@ left: 0;
 
   .swiper-button-next,
   .swiper-container-rtl .swiper-button-prev {
-      background-image: url(../static/images/jianzhan_0509/right.png);
+      background-image: url(/source/static/images/jianzhan_0509/right.png);
       right: 0px;
       left: auto;
   }
 
   .swiper-button-prev,
   .swiper-container-rtl .swiper-button-next {
-      background-image: url(../static/images/jianzhan_0509/left.png);
+      background-image: url(/source/static/images/jianzhan_0509/left.png);
       left: 0px;
       right: auto;
   }
@@ -631,3 +636,6 @@ left: 0;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
+.footer-top-img-b{
+        height: .6rem;
+     }
