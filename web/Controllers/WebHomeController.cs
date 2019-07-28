@@ -105,7 +105,7 @@ namespace web.Controllers
                 {
                     foreach (ArtisanEntity entity in list)
                     {
-                        Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/mn_famousdetail?artisanid=" + entity.artisanID, "art" + entity.artisanID + ".html");
+                        Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/famousdetail?artisanid=" + entity.artisanID, "art" + entity.artisanID + ".html");
                     }
                 }
             }
@@ -396,9 +396,9 @@ namespace web.Controllers
         /// 立即资讯
         /// </summary>
         /// <returns></returns>
-        public JsonResult CreateInquiry(string telephone, string productID, string sourceform)
+        public JsonResult CreateInquiry(string telephone, string productID, string sourceform, string contactName = "")
         {
-            string result = InquiryService.CreateInquiry(telephone, productID, sourceform);
+            string result = InquiryService.CreateInquiry(telephone, productID, sourceform, contactName);
             return new JsonResult
             {
                 Data = "成功！您的询价对我们很重要，建盏顾问将很快回复！"

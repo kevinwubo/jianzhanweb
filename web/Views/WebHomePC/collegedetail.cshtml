@@ -50,7 +50,7 @@
                         </h2>
                         @Html.Raw(entity.content)
                     </div>
-                    <div class="wrap-footer flex-row">
+                    @*<div class="wrap-footer flex-row">
                         <div>
                             上一篇：去年11月创下
                         </div>
@@ -60,7 +60,7 @@
                         <div>
                             下一篇：去年11月创下
                         </div>
-                    </div>
+                    </div>*@
                 </section>
             }
 
@@ -84,7 +84,7 @@
                         <a class="li">
                             <div class="div-h-2"></div>
                             <div class="px16 color_7 texta-c actcolor">NO:@entityPro.ProductID</div>
-                            <img src="/source/static/images/pc/zj2.png" alt="">
+                            <img src="@entityPro.Images" alt="" style="cursor:pointer" onclick="OpenUrl('/@(entityPro.ProductID).html')">
                             <div class="div-h-1"></div>
                             <div class="px16 color_7 texta-c">@entityPro.ProductName</div>
                             <div class="div-h-1"></div>
@@ -175,24 +175,25 @@
                 {
                     <div class="div-h-2"></div>
                     <div class="ds-item">
-                        <div class="pimg" style="background:url(@entityPro.Images)"></div>
-                        <div class="flex-row" style="flex-direction: column">
-                            <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                                <div class="flex-col t1 clamp1">【@entityPro.ProductName】</div>
-                                <img class="bt-zx" onclick="javascript:showzx('@entityPro.ProductID','@entityPro.ProductName','@entityPro.Type3','@entityPro.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                            </div>
+                        <a href="/@(entityPro.ProductID).html">
+                            <div class="pimg" style="background:url(@entityPro.Images)"></div></a>
+                            <div class="flex-row" style="flex-direction: column">
+                                <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
+                                    <div class="flex-col t1 clamp1">【@entityPro.ProductName】</div>
+                                    <img class="bt-zx" onclick="javascript:showzx('@entityPro.ProductID','@entityPro.ProductName','@entityPro.Type3','@entityPro.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
+                                </div>
 
-                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                <div class="t2 clamp1 flex-col">编号：@entityPro.ProductID</div>
-                                <div class="t2 clamp1 flex-col">作者：@entityPro.Author</div>
-                            </div>
+                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                    <div class="t2 clamp1 flex-col">编号：@entityPro.ProductID</div>
+                                    <div class="t2 clamp1 flex-col">作者：@entityPro.Author</div>
+                                </div>
 
-                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                                <div class="t2 clamp1 flex-col">器形：@entityPro.Type3</div>
-                                <div class="t2 clamp1 flex-col">釉色：@entityPro.Type2</div>
+                                <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                    <div class="t2 clamp1 flex-col">器形：@entityPro.Type3</div>
+                                    <div class="t2 clamp1 flex-col">釉色：@entityPro.Type2</div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+</div>
                 }
             }
         </div>

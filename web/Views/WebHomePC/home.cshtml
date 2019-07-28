@@ -37,7 +37,7 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                     font-weight:bold;">新品推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
+                    <div class="px14 color_73"><a href="/product_list.html">更多 》</a></div>
                 </div>
                 <div class="ds-list">
                     @if (listNew != null && listNew.Count > 0)
@@ -79,7 +79,7 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">新品推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
+                    <div class="px14 color_73"><a href="/product_list.html">更多 》</a></div>
                 </div>
                 <div class="ds-list">
                     @if (listHot != null && listHot.Count > 0)
@@ -122,56 +122,28 @@
             <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">名家名堂</div>
             <div class="flex-col"></div>
-            <div class="px14 color_73">更多 》</div>
+            <div class="px14 color_73"><a href="/artisan_list.html">更多 》</a></div>
         </div>
         <div class="mj-list">
             <div class="mj-item" style="height:4.5rem !important;margin-left:.2rem;margin-right:.2rem ">
                 <div class="pimg" style="height: 100%;background:url(/source/static/images/jianzhan_0509/mjmt1.jpeg)"></div>
             </div>
+            @if (listMJMT != null && listMJMT.Count > 0)
+            {
+                foreach (ArtisanEntity entity in listMJMT)
+                {
 
-           <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt2.jpeg)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
+                    <div class="mj-item">
+                        <a href="/art@(entity.artisanID).html">
+                            <div class="pimg" style="background:url(@entity.IDHead)"></div>
+                        </a>
+                        <div class="flex-row" style="flex-direction: column">
+                            <div class="flex-col t1 clamp1">【@entity.artisanName】</div>
+                            <div class="t2 clamp1 flex-col">编号：@entity.artisanTitle</div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt3.jpeg)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
-                </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt4.jpeg)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
-                </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt5.jpeg)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
-                </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt6.jpeg)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
-                </div>
-                <div class="mj-item">
-                    <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt7.jpeg)"></div>
-                    <div class="flex-row" style="flex-direction: column">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                    </div>
-                </div>
+                }
+            }
         </div>
         <div class="div-h-2"></div>
     </div>
@@ -182,47 +154,47 @@
             <div class="part1" style="background: #fff;border-top:0px">
                 <div class="flex-row" style="padding:.2rem .2rem 0">
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                    font-weight:bold;">新品推荐</div>
+                                    font-weight:bold;">器型推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
+                    <div class="px14 color_73"><a href="/WebHomePC/jingdian">更多 》</a></div>
                 </div>
                 <div class="ds-list">
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/ys1.png" alt="">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=116" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/sk.jpg" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【束口盏】</div>
+                            <div class="t2 clamp2">
+                                盏沿以下1cm左右处必有一圈凹槽，也叫“注水线”...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+                    <a href="/WebHomePC/jingdiandetail?artisanid=122" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/zhegu.jpg" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【油滴/鹧鸪斑】</div>
+                            <div class="t2 clamp2">
+                                油滴盏的斑纹有如沸腾的油滴一般、呈点状分布...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+                    <a href="/WebHomePC/jingdiandetail?artisanid=119" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/bk.jpg" alt="">
+                        <div class="flex-col">
+                            <div class="t1 clamp1">【撇口盏】</div>
+                            <div class="t2 clamp2">
+                                口沿外撇。盏腹有明显弧度...
+                            </div>
+                            <div class="t3">详情</div>
+                        </div>
+                    </a>
+                    <a href="/WebHomePC/jingdiandetail?artisanid=121" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/tuhao.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【兔毫】</div>
                             <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
-                            </div>
-                            <div class="t3">详情</div>
-                        </div>
-                    </a>
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
-                        <div class="flex-col">
-                            <div class="t1 clamp1">【曜变】</div>
-                            <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
-                            </div>
-                            <div class="t3">详情</div>
-                        </div>
-                    </a>
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
-                        <div class="flex-col">
-                            <div class="t1 clamp1">【曜变】</div>
-                            <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
-                            </div>
-                            <div class="t3">详情</div>
-                        </div>
-                    </a>
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/ys2.png" alt="">
-                        <div class="flex-col">
-                            <div class="t1 clamp1">【曜变】</div>
-                            <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
+                                析晶斑纹为黑色釉层中透出均匀细密的丝状筋脉条纹...
                             </div>
                             <div class="t3">详情</div>
                         </div>
@@ -237,48 +209,48 @@
             <div class="part1" style="background: #fff;border-top:0px">
                 <div class="flex-row" style="padding:.2rem .2rem 0">
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                font-weight:bold;">新品推荐</div>
+                                font-weight:bold;">釉色推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
+                    <div class="px14 color_73"><a href="/WebHomePC/jingdian">更多 》</a></div>
                 </div>
                 <div class="ds-list">
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/b.png" alt="">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=117" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/lk.jpg" alt="">
                         <div class="flex-col">
-                            <div class="t1 clamp1">【敞口盏】</div>
+                            <div class="t1 clamp1">【敛口盏】</div>
                             <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
+                                口沿微向内收敛，整体造型呈丰满状...
                             </div>
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/a.png" alt="">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=123" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/yaobian.jpg" alt="">
                         <div class="flex-col">
-                            <div class="t1 clamp1">【敛口盏】</div>
+                            <div class="t1 clamp1">【曜变】</div>
                             <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
+                                在阳光和一定温度条件下会闪耀出七彩光晕...
                             </div>
                             <div class="t3">详情</div>
                         </div>
                     </a>
 
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/b.png" alt="">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=118" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/ck.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【敞口盏】</div>
                             <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
+                                在黑色釉中透露出均...
                             </div>
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="#" class="qxys-item flex-row">
-                        <img src="/source/static/images/jianzhan_0509/b.png" alt="">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=124" class="qxys-item flex-row">
+                        <img src="http://116.62.124.214/upload/201905/20/wujin.jpg" alt="">
                         <div class="flex-col">
-                            <div class="t1 clamp1">【敞口盏】</div>
+                            <div class="t1 clamp1">【乌金釉】</div>
                             <div class="t2 clamp2">
-                                简介：在黑色釉中透露出均...
+                                乌金釉即纯黑釉。有部分斑纹较少或极难直接观察...
                             </div>
                             <div class="t3">详情</div>
                         </div>
@@ -298,7 +270,7 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">大师推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
+                    <div class="px14 color_73"><a href="/product_list.html">更多 》</a></div>
                 </div>
                 <div class="ds-list">
                     @if (listDSTJ != null && listDSTJ.Count > 0)
@@ -413,7 +385,7 @@
                 <div class="flex-row">
                     <div style="width:5.39rem;height: 4.52rem;padding: .2rem 0 .2rem .2rem">
                         <div style="height:auto; padding: .3rem;background: #f7f7f7">
-                            <div class="px16 color_57">客服：13888888888（xx）</div>
+                            <div class="px16 color_57">客服：4008-276-376</div>
                             <div class="px16 color_57 mar-t-1" id="address" style="line-height:.4rem">
                                 地址：厦门市思明区台东路66号宝业营运中心705室
                             </div>
@@ -424,9 +396,9 @@
                             <div class="div-h-2"></div>
                             <div class="flex-row " style="bottom: 0;height: .45rem;text-align: center;align-items: center;border-top: 1px solid #f6f6f6;width: 100%;z-index: 99;">
                                 <div class="flex-col searchzx" style="background: #f7f7f7;height: .45rem;border: 1px solid #e6e6e6;">
-                                    <input style="height: 95%;width: 90%; background: #f7f7f7" class="px16 pad-l-20" type="text" placeholder="请输入手机号码咨询详情">
+                                    <input style="height: 95%;width: 90%; background: #f7f7f7" class="px16 pad-l-20" type="text" id="txt_easyTel" placeholder="请输入手机号码咨询详情">
                                 </div>
-                                <div class="ssbtnzx px16" style="height: .45rem;margin-left: .12rem;width:1.34rem;line-height: .45rem">
+                                <div class="ssbtnzx px16" style="height: .45rem;margin-left: .12rem;width:1.34rem;line-height: .45rem" id="btn_easyZX">
                                     立即咨询
                                 </div>
                             </div>

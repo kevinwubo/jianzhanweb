@@ -6,7 +6,7 @@
 
 <!doctype html>
 <html>
-   <meta charset="utf-8">@RenderSection("Header", false)
+<meta charset="utf-8">@RenderSection("Header", false)
 
 <body>
     <div class="header">
@@ -50,40 +50,40 @@
     <div style="background:#333;border-bottom: 1px solid #fff">
         <div class="nav flex-row">
             <div class="flex-col item px18 texta-c navact"><a href="/index.html" style="color:#f8f8f8;">首页</a></div>
-            
+
             <div class="flex-col item px18 texta-c down"><a href="/product_list.html" style="color:#f8f8f8;">建盏商城</a></div>
-            
+
             <div class="flex-col item px18 texta-c down">
                 <a href="/artisan_list.html" style="color:#f8f8f8;">
                     名家名堂
                 </a>
                 @*<div class="navlist">
-                    <div class="li px16 color_3 texta-c actcolor">
-                        <a href="/artisan_list.html" style="color:#f8f8f8;">
-                            老牌传承人
-                        </a>
-                    </div>
-                    <div style="height:1px;background:#f0f0f0;width:80%;margin: auto"></div>
-                    <div class="li px16 color_3 texta-c">
-                        <a href="/artisan_list.html" style="color:#f8f8f8;">
-                            业界大师
-                        </a>
-                    </div>
-                    <div style="height:1px;background:#f0f0f0;width:80%;margin: auto"></div>
-                    <div class="li px16 color_3 texta-c">
-                        <a href="/artisan_list.html" style="color:#f8f8f8;">
-                            名家艺師
-                        </a>
-                    </div>
-                </div>*@
+                        <div class="li px16 color_3 texta-c actcolor">
+                            <a href="/artisan_list.html" style="color:#f8f8f8;">
+                                老牌传承人
+                            </a>
+                        </div>
+                        <div style="height:1px;background:#f0f0f0;width:80%;margin: auto"></div>
+                        <div class="li px16 color_3 texta-c">
+                            <a href="/artisan_list.html" style="color:#f8f8f8;">
+                                业界大师
+                            </a>
+                        </div>
+                        <div style="height:1px;background:#f0f0f0;width:80%;margin: auto"></div>
+                        <div class="li px16 color_3 texta-c">
+                            <a href="/artisan_list.html" style="color:#f8f8f8;">
+                                名家艺師
+                            </a>
+                        </div>
+                    </div>*@
             </div>
-          
+
             <div class="flex-col item px18 texta-c"><a href="/WebHomePC/jingdian" style="color:#f8f8f8;">工艺釉色</a></div>
-          
+
             <div class="flex-col item px18 texta-c"><a href="/article_list2.html" style="color:#f8f8f8;">建盏学院</a></div>
-            
+
             <div class="flex-col item px18 texta-c"><a href="/collection.html" style="color:#f8f8f8;">收藏阁</a></div>
-            
+
             <div class="flex-col item px18 texta-c"><a href="###" style="color:#f8f8f8;">厦门店</a></div>
         </div>
     </div>
@@ -126,7 +126,7 @@
                     <div class="flex-row" style="height: .75rem;padding: 0 .3rem">
                         <div class="flex-col">
                             <div style="height:.375rem;line-height: .375rem;text-align: left">编号：<label id="lb_ProductID" /></div>
-                            <div style="height:.375rem;line-height: .375rem;text-align: left">作者：<label id="lb_ProductName" /></div>
+                            <div style="height:.375rem;line-height: .375rem;text-align: left">名称：<label id="lb_ProductName" /></div>
                         </div>
                         <div class="flex-col">
                             <div style="height:.375rem;line-height: .375rem;text-align: left">器型：<label id="lb_Type3" /></div>
@@ -139,14 +139,15 @@
 
                     <div class="flex-row" style="align-items: center">
                         <img src="/source/static/images/pc/zxphone.png" alt="">
-                        <input class="flex-col" style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" placeholder="请输入您的手机号">
+                        <input type="hidden" id="Hid_ProductID" />
+                        <input class="flex-col" style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" id="txt_telephone" placeholder="请输入您的手机号">
                         <div style="width:.2rem"></div>
                     </div>
 
                     <div class="div-h-2"></div>
 
                     <div class="flex-row" style="align-items: center">
-                        <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" placeholder="请输入您的称呼">
+                        <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" id="txt_contactName" placeholder="请输入您的称呼">
                         <div class="input_radio" style="margin-left:.2rem">
                             <input type="radio" checked="checked" name="item" value="先生">
                             <label>先生</label>
@@ -166,20 +167,28 @@
     </div>
 
     <footer>
-       <div class="w100" style="height:.9rem">
+        <div class="w100" style="height:.9rem">
             <div class="top flex-row" style="align-items:center;height: 100%;">
                 <div class="top flex-row" style="width:100%">
-                    <div class="flex-col  px18 texta-c"> <img class="footer-top-img-b" src="/source/static/images/pc/fb1.png"
-                            alt=""></div>
+                    <div class="flex-col  px18 texta-c">
+                        <img class="footer-top-img-b" src="/source/static/images/pc/fb1.png"
+                             alt="">
+                    </div>
                     <!-- <div style="height:1px;background:#b3b3b3;width:1.27rem"></div> -->
-                    <div class="flex-col  px18 texta-c"> <img class="footer-top-img-b"  src="/source/static/images/pc/fb2.png"
-                            alt=""></div>
+                    <div class="flex-col  px18 texta-c">
+                        <img class="footer-top-img-b" src="/source/static/images/pc/fb2.png"
+                             alt="">
+                    </div>
                     <!-- <div style="height:1px;background:#b3b3b3;width:1.27rem"></div> -->
-                    <div class="flex-col  px18 texta-c"> <img class="footer-top-img-b"  src="/source/static/images/pc/fb3.png"
-                            alt=""></div>
+                    <div class="flex-col  px18 texta-c">
+                        <img class="footer-top-img-b" src="/source/static/images/pc/fb3.png"
+                             alt="">
+                    </div>
                     <!-- <div style="height:1px;background:#b3b3b3;width:1.27rem"></div> -->
-                    <div class="flex-col  px18 texta-c"> <img class="footer-top-img-b"  src="/source/static/images/pc/fb4.png"
-                            alt=""></div>
+                    <div class="flex-col  px18 texta-c">
+                        <img class="footer-top-img-b" src="/source/static/images/pc/fb4.png"
+                             alt="">
+                    </div>
                     <!-- <div style="height:1px;background:#b3b3b3;width:1.27rem"></div>
                     <div class="flex-col  px18 texta-c"> <img class="footer-top-img-b" src="/source/static/images/pc/15th.png"
                             alt=""></div> -->
@@ -193,14 +202,6 @@
                         <div class="flex-row" style="text-align:center;width: 5.2rem;">
                             <img style="width:1.5rem;height:1.5rem;margin-left: 0rem" src="/source/static/images/jianzhan/ic_code.png">
                             <div class="flex-col" style="margin-left:.2rem;">
-                                <!-- <div class="flex-row" style="height:.35rem;align-items:center">
-                                    <div class="mar-l-30 color_f px20">关于我们</div>
-                                    <div class="mar-l-30 color_f px20">售后服务</div>
-                                </div>
-                                <div class="flex-row" style="height:.35rem;align-items:center">
-                                    <div class="mar-l-30 color_f px20">服务保障</div>
-                                    <div class="mar-l-30 color_f px20">在线支付</div>
-                                </div> -->
                                 <div class="flex-row" style="height:.35rem;align-items:center">
                                     <div class="mar-l-30 color_f px20" style="text-align:left">(识别二维码了解更多)</div>
                                 </div>
@@ -209,66 +210,17 @@
                                     <div class="color_f px16">(24h在线)</div>
                                 </div>
                                 <div class="flex-row" style="height:.35rem;align-items:center">
-                                    <div class="mar-l-30 color_f px20" style="text-align:left">Copyright 2015 建盏天下网
-                                        版权所有</div>
+                                    <div class="mar-l-30 color_f px20" style="text-align:left">
+                                        Copyright 2015 建盏天下网
+                                        版权所有
+                                    </div>
                                 </div>
                                 <div class="flex-row" style="height:.35rem;align-items:center">
                                     <div class="mar-l-30 color_f px20" style="text-align:left">闽ICP备17006498号-1 </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center">闽ICP备17006498号-1 Copyright 2015 建盏天下网
-                            版权所有</div> -->
-                        <!-- <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center"> 福建省盏天下电子商务有限公司</div> -->
                     </div>
-                    <!-- <div class="con-l flex-row">
-                        <div class="flex-row about-con">
-                            <div class="about-item about-item-f">关于我们</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                        </div>
-                        <div class="flex-row about-con">
-                            <div class="about-item about-item-f">关于我们</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                        </div>
-                        <div class="flex-row about-con">
-                            <div class="about-item about-item-f">关于我们</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                        </div>
-                        <div class="flex-row about-con">
-                            <div class="about-item about-item-f">关于我们</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                            <div class="about-item">公司简介</div>
-                        </div>
-                    </div>
-                    <div class="col-r">
-                        <div class="flex-row">
-                            <div style="height:1.24rem;width:1.24rem;background: #fff">
-                                <img class="qrimg1" class="footer-top-img" src="../static/images/pc/15th.png" alt="">
-                                <img class="qrimg2" class="footer-top-img" src="../static/images/pc/sfems.png" alt=""></div>
-                            <div class="flex-col">
-                                <div id="qrtext1" class="qrtext1">
-                                    <div class="t1">官方微信号</div>
-                                    <div class="t2">扫码享优惠</div>
-                                </div>
-                                <div id="qrtext2" class="qrtext2">
-                                    <div class="t1">官方微信号</div>
-                                    <div class="t2">扫码享优惠</div>
-                                </div>
-                            </div>
-                        </div>
-                        <img src="../static/images/pc/qrcode.png" alt="">
-                    </div> -->
                 </div>
                 <div class="flex-row" style="
                 padding-top:.4rem;
@@ -287,16 +239,6 @@
                     <div class="flex-col color_f texta-c">收费及售后</div>
                     <div class="shux"></div>
                     <div class="flex-col color_f texta-c">定制服务</div>
-                    <!-- <div class="info-con-l flex-row">
-                        <div>闽ICP备17006498号-1 © Copyright 2015 建盏天下网 版权所有</div>
-                        <div>福建省盏天下电子商务有限公司</div>
-                    </div>
-                    <div class="info-col-r">
-
-                        <div class="color_f bg_color_3" style=" margin: auto; margin-top:.05rem;width: 94%;height: .42rem;font-size:.28rem;text-align: center">4008-276-376</div>
-                        <div style="margin-top:.05rem;"></div>
-                        <div style="font-size:.14rem;color:#fff;text-align: center">- - 24小时官方服务热线 - -</div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -304,11 +246,13 @@
 
     <script src="/source/static/js/jquery-2.1.4.js"></script>
     <script src="/source/static/js/jquery-weui.js"></script>
-    @*<script src="/source/static/js/jquery.pagination.js"></script>*@
     <script src="/source/static/js/utils.js"></script>
     <script src="/source/static/js/showdiv.js"></script>
     <script src="/source/static/js/swiper.js"></script>
     <script>
+        function OpenUrl(url) {
+            window.location.href = url;
+        }
         $("#btn_searchB").click(function () {
             var keyword = $("#txt_keywords").val();
             window.location.href = "/WebHomePC/shop?keyword=" + keyword;
@@ -320,9 +264,10 @@
             $("#lb_ProductName").text(productname);
             $("#lb_Type3").text(type3);
             $("#lb_Type2").text(type2);
-            $('#tixing').show()
+            $('#tixing').show();
+            $("#Hid_ProductID").val(productid);
         }
-		 $("#qrtext2").hover(function () {
+        $("#qrtext2").hover(function () {
             $('.qrimg1').hide();
             $('.qrimg2').show();
             $('#qrtext2').addClass('qrtext1').removeClass('qrtext2')
@@ -334,9 +279,11 @@
             $('#qrtext1').addClass('qrtext1').removeClass('qrtext2')
             $('#qrtext2').addClass('qrtext2').removeClass('qrtext1')
         })
+        //弹窗资讯
         $("#btn_zixun").click(function () {
             var Telephone = $("#txt_telephone").val();
             var ProductID = $("#Hid_ProductID").val();
+            var contactName = $("#txt_contactName").val() + $("input[name='item']:checked").val();;
             if (Telephone == "") {
                 alert('请输入您的手机号码');
                 return false;
@@ -345,7 +292,7 @@
                 alert('请输入正确的手机号码');
                 return false;
             }
-            ZiXun(Telephone, ProductID, "", "");
+            ZiXun(Telephone, ProductID, contactName, "");
         })
 
         function ZiXun(Telephone, ProductID, ContactName, WxChartID) {
@@ -356,7 +303,8 @@
                 data: {
                     telephone: Telephone,
                     productID: ProductID,
-                    sourceform: "MB"
+                    sourceform: "MB",
+                    contactName: ContactName
                 },
                 success: function (data) {
                     alert(data);
@@ -366,12 +314,32 @@
             });
         }
 
+        //详情页面资讯
         $("#LJTJ_ZiXun").click(function () {
             var Telephone = $("#txt_telephone").val();
             var ProductID = 0;
             var ContactName = $("#txt_ContactName").val();
             var WxChartID = $("#txt_WxChartID").val();
             var Content = $("#txt_Content").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID, ContactName, WxChartID);
+
+        })
+
+        //简易版资讯
+        $("#btn_easyZX").click(function () {
+            var Telephone = $("#txt_easyTel").val();
+            var ProductID = 0;
+            var ContactName = "";
+            var WxChartID = "";
+            var Content = "";
             if (Telephone == "") {
                 alert('请输入您的手机号码');
                 return false;
@@ -533,26 +501,27 @@
 
         isTouchDevice();
     </script>
-	// 商城
-	   <script>
-	$("#shop-more").on("click",function(){
-	$(".jz-body .right .list").css("height","auto")
-	$(this).hide()
-	})
-	</script>
-	//艺人详情
-	<script>
-	var yrxqh=true;
-	$(".close-all").on("click",function(){
-	  yrxqh=!yrxqh;
-	  if(yrxqh){
-	  	  $(".fea-main").css("height","auto")
-	  }
-	  else{
-	  	  $(".fea-main").css("height","2.95rem")
-	  }
-	})
-	</script>
+
+    <script>
+        // 商城
+        $("#shop-more").on("click", function () {
+            $(".jz-body .right .list").css("height", "auto")
+            $(this).hide()
+        })
+    </script>
+    <script>
+        /*艺人详情*/
+        var yrxqh = true;
+        $(".close-all").on("click", function () {
+            yrxqh = !yrxqh;
+            if (yrxqh) {
+                $(".fea-main").css("height", "auto")
+            }
+            else {
+                $(".fea-main").css("height", "2.95rem")
+            }
+        })
+    </script>
 </body>
 
 </html>

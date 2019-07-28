@@ -90,7 +90,7 @@ namespace web.Controllers
 
             ViewBag.listArt = ArticleService.GetArticleByRule(-1, 7);
 
-            List<ArtisanEntity> listArt = ArtisanService.GetArtisansByRule("名家工艺师", 4, "1");
+            List<ArtisanEntity> listArt = ArtisanService.GetArtisansByRule("名家工艺师", 6, "1");
             ViewBag.listMJMT = listArt;//名家名堂
             ViewBag.listNew = listNew;
             ViewBag.listHot = listHot;
@@ -234,6 +234,7 @@ namespace web.Controllers
             {
                 mList = ArtisanService.GetArtisanInfoPager(pager, 4);
             }
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
             ViewBag.Pager = pager;
             ViewBag.ArtisanList = mList;
             return View();
@@ -274,7 +275,7 @@ namespace web.Controllers
             ViewBag.ListB = ArticleService.GetArticleByRule(5, 6);
             ViewBag.ListC = ArticleService.GetArticleByRule(6, 6);
             ViewBag.ListD = ArticleService.GetArticleByRule(7, 6);
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, "");//推荐
             return View();
         }
 
@@ -302,6 +303,7 @@ namespace web.Controllers
             {
                 mList = ArticleService.GetArticleInfoPager(pager);
             }
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, "");//推荐
             ViewBag.Category_ID = category_id;
             ViewBag.ArticleList = mList;
             ViewBag.Pager = pager;

@@ -16,7 +16,7 @@ namespace Service
     {
         #region 咨询量逻辑
 
-        public static string CreateInquiry(string telephone, string productID, string sourceform)
+        public static string CreateInquiry(string telephone, string productID, string sourceform, string contactName)
         {
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
             CodeSEntity blackmobile = BaseDataService.GetCodeValuesByRule("BlackMobile");//手机号黑名单
@@ -41,7 +41,7 @@ namespace Service
             {
                 string code = GetTimeRangleCode(telephone, "");
                 ManagerEntity entity = GetSalesNameNew(code);
-                InquiryInfo info = AddInquiry(telephone, productID, sourceform, entity);
+                InquiryInfo info = AddInquiry(telephone, productID, sourceform, contactName, entity);
                 sendSMS(SmsTempletText, productID, info.smsMess, entity);
             }
             return "";
@@ -67,19 +67,19 @@ namespace Service
                 }
                 SmsMess = SmsMess.Replace("-", "-");
 
-                //SMSHelper.SeedSMS(mInfo.telephone, SmsMess);               
-                ////发送给老板
-                //SMSHelper.SeedSMS("13916116545", SmsMess);
+                SMSHelper.SeedSMS(entity.telephone, SmsMess);
+                //发送给老板
+                SMSHelper.SeedSMS("13916116545", SmsMess);
 
-                ////发送城市对应的主管销售人员
-                //if (mInfo.CityName.Equals("厦门"))
-                //{
-                //    SMSHelper.SeedSMS("17359271665", SmsMess);
-                //}
-                //else if (mInfo.CityName.Equals("武夷山"))
-                //{
-                //    SMSHelper.SeedSMS("13163806316", SmsMess);
-                //}
+                //发送城市对应的主管销售人员
+                if (entity.CityName.Equals("厦门"))
+                {
+                    SMSHelper.SeedSMS("17359271665", SmsMess);
+                }
+                else if (entity.CityName.Equals("武夷山"))
+                {
+                    SMSHelper.SeedSMS("13163806316", SmsMess);
+                }
             }
             return true;
         }        
@@ -141,6 +141,15 @@ namespace Service
         /// <returns></returns>
         private static List<ManagerEntity> getOutSalesList(List<ManagerEntity> currentList)
         {
+            List<ManagerEntity> oldList = new List<ManagerEntity>();
+            if (currentList != null && currentList.Count > 0)
+            {
+                foreach (ManagerEntity entity in currentList)
+                {
+                    oldList.Add(entity);
+                }
+            }
+
             List<ManagerEntity> removeList = new List<ManagerEntity>();
             string OutSalesCodes = GetOutSalesName();//排除队列
             string wxCodes = BaseDataService.GetCodeValuesByRule("WXChartList").CodeValues;//当天在微信队列中的排除销售咨询队列
@@ -174,7 +183,7 @@ namespace Service
                 }
             }
 
-            return currentList;
+            return currentList != null && currentList.Count > 0 ? currentList : oldList;
         }
         
 
@@ -258,7 +267,7 @@ namespace Service
                 {
                     CityName = !string.IsNullOrEmpty(city) ? city : info.city;
 
-                    if (CityName.Contains("北京") || CityName.Contains("天津") || CityName.Contains("廊坊"))
+                    if (CityName.Contains("北京") || CityName.Contains("廊坊"))//|| CityName.Contains("天津")
                     {
                         code = "BeiJingSalesQueue";
                     }
@@ -332,15 +341,15 @@ namespace Service
         /// <param name="sourceform"></param>
         /// <param name="realSaleName"></param>
         /// <returns></returns>
-        private static InquiryInfo AddInquiry(string telephone, string productID, string sourceform, ManagerEntity mEntity)
+        private static InquiryInfo AddInquiry(string telephone, string productID, string sourceform, string contactName, ManagerEntity mEntity)
         {
             InquiryRepository ir = new InquiryRepository();
             InquiryInfo info = new InquiryInfo();
             info.ProductID = productID;
             info.SourceForm = sourceform;
             info.ProcessingState = "0";
-            info.telphone = telephone;
-            ProCityEntity pcentity = StringHelper.getProCityInfo(); //StringHelper.getCity(telephone);
+            info.telphone = StringHelper.ConvertBy123(telephone);
+            ProCityEntity pcentity = StringHelper.getProCityInfo();
             if (pcentity != null)
             {
                 info.IpAddress = pcentity.IpAddress;
@@ -365,6 +374,7 @@ namespace Service
                 info.OperatorID = mEntity.id.ToString();
                 info.SaleTelephone = mEntity.telephone;
             }
+            info.CustomerName = contactName;
             ir.CreateSimpleInquiry(info);
             return info;
         }

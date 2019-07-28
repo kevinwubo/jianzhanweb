@@ -4,7 +4,8 @@
     ViewBag.Title = "collegelist";
     Layout = "/Views/Shared/_Layout_PC_web.cshtml";
     List<ArticleEntity> list = (List<ArticleEntity>)ViewBag.ArticleList;
-    PagerInfo p = (PagerInfo)ViewBag.Pager;  
+    PagerInfo p = (PagerInfo)ViewBag.Pager;
+    List<ProductEntity> listTJ = (List<ProductEntity>)ViewBag.listTJ;
 }
 
 <head>
@@ -116,70 +117,36 @@
                 <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                     font-weight:bold;"><span style="color:#B32735">建盏</span>推荐</div>
                 <div class="flex-col"></div>
-                <div class="px14 color_73">MORE 》</div>
+                <div class="px14 color_73"><a href="/product_list.html">MORE 》</a></div>
             </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">小撇口金油滴</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
+            @if (listTJ != null && listTJ.Count > 0)
+            {
+                foreach (ProductEntity entityPro in listTJ)
+                {
+                    <div class="div-h-2"></div>
+                    <div class="ds-item">
+                        <a href="/@(entityPro.ProductID).html">
+                            <div class="pimg" style="background:url(@entityPro.Images)"></div>
+                        </a>
+                        <div class="flex-row" style="flex-direction: column">
+                            <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
+                                <div class="flex-col t1 clamp1">【@entityPro.ProductName】</div>
+                                <img class="bt-zx" onclick="javascript:showzx('@entityPro.ProductID','@entityPro.ProductName','@entityPro.Type3','@entityPro.Type2')" src="/source/static/images/jianzhan_0509/ds_zx.png">
+                            </div>
 
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">编号：@entityPro.ProductID</div>
+                                <div class="t2 clamp1 flex-col">作者：@entityPro.Author</div>
+                            </div>
 
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
+                            <div class="flex-row pad-t-16" style="padding: 0 .13rem">
+                                <div class="t2 clamp1 flex-col">器形：@entityPro.Type3</div>
+                                <div class="t2 clamp1 flex-col">釉色：@entityPro.Type2</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
-            <div class="ds-item">
-                <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/ds1.png)"></div>
-                <div class="flex-row" style="flex-direction: column">
-                    <div class="flex-row mar-t-15" style="align-items: center;padding: 0 .13rem">
-                        <div class="flex-col t1 clamp1">【小撇口金油滴】</div>
-                        <img class="bt-zx" src="/source/static/images/jianzhan_0509/ds_zx.png">
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">编号：67047</div>
-                        <div class="t2 clamp1 flex-col">作者：黄美金</div>
-                    </div>
-
-                    <div class="flex-row pad-t-16" style="padding: 0 .13rem">
-                        <div class="t2 clamp1 flex-col">器形：束口盏</div>
-                        <div class="t2 clamp1 flex-col">釉色：油滴/鹧鸪斑</div>
-                    </div>
-                </div>
-            </div>
-            <div class="div-h-2"></div>
+                }
+            }
         </div>
     </div>
 </div>
