@@ -146,7 +146,7 @@ namespace DataRepository.DataAccess.Product
         public static string GetProductBySqlWhere = @"SELECT DISTINCT top {0} b.* FROM dt_Product AS a  CROSS APPLY(   SELECT TOP {1} ProductID,IsPushMall,'' as summary ,'' as ProImageDetail,'' as ProductDetail,ProductName,SubTitle,Type1,Type2,Type3,Type4,Type5,Type6,Type7,Images,Material ,Volume,CostPrice,MarketPrice,LowPrice,ArtisanID,VideoUrl,VideoDetail,AddDate,UpdateDate,PlatePosition,Author,InventoryCount FROM dt_Product WHERE a.Author=Author {2} ORDER BY AddDate DESC ) AS b order by AddDate desc ";
 
         public static string GetProductBySqlWhere2 = @"SELECT {0} ProductID,ProductName,Images,Author,case InventoryCount when 0 then '已结缘' else Author end as ShowTitle,InventoryCount, 
-                 (select sort from dt_Artisan  where artisanName=dt_Product.Author) as ArtisanSort ,
+                 (select sort from dt_Artisan  where artisanName=dt_Product.Author) as ArtisanSort ,Type2,Type3,Type4,Type5,Type6,Type7,Volume,
                 (select COUNT(1) from dt_Product where ProductID=dt_Product.ProductID) as ProductCount,Type3,(select CountAll from dt_VisitCount where OID=dt_Product.ProductID) as CountAll FROM dt_Product
                  where 1=1 and InventoryCount>=0 {1}
                 order by {2}";

@@ -233,13 +233,14 @@
                             {
                                 <div class="swiper-slide" style="width: 240.165px; margin-right: 1px;">
                                     <div class="c2">
-                                        <img src="@item.Images" alt="">
-                                        <div class="px14 color_7 texta-c">@entity.Author @entity.ProductName</div>
-                                        <div class="div-h-1"></div>
-                                        <div class="px10 color_7 texta-c actcolor">NO:@entity.ProductID</div>
-                                        <div class="div-h-1"></div>
-                                        <div class="zxbt" onclick="javascript:showzx('@item.ProductID','@item.ProductName','@item.Type3','@item.Type2')">点击咨询</div>
-                                    </div>
+                                        <a href="/@(item.ProductID).html">
+                                            <img src="@item.Images" alt=""></a>
+                                            <div class="px14 color_7 texta-c">@entity.Author @entity.ProductName</div>
+                                            <div class="div-h-1"></div>
+                                            <div class="px10 color_7 texta-c actcolor">NO:@entity.ProductID</div>
+                                            <div class="div-h-1"></div>
+                                            <div class="zxbt" onclick="javascript:showzx('@item.ProductID','@item.ProductName','@item.Type3','@item.Type2')">点击咨询</div>
+</div>
                                 </div>
                             }
                         }
