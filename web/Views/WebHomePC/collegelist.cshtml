@@ -34,31 +34,31 @@
     <div class="div-h-4"></div>
 
     <div class="flex-row" style="align-items: center;padding: 0 .2rem">
-        <div class="flex-col p6-item  p6-item-act">
+        <div class="flex-col p6-item  @(ViewBag.Category_ID == 0 ? "p6-item-act" : "")">
             <a href="/WebHomePC/college">学院首页</a>
         </div>
 		 <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 1 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=1">新闻资讯</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 3 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=3">实拍行情</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 5 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=5">建盏工艺</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 6 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=6">百科知识</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 7 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=7">选盏技巧</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 8 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=8">文化历史</a>
         </div>
     </div>
