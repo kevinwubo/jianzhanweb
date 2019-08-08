@@ -52,7 +52,7 @@
             <div class="flex-col item px18 texta-c navact"><a href="/index.html" style="color:#f8f8f8;">首页</a></div>
 
             <div class="flex-col item px18 texta-c down"><a href="/product_list.html" style="color:#f8f8f8;">建盏商城</a></div>
-
+<div class="shux" style="margin:0"></div>
             <div class="flex-col item px18 texta-c down">
                 <a href="/artisan_list.html" style="color:#f8f8f8;">
                     名家名堂
@@ -77,13 +77,13 @@
                         </div>
                     </div>*@
             </div>
-
+<div class="shux" style="margin:0"></div>
             <div class="flex-col item px18 texta-c"><a href="/WebHomePC/jingdian" style="color:#f8f8f8;">工艺釉色</a></div>
-
+<div class="shux" style="margin:0"></div>
             <div class="flex-col item px18 texta-c"><a href="/article_list2.html" style="color:#f8f8f8;">建盏学院</a></div>
-
+<div class="shux" style="margin:0"></div>
             <div class="flex-col item px18 texta-c"><a href="/collection.html" style="color:#f8f8f8;">收藏阁</a></div>
-
+<div class="shux" style="margin:0"></div>
             <div class="flex-col item px18 texta-c"><a href="###" style="color:#f8f8f8;">厦门店</a></div>
         </div>
     </div>
@@ -92,7 +92,7 @@
     <!--BODY-->
     @RenderBody()
     @*    </div>*@
-    <div class="div-h-4"></div>
+    <div class="div-h-1"></div>
 
     <div class="tk-mark" id="tixing" style="display: none;">
         <div style="height: 100%;
@@ -228,17 +228,17 @@
                 width: 70%;
                 font-size: 16px;
                 margin: auto;">
-                    <div class="flex-col color_f texta-c">关于我们</div>
+                    <div class="flex-col color_f texta-c"><a href="/WebHomePC/collegedetail?id=227" style="color: #ffffff !important;">关于我们</a></div>
                     <div class="shux"></div>
-                    <div class="flex-col color_f texta-c">购物流程</div>
+                    <div class="flex-col color_f texta-c"><a href="/WebHomePC/collegedetail?id=230" style="color: #ffffff !important;">购物流程</a></div>
                     <div class="shux"></div>
-                    <div class="flex-col color_f texta-c">支付方式</div>
+                    <div class="flex-col color_f texta-c"><a href="###" style="color: #ffffff !important;">支付方式</a></div>
                     <div class="shux"></div>
-                    <div class="flex-col color_f texta-c">发货说明</div>
+                    <div class="flex-col color_f texta-c"><a href="/WebHomePC/collegedetail?id=227" style="color: #ffffff !important;">发货说明</a></div>
                     <div class="shux"></div>
-                    <div class="flex-col color_f texta-c">收费及售后</div>
+                    <div class="flex-col color_f texta-c"><a href="/WebHomePC/collegedetail?id=231" style="color: #ffffff !important;">收费及售后</a></div>
                     <div class="shux"></div>
-                    <div class="flex-col color_f texta-c">定制服务</div>
+                    <div class="flex-col color_f texta-c"><a href="/WebHomePC/collegedetail?id=229" style="color: #ffffff !important;">定制服务</a></div>
                 </div>
             </div>
         </div>
@@ -407,9 +407,9 @@
             observeParents: true
         })
 
-        // 精选
+        // 精选ss
         var swiper = new Swiper('.swiper_container_suz2', {
-            slidesPerView: 2,
+            slidesPerView: 1.7,
             spaceBetween: 10,
             centeredSlides: true,
             nextButton: '#snext',
@@ -504,9 +504,15 @@
 
     <script>
         // 商城
+		var lebie = true;
         $("#shop-more").on("click", function () {
-            $(".jz-body .right .list").css("height", "auto")
-            $(this).hide()
+		lebie=!lebie;
+		if(lebie){
+		$(".jz-body .right .list").css("height", "auto")
+		}else{
+		$(".jz-body .right .list").css("height", "3.1rem")
+		}
+        
         })
     </script>
     <script>

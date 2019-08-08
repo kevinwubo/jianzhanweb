@@ -97,6 +97,7 @@
         .mj-list {
             overflow: hidden;
             height: auto;
+			padding-bottom: 20px;
             position: relative;
         }
 
@@ -279,7 +280,7 @@
         /* dinpu */
         .swiper-container {
             width: 6.21rem;
-            height: 4.52rem;
+            height: 4.45rem;
         }
 
         .mar-t-1 {
