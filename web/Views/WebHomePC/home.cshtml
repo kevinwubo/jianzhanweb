@@ -397,18 +397,18 @@
     <div class="flex-row" style="width:12rem">
         <div class="flex-col" style="background:#fff">
             <div class="part1" style="background: #fff;border-top:0px">
-                <div class="flex-row" style="padding:.2rem .2rem 0">
-                    <div class="px16" style="font-family:SourceHanSansCN-Bold;
+                 <div class="flex-row" style="padding:.2rem .2rem 0">
+                        <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">连锁门店</div>
 
-                    <div class="px14" style="margin-left:.4rem">厦门点</div>
-                    <div class="shux"></div>
-                    <div class="px14">北京店</div>
-                    <div class="shux"></div>
-                    <div class="px14">武夷山店</div>
-                    <div class="flex-col"></div>
-                    <div class="px14 color_73">更多 》</div>
-                </div>
+                        <div class="px14 dp-t1 dpact" style="margin-left:.4rem;line-height:30px" onclick="selectStore(0)">厦门点</div>
+                        <div class="shux"></div>
+                        <div class="px14 dp-t1" style="line-height:30px" onclick="selectStore(1)">北京店</div>
+                        <div class="shux"></div>
+                        <div class="px14 dp-t1" style="line-height:30px" onclick="selectStore(2)">武夷山店</div>
+                        <div class="flex-col"></div>
+                        <div class="px14 color_73">更多 》</div>
+                    </div>
                 <div class="flex-row">
                     <div style="width:5.39rem;height: 4.52rem;padding: .2rem 0 .2rem .2rem">
                         <div style="height:auto; padding: .3rem;background: #f7f7f7">
@@ -485,25 +485,42 @@
                     </div>
                     <div class="flex-col">
 
-                        <div id="storeswiper0" class="swiper-container storedp swiper-container-horizontal" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
-                            <div class="swiper-wrapper" style="transform: translate3d(-1863px, 0px, 0px); transition-duration: 0ms;">
-                                <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="1" style="width: 621px;">
-                                    <img id="lunbo2" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN2.png">
+                         <div id="storeswiper0" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img id='lunbo1' style="width: 100%;" src="/source/static/images/jianzhan_0509/lunN1.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img id='lunbo2' style="width: 100%;" src="/source/static/images/jianzhan_0509/lunN2.png" />
+                                    </div>
                                 </div>
-                                <div class="swiper-slide" data-swiper-slide-index="0" style="width: 621px;">
-                                    <img id="lunbo1" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN1.png">
-                                </div>
-                                <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="1" style="width: 621px;">
-                                    <img id="lunbo2" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN2.png">
-                                </div>
-                                <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="0" style="width: 621px;">
-                                    <img id="lunbo1" style="width: 100%;" src="/source/static//images/jianzhan_0509/lunN1.png">
-                                </div>
+                                <div id="dpnext1" class="swiper-button-next"></div>
+                                <div id="dpprev1" class="swiper-button-prev"></div>
                             </div>
-                            <div id="dpnext" class="swiper-button-next"></div>
-                            <div id="dpprev" class="swiper-button-prev"></div>
-                        </div>
-
+                            <div id="storeswiper1" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem;display: none">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img id='lunbo1' style="width: 100%;" src="/source/static/images/jianzhan_0509/lunN6.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img id='lunbo2' style="width: 100%;" src="/source/static/images/jianzhan_0509/lunN7.png" />
+                                    </div>
+                                </div>
+                                <div id="dpnext2" class="swiper-button-next"></div>
+                                <div id="dpprev2" class="swiper-button-prev"></div>
+                            </div>
+                            <div id="storeswiper2" class="swiper-container storedp" style="margin: 0px; margin-top: .2rem;margin-bottom: .2rem;display: none">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img id='lunbo1' style="width: 100%;" src="/source/static/images/jianzhan_0509/lunN10.png" />
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img id='lunbo2' style="width: 100%;" src="/source/static/images/jianzhan_0509/lunN11.png" />
+                                    </div>
+                                </div>
+                                <div id="dpnext3" class="swiper-button-next"></div>
+                                <div id="dpprev3" class="swiper-button-prev"></div>
+                            </div>
                     </div>
                 </div>
             </div>

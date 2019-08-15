@@ -114,7 +114,7 @@ namespace web.Controllers
             //}
             string OrderBy = " ORDER BY Adddate Desc ";
 
-            if (!string.IsNullOrEmpty(author))
+            if (!string.IsNullOrEmpty(author) && !"全部".Equals(author))
             {
                 if (author.IndexOf("业界大师") > -1)
                     artisanType = "业界大师";
@@ -307,6 +307,7 @@ namespace web.Controllers
             ViewBag.Category_ID = category_id;
             ViewBag.ArticleList = mList;
             ViewBag.Pager = pager;
+            ViewBag.Keyword = mList != null && mList.Count > 0 ? mList[0].articleType : "";
             return View();
         }
 

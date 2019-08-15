@@ -325,6 +325,7 @@
         .qrtext2 .t1{
             padding-top: .09rem;
         }
+	   
         .down:hover .navlist{
         display: block;
         position: relative;

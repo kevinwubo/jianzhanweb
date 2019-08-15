@@ -9,7 +9,15 @@ html {
     border-top: .1rem solid #fff;
     height: auto;
 }
-
+.nvall {
+    height: .3rem;
+    width: .83rem;
+    float: left;
+    text-align: center;
+    font-size: .13rem;
+    line-height: .3rem;
+    color: #333;
+}
 .ds-list {
     overflow: hidden;
     height: auto;

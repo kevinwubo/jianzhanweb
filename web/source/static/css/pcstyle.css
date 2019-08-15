@@ -1,4 +1,4 @@
-/* 基础样式定义 */
+﻿/* 基础样式定义 */
 body,
 html,
 ul,
@@ -639,3 +639,9 @@ left: 0;
 .footer-top-img-b{
         height: .45rem;
      }
+ .dpact {
+		    color: #fff;
+			padding: .0rem .2rem;
+			line-height: 30px;
+			background: #B32B2B;
+		}
