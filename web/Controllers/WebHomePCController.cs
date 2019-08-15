@@ -190,6 +190,8 @@ namespace web.Controllers
             ViewBag.ProductList = mList;
             ViewBag.Pager = pager;
 
+            ViewBag.Tag = tag;
+
             ViewBag.type2 = type2;
             ViewBag.type3 = type3;
             ViewBag.type4 = type4;

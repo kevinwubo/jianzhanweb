@@ -84,7 +84,7 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist">
-                            <div class='li @(ViewBag.author == "全部" ? "actcolor" : "")'><a href="javacsript:void(0)" onclick="return getUrls('author', this);">全部</a></div>
+                            <div class='li @(ViewBag.author == "全部" ? "actcolor" : "")'><a href="javacsript:void(0)" style="color:red" onclick="return getUrls('author', this);">全部</a></div>
                             <div class='li @(ViewBag.author == "业界大师" ? "actcolor" : "")'><a href="javacsript:void(0)" onclick="return getUrls('author', this);">业界大师</a></div>
                             @if (listYJDS != null && listYJDS.Count > 0)
                             {
@@ -126,7 +126,7 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist Type2">
-                            <div class='li @(ViewBag.type2=="全部"? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('type2', this);">全部</a></div>
+                            <div class='li @(ViewBag.type2=="全部"? "actcolor":"")'><a href="javacsript:void(0)" style="color:red" onclick="return getUrls('type2', this);">全部</a></div>
                             @if (listYS != null && listYS.Count > 0)
                             {
                                 foreach (BaseDataEntity entity in listYS)
@@ -143,7 +143,7 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist Type3">
-                            <div class='li @(ViewBag.type3=="全部"? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('type3', this);">全部</a></div>
+                            <div class='li @(ViewBag.type3=="全部"? "actcolor":"")'><a href="javacsript:void(0)" style="color:red" onclick="return getUrls('type3', this);">全部</a></div>
                             @if (listQX != null && listQX.Count > 0)
                             {
                                 foreach (BaseDataEntity entity in listQX)
@@ -160,7 +160,7 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist  Type4">
-                            <div class='li @(ViewBag.type4=="全部"? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('type4', this);">全部</a></div>
+                            <div class='li @(ViewBag.type4=="全部"? "actcolor":"")'><a href="javacsript:void(0)" style="color:red" onclick="return getUrls('type4', this);">全部</a></div>
                             @if (listKJ != null && listKJ.Count > 0)
                             {
                                 foreach (BaseDataEntity entity in listKJ)
@@ -177,7 +177,7 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist  Type5">
-                            <div class='li @(ViewBag.type5=="全部"? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('type5', this);">全部</a></div>
+                            <div class='li @(ViewBag.type5=="全部"? "actcolor":"")'><a href="javacsript:void(0)" style="color:red" onclick="return getUrls('type5', this);">全部</a></div>
                             @if (listJG != null && listJG.Count > 0)
                             {
                                 foreach (BaseDataEntity entity in listJG)
@@ -194,7 +194,7 @@
                     <div class="shu"></div>
                     <div class="flex-col">
                         <div class="nvlist  Type7">
-                            <div class='li @(ViewBag.type7=="全部"? "actcolor":"")'><a href="javacsript:void(0)" onclick="return getUrls('type7', this);">全部</a></div>
+                            <div class='li @(ViewBag.type7=="全部"? "actcolor":"")'><a href="javacsript:void(0)" style="color:red" onclick="return getUrls('type7', this);">全部</a></div>
                             @if (listGN != null && listGN.Count > 0)
                             {
                                 foreach (BaseDataEntity entity in listGN)
@@ -212,15 +212,15 @@
             <div class="div-h-2"></div>
             <div class="flex-row" style="margin-left:.25rem;align-items: center">
                 <div class="flex-row" style="height:.4rem;width:3rem;border: 1px solid #ddd;align-items: center">
-                    <div class="flex-col actsx">
+                    <div class='flex-col @(ViewBag.Tag == "默认" ? "actsx" : "")'>
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
                             <div class="texta-c px14 clr">
-                            <a href="javacsript:void(0)" onclick="return getUrls('tag', this);">默认</a>
+                                <a href="javacsript:void(0)" onclick="return getUrls('tag', this);">默认</a>
                             </div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
                         </div>
                     </div>
                     <div class="shu"></div>
-                    <div class="flex-col ">
+                    <div class='flex-col @(ViewBag.Tag == "新品" ? "actsx" : "")'>
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%;">
                             <div class="texta-c px14 clr">
                                 <a href="javacsript:void(0)" onclick="return getUrls('tag', this);">新品</a>
@@ -228,7 +228,7 @@
                         </div>
                     </div>
                     <div class="shu"></div>
-                    <div class="flex-col ">
+                    <div class='flex-col @(ViewBag.Tag == "销量" ? "actsx" : "")'>
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
                             <div class="texta-c px14 clr">
                                 <a href="javacsript:void(0)" onclick="return getUrls('tag', this);">销量</a>
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="shu"></div>
-                    <div class="flex-col ">
+                    <div class='flex-col @(ViewBag.Tag == "人气" ? "actsx" : "")'>
                         <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
                             <div class="texta-c px14 clr">
                                 <a href="javacsript:void(0)" onclick="return getUrls('tag', this);">人气</a>
