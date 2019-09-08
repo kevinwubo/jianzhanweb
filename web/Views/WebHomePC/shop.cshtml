@@ -243,24 +243,18 @@
                             </div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
                         </div>
                     </div>
-                    @*<div class="shu"></div>
-                        <div class="flex-col ">
-                            <div class="flex-row" style="align-items: center;justify-content: center;height: 100%">
-                                <div class="texta-c px14 clr">默认</div> <img style="display:block;width: 0.1rem;" src="/source/static/images/pc/xia.png" alt="">
-                            </div>
-                        </div>*@
                 </div>
+                @if (ViewBag.Keyword != "")
+                {
+                    <div class="flex-col"></div>
+                    <div class="texta-c px14 clr"><span style="color:red">@(ViewBag.Keyword)</span>为您选出<span style="color:red">@(p.SumCount)</span>款</div>
+                }
                 <div class="flex-col"></div>
                 <div class="flex-row">
                     <div class="px14" style="line-height:.4rem">关键字：</div>
                     <div style="background:#fff;height: .4rem;width: 1.3rem;border: 1px solid #ddd;margin-right:.2rem">
                         <input class="px14 color_3" style="width: 1rem;border:0px;background:#fff;padding: .1rem;line-height: .2rem;height: .2rem" type="text">
                     </div>
-                    @*<div class="px14" style="line-height:.4rem;margin-left: .2rem">
-                        共<span style="color:#B32735">133</span>款建盏|
-                        1/9
-                    </div>
-                    <div class="px14 color_7 texta-c" style="border: 1px solid #ddd;margin-left: .2rem;width: .75rem;height:.4rem;line-height:.4rem;background:#fff">下一页</div>*@
                 </div>
             </div>
             <div class="div-h-2"></div>

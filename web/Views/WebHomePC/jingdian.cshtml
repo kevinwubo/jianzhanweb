@@ -4,8 +4,8 @@
     ViewBag.Title = "mn_jingdian";
     Layout = "~/Views/Shared/_Layout_PC_web.cshtml";
 
-    List<ArtisanEntity> list = (List<ArtisanEntity>)ViewBag.listQXYS;
-    List<ArtisanEntity> listALL = (List<ArtisanEntity>)ViewBag.listQXYS;
+    List<ArtisanEntity> listYS = (List<ArtisanEntity>)ViewBag.listYS;
+    List<ArtisanEntity> listQX = (List<ArtisanEntity>)ViewBag.listQX;
     List<ProductEntity> listPro = (List<ProductEntity>)ViewBag.listHot;
     List<ProductEntity> listTJ = (List<ProductEntity>)ViewBag.listTJ;
 }
@@ -75,9 +75,9 @@
             <img src="/source/static//images/pc/6_top_line.png" alt="">
 
             <div class="ds-list">
-                @if (list != null && list.Count > 0)
+                @if (listYS != null && listYS.Count > 0)
                 {
-                    foreach (ArtisanEntity entity in list)
+                    foreach (ArtisanEntity entity in listYS)
                     {
                         <a href="/WebHomePC/jingdiandetail?artisanid=@entity.artisanID" class="qxys-item flex-row">
                             <img style="margin-right:0" src="@entity.IDHead" alt="">
@@ -91,8 +91,7 @@
                                 <div class="t2 clamp1">
                                     时间：@entity.adddate.ToShortDateString()
                                 </div>
-                                <div class="t4 clamp3">
-                                    兔毫盏是宋朝建窑最具代表的具代 密的筋脉，因具代表的具代具代表 的具代...
+                                <div class="t4 clamp3">                                    
                                     @(entity.introduction.Length > 35 ? entity.introduction.Substring(0, 34) : entity.introduction)...
                                 </div>
                                 <div class="t3">【查看详情】</div>
@@ -112,9 +111,9 @@
             <img src="/source/static//images/pc/6_top_line.png" alt="">
 
             <div class="ds-list">
-@if (list != null && list.Count > 0)
+@if (listQX != null && listQX.Count > 0)
 {
-    foreach (ArtisanEntity entity in list)
+    foreach (ArtisanEntity entity in listQX)
     {
         <a href="/WebHomePC/jingdiandetail?artisanid=@entity.artisanID" class="qxys-item qxys-item-qx flex-row">
             <img style="margin-right:0" src="@entity.IDHead" alt="">

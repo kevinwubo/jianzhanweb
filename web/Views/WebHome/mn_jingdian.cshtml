@@ -59,7 +59,7 @@
                             <h1>@entity.artisanName</h1>
                             <span>【@entity.adddate.ToShortDateString()】</span>
                             <p>
-                                @(entity.introduction.Length > 30 ? entity.introduction.Substring(0, 29) : entity.introduction)
+                                @(entity.introduction.Length > 50? entity.introduction.Substring(0, 49) : entity.introduction)
                                 <a href="/WebHome/mn_jingdiandetail?artisanid=@entity.artisanID">查看更多></a>
                             </p>
                         </div>

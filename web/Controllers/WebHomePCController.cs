@@ -174,7 +174,7 @@ namespace web.Controllers
             {
                 mList = ProductService.GetProductInfoPager(OrderBy, pager);
             }
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
 
             ViewBag.YJDSList = ArtisanService.getSimpleArtisanList("业界大师");//业界大师
             ViewBag.LPCCRList = ArtisanService.getSimpleArtisanList("老牌传承人");//老牌传承人
@@ -189,7 +189,7 @@ namespace web.Controllers
             ViewBag.ArtisanType = artisanType;
             ViewBag.ProductList = mList;
             ViewBag.Pager = pager;
-
+            ViewBag.Keyword = keyword;
             ViewBag.Tag = tag;
 
             ViewBag.type2 = type2;
@@ -209,7 +209,7 @@ namespace web.Controllers
         {
             ProductEntity entity=  ProductService.GetProductByProductID(productid);
             ViewBag.ProductInfo = entity;
-            ViewBag.ListByAuthor = ProductService.GetAllProductByRule(entity.Author, 5, "  order by AddDate desc  ");
+            ViewBag.ListByAuthor = ProductService.GetAllProductByRule(entity.Author, 7, "  order by AddDate desc  ");
             return View();
         }
 
@@ -236,7 +236,7 @@ namespace web.Controllers
             {
                 mList = ArtisanService.GetArtisanInfoPager(pager, 4);
             }
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
             ViewBag.Pager = pager;
             ViewBag.ArtisanList = mList;
             return View();
@@ -263,7 +263,7 @@ namespace web.Controllers
             #endregion
 
             ViewBag.listHot = listHot;
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//新品好货
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
             return View();
         }
 
@@ -277,7 +277,7 @@ namespace web.Controllers
             ViewBag.ListB = ArticleService.GetArticleByRule(5, 6);
             ViewBag.ListC = ArticleService.GetArticleByRule(6, 6);
             ViewBag.ListD = ArticleService.GetArticleByRule(7, 6);
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
             return View();
         }
 
@@ -305,7 +305,7 @@ namespace web.Controllers
             {
                 mList = ArticleService.GetArticleInfoPager(pager);
             }
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//推荐
             ViewBag.Category_ID = category_id;
             ViewBag.ArticleList = mList;
             ViewBag.Pager = pager;
@@ -334,7 +334,7 @@ namespace web.Controllers
             #endregion
 
             ViewBag.listHot = listHot;
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(6, 1, "");//推荐
             return View();
         }
 
@@ -376,8 +376,8 @@ namespace web.Controllers
         /// <returns></returns>
         public ActionResult jingdian()
         {
-            List<ArtisanEntity> listqxys = ArtisanService.GetArtisansByRule("", 4, "", "and artisanType in('器型','釉色')");
-            List<ArtisanEntity> listqxysall = ArtisanService.GetArtisansByRule("", 0, "", "and artisanType in('器型','釉色')");
+            List<ArtisanEntity> listYS = ArtisanService.GetArtisansByRule("", 4, "", "and artisanType in('釉色')");
+            List<ArtisanEntity> listQX = ArtisanService.GetArtisansByRule("", 5, "", "and artisanType in('器型')");
 
 
             #region 人气推荐
@@ -391,11 +391,11 @@ namespace web.Controllers
                 }
             }
             #endregion
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(6, 1, "");//推荐
             ViewBag.listHot = listHot;
 
-            ViewBag.listQXYS = listqxys;
-            ViewBag.listQXYSALL = listqxysall;
+            ViewBag.listYS = listYS;
+            ViewBag.listQX = listQX;
             return View();
         }
 
@@ -416,7 +416,7 @@ namespace web.Controllers
                 }
             }
             #endregion
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, "");//推荐
             ViewBag.listHot = listHot;
             ViewBag.ArtisanModel = ArtisanService.GetArtisanByKey(artisanid);
             return View();

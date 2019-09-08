@@ -35,6 +35,10 @@ namespace web.Controllers
             {
                 Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famous", "m_artisan_list.html");
             }
+            else if ("gyys".Equals(type))//工艺釉色
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_jingdian", "m_gyys.html");
+            }   
             else if ("college".Equals(type))//学院
             {
                 Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_college", "m_school.html");
@@ -83,6 +87,10 @@ namespace web.Controllers
             {
                 Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/college", "article_list2.html");
             }
+            else if ("pc_gyys".Equals(type))//工艺釉色
+            {
+                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/jingdian", "gyys.html");
+            }   
             else if ("pc_souchang".Equals(type))//收藏
             {
                 Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/souchang", "collection.html");
@@ -236,6 +244,7 @@ namespace web.Controllers
             ViewBag.ArtisanType = artisanType;
             ViewBag.Product = mList;
             ViewBag.Pager = pager;
+            ViewBag.Keyword = keyword;
             return View();
         }
 
