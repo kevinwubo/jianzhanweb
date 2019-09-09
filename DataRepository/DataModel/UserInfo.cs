@@ -39,6 +39,16 @@ namespace DataRepository.DataModel
         [DataMapping("GroupIDs", DbType.String)]
         public string GroupIDs { get; set; }
 
+        [DataMapping("Telephone", DbType.String)]
+        public string Telephone { get; set; }
+
+        [DataMapping("SalesCount", DbType.Int32)]
+        public int SalesCount { get; set; }
+
+        [DataMapping("CityName", DbType.String)]
+        public string CityName { get; set; }
+
+
         [DataMapping("Status", DbType.Int32)]
         public int Status { get; set; }
 

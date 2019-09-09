@@ -93,31 +93,88 @@ namespace Service
         public static ArtisanEntity TranslateArtisanEntity(ArtisanInfo info, bool IsReader = false, int count = 3)
         {
             ArtisanEntity entity = new ArtisanEntity();
-            entity.artisanID = info.artisanID;
-            entity.artisanName = info.artisanName;
-            entity.artisanName2 = info.artisanName2;
-            entity.sex = info.sex;
-            entity.IDNumber = info.IDNumber;
-            entity.birthday = info.birthday;
-            entity.workPlace = info.workPlace;
-            entity.reviewDate = info.reviewDate;
-            entity.artisanType = info.artisanType;
-            entity.artisanTitle = info.artisanTitle;
-            entity.masterWorker = info.masterWorker;
-            entity.artisanSpecial = info.artisanSpecial;
-            entity.introduction = info.introduction;
-            entity.IDHead = "http://116.62.124.214/" + info.IDHead;
-            entity.DetailedIntroduction = info.DetailedIntroduction;
-            entity.VideoUrl = info.VideoUrl;
-            entity.IsCooperation = info.IsCooperation;
-            entity.IsRecommend = info.IsRecommend;
-            entity.IsPushMall = info.IsPushMall;
-            entity.adddate = info.Adddate;
-            if (IsReader)
+            if (info != null)
             {
-                entity.listProduct = ProductService.GetAllProductByRule(info.artisanName, count, " order by AddDate desc ");
+                entity.artisanID = info.artisanID;
+                entity.artisanName = info.artisanName;
+                entity.artisanName2 = info.artisanName2;
+                entity.sex = info.sex;
+                entity.IDNumber = info.IDNumber;
+                entity.birthday = info.birthday;
+                entity.workPlace = info.workPlace;
+                entity.reviewDate = info.reviewDate;
+                entity.artisanType = info.artisanType;
+                entity.artisanTitle = info.artisanTitle;
+                entity.masterWorker = info.masterWorker;
+                entity.artisanSpecial = info.artisanSpecial;
+                entity.introduction = info.introduction;
+                entity.IDHead = "http://116.62.124.214/" + info.IDHead;
+                entity.DetailedIntroduction = info.DetailedIntroduction;
+                entity.VideoUrl = info.VideoUrl;
+                entity.IsCooperation = info.IsCooperation;
+                entity.IsRecommend = info.IsRecommend;
+                entity.IsPushMall = info.IsPushMall;
+                entity.adddate = info.Adddate;
+                if (IsReader)
+                {
+                    entity.listProduct = ProductService.GetAllProductByRule(info.artisanName, count, " order by AddDate desc ");
+                }
             }
             return entity;
+        }
+
+        public static ArtisanInfo TranslateArtisanInfo(ArtisanEntity entity)
+        {
+            ArtisanInfo info = new ArtisanInfo();
+            if (entity != null)
+            {
+                info.artisanID = entity.artisanID;
+                info.artisanName = entity.artisanName;
+                info.artisanName2 = entity.artisanName2;
+                info.sex = entity.sex;
+                info.IDNumber = entity.IDNumber;
+                info.birthday = entity.birthday;
+                info.workPlace = entity.workPlace;
+                info.reviewDate = entity.reviewDate;
+                info.artisanType = entity.artisanType;
+                info.artisanTitle = entity.artisanTitle;
+                info.masterWorker = entity.masterWorker;
+                info.artisanSpecial = entity.artisanSpecial;
+                info.introduction = entity.introduction;
+                info.IDHead = entity.IDHead;
+                info.DetailedIntroduction = entity.DetailedIntroduction;
+                info.VideoUrl = entity.VideoUrl;
+                info.IsCooperation = entity.IsCooperation;
+                info.IsRecommend = entity.IsRecommend;
+                info.IsPushMall = entity.IsPushMall;
+            }
+            return info;
+        }
+
+
+        public static bool Modify(ArtisanEntity entity)
+        {
+            long result = 0;
+            if (entity != null)
+            {
+                ArtisanRepository mr = new ArtisanRepository();
+                ArtisanInfo info = TranslateArtisanInfo(entity);
+                if (entity.artisanID > 0)
+                {
+                    result = mr.Modify(info);
+                }
+                else
+                {
+                    result = mr.CreateNew(info);
+                }
+            }
+            return result > 0;
+        }
+
+        public static int Remove(int artisanID)
+        {
+            ArtisanRepository mr = new ArtisanRepository();
+            return  mr.Remove(artisanID);
         }
 
         #region 分页相关

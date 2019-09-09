@@ -45,6 +45,9 @@ namespace Service.BaseBiz
                 userInfo.UserName = userEntity.UserName;
                 userInfo.NickName = userEntity.NickName;
                 userInfo.Status = userEntity.Status;
+                userInfo.Telephone = userEntity.Telephone;
+                userInfo.SalesCount = userEntity.SalesCount;
+                userInfo.CityName = userEntity.CityName;
                 userInfo.GroupIDs = groupbuilder.ToString().TrimEnd(',');
                 userInfo.RoleIDs = rolebuilder.ToString().TrimEnd(',');
 
@@ -63,6 +66,9 @@ namespace Service.BaseBiz
                 userEntity.UserName = userInfo.UserName;
                 userEntity.NickName = userInfo.NickName;
                 userEntity.Status = userInfo.Status;
+                userEntity.Telephone = userInfo.Telephone;
+                userEntity.SalesCount = userInfo.SalesCount;
+                userEntity.CityName = userInfo.CityName;
                 List<MenuEntity> allMenus = new List<MenuEntity>();
                 MenuCompare compare = new MenuCompare();
                 if (!string.IsNullOrEmpty(userInfo.RoleIDs))
@@ -134,7 +140,7 @@ namespace Service.BaseBiz
         {
             List<UserEntity> all = new List<UserEntity>();
             UserRepository mr = new UserRepository();
-            List<UserInfo> miList = Cache.Get<List<UserInfo>>("UserALL");
+            List<UserInfo> miList = null;//Cache.Get<List<UserInfo>>("UserALL");
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllUser();
@@ -177,7 +183,7 @@ namespace Service.BaseBiz
             UserRepository mr = new UserRepository();
             mr.RemoveUser(uid);
             List<UserInfo> miList = mr.GetAllUser();//刷新缓存
-            Cache.Add("UserALL", miList);
+            //Cache.Add("UserALL", miList);
         }
 
         public static int ModifyPassword(long uid, string pwd)

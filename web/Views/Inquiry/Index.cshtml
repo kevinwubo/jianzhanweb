@@ -15,7 +15,7 @@
             <i class="icon-laptop"></i>
             <h5>客户咨询管理</h5>
             <div class="widget-buttons">
-                <a href="/Inquiry/Edit"><i class="icon-laptop"></i> 新增</a>
+                <a href="/Inquiry/Add"><i class="icon-laptop"></i> 手动添加咨询量</a>
             </div>
         </div>
         <div class="widget-body" style="margin-bottom:50px">
@@ -62,8 +62,7 @@
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                             @for (int i = 0; i < list.Count; i++)
                             {
-
-                                <tr class=@(i%2==0?"odd":"even")>
+                                <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "")">
                                     <td><input type="checkbox" /></td>
                                     <td class=" sorting_1">@list[i].ProductID</td>
                                     <td class=" ">@(list[i].product!=null?list[i].product.ProductName:"")</td>
@@ -74,7 +73,7 @@
                                             <span class="label label-warning">微信号:</span>@list[i].WebChartID
                                         }
                                     </td>
-                                    <td class=" ">@(list[i].manager != null ? list[i].manager.real_name : "")</td>
+                                    <td class=" ">@(list[i].user != null ? list[i].user.NickName : "")</td>
                                     <td class=" ">@list[i].TraceState</td>
                                     <td class=" ">
                                         @if (list[i].ProcessingState.Equals("1"))

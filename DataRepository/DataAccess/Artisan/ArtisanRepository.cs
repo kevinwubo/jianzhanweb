@@ -95,16 +95,76 @@ namespace DataRepository.DataAccess.Artisan
             return result;
         }
 
+        public long CreateNew(ArtisanInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.CreateNew, "Text"));
+            command.AddInputParameter("@artisanName", DbType.String, info.artisanName);
+            command.AddInputParameter("@artisanName2", DbType.String, info.artisanName2);
+            command.AddInputParameter("@sex", DbType.String, info.sex);
+            command.AddInputParameter("@IDNumber", DbType.String, info.IDNumber);
+            command.AddInputParameter("@birthday", DbType.String, info.birthday);
+            command.AddInputParameter("@workPlace", DbType.String, info.workPlace);
+            command.AddInputParameter("@reviewDate", DbType.String, info.reviewDate);
+            command.AddInputParameter("@artisanType", DbType.String, info.artisanType);
+            command.AddInputParameter("@artisanTitle", DbType.String, info.artisanTitle);
+            command.AddInputParameter("@masterWorker", DbType.String, info.masterWorker);
+
+            command.AddInputParameter("@artisanSpecial", DbType.String, info.artisanSpecial);
+            command.AddInputParameter("@introduction", DbType.String, info.introduction);
+            command.AddInputParameter("@IDHead", DbType.String, info.IDHead);
+            command.AddInputParameter("@DetailedIntroduction", DbType.String, info.DetailedIntroduction);
+            command.AddInputParameter("@VideoUrl", DbType.String, info.VideoUrl);
+            command.AddInputParameter("@IsCooperation", DbType.String, info.IsCooperation);
+            command.AddInputParameter("@IsRecommend", DbType.String, info.IsRecommend);
+            command.AddInputParameter("@IsPushMall", DbType.Decimal, info.IsPushMall);
+            command.AddInputParameter("@Sort", DbType.Int32, info.Sort);
+            command.AddInputParameter("@AddDate", DbType.DateTime, info.Adddate);
+            command.AddInputParameter("@update_time", DbType.DateTime, DateTime.Now);
+
+            return command.ExecuteNonQuery();
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt64(o);
+        }
+
+        public long Modify(ArtisanInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.Modify, "Text"));
+            command.AddInputParameter("@artisanName", DbType.String, info.artisanName);
+            command.AddInputParameter("@artisanName2", DbType.String, info.artisanName2);
+            command.AddInputParameter("@sex", DbType.String, info.sex);
+            command.AddInputParameter("@IDNumber", DbType.String, info.IDNumber);
+            command.AddInputParameter("@birthday", DbType.String, info.birthday);
+            command.AddInputParameter("@workPlace", DbType.String, info.workPlace);
+            command.AddInputParameter("@reviewDate", DbType.String, info.reviewDate);
+            command.AddInputParameter("@artisanType", DbType.String, info.artisanType);
+            command.AddInputParameter("@artisanTitle", DbType.String, info.artisanTitle);
+            command.AddInputParameter("@masterWorker", DbType.String, info.masterWorker);
+
+            command.AddInputParameter("@artisanSpecial", DbType.String, info.artisanSpecial);
+            command.AddInputParameter("@introduction", DbType.String, info.introduction);
+            command.AddInputParameter("@IDHead", DbType.String, info.IDHead);
+            command.AddInputParameter("@DetailedIntroduction", DbType.String, info.DetailedIntroduction);
+            command.AddInputParameter("@VideoUrl", DbType.String, info.VideoUrl);
+            command.AddInputParameter("@IsCooperation", DbType.String, info.IsCooperation);
+            command.AddInputParameter("@IsRecommend", DbType.String, info.IsRecommend);
+            command.AddInputParameter("@IsPushMall", DbType.Decimal, info.IsPushMall);
+            command.AddInputParameter("@Sort", DbType.Int32, info.Sort);            
+            command.AddInputParameter("@update_time", DbType.DateTime, DateTime.Now);
+
+            command.AddInputParameter("@artisanID", DbType.Int32, info.artisanID);            
+            return command.ExecuteNonQuery();
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt64(o);
+        }
 
 
-        public int RemoveArtisan(long mid)
+        public int Remove(int artisanID)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.Remove, "Text"));
-            command.AddInputParameter("@ArtisanID", DbType.Int64, mid);
+            command.AddInputParameter("@artisanID", DbType.Int32, artisanID);
             int result = command.ExecuteNonQuery();
             return result;
         }
-
 
         #region 分页方法
         /// <summary>

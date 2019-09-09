@@ -33,6 +33,18 @@ namespace DataRepository.DataAccess.Artisan
 
         public static string GetArtisanByKeys = @"SELECT * FROM dt_Artisan(NOLOCK) WHERE ID IN (#ids#)";
 
+        public static string CreateNew = @"INSERT INTO dbo.dt_Artisan(artisanName,artisanName2,sex,IDNumber,birthday,workPlace,reviewDate,artisanType
+                                            ,artisanTitle,masterWorker,artisanSpecial,introduction,IDHead,DetailedIntroduction,VideoUrl,IsCooperation
+                                            ,IsRecommend,IsPushMall,Sort,Adddate,update_time)
+                                            VALUES(@artisanName,@artisanName2,@sex,@IDNumber,@birthday,@workPlace,@reviewDate,@artisanType,@artisanTitle
+                                            ,@masterWorker,@artisanSpecial,@introduction,@IDHead,@DetailedIntroduction,@VideoUrl,@IsCooperation
+                                            ,@IsRecommend,@IsPushMall,@Sort,@Adddate,@update_time)";
+
+        public static string Modify = @"UPDATE dt_Artisan SET artisanName = @artisanName,artisanName2 = @artisanName2,sex = @sex
+                                        ,IDNumber = @IDNumber,birthday = @birthday,workPlace = @workPlace,reviewDate = @reviewDate,artisanType = @artisanType
+                                        ,artisanTitle = @artisanTitle,masterWorker = @masterWorker,artisanSpecial = @artisanSpecial,introduction = @introduction
+                                        ,IDHead = @IDHead,DetailedIntroduction,VideoUrl = @VideoUrl,IsCooperation = @IsCooperation,IsRecommend = @IsRecommend
+                                        ,IsPushMall = @IsPushMall,Sort = @Sort,update_time = @update_time WHERE artisanID=@artisanID";
 
         #region 分页相关
         public static string GetArtisanCount = @"SELECT COUNT(1) AS C FROM dt_Artisan(NOLOCK) WHERE 1=1 ";

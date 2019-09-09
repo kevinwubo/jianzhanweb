@@ -564,6 +564,11 @@ namespace Service
             return info;
         }
 
+        /// <summary>
+        /// 保存更新咨询量
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public static bool ModifyInquiry(InquiryEntity entity)
         {
             long result = 0;
@@ -593,6 +598,31 @@ namespace Service
                 //Cache.Add("InquiryALL", miList);
             }
             return result > 0;
+        }
+
+        /// <summary>
+        /// 手动添加咨询量
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="user"></param>
+        public static void CreateSimple(InquiryEntity entity, UserEntity user)
+        {
+            InquiryRepository ir = new InquiryRepository();
+            InquiryInfo info = new InquiryInfo();
+            info.ProductID = entity.ProductID;
+            info.SourceForm = "HD";
+            info.ProcessingState = "1";//已处理
+            info.telphone = StringHelper.ConvertBy123(entity.telphone);
+
+            info.Provence = "";
+            info.City = "";
+            info.TraceState = entity.TraceState;
+            info.status = "Hand";
+            info.HistoryOperatorID = user.UserID;
+            info.OperatorID = user.UserID;
+            info.SaleTelephone = user.Telephone;
+            info.CustomerName = entity.CustomerName;
+            ir.CreateSimpleInquiry(info);
         }
 
         public static InquiryEntity GetInquiryById(long gid)

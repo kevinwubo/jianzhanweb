@@ -103,7 +103,7 @@ namespace DataRepository.DataAccess.News
         {
             InquiryInfo result = new InquiryInfo();
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.GetInquiryByKey, "Text"));
-            command.AddInputParameter("@InquiryID", DbType.String, gid);
+            command.AddInputParameter("@PPID", DbType.String, gid);
             result = command.ExecuteEntity<InquiryInfo>();
             return result;
         }
@@ -168,19 +168,19 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@InquiryContent", DbType.String, info.InquiryContent);
             command.AddInputParameter("@CommentContent", DbType.String, info.CommentContent);
             command.AddInputParameter("@ProcessingState", DbType.String, info.ProcessingState);
-            command.AddInputParameter("@ProcessingTime", DbType.String, info.ProcessingTime);
+            command.AddInputParameter("@ProcessingTime", DbType.DateTime, DateTime.Now);
             command.AddInputParameter("@Provence", DbType.String, info.Provence);
             command.AddInputParameter("@City", DbType.String, info.City);
             command.AddInputParameter("@TraceContent", DbType.String, info.TraceContent);
             command.AddInputParameter("@TraceState", DbType.String, info.TraceState);
-            command.AddInputParameter("@NextVisitTime", DbType.String, info.NextVisitTime);
+            command.AddInputParameter("@NextVisitTime", DbType.DateTime, info.NextVisitTime);
             command.AddInputParameter("@CustomerName", DbType.String, info.CustomerName);
             command.AddInputParameter("@sex", DbType.String, info.Sex);
 
             command.AddInputParameter("@status", DbType.String, info.status);
             command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);            
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
-            command.AddInputParameter("@ChangeDate", DbType.String, info.ChangeDate);
+            //command.AddInputParameter("@ChangeDate", DbType.String, info.ChangeDate);
             command.AddInputParameter("@PPId", DbType.String, info.PPId);
             return command.ExecuteNonQuery();
         }

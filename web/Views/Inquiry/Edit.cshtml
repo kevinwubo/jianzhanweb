@@ -1,9 +1,9 @@
 ﻿@using Common
 @using Entity.ViewModel;
 @{
-    ViewBag.Title = "仓库信息";
-    List<Province> plist = (List<Province>)ViewBag.Province;
-    StorageEntity storageEntity = (StorageEntity)ViewBag.Storage;    
+    ViewBag.Title = "咨询量更新";
+    InquiryEntity entity = (InquiryEntity)ViewBag.Inquiry;
+    List<UserEntity> userList = (List<UserEntity>)ViewBag.UserList; 
 }
 @section Header{
     <link href="~/source/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
@@ -22,122 +22,108 @@
     </style>
 }
 <div class="row-fluid">
-    <form class="form-horizontal" id="StorageForm" action="/Storage/Modify" method="post">
+    <form class="form-horizontal" id="EditForm" action="/Inquiry/Modify" method="post">
         <div class="widget widget-padding span12">
             <div class="widget-header" style="margin-top:30px">
-                <i class="icon-list-alt"></i><h5>仓库信息</h5>
+                <i class="icon-list-alt"></i><h5>咨询量更新</h5>
             </div>
             <div class="widget-body" style="overflow: hidden; display: block;">
                 <div class="widget-forms clearfix">
-                    <input type="hidden" id="StorageID" name="StorageID" value="@storageEntity.StorageID">
-                    <input type="hidden" id="ContactJson" name="ContactJson" value="@storageEntity.ContactJson">
+                    <input type="hidden" id="PPId" name="PPId" value="@entity.PPId">
                     <div class="control-group">
-                        <label class="control-label">仓库名称</label>
+                        <label class="control-label">产品名称/编号</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="仓库名称" id="StorageName" name="StorageName" value="@storageEntity.StorageName" maxlength="200">
+                            <input class="span5" type="text" placeholder="产品名称/编号" id="ProductID" name="ProductID" value="@entity.ProductID" maxlength="200">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">仓库编号</label>
+                        <label class="control-label">询价销售转移</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="仓库编号" id="StorageNo" name="StorageNo" value="@storageEntity.StorageNo" maxlength="100">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">省份</label>
-                        <div class="controls">
-                            <input type="hidden" id="hid_cityid" value="@storageEntity.CityID" />
-                            <input type="hidden" id="hid_provinceid" value="@storageEntity.ProvinceID" />
-                            <select tabindex="1" class="span2" id="ProvinceID" name="ProvinceID">
-                                <option value="">--省份--</option>
-                                @foreach (var item in plist)
+                            @*<input class="span5" type="text" placeholder="询价销售转移" id="OperatorID" name="OperatorID" value="@entity.OperatorID" maxlength="100">*@
+                            <select tabindex="1" class="span2" id="OperatorID" name="OperatorID">
+                                @if (userList != null && userList.Count > 0)
                                 {
-                                    <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                    foreach(UserEntity item in userList)
+                                    {
+                                        <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
+                                    }                                    
                                 }
+                            </select>                            
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">客户姓名</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="客户姓名" id="CustomerName" name="CustomerName" value="@entity.CustomerName" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">电话号码</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="电话号码" id="telphone" name="telphone" value="@entity.telphone" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">电话号码2</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="电话号码2" id="CommentContent" name="CommentContent" value="@entity.CommentContent" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">QQ/微信号码</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="QQ/微信号码" id="WebChartID" name="WebChartID" value="@entity.WebChartID" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">留言内容</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="留言内容" id="InquiryContent" name="InquiryContent" value="@entity.InquiryContent" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">处理状态</label>
+                        <div class="controls">
+                            @*<input  type="radio" value="" />已处理
+                                <input type="radio" value="" />未处理*@
+                            <input type="radio" id="ProcessingState" name="ProcessingState" @(@entity.ProcessingState.Equals("1") ? "checked='checked'" : "") value="1" />已处理
+                            <input type="radio" id="ProcessingState" name="ProcessingState" @(@entity.ProcessingState.Equals("0") ? "checked='checked'" : "") value="0" />未处理
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">所在地</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="省份" id="Provence" name="Provence" style="width:210px" value="@entity.Provence" maxlength="50">
+                            <input class="span5" type="text" placeholder="城市" id="City" name="City" style="width:210px" value="@entity.City" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">跟踪内容</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="跟踪内容" id="TraceContent" name="TraceContent" value="@entity.TraceContent" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">跟踪状态</label>
+                        <div class="controls">
+                            <select tabindex="1" class="span2" id="TraceState" name="TraceState">
+                                <option value="有意向" @(entity.TraceState.Equals("有意向") ? "selected" : "")>--有意向--</option>
+                                <option value="已成交" @(entity.TraceState.Equals("已成交") ? "selected" : "")>--已成交--</option>
+                                <option value="无意向" @(entity.TraceState.Equals("无意向") ? "selected" : "")>--无意向--</option>
+                                <option value="假号" @(entity.TraceState.Equals("假号") ? "selected" : "")>--假号--</option>
                             </select>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">城市</label>
+                        <label class="control-label">下次回访时间</label>
                         <div class="controls">
-                            <select tabindex="1" class="span2" id="CityID" name="CityID">
-                                <option value="">--城市--</option>
-                            </select>
+                            <input class="span5" type="text" placeholder="下次回访时间" id="NextVisitTime" name="NextVisitTime" value="@(entity.NextVisitTime > Convert.ToDateTime("2000-01-01") ? entity.NextVisitTime.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" maxlength="200">
                         </div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label">地址</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="地址" id="Address" name="Address" value="@storageEntity.Address" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">是否可用</label>
-                        <div class="controls">
-                            @if (storageEntity.StorageID > 0)
-                            {
-                                <input type="checkbox" value="1" id="Status" name="Status" @(storageEntity.Status == 1 ? "checked" : "")>
-                            }
-                            else
-                            {
-                                <input type="checkbox" value="1" id="Status" name="Status" checked>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-header" style="margin-top:30px">
-                <i class="icon-list-alt"></i><h5>新增加联系人</h5>
-                <div class="widget-buttons">
-                    <a href="javascript:addTr(oneTr())"><i class="icon-user"></i> 新增</a>
-                </div>
-            </div>
-            <div class="widget-body" style="overflow: hidden; display: block;">
-                <div class="widget-forms clearfix">
-                    <table class="table table-bordered" id="fineTable">
-                        <thead>
-                            <tr>
-                                <th>联系人姓名<input type="hidden" value="Head"></th>
-                                <th>手机号</th>
-                                <th>座机</th>
-                                <th>邮箱</th>
-                                <th>备注</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (storageEntity.listContact != null && storageEntity.listContact.Count > 0)
-                            {
-                                foreach (ContactEntity cc in storageEntity.listContact)
-                                {
-                                    <tr>
-                                        <td><input type="text" id="contractName" value="@cc.ContactName" class="form-control"></td>
-                                        <td><input type="text" id="contractPhone" value="@cc.Mobile" class="form-control "></td>
-                                        <td><input type="text" id="contractTelephone" value="@cc.Telephone" class="form-control "></td>
-                                        <td><input type="text" id="contractEmail" value="@cc.Email" class="form-control "></td>
-                                        <td><input type="text" id="remark" value="@cc.Remark" class="form-control "></td>
-                                        <td><input type="hidden" id="contactID" value="@cc.ContactID" /><span style="cursor:pointer" onclick="delTr(this,@cc.ContactID)">移除</span></td>
-                                    </tr>
-                                }
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td><input type="text" id="contractName" class="form-control"></td>
-                                    <td><input type="text" id="contractPhone" class="form-control "></td>
-                                    <td><input type="text" id="contractTelephone" class="form-control "></td>
-                                    <td><input type="text" id="contractEmail" class="form-control "></td>
-                                    <td><input type="text" id="remark" class="form-control "></td>
-                                    <td><input type="hidden" id="contactID" value="0" /><span style="cursor:pointer" onclick="delTr(this,0)">移除</span></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
                 </div>
             </div>
             <div class="widget-footer">
-                <button class="btn btn-primary" type="button" id="save">保存</button>
+                <button class="btn btn-primary" type="submit" id="save">保存</button>
                 <button class="btn btn-primary" type="button" id="goback">返回</button>
             </div>
         </div>
@@ -162,11 +148,9 @@
 @section Footer{
 <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
 <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="~/source/BaseData/Storage.js"></script>
-<script type="text/javascript" src="~/source/BaseData/Table.js"></script>    
 <script>
-    $(document).ready(function () {
-        storageInfo.init();
+    $("#goback").click(function () {
+        window.location.href = "/Inquiry/";
     });
 </script>
 

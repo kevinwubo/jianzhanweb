@@ -90,6 +90,11 @@ namespace Entity.ViewModel
         public string OperatorID { get; set; }
 
         /// <summary>
+        /// 历史操作员ID
+        /// </summary>
+        public string HistoryOperatorID { get; set; }
+
+        /// <summary>
         /// 销售电话
         /// </summary>
         public string SaleTelephone { get; set; }
@@ -112,6 +117,43 @@ namespace Entity.ViewModel
         /// <summary>
         ///  关联销售
         /// </summary>
-        public ManagerEntity manager { get; set; }
+        public UserEntity user { get; set; }
+    }
+
+    public class SimpleInquiryEntity
+    {
+        /// <summary>
+        /// 关联产品表 产品ID
+        /// </summary>
+        public string ProductID { get; set; }
+
+        /// <summary>
+        /// 操作员ID
+        /// </summary>
+        public string OperatorID { get; set; }
+
+        /// <summary>
+        /// 客户姓名
+        /// </summary>
+        public string CustomerName { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string telphone { get; set; }
+        /// <summary>
+        /// QQ号
+        /// </summary>
+        public string WebChartID { get; set; }
+
+        /// <summary>
+        /// 询价内容  留言内容
+        /// </summary>
+        public string InquiryContent { get; set; }
+
+        /// <summary>
+        /// 跟踪状态(有意向、意向很大、意向大、无意向)
+        /// </summary>
+        public string TraceState { get; set; }
     }
 }

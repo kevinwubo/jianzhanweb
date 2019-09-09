@@ -27,6 +27,9 @@ namespace Entity.ViewModel
         public string NickName { get; set; }
 
         public int Status { get; set; }
+        public string Telephone { get;set;}
+        public int SalesCount { get; set; }
+        public string CityName { get; set; }
 
         public List<RoleEntity> Roles { get; set; }
 

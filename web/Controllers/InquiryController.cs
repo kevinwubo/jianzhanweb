@@ -54,11 +54,36 @@ namespace web.Controllers
             ViewBag.Pager = pager;
             return View();
         }
+        #region 手动添加咨询量
+        /// <summary>
+        /// 手动添加咨询量
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Add()
+        {
+            ViewBag.UserInfo = CurrentUser;
+            return View();
+        }
 
+        /// <summary>
+        /// 手动添加咨询量--保存
+        /// </summary>
+        /// <param name="entity"></param>
+        public void HandSave(InquiryEntity entity)
+        {
+            InquiryService.CreateSimple(entity, CurrentUser);
+            Response.Redirect("/Inquiry/");
+        }
+        #endregion
+
+       
 
         public ActionResult Edit(string cid)
         {
             ViewBag.InquiryModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
+
+            List<UserEntity> userList = UserService.GetUserAll();
+
             if (!string.IsNullOrEmpty(cid))
             {
                 ViewBag.Inquiry = InquiryService.GetInquiryEntityById(cid.ToLong(0));
@@ -67,20 +92,19 @@ namespace web.Controllers
             {
                 ViewBag.Inquiry = new InquiryEntity();
             }
-
+            ViewBag.UserList = userList;
             return View();
         }
 
         public void Modify(InquiryEntity entity)
         {
-            if (entity != null)
-            {
-                entity.OperatorID = CurrentUser.UserID.ToString();
-            }
+            //if (entity != null)
+            //{
+            //    entity.OperatorID = CurrentUser.UserID.ToString();
+            //}
             InquiryService.ModifyInquiry(entity);
             Response.Redirect("/Inquiry/");
         }
-
 
         public void Remove(string rid)
         {

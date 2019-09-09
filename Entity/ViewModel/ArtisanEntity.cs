@@ -85,6 +85,11 @@ namespace Entity.ViewModel
         public string IsRecommend { get; set; }
 
         /// <summary>
+        /// 显示顺序
+        /// </summary>
+        public int Sort { get; set; }
+
+        /// <summary>
         /// 是否推荐到商城
         /// </summary>
         public string IsPushMall { get; set; }

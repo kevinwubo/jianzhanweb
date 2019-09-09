@@ -34,8 +34,8 @@ namespace DataRepository.DataAccess.News
         public static string ModifyInquiry = @"UPDATE [dbo].[dt_proInquiry]   SET [ProductID] = @ProductID,[telphone] = @telphone,[WebChartID] = @WebChartID,[InquiryContent] = @InquiryContent
                                                 ,[CommentContent] = @CommentContent,[ProcessingState] = @ProcessingState,[ProcessingTime] = @ProcessingTime,[Provence] = @Provence
                                                 ,[City] = @City,[TraceContent] = @TraceContent,[TraceState] = @TraceState,[NextVisitTime] = @NextVisitTime,[CustomerName] = @CustomerName
-                                                ,[sex] = @sex,[status] = @status,[SourceForm] = @SourceForm,ChangeDate = @ChangeDate,[OperatorID] = @OperatorID
-                                                ,[datastatus] = @datastatus WHERE PPId=@PPId";
+                                                ,[sex] = @sex,[status] = @status,[SourceForm] = @SourceForm,[OperatorID] = @OperatorID
+                                                 WHERE PPId=@PPId";
 
 
         #region 分页相关

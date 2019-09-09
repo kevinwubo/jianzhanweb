@@ -181,6 +181,54 @@ namespace Service
             return entity;
         }
 
+
+        public static ProductInfo TranslateProductInfo(ProductEntity entity)
+        {
+            ProductInfo info = new ProductInfo();
+            if (entity != null)
+            {
+                info.ID = entity.ID;
+                info.ProductID = entity.ProductID;
+                info.ProductName = entity.ProductName;
+                info.SubTitle = entity.SubTitle;
+                info.Type1 = entity.Type1;
+                info.Type2 = entity.Type2;
+                info.Type3 = entity.Type3;
+                info.Type4 = entity.Type4;
+                info.Type5 = entity.Type5;
+                info.Type6 = entity.Type6;
+                info.Type7 = entity.Type7;
+                info.Images = URL + entity.Images;
+                if (!string.IsNullOrEmpty(entity.summary) && entity.summary.IndexOf("http") > -1)
+                {
+                    info.summary = string.IsNullOrEmpty(entity.summary) ? "" : entity.summary.Replace("http://121.42.156.253", URL);
+                }
+                else
+                {
+                    info.summary = string.IsNullOrEmpty(entity.summary) ? "" : entity.summary.Replace("/productimg", URL + "/productimg");
+                }
+
+                info.ProductDetail = entity.ProductDetail;
+                info.ProImageDetail = string.IsNullOrEmpty(entity.ProImageDetail) ? "" : entity.ProImageDetail.Replace("http://121.42.156.253", URL);
+                info.IsPushMall = entity.IsPushMall;
+                info.Material = entity.Material;
+                info.Volume = entity.Volume;
+                info.CostPrice = entity.CostPrice;
+                info.MarketPrice = entity.MarketPrice;
+                info.LowPrice = entity.LowPrice;
+                info.ArtisanID = entity.ArtisanID;
+                info.VideoUrl = entity.VideoUrl;
+                info.VideoDetail = entity.VideoDetail;
+                info.PlatePosition = entity.PlatePosition;
+                info.InventoryCount = entity.InventoryCount;
+                info.Author = entity.Author;
+                info.Adddate = entity.Adddate;
+                info.UpdateDate = entity.UpdateDate;
+                info.Introduction = entity.Introduction;
+            }
+            return info;
+        }
+
         /// <summary> 
         /// 取得HTML中所有图片的 URL。 
         /// </summary> 
@@ -200,6 +248,31 @@ namespace Service
             foreach (Match match in matches)
                 str = match.Groups["imgUrl"].Value;
             return str;
+        }
+        public static bool ModifyProduct(ProductEntity entity)
+        {
+            long result = 0;
+            if (entity != null)
+            {
+                ProductRepository mr = new ProductRepository();
+                ProductInfo info = TranslateProductInfo(entity);
+                if (entity.ID > 0)
+                {
+                    info.ID = entity.ID;                    
+                    result = mr.ModifyProduct(info);
+                }
+                else
+                {
+                    result = mr.CreateNew(info);
+                }
+            }
+            return result > 0;
+        }
+
+        public static void Remove(long productid)
+        {
+            ProductRepository mr = new ProductRepository();
+            mr.Remove(productid);
         }
 
         #region 分页相关
