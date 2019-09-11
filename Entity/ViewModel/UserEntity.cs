@@ -31,6 +31,10 @@ namespace Entity.ViewModel
         public int SalesCount { get; set; }
         public string CityName { get; set; }
 
+        /// <summary>
+        /// 当日销售咨询量
+        /// </summary>
+        public int currentSalesCount { get; set; }
         public List<RoleEntity> Roles { get; set; }
 
         public List<GroupEntity> Groups { get; set; }

@@ -16,32 +16,48 @@ namespace Service
     {
         #region 咨询量逻辑
 
-        public static string CreateInquiry(string telephone, string productID, string sourceform, string contactName)
+        public static string CreateInquiry(string Telephone, string productID, string sourceform, string contactName)
         {
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
             CodeSEntity blackmobile = BaseDataService.GetCodeValuesByRule("BlackMobile");//手机号黑名单
-            //当天同手机号同产品编号只能资讯2次
-            List<InquiryEntity> listProTel = GetInquiryByRule(productID, StringHelper.ConvertBy123(telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
+            ////当天同手机号同产品编号只能资讯2次
+            //List<InquiryEntity> listProTel = GetInquiryByRule(productID, StringHelper.ConvertBy123(Telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
 
-            //手机号大于5次 同一天
-            List<InquiryEntity> listTel = GetInquiryByRule(productID, "", "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
-            if (blackmobile != null && !string.IsNullOrEmpty(blackmobile.CodeValues) && blackmobile.CodeValues.Contains(telephone))
-            {
+            ////手机号大于5次 同一天
+            //List<InquiryEntity> listTel = GetInquiryByRule("", StringHelper.ConvertBy123(Telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
+            //if (blackmobile != null && !string.IsNullOrEmpty(blackmobile.CodeValues) && blackmobile.CodeValues.Contains(Telephone))
+            //{
 
-            }
-            else if (listProTel != null && listProTel.Count > 2)
-            {
+            //}
+            //else if (listProTel != null && listProTel.Count > 2)
+            //{
 
-            }
-            else if (listTel != null && listTel.Count > 5)
-            {
+            //}
+            //else if (listTel != null && listTel.Count > 5)
+            //{
 
-            }
-            else
+            //}
+            //else
             {
-                string code = GetTimeRangleCode(telephone, "");
-                ManagerEntity entity = GetSalesNameNew(code);
-                InquiryInfo info = AddInquiry(telephone, productID, sourceform, contactName, entity);
+                LogHelper.WriteTextLog("咨询开始","资讯手机号开始" + Telephone, DateTime.Now);
+                string code = GetTimeRangleCode(Telephone, "");
+                List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and telphone='" + StringHelper.ConvertBy123(Telephone) + "' ", "", "");
+                UserEntity entity = null;
+                bool isNew = false;
+                if(listInquiry!=null&&listInquiry.Count>0)
+                {
+                    //手机号已经存在咨询 直接从用户表中读取销售信息
+                    entity = UserService.GetUserById(listInquiry[0].OperatorID.ToLong(0));
+                    isNew = false;
+                }
+                else
+                {
+                    isNew = true;
+                    //新咨询量 走分配逻辑
+                    entity = GetSalesNameNew(code);
+                }
+
+                InquiryInfo info = AddInquiry(Telephone, productID, sourceform, contactName, entity, isNew);
                 sendSMS(SmsTempletText, productID, info.smsMess, entity);
             }
             return "";
@@ -53,49 +69,67 @@ namespace Service
         /// <param name="SmsTempletText"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        private static bool sendSMS(string SmsTempletText, string productID, string smsMess, ManagerEntity entity)
+        private static bool sendSMS(string SmsTempletText, string productID, string smsMess, UserEntity entity)
         {
             string SmsMess = string.Format(SmsTempletText, "不详", "不详", "不详", DateTime.Now.ToString());
 
-            if (!string.IsNullOrEmpty(productID))
+            try
             {
-                ProductEntity proEntity = ProductService.GetProductByProductID(productID);
-                SmsMess = string.Format(SmsTempletText, proEntity.Author, proEntity.ProductName, proEntity.ProductID, DateTime.Now.ToString()) + smsMess;
-                if (entity != null)
+                if (!string.IsNullOrEmpty(productID))
                 {
-                    SmsMess += "跟踪销售：" + entity.real_name;
-                }
-                SmsMess = SmsMess.Replace("-", "-");
+                    ProductEntity proEntity = ProductService.GetProductByProductID(productID);
+                    SmsMess = string.Format(SmsTempletText, proEntity.Author, proEntity.ProductName, proEntity.ProductID, DateTime.Now.ToString()) + smsMess;
+                    if (entity != null)
+                    {
+                        SmsMess += "跟踪销售：" + entity.NickName;
+                    }
+                    SmsMess = SmsMess.Replace("-", "-");
 
-                SMSHelper.SeedSMS(entity.telephone, SmsMess);
-                //发送给老板
-                SMSHelper.SeedSMS("13916116545", SmsMess);
-
-                //发送城市对应的主管销售人员
-                if (entity.CityName.Equals("厦门"))
-                {
-                    SMSHelper.SeedSMS("17359271665", SmsMess);
+                    SMSHelper.SeedSMS(entity.Telephone, SmsMess);
+                    LogHelper.WriteTextLog("sendSMS", "--手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    //发送给老板
+                    SMSHelper.SeedSMS("13916116545", SmsMess);
+                    LogHelper.WriteTextLog("sendSMS", "--手机号 BOSS：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    //发送城市对应的主管销售人员
+                    if (entity.CityName.Equals("厦门"))
+                    {
+                        SMSHelper.SeedSMS("17359271665", SmsMess);
+                        LogHelper.WriteTextLog("sendSMS", "--手机号 厦门：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    }
+                    else if (entity.CityName.Equals("武夷山"))
+                    {
+                        SMSHelper.SeedSMS("13163806316", SmsMess);
+                        LogHelper.WriteTextLog("sendSMS", "--手机号 武夷山：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    }
                 }
-                else if (entity.CityName.Equals("武夷山"))
-                {
-                    SMSHelper.SeedSMS("13163806316", SmsMess);
-                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteErrorLog("sendSMS", ex.ToString(), DateTime.Now);
             }
             return true;
         }        
 
-        public static ManagerEntity GetSalesNameNew(string code)
+        public static UserEntity GetSalesNameNew(string code)
         {
             ManagerRepository mmr = new ManagerRepository();
-            List<ManagerEntity> allList = ManagerService.GetManagerAll();
-            //当前销售队列
-            string codes = BaseDataService.GetCodeValuesByRule(code).CodeValues;
-            //当前销售队列
-            List<ManagerEntity> listCurrent = getCurrentSalesListQuence(codes, allList);
-            //执行排除队列
-            List<ManagerEntity> listTask = getOutSalesList(listCurrent);
-            //获取最终销售
-            ManagerEntity entity = GetManagerByOperatorID(listTask);
+            UserEntity entity = new UserEntity();
+            try
+            {
+                List<UserEntity> allList = UserService.GetUserAll(false);
+                //当前销售队列
+                string codes = BaseDataService.GetCodeValuesByRule(code).CodeValues;
+                //当前销售队列
+                List<UserEntity> listCurrent = getCurrentSalesListQuence(codes, allList);
+                //执行排除队列
+                List<UserEntity> listTask = getOutSalesList(listCurrent);
+                //获取最终销售
+                entity = GetManagerByOperatorID(listTask);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteErrorLog("GetSalesNameNew", ex.ToString(), DateTime.Now);    
+            }
 
             return entity;
         }
@@ -103,15 +137,15 @@ namespace Service
         /// 当前队列所有信息
         /// </summary>
         /// <returns></returns>
-        private static List<ManagerEntity> getCurrentSalesListQuence(string codes, List<ManagerEntity> allList)
+        private static List<UserEntity> getCurrentSalesListQuence(string codes, List<UserEntity> allList)
         {
-            List<ManagerEntity> list = new List<ManagerEntity>();
+            List<UserEntity> list = new List<UserEntity>();
             if (!string.IsNullOrEmpty(codes) && allList.Count > 0)
             {
                 string[] codeList = codes.Split(',');
                 foreach (string name in codeList)
                 {
-                    ManagerEntity entity = allList.Find(p => p.real_name.Equals(name) && (p.salesCount < p.currentSalesCount || p.currentSalesCount == 0));
+                    UserEntity entity = allList.Find(p => p.NickName.Equals(name) && (p.SalesCount < p.currentSalesCount || p.currentSalesCount == 0));
                     if (entity != null)
                     {
                         list.Add(entity);
@@ -123,7 +157,7 @@ namespace Service
                 {
                     foreach (string name in codeList)
                     {
-                        ManagerEntity entity = allList.Find(p => p.real_name.Equals(name));
+                        UserEntity entity = allList.Find(p => p.NickName.Equals(name));
                         if (entity != null)
                         {
                             list.Add(entity);
@@ -139,18 +173,18 @@ namespace Service
         /// </summary>
         /// <param name="currentList"></param>
         /// <returns></returns>
-        private static List<ManagerEntity> getOutSalesList(List<ManagerEntity> currentList)
+        private static List<UserEntity> getOutSalesList(List<UserEntity> currentList)
         {
-            List<ManagerEntity> oldList = new List<ManagerEntity>();
+            List<UserEntity> oldList = new List<UserEntity>();
             if (currentList != null && currentList.Count > 0)
             {
-                foreach (ManagerEntity entity in currentList)
+                foreach (UserEntity entity in currentList)
                 {
                     oldList.Add(entity);
                 }
             }
 
-            List<ManagerEntity> removeList = new List<ManagerEntity>();
+            List<UserEntity> removeList = new List<UserEntity>();
             string OutSalesCodes = GetOutSalesName();//排除队列
             string wxCodes = BaseDataService.GetCodeValuesByRule("WXChartList").CodeValues;//当天在微信队列中的排除销售咨询队列
             if (!string.IsNullOrEmpty(OutSalesCodes))
@@ -162,7 +196,7 @@ namespace Service
                     {
                         for (int i = 0; i < currentList.Count; i++)
                         {
-                            if (sale.Equals(currentList[i].real_name))
+                            if (sale.Equals(currentList[i].NickName))
                             {
                                 currentList.Remove(currentList[i]);
                             }
@@ -176,7 +210,7 @@ namespace Service
             {
                 for (int i = 0; i < currentList.Count; i++)
                 {
-                    if (code.Equals(currentList[i].telephone))
+                    if (code.Equals(currentList[i].Telephone))
                     {
                         currentList.Remove(currentList[i]);
                     }
@@ -202,78 +236,85 @@ namespace Service
         /// 确定时间范围
         /// </summary>
         /// <returns></returns>
-        public static string GetTimeRangleCode(string telephone,string city)
+        public static string GetTimeRangleCode(string Telephone, string city)
         {
             string code = "";
-            DateTime dtNow = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
+            try
+            {
+                DateTime dtNow = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
 
-            //ASalesQueue 凌晨2点到12点分分配队列
-            //BSalesQueue 12点~13点30分分配队列
-            //CSalesQueue 13点30分~18点30分分配队列
-            //DSalesQueue 18点30分~21点30分分配队列
-            //ESalesQueue 21点30分~凌晨2点分配队列
-            //班次分配
-            //ASalesQueue 1）凌晨班：凌晨1点016到早上5点30
-            //BSalesQueue 2）早班：5点31~9点30，这
-            //CSalesQueue 3）上午班：9点31~12点
-            //DSalesQueue 4）午睡班：12点01~14点
-            //ESalesQueue 5）下午班：14点01~18点
-            //FSalesQueue 6）晚班：18:01到21点45
-            //GSalesQueue 7）夜班：21点46到凌晨1点
-            string datetime = DateTime.Now.AddDays(-1).ToShortDateString();
-            string sqlTime = "";
-            if (dtNow.CompareTo(Convert.ToDateTime("01:16")) > 0 && dtNow.CompareTo(Convert.ToDateTime("05:30")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 01:16' and '" + datetime + " 05:30'";
-                code = "ASalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("05:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("09:30")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 05:31' and '" + datetime + " 09:30'";
-                code = "BSalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("09:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("12:00")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 09:31' and '" + datetime + " 12:00'";
-                code = "CSalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("12:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("14:00")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 12:01' and '" + datetime + " 14:00'";
-                code = "DSalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("14:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("18:00")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 14:01' and '" + datetime + " 18:00'";
-                code = "ESalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("18:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("21:45")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 18:01' and '" + datetime + " 21:45'";
-                code = "FSalesQueue";
-            }
-            else if (dtNow.CompareTo(Convert.ToDateTime("21:46")) > 0 && dtNow.CompareTo(Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " 01:15")) < 0)
-            {
-                sqlTime = " and AddDate between '" + datetime + " 21:46' and '" + datetime + " 01:15'";
-                code = "GSalesQueue";
-            }
-
-            #region 城市信息优先级最高
-            ProCityEntity info = StringHelper.getProCityInfo();//StringHelper.getCity(telephone);
-            String CityName = "";
-            if (info != null || !string.IsNullOrEmpty(city))
-            {
-                if (!string.IsNullOrEmpty(info.city) || !string.IsNullOrEmpty(city))
+                //ASalesQueue 凌晨2点到12点分分配队列
+                //BSalesQueue 12点~13点30分分配队列
+                //CSalesQueue 13点30分~18点30分分配队列
+                //DSalesQueue 18点30分~21点30分分配队列
+                //ESalesQueue 21点30分~凌晨2点分配队列
+                //班次分配
+                //ASalesQueue 1）凌晨班：凌晨1点016到早上5点30
+                //BSalesQueue 2）早班：5点31~9点30，这
+                //CSalesQueue 3）上午班：9点31~12点
+                //DSalesQueue 4）午睡班：12点01~14点
+                //ESalesQueue 5）下午班：14点01~18点
+                //FSalesQueue 6）晚班：18:01到21点45
+                //GSalesQueue 7）夜班：21点46到凌晨1点
+                string datetime = DateTime.Now.AddDays(-1).ToShortDateString();
+                string sqlTime = "";
+                if (dtNow.CompareTo(Convert.ToDateTime("01:16")) > 0 && dtNow.CompareTo(Convert.ToDateTime("05:30")) < 0)
                 {
-                    CityName = !string.IsNullOrEmpty(city) ? city : info.city;
+                    sqlTime = " and AddDate between '" + datetime + " 01:16' and '" + datetime + " 05:30'";
+                    code = "ASalesQueue";
+                }
+                else if (dtNow.CompareTo(Convert.ToDateTime("05:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("09:30")) < 0)
+                {
+                    sqlTime = " and AddDate between '" + datetime + " 05:31' and '" + datetime + " 09:30'";
+                    code = "BSalesQueue";
+                }
+                else if (dtNow.CompareTo(Convert.ToDateTime("09:31")) > 0 && dtNow.CompareTo(Convert.ToDateTime("12:00")) < 0)
+                {
+                    sqlTime = " and AddDate between '" + datetime + " 09:31' and '" + datetime + " 12:00'";
+                    code = "CSalesQueue";
+                }
+                else if (dtNow.CompareTo(Convert.ToDateTime("12:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("14:00")) < 0)
+                {
+                    sqlTime = " and AddDate between '" + datetime + " 12:01' and '" + datetime + " 14:00'";
+                    code = "DSalesQueue";
+                }
+                else if (dtNow.CompareTo(Convert.ToDateTime("14:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("18:00")) < 0)
+                {
+                    sqlTime = " and AddDate between '" + datetime + " 14:01' and '" + datetime + " 18:00'";
+                    code = "ESalesQueue";
+                }
+                else if (dtNow.CompareTo(Convert.ToDateTime("18:01")) > 0 && dtNow.CompareTo(Convert.ToDateTime("21:45")) < 0)
+                {
+                    sqlTime = " and AddDate between '" + datetime + " 18:01' and '" + datetime + " 21:45'";
+                    code = "FSalesQueue";
+                }
+                else if (dtNow.CompareTo(Convert.ToDateTime("21:46")) > 0 && dtNow.CompareTo(Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " 01:15")) < 0)
+                {
+                    sqlTime = " and AddDate between '" + datetime + " 21:46' and '" + datetime + " 01:15'";
+                    code = "GSalesQueue";
+                }
 
-                    if (CityName.Contains("北京") || CityName.Contains("廊坊"))//|| CityName.Contains("天津")
+                #region 城市信息优先级最高
+                ProCityEntity info = StringHelper.getProCityInfo();//StringHelper.getCity(Telephone);
+                String CityName = "";
+                if (info != null || !string.IsNullOrEmpty(city))
+                {
+                    if (!string.IsNullOrEmpty(info.city) || !string.IsNullOrEmpty(city))
                     {
-                        code = "BeiJingSalesQueue";
+                        CityName = !string.IsNullOrEmpty(city) ? city : info.city;
+
+                        if (CityName.Contains("北京") || CityName.Contains("廊坊"))//|| CityName.Contains("天津")
+                        {
+                            code = "BeiJingSalesQueue";
+                        }
                     }
                 }
+                #endregion
             }
-            #endregion
+            catch (Exception ex)
+            {
+                LogHelper.WriteErrorLog("GetTimeRangleCode", ex.ToString(), DateTime.Now);                
+            }
             return code;
         }
 
@@ -291,91 +332,49 @@ namespace Service
         }
 
         /// <summary>
-        /// 短信模板
-        /// </summary>
-        /// <param name="SmsTempletText"></param>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        private static bool sendSMS(string SmsTempletText, ManagerEntity entity, InquiryInfo info)
-        {
-            string SmsMess = string.Format(SmsTempletText, "不详", "不详", "不详", DateTime.Now.ToString());
-
-            if (info != null)
-            {
-                ProductEntity proEntity = ProductService.GetProductByProductID(info.ProductID);
-                SmsMess = string.Format(SmsTempletText, proEntity.Author, proEntity.ProductName, proEntity.ProductID, DateTime.Now.ToString()) + info.smsMess;
-
-                string saleName = "";
-                ManagerInfo mInfo = new ManagerInfo();
-                if (!string.IsNullOrEmpty(info.OperatorID))
-                {
-                    ManagerRepository mr = new ManagerRepository();
-                    mInfo = mr.GetManagerByID(info.OperatorID.ToInt(0));
-                    saleName = (mInfo != null ? mInfo.real_name : entity.real_name);
-                    SmsMess += "跟踪销售：" + saleName;
-                }
-                SmsMess = SmsMess.Replace("-", "-" + saleName);
-
-                //SMSHelper.SeedSMS(mInfo.telephone, SmsMess);               
-                ////发送给老板
-                //SMSHelper.SeedSMS("13916116545", SmsMess);
-
-                ////发送城市对应的主管销售人员
-                //if (mInfo.CityName.Equals("厦门"))
-                //{
-                //    SMSHelper.SeedSMS("17359271665", SmsMess);
-                //}
-                //else if (mInfo.CityName.Equals("武夷山"))
-                //{
-                //    SMSHelper.SeedSMS("13163806316", SmsMess);
-                //}
-            }
-            return true;
-        }
-
-        /// <summary>
         /// 添加咨询量到数据表
         /// </summary>
-        /// <param name="telephone"></param>
+        /// <param name="Telephone"></param>
         /// <param name="productID"></param>
         /// <param name="sourceform"></param>
         /// <param name="realSaleName"></param>
         /// <returns></returns>
-        private static InquiryInfo AddInquiry(string telephone, string productID, string sourceform, string contactName, ManagerEntity mEntity)
+        private static InquiryInfo AddInquiry(string Telephone, string productID, string sourceform, string contactName, UserEntity entity,bool isNew)
         {
             InquiryRepository ir = new InquiryRepository();
             InquiryInfo info = new InquiryInfo();
-            info.ProductID = productID;
-            info.SourceForm = sourceform;
-            info.ProcessingState = "0";
-            info.telphone = StringHelper.ConvertBy123(telephone);
-            ProCityEntity pcentity = StringHelper.getProCityInfo();
-            if (pcentity != null)
+            try
             {
-                info.IpAddress = pcentity.IpAddress;
-                info.Provence = pcentity.province;
-                info.City = pcentity.city;
+                info.ProductID = productID;
+                info.SourceForm = sourceform;
+                info.ProcessingState = "0";
+                info.telphone = StringHelper.ConvertBy123(Telephone);
+                ProCityEntity pcentity = StringHelper.getProCityInfo();
+                if (pcentity != null)
+                {
+                    info.IpAddress = pcentity.IpAddress;
+                    info.Provence = pcentity.province;
+                    info.City = pcentity.city;
+                }
+                if (isNew)
+                {
+                    info.status = "新";
+                }
+                else
+                {
+                    info.smsMess = "老客户咨询！";
+                    info.status = "";
+                }
+                info.HistoryOperatorID = entity.UserID.ToString();
+                info.OperatorID = entity.UserID.ToString();
+                info.SaleTelephone = entity.Telephone;
+                info.CustomerName = contactName;
+                ir.CreateSimpleInquiry(info);
             }
-            
-            List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and (telphone='" + telephone + "' or telphone='" + StringHelper.ConvertBy123(telephone) + "') ", "", "");
-            if (listInquiry != null && listInquiry.Count > 0)
+            catch (Exception ex)
             {
-                InquiryEntity entity = listInquiry[0];
-                info.HistoryOperatorID = entity.OperatorID;
-                info.OperatorID = entity.OperatorID;
-                info.SaleTelephone = entity.SaleTelephone;
-                info.smsMess = "老客户咨询！";
-                info.status = "";
+                 LogHelper.WriteErrorLog("AddInquiry", ex.ToString(), DateTime.Now);   
             }
-            else
-            {
-                info.status = "新";
-                info.HistoryOperatorID = mEntity.id.ToString();
-                info.OperatorID = mEntity.id.ToString();
-                info.SaleTelephone = mEntity.telephone;
-            }
-            info.CustomerName = contactName;
-            ir.CreateSimpleInquiry(info);
             return info;
         }
 
@@ -388,19 +387,19 @@ namespace Service
         /// </summary>
         /// <param name="listTask"></param>
         /// <returns></returns>
-        private static ManagerEntity GetManagerByOperatorID(List<ManagerEntity> listTask)
+        private static UserEntity GetManagerByOperatorID(List<UserEntity> listTask)
         {
-            ManagerEntity entity = new ManagerEntity();
+            UserEntity entity = new UserEntity();
             //获取当前队列中最新资讯销售
             string OperatorIDs = "";
-            foreach (ManagerEntity item in listTask)
+            foreach (UserEntity item in listTask)
             {
-                OperatorIDs += item.id + ",";
+                OperatorIDs += item.UserID + ",";
             }
             List<DefineInquiryInfo> listLastName = GetLastSaleNameByOperatorID(OperatorIDs.TrimEnd(','));
             string lastOperatorID = listLastName[0].OperatorID;
 
-            int currentindex = listTask.FindIndex(p => p.id == lastOperatorID.ToInt(0));
+            int currentindex = listTask.FindIndex(p => p.UserID == lastOperatorID.ToInt(0));
 
             int index = currentindex + 1;
 
@@ -430,13 +429,13 @@ namespace Service
                 foreach (InquiryEntity item in list)
                 {
                     string code = GetTimeRangleCode(item.telphone, item.City);
-                    ManagerEntity entity = GetSalesNameNew(code);
+                    UserEntity entity = GetSalesNameNew(code);
                     sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
 
                     //更新OperatorID
                     InquiryRepository ir = new InquiryRepository();
                     InquiryInfo infoU = new InquiryInfo();
-                    infoU.OperatorID = entity.id.ToString();
+                    infoU.OperatorID = entity.UserID.ToString();
                     infoU.PPId = item.PPId;
                     infoU.ChangeDate = DateTime.Now;
                     ir.UpdateOperatorIDByPPId(infoU);
@@ -618,8 +617,8 @@ namespace Service
             info.City = "";
             info.TraceState = entity.TraceState;
             info.status = "Hand";
-            info.HistoryOperatorID = user.UserID;
-            info.OperatorID = user.UserID;
+            info.HistoryOperatorID = user.UserID.ToString();
+            info.OperatorID = user.UserID.ToString();
             info.SaleTelephone = user.Telephone;
             info.CustomerName = entity.CustomerName;
             ir.CreateSimpleInquiry(info);
@@ -657,11 +656,11 @@ namespace Service
 
         }
 
-        public static List<InquiryEntity> GetInquiryByRule(string productid, string telephone, string name, string sqlwhere, string status,string operatorid)
+        public static List<InquiryEntity> GetInquiryByRule(string productid, string Telephone, string name, string sqlwhere, string status,string operatorid)
         {
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
-            List<InquiryInfo> miList = mr.GetInquiryByRule(productid, telephone, name, sqlwhere, status, operatorid);
+            List<InquiryInfo> miList = mr.GetInquiryByRule(productid, Telephone, name, sqlwhere, status, operatorid);
 
             if (!miList.IsEmpty())
             {

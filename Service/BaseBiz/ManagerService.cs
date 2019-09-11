@@ -33,6 +33,8 @@ namespace Service.BaseBiz
             return all;
         }
 
+
+
         private static ManagerEntity TranslateManagerEntity(ManagerInfo info)
         {
             ManagerEntity entity = new ManagerEntity();

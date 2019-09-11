@@ -92,6 +92,14 @@
             <div class="tab-item @(ViewBag.ArtisanType == "名家工艺师" ? "active" : "")" id="div_mjgys"><span>名家工艺师</span></div>
             <div class="tab-item @(ViewBag.ArtisanType == "器形/釉色" ? "active" : "")" id="div_qxys"><span>器形/釉色</span></div>
         </div>
+        <div id="mark" style="background: rgba(0,0,0,.5);width: 100%;position: absolute;z-index: 1;display: none">
+            <div style="padding: .2rem .32rem 0.1rem; background:white;overflow: hidden;" id="div_showinfo">
+                <div class="markitem">
+                    土豪
+                </div>
+
+            </div>
+        </div>
     </section>
     <div class="store-con">
         <span style="color:red">@(ViewBag.Keyword)</span>为您选出<span style="color:red">@(p.SumCount)</span>款

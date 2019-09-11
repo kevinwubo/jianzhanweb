@@ -57,7 +57,7 @@ namespace Service.BaseBiz
             return userInfo;
         }
 
-        private static UserEntity TranslateUserEntity(UserInfo userInfo)
+        private static UserEntity TranslateUserEntity(UserInfo userInfo, bool isRead)
         {
             UserEntity userEntity = new UserEntity();
             if (userInfo != null)
@@ -69,31 +69,40 @@ namespace Service.BaseBiz
                 userEntity.Telephone = userInfo.Telephone;
                 userEntity.SalesCount = userInfo.SalesCount;
                 userEntity.CityName = userInfo.CityName;
-                List<MenuEntity> allMenus = new List<MenuEntity>();
-                MenuCompare compare = new MenuCompare();
-                if (!string.IsNullOrEmpty(userInfo.RoleIDs))
+                if (isRead)
                 {
-                    userEntity.Roles = RoleService.GetRoleByKeys(userInfo.RoleIDs);
-                    if (userEntity.Roles.Count > 0)
+                    List<MenuEntity> allMenus = new List<MenuEntity>();
+                    MenuCompare compare = new MenuCompare();
+                    if (!string.IsNullOrEmpty(userInfo.RoleIDs))
                     {
-                        foreach (RoleEntity r in userEntity.Roles)
+                        userEntity.Roles = RoleService.GetRoleByKeys(userInfo.RoleIDs);
+                        if (userEntity.Roles.Count > 0)
                         {
-                            allMenus = allMenus.Merge(r.Menus, compare);
+                            foreach (RoleEntity r in userEntity.Roles)
+                            {
+                                allMenus = allMenus.Merge(r.Menus, compare);
+                            }
                         }
                     }
-                }
-                if (!string.IsNullOrEmpty(userInfo.GroupIDs))
-                {
-                    userEntity.Groups = GroupService.GetGroupByKeys(userInfo.GroupIDs);
-                    if (userEntity.Groups.Count > 0)
+                    if (!string.IsNullOrEmpty(userInfo.GroupIDs))
                     {
-                        foreach (GroupEntity r in userEntity.Groups)
+                        userEntity.Groups = GroupService.GetGroupByKeys(userInfo.GroupIDs);
+                        if (userEntity.Groups.Count > 0)
                         {
-                            allMenus = allMenus.Merge(r.Menus, compare);
+                            foreach (GroupEntity r in userEntity.Groups)
+                            {
+                                allMenus = allMenus.Merge(r.Menus, compare);
+                            }
                         }
                     }
+                    userEntity.Menus = allMenus;
                 }
-                userEntity.Menus = allMenus;
+                else
+                {
+                    //当天咨询量
+                    List<InquiryEntity> list = InquiryService.GetInquiryByRule("", "", "", " AND AddDate Between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59'", "新", userEntity.UserID.ToString());
+                    userEntity.currentSalesCount = list != null && list.Count > 0 ? list.Count : 0;
+                }
             }
 
 
@@ -132,15 +141,15 @@ namespace Service.BaseBiz
             UserEntity result = new UserEntity();
             UserRepository mr = new UserRepository();
             UserInfo info = mr.GetUserByKey(uid);
-            result = TranslateUserEntity(info);
+            result = TranslateUserEntity(info, false);
             return result;
         }
 
-        public static List<UserEntity> GetUserAll()
+        public static List<UserEntity> GetUserAll(bool isRead = true)
         {
             List<UserEntity> all = new List<UserEntity>();
             UserRepository mr = new UserRepository();
-            List<UserInfo> miList = null;//Cache.Get<List<UserInfo>>("UserALL");
+            List<UserInfo> miList = Cache.Get<List<UserInfo>>("UserALL");
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllUser();
@@ -150,7 +159,7 @@ namespace Service.BaseBiz
             {
                 foreach (UserInfo mInfo in miList)
                 {
-                    UserEntity userEntity = TranslateUserEntity(mInfo);
+                    UserEntity userEntity = TranslateUserEntity(mInfo, isRead);
                     all.Add(userEntity);
                 }
             }
@@ -169,7 +178,7 @@ namespace Service.BaseBiz
             {
                 foreach (UserInfo mInfo in miList)
                 {
-                    UserEntity userEntity = TranslateUserEntity(mInfo);
+                    UserEntity userEntity = TranslateUserEntity(mInfo, false);
                     all.Add(userEntity);
                 }
             }
@@ -199,7 +208,7 @@ namespace Service.BaseBiz
             {
                 UserRepository mr = new UserRepository();
                 UserInfo info = mr.GetLoginUser(name, pwd);
-                result = TranslateUserEntity(info);
+                result = TranslateUserEntity(info, true);
             }
             catch (Exception ex)
             {

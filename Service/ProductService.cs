@@ -307,12 +307,12 @@ namespace Service
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy);
+            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy + pager.PageIndex);
 
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, keyword, pagename, orderBy, pager);
-                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy, miList);
+                Cache.Add("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy + pager.PageIndex, miList);
             }
             if (!miList.IsEmpty())
             {

@@ -244,8 +244,18 @@ namespace web.Controllers
             ViewBag.ArtisanType = artisanType;
             ViewBag.Product = mList;
             ViewBag.Pager = pager;
-            ViewBag.Keyword = keyword;
+            string keywords = Check(!string.IsNullOrEmpty(artisanType) ? "" : author) + Check(keyword) + Check(type2) + Check(type3) + Check(type4) + Check(type7) + Check(artisanType);
+            ViewBag.Keyword = string.IsNullOrEmpty(keywords) ? keywords : keywords.TrimEnd(',');
             return View();
+        }
+
+        private string Check(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                str = str.Replace("'", "") + ",";
+            }
+            return str;
         }
 
         /// <summary>
