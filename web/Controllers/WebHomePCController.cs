@@ -104,7 +104,18 @@ namespace web.Controllers
         /// <returns></returns>
         public ActionResult shop(string type2, string type3, string type4, string type5, string type7, string author, string artisanType, string keyword = "", string tag = "", int p = 1)
         {
-
+            if (!string.IsNullOrEmpty(type2))
+                type2 = type2.Replace("全部", "");
+            if (!string.IsNullOrEmpty(type3))
+                type3 = type3.Replace("全部", "");
+            if (!string.IsNullOrEmpty(type4))
+                type4 = type4.Replace("全部", "");
+            if (!string.IsNullOrEmpty(type5))
+                type5 = type5.Replace("全部", "");
+            if (!string.IsNullOrEmpty(type7))
+                type7 = type7.Replace("全部", "");
+            if (!string.IsNullOrEmpty(author))
+                author = author.Replace("全部", "");
 
             List<ProductEntity> mList = null;
 
@@ -198,7 +209,7 @@ namespace web.Controllers
             ViewBag.type4 = type4;
             ViewBag.type5 = type5;
             ViewBag.type7 = type7;
-            ViewBag.author = string.IsNullOrEmpty(artisanType) ? author : artisanType;
+            ViewBag.author = string.IsNullOrEmpty(artisanType) ? (string.IsNullOrEmpty(author) ? "" : author.Replace("'", "")) : artisanType;
             return View();
         }
 
@@ -355,7 +366,7 @@ namespace web.Controllers
         public ActionResult souchang(int p = 1)
         {
             List<ProductEntity> mList = null;
-            string sqlwhere = " and (MarketPrice>30000 or type6 in('全品整器','残缺瑕疵','标本残片'))";
+            string sqlwhere = " and (MarketPrice>6000 and type6 not in('全品整器','残缺瑕疵','标本残片'))";//" and (MarketPrice>30000 or type6 in('全品整器','残缺瑕疵','标本残片'))";
             int count = ProductService.GetProductCount("", "", "", "", "", sqlwhere, "");
 
             PagerInfo pager = new PagerInfo();
@@ -366,7 +377,7 @@ namespace web.Controllers
 
             if (1 == 1)
             {
-                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", "", pager);
+                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", " ORDER BY NEWID() ", pager);
             }
             else
             {

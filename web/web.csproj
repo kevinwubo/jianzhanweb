@@ -1009,6 +1009,7 @@
     <Content Include="Views\WebHomePC\jingdiandetail.cshtml" />
     <Content Include="Views\Pager_pc.cshtml" />
     <Content Include="Views\Inquiry\Add.cshtml" />
+    <Content Include="Views\Home\AdminLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

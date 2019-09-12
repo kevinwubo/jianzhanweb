@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using web.Filters;
 using web.Models;
+using Common;
 
 namespace web.Controllers
 {
@@ -56,7 +57,7 @@ namespace web.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "AdminLogin");
         }
 
         //
@@ -83,7 +84,7 @@ namespace web.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "AdminLogin");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -276,8 +277,7 @@ namespace web.Controllers
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
-
+                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);                        
                         return RedirectToLocal(returnUrl);
                     }
                     else
@@ -339,7 +339,7 @@ namespace web.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "AdminLogin");
             }
         }
 

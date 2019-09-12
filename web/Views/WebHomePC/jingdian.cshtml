@@ -23,45 +23,8 @@
 </head>
 
 <div class="body" style="margin-top:.25rem">
-    <div class="flex-row">
-        <a href="/WebHomePC/college">学院首页</a>
-        <div>&nbsp; &gt;&nbsp; </div>
-        @*<a href="">孙建兴大师</a>*@
-    </div>
-    <div class="div-h-2"></div>
-    <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
-    <div class="div-h-4"></div>
 
-    @*<div class="flex-row" style="align-items: center;padding: 0 .2rem">
-        <div class="flex-col p6-item  p6-item-act">
-            <a href="/WebHomePC/college">学院首页</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=1">新闻资讯</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=3">实拍行情</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=5">建盏工艺</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=6">百科知识</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=7">选盏技巧</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=8">文化历史</a>
-        </div>
-    </div>*@
-    <!-- <img src="/source/static//images/pc/5_top_line.png" alt=""> -->
+    <img src="/source/static//images/pc/0809.png" style="height:1.2rem" alt="">
 
     <div class="flex-row jz-body">
         <div class="right flex-col">
@@ -79,7 +42,7 @@
                 {
                     foreach (ArtisanEntity entity in listYS)
                     {
-                        <a href="/WebHomePC/jingdiandetail?artisanid=@entity.artisanID" class="qxys-item flex-row">
+                        <a href="/WebHomePC/jingdiandetail?artisanid=@entity.artisanID" target="_blank" class="qxys-item flex-row">
                             <img style="margin-right:0" src="@entity.IDHead" alt="">
                             <div class="flex-col">
                                 <div class="t1 flex-row clamp1" style="align-items:center">
@@ -91,7 +54,7 @@
                                 <div class="t2 clamp1">
                                     时间：@entity.adddate.ToShortDateString()
                                 </div>
-                                <div class="t4 clamp3">                                    
+                                <div class="t4 clamp3">
                                     @(entity.introduction.Length > 35 ? entity.introduction.Substring(0, 34) : entity.introduction)...
                                 </div>
                                 <div class="t3">【查看详情】</div>
@@ -115,7 +78,7 @@
 {
     foreach (ArtisanEntity entity in listQX)
     {
-        <a href="/WebHomePC/jingdiandetail?artisanid=@entity.artisanID" class="qxys-item qxys-item-qx flex-row">
+        <a href="/WebHomePC/jingdiandetail?artisanid=@entity.artisanID" target="_blank"  class="qxys-item qxys-item-qx flex-row">
             <img style="margin-right:0" src="@entity.IDHead" alt="">
             <div class="flex-col">
                 <div class="t1 flex-row clamp1" style="align-items:center">
@@ -248,7 +211,7 @@
                 {
                     <div class="div-h-2"></div>
                     <div class="ds-item">
-                        <a href="/@(entityPro.ProductID).html">
+                        <a href="/@(entityPro.ProductID).html" target="_blank">
                             <div class="pimg" style="background:url(@entityPro.Images)"></div>
                         </a>
                         <div class="flex-row" style="flex-direction: column">
@@ -280,15 +243,15 @@
     <div class="div-h-4"></div>
     <div class="flex-row">
         <div class="flex-col">
-            <img class="hb_5" src="/source/static/images/pc/5_hb1.png" alt="">
+            <img class="hb_5" src="/source/static/images/jianzhan_0509/zttj1.jpg" alt="">
         </div>
         <div style="width:.15rem"></div>
         <div class="flex-col">
-            <img class="hb_5" src="/source/static/images/pc/5_hb2.png" alt="">
+            <img class="hb_5" src="/source/static/images/jianzhan_0509/zttj2.jpg" alt="">
         </div>
         <div style="width:.15rem"></div>
         <div class="flex-col">
-            <img class="hb_5" src="/source/static/images/pc/5_hb3.png" alt="">
+            <img class="hb_5" src="/source/static/images/jianzhan_0509/zttj3.jpg" alt="">
         </div>
     </div>
 

@@ -355,7 +355,7 @@ namespace web.Controllers
         public ActionResult mn_souchang(int p = 1)
         {
             List<ProductEntity> mList = null;
-            string sqlwhere = " and (MarketPrice>30000 or type6 in('全品整器','残缺瑕疵','标本残片'))";
+            string sqlwhere = " and (MarketPrice>6000 and type6 not in('全品整器','残缺瑕疵','标本残片'))";//or type6 in('全品整器','残缺瑕疵','标本残片')
             int count = ProductService.GetProductCount("", "", "", "", "", sqlwhere, "");
 
             PagerInfo pager = new PagerInfo();
@@ -366,7 +366,7 @@ namespace web.Controllers
 
             if (1==1)
             {
-                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang","", pager);
+                mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", " ORDER BY NEWID()", pager);
             }
             else
             {

@@ -14,9 +14,17 @@ namespace web.Controllers
     {
         public CacheRuntime Cache = new CacheRuntime();
 
-        public ActionResult Index()
+        public void Index()
         {
-            DateTime dt= DateTime.Parse("2019-01-26").AddDays(180);
+            Response.Redirect("/index.html");
+            //DateTime dt= DateTime.Parse("2019-01-26").AddDays(180);
+
+            //ViewBag.UKey = Guid.NewGuid().ToString();
+        }
+
+        public ActionResult AdminLogin()
+        {
+            DateTime dt = DateTime.Parse("2019-01-26").AddDays(180);
 
             ViewBag.UKey = Guid.NewGuid().ToString();
 

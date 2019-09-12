@@ -78,7 +78,7 @@
                 {
                     foreach (ArticleEntity entity in list)
                     {
-                        <a class="flex-row itemp7" href="/WebHomePC/collegedetail?id=@entity.id">
+                        <a class="flex-row itemp7" target="_blank" href="/WebHomePC/collegedetail?id=@entity.id">
                             <div style="width: 2.25rem;
                         height: 1.5rem;position: relative;background: #fff">
                                 <img style="height:1.5rem;width:2.25rem" src="@entity.img_url" alt="">
@@ -125,7 +125,7 @@
                 {
                     <div class="div-h-2"></div>
                     <div class="ds-item">
-                        <a href="/@(entityPro.ProductID).html">
+                        <a href="/@(entityPro.ProductID).html" target="_blank">
                             <div class="pimg" style="background:url(@entityPro.Images)"></div>
                         </a>
                         <div class="flex-row" style="flex-direction: column">

@@ -24,13 +24,12 @@
 
 <div class="body" style="margin-top:.25rem">
     <div class="flex-row">
-        <a href="WebHomePC/shop">建盏商城</a>
+        <a href="/product_list.html">建盏商城首页</a>
         <div>&nbsp; &gt;&nbsp; </div>
-        <a href="">@entity.Author</a>
+        <a href="">@entity.Author 作品</a>
     </div>
     <div class="div-h-2"></div>
-    <img src="/source//static//images/pc/0809.jpg" style="height:1.2rem" alt="">
-    <div class="div-h-4"></div>
+
     @if (entity != null)
     {
         <div class="flex-row jz-body">
@@ -49,7 +48,6 @@
                                     </div>
                                 }
                             }
-
 
                         </div>
                         <div id="dnext" class="swiper-button-next"></div>
@@ -89,7 +87,7 @@
                                 <div class="clamp1" style="height:.375rem;line-height: .375rem;text-align: left">釉色：@entity.Type2</div>
                             </div>
                             <div class="flex-col">
-                                <div class="clamp1" style="height:.375rem;line-height: .375rem;text-align: left">尺寸：@entity.Type4</div>
+                                <div class="clamp1" style="height:.375rem;line-height: .375rem;text-align: left">尺寸：@entity.Volume</div>
                                 <div class="clamp1" style="height:.375rem;line-height: .375rem;text-align: left">作者：@entity.Author</div>
                             </div>
                         </div>

@@ -37,7 +37,7 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                     font-weight:bold;">新品好货推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/product_list.html">更多 》</a></div>
+                    <div class="px14 color_73"><a href="/product_list.html" target="_blank">更多 》</a></div>
                 </div>
                 <div class="ds-list">
                     @if (listNew != null && listNew.Count > 0)
@@ -45,7 +45,7 @@
                         foreach (ProductEntity entity in listNew)
                         {
                             <div class="ds-item">
-                                <a href="/@(entity.ProductID).html">
+                                <a href="/@(entity.ProductID).html" target="_blank">
                                     <div class="pimg" style="background:url(@entity.Images)"></div>
                                 </a>
                                 <div class="flex-row" style="flex-direction: column">
@@ -79,7 +79,7 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">每日严选推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/product_list.html">更多 》</a></div>
+                    <div class="px14 color_73"><a href="/product_list.html" target="_blank">更多 》</a></div>
                 </div>
                 <div class="ds-list">
                     @if (listHot != null && listHot.Count > 0)
@@ -87,7 +87,7 @@
                         foreach (ProductEntity entity in listHot)
                         {
                             <div class="ds-item">
-                                <a href="/@(entity.ProductID).html">
+                                <a target="_blank" href="/@(entity.ProductID).html">
                                     <div class="pimg" style="background:url(@entity.Images)"></div>
                                 </a>
                                 <div class="flex-row" style="flex-direction: column">
@@ -122,14 +122,14 @@
             <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">名家名堂（名家大师介绍栏目）</div>
             <div class="flex-col"></div>
-            <div class="px14 color_73"><a href="/artisan_list.html">更多 》</a></div>
+            <div class="px14 color_73"><a target="_blank" href="/artisan_list.html" >更多 》</a></div>
         </div>
         <div class="mj-list">
             <div class="mj-item" style="height:4.5rem !important;margin-left:.2rem;margin-right:.2rem ">
                 <div class="pimg" style="height: 100%;background:url(/source/static/images/jianzhan_0509/mjmt1.jpeg)"></div>
             </div>
             <div class="mj-item">
-                <a href="/art33.html">
+                <a href="/art33.html" target="_blank">
                     <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt5.jpeg)"></div>
                 </a>
                 <div class="flex-row" style="flex-direction: column">
@@ -139,7 +139,7 @@
             </div>
 
             <div class="mj-item">
-                <a href="/art18.html">
+                <a href="/art18.html" target="_blank">
                     <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt6.jpeg)"></div>
                 </a>
                 <div class="flex-row" style="flex-direction: column">
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="mj-item">
-                <a href="/art21.html">
+                <a href="/art21.html" target="_blank">
                     <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt4.jpeg)"></div>
                 </a>
                 <div class="flex-row" style="flex-direction: column">
@@ -157,7 +157,7 @@
                 </div>
             </div>
             <div class="mj-item">
-                <a href="/art28.html">
+                <a href="/art28.html" target="_blank">
                     <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt3.jpeg)"></div>
                 </a>
                 <div class="flex-row" style="flex-direction: column">
@@ -166,7 +166,7 @@
                 </div>
             </div>
             <div class="mj-item">
-                <a href="/art45.html">
+                <a href="/art45.html" target="_blank">
                     <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt7.jpeg)"></div>
                 </a>
                 <div class="flex-row" style="flex-direction: column">
@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="mj-item">
-                <a href="/art88.html">
+                <a href="/art88.html" target="_blank">
                     <div class="pimg" style="background:url(/source/static/images/jianzhan_0509/mjmt2.jpeg)"></div>
                 </a>
                 <div class="flex-row" style="flex-direction: column">
@@ -195,11 +195,11 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                     font-weight:bold;">釉色推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/WebHomePC/jingdian">更多 》</a></div>
+                    <div class="px14 color_73"><a href="/WebHomePC/jingdian" target="_blank">更多 》</a></div>
                 </div>
                 <div class="ds-list">
 
-                    <a href="/WebHomePC/jingdiandetail?artisanid=121" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=121" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/tuhao.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【兔毫】</div>
@@ -209,7 +209,7 @@
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="/WebHomePC/jingdiandetail?artisanid=122" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=122" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/zhegu.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【油滴/鹧鸪斑】</div>
@@ -219,7 +219,7 @@
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="/WebHomePC/jingdiandetail?artisanid=123" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=123" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/yaobian.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【曜变】</div>
@@ -229,7 +229,7 @@
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="/WebHomePC/jingdiandetail?artisanid=124" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=124" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/wujin.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【乌金釉】</div>
@@ -254,7 +254,7 @@
                     <div class="px14 color_73"><a href="/WebHomePC/jingdian">更多 》</a></div>
                 </div>
                 <div class="ds-list">
-                    <a href="/WebHomePC/jingdiandetail?artisanid=116" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=116" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/sk.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【束口盏】</div>
@@ -264,7 +264,7 @@
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="/WebHomePC/jingdiandetail?artisanid=119" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=119" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/bk.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【撇口盏】</div>
@@ -274,7 +274,7 @@
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="/WebHomePC/jingdiandetail?artisanid=117" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=117" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/lk.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【敛口盏】</div>
@@ -284,7 +284,7 @@
                             <div class="t3">详情</div>
                         </div>
                     </a>
-                    <a href="/WebHomePC/jingdiandetail?artisanid=118" class="qxys-item flex-row">
+                    <a href="/WebHomePC/jingdiandetail?artisanid=118" target="_blank" class="qxys-item flex-row">
                         <img src="http://116.62.124.214/upload/201905/20/ck.jpg" alt="">
                         <div class="flex-col">
                             <div class="t1 clamp1">【敞口盏】</div>
@@ -301,7 +301,7 @@
         </div>
     </div>
     <div class="div-h-4"></div>
-    <img src="/source/static//images/pc/0809.jpg" style="height:1.2rem" alt="">
+    <img src="/source/static//images/pc/hengfu2.jpg" style="height:1.2rem" alt="">
     <div class="div-h-4"></div>
     <div class="flex-row" style="width:12rem">
         <div class="flex-col" style="background:#fff">
@@ -310,7 +310,7 @@
                     <div class="px16" style="font-family:SourceHanSansCN-Bold;
                                 font-weight:bold;">名家大师重器推荐</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/product_list.html">更多 》</a></div>
+                    <div class="px14 color_73"><a href="/product_list.html" target="_blank">更多 》</a></div>
                 </div>
                 <div class="ds-list">
                     @if (listDSTJ != null && listDSTJ.Count > 0)
@@ -318,7 +318,7 @@
                         foreach (ProductEntity entity in listDSTJ)
                         {
                             <div class="ds-item" style="width:2.75rem;height:3.22rem&quot;">
-                                <a href="/@(entity.ProductID).html">
+                                <a href="/@(entity.ProductID).html" target="_blank">
                                     <div class="pimg" style="background:url(@entity.Images)"></div>
                                 </a>
                                 <div class="flex-row" style="flex-direction: column">
@@ -353,7 +353,7 @@
                 <div class="px16" style="font-family:SourceHanSansCN-Bold;
                             font-weight:bold;">建盏学院</div>
                 <div class="flex-col"></div>
-                <div class="px14 color_73"><a href="/article_list2.html">更多 》</a></div>
+                <div class="px14 color_73"><a href="/article_list2.html" target="_blank">更多 》</a></div>
             </div>
             <div class="jz-list">
 
@@ -362,7 +362,7 @@
                     foreach (ArticleEntity entity in listArt)
                     {
                         <div class="jz-cell">
-                            · <a href="/WebHomePC/collegedetail?id=@entity.id" title="@entity.articleTitle">@(entity.articleTitle.Length > 20 ? entity.articleTitle.Substring(0, 19) : entity.articleTitle)</a>
+                            · <a href="/WebHomePC/collegedetail?id=@entity.id" target="_blank" title="@entity.articleTitle">@(entity.articleTitle.Length > 20 ? entity.articleTitle.Substring(0, 19) : entity.articleTitle)</a>
                         </div>
                     }
 
@@ -382,24 +382,17 @@
             <div class="swiper_container_suz2 swiper-container-horizontal" id="pb2">
                 <div class="swiper-wrapper" style="transform: translate3d(-624.75px, 0px, 0px); transition-duration: 0ms;">
                     <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                    </div><div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                        <img src="/source/static/images/jianzhan_0509/zttj1.jpg">
                     </div>
+					
+					<div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
+                        <img src="/source/static/images/jianzhan_0509/zttj2.jpg">
+                    </div>
+					
                     <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="0" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
+                        <img src="/source/static/images/jianzhan_0509/zttj3.jpg">
                     </div>
-                    <div class="swiper-slide swiper-slide-next" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                    </div>
-                    <div class="swiper-slide" data-swiper-slide-index="2" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                    </div>
-                    <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                    </div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 406.5px; margin-right: 10px;">
-                        <img src="/source/static/images/jianzhan_0509/zttj1.png">
-                    </div>
+
                 </div>
                 <div id="snext" class="swiper-button-next"></div>
                 <div id="sprev" class="swiper-button-prev"></div>
