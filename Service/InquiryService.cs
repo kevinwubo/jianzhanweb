@@ -16,28 +16,28 @@ namespace Service
     {
         #region 咨询量逻辑
 
-        public static string CreateInquiry(string Telephone, string productID, string sourceform, string contactName)
+        public static string CreateInquiry(string Telephone, string productID, string sourceform, string contactName, string wxChartID)
         {
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
             CodeSEntity blackmobile = BaseDataService.GetCodeValuesByRule("BlackMobile");//手机号黑名单
-            //当天同手机号同产品编号只能资讯2次
-            List<InquiryEntity> listProTel = GetInquiryByRule(productID, StringHelper.ConvertBy123(Telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
+            ////当天同手机号同产品编号只能资讯2次
+            //List<InquiryEntity> listProTel = GetInquiryByRule(productID, StringHelper.ConvertBy123(Telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
 
-            //手机号大于5次 同一天
-            List<InquiryEntity> listTel = GetInquiryByRule("", StringHelper.ConvertBy123(Telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
-            if (blackmobile != null && !string.IsNullOrEmpty(blackmobile.CodeValues) && blackmobile.CodeValues.Contains(Telephone))
-            {
+            ////手机号大于5次 同一天
+            //List<InquiryEntity> listTel = GetInquiryByRule("", StringHelper.ConvertBy123(Telephone), "", "and AddDate between '" + DateTime.Now.ToShortDateString() + " 00:00:01' and '" + DateTime.Now.ToShortDateString() + " 23:59:59' ", "", "");
+            //if (blackmobile != null && !string.IsNullOrEmpty(blackmobile.CodeValues) && blackmobile.CodeValues.Contains(Telephone))
+            //{
 
-            }
-            else if (listProTel != null && listProTel.Count > 2)
-            {
+            //}
+            //else if (listProTel != null && listProTel.Count > 2)
+            //{
 
-            }
-            else if (listTel != null && listTel.Count > 5)
-            {
+            //}
+            //else if (listTel != null && listTel.Count > 5)
+            //{
 
-            }
-            else
+            //}
+            //else
             {
                 LogHelper.WriteTextLog("咨询开始","资讯手机号开始" + Telephone, DateTime.Now);
                 string code = GetTimeRangleCode(Telephone, "");
@@ -57,7 +57,7 @@ namespace Service
                     entity = GetSalesNameNew(code);
                 }
 
-                InquiryInfo info = AddInquiry(Telephone, productID, sourceform, contactName, entity, isNew);
+                InquiryInfo info = AddInquiry(Telephone, productID, sourceform, contactName, wxChartID, entity, isNew);
                 sendSMS(SmsTempletText, productID, info.smsMess, entity);
             }
             return "";
@@ -339,7 +339,7 @@ namespace Service
         /// <param name="sourceform"></param>
         /// <param name="realSaleName"></param>
         /// <returns></returns>
-        private static InquiryInfo AddInquiry(string Telephone, string productID, string sourceform, string contactName, UserEntity entity,bool isNew)
+        private static InquiryInfo AddInquiry(string Telephone, string productID, string sourceform, string contactName, string wxChartID, UserEntity entity,bool isNew)
         {
             InquiryRepository ir = new InquiryRepository();
             InquiryInfo info = new InquiryInfo();
@@ -369,6 +369,7 @@ namespace Service
                 info.OperatorID = entity.UserID.ToString();
                 info.SaleTelephone = entity.Telephone;
                 info.CustomerName = contactName;
+                info.WebChartID = wxChartID;
                 ir.CreateSimpleInquiry(info);
             }
             catch (Exception ex)

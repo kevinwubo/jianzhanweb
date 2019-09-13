@@ -307,7 +307,7 @@ namespace Service
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy + pager.PageIndex);
+            List<ProductInfo> miList = null;//Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy + pager.PageIndex);
 
             if (miList.IsEmpty())
             {

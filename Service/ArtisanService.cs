@@ -36,7 +36,7 @@ namespace Service
         public static ArtisanEntity GetArtisanByKey(string artisanID)
         {
             ArtisanEntity entity = new ArtisanEntity();
-            ArtisanInfo info = Cache.Get<ArtisanInfo>("GetArtisanByKey" + artisanID);
+            ArtisanInfo info = null;//Cache.Get<ArtisanInfo>("GetArtisanByKey" + artisanID);
             ArtisanRepository mr = new ArtisanRepository();
             if (info == null)
             {

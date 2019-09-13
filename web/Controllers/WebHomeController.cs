@@ -216,7 +216,7 @@ namespace web.Controllers
                 }
             }
 
-            int count = ProductService.GetProductCount(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword);
+            int count = ProductService.GetProductCount(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount>0 ", keyword);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -229,7 +229,7 @@ namespace web.Controllers
             if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
             {
 
-                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "", keyword, " mn_shop","", pager);
+                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount>0 ", keyword, " mn_shop", "", pager);
             }
             else
             {
@@ -355,7 +355,7 @@ namespace web.Controllers
         public ActionResult mn_souchang(int p = 1)
         {
             List<ProductEntity> mList = null;
-            string sqlwhere = " and (MarketPrice>6000 and type6 not in('全品整器','残缺瑕疵','标本残片'))";//or type6 in('全品整器','残缺瑕疵','标本残片')
+            string sqlwhere = " and InventoryCount>0 and (MarketPrice>6000 and type6 not in('全品整器','残缺瑕疵','标本残片'))";//or type6 in('全品整器','残缺瑕疵','标本残片')
             int count = ProductService.GetProductCount("", "", "", "", "", sqlwhere, "");
 
             PagerInfo pager = new PagerInfo();
@@ -415,9 +415,9 @@ namespace web.Controllers
         /// 立即资讯
         /// </summary>
         /// <returns></returns>
-        public JsonResult CreateInquiry(string telephone, string productID, string sourceform, string contactName = "")
+        public JsonResult CreateInquiry(string telephone, string productID, string sourceform, string contactName = "", string wxChartID = "")
         {
-            string result = InquiryService.CreateInquiry(telephone, productID, sourceform, contactName);
+            string result = InquiryService.CreateInquiry(telephone, productID, sourceform, contactName, wxChartID);
             return new JsonResult
             {
                 Data = "成功！您的询价对我们很重要，建盏顾问将很快回复！"

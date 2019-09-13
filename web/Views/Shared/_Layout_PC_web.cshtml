@@ -147,7 +147,7 @@
                     <div class="flex-row" style="align-items: center">
                         <img src="/source/static/images/pc/zxphone.png" alt="">
                         <input type="hidden" id="Hid_ProductID" />
-                        <input class="flex-col" style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" id="txt_telephone" placeholder="请输入您的手机号">
+                        <input class="flex-col" style="padding: 0 .1rem;border:#ddd 1px solid;height: .36rem;width: 1rem;" type="text" id="txt_telephonezixun" placeholder="请输入您的手机号">
                         <div style="width:.2rem"></div>
                     </div>
 
@@ -272,7 +272,7 @@
         })
         //弹窗资讯
         $("#btn_zixun").click(function () {
-            var Telephone = $("#txt_telephone").val();
+            var Telephone = $("#txt_telephonezixun").val();
             var ProductID = $("#Hid_ProductID").val();
             var contactName = $("#txt_contactName").val() + $("input[name='item']:checked").val();;
             if (Telephone == "") {
@@ -295,7 +295,8 @@
                     telephone: Telephone,
                     productID: ProductID,
                     sourceform: "MB",
-                    contactName: ContactName
+                    contactName: ContactName,
+                    wxChartID: WxChartID
                 },
                 success: function (data) {
                     alert(data);
@@ -308,7 +309,7 @@
         //详情页面资讯
         $("#LJTJ_ZiXun").click(function () {
             var Telephone = $("#txt_telephone").val();
-            var ProductID = 0;
+            var ProductID = $("#Hid_ProductID").val();
             var ContactName = $("#txt_ContactName").val();
             var WxChartID = $("#txt_WxChartID").val();
             var Content = $("#txt_Content").val();
@@ -379,8 +380,8 @@
                 // 如果需要分页器
                 autoplay: 5000,
                 initialSlide: 1,
-                nextButton: '#dpnext',
-                prevButton: '#dpprev',
+                nextButton: '#dpnext'+i,
+                prevButton: '#dpprev'+i,
                 observer: true,
                 observeParents: true
             })
@@ -518,6 +519,12 @@
                 $(".fea-main").css("height", "2.95rem")
             }
         })
+		var swiperd = new Swiper('.swiper_container_d', {
+            slidesPerView: 4,
+            spaceBetween: 28,
+            nextButton: '#dnext',
+            prevButton: '#dprev',
+        });
     </script>
 </body>
 
