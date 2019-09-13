@@ -93,10 +93,10 @@
                 <!--
                 <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" src="~/source/static/images/jianzhan/ic_search.png"
                     alt=""> -->
-                <input style="background: #f7f7f7" class="px28 pad-l-30" type="text" id="txt_simpleTelephone" placeholder="请输入您的手机号码" />
+                <input style="background: #f7f7f7" class="px28 pad-l-30" type="text" id="txt_simpleTelephone2" placeholder="请输入您的手机号码" />
             </div>
         </div>
-        <div class="ssbtnzx px28 mar-r-30" id="ljzx">立即咨询</div>
+        <div class="ssbtnzx px28 mar-r-30" id="ljzx2">立即咨询</div>
     </div>
     <!-- 分类 -->
     <div id='menumark' style="display: none"></div>
@@ -232,6 +232,20 @@
             $("#div_productname").html(productname + '"看作品价格"');
         }
 
+
+        $('#ljzx2').on('click', function () {
+            var Telephone = $("#txt_simpleTelephone2").val();
+            var ProductID = $("#Hid_ProductID").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID);
+        })
 
         $('#ljzx').on('click', function () {
             var Telephone = $("#txt_simpleTelephone").val();

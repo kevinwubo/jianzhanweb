@@ -1,11 +1,16 @@
 ﻿@using Entity.ViewModel;
 @{
     ViewBag.Title = "_Layout_PC_web";
+    string ImageUrl = Service.BaseBiz.BaseDataService.GetPCEwmCode();
 }
 
 
 <!doctype html>
 <html>
+<head>
+    <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
+</head>
 <meta charset="utf-8">@RenderSection("Header", false)
 
 <body>
@@ -110,7 +115,7 @@
                     <div class="div-h-1"></div>
                     <div style="height:1px;background:#ddd;"></div>
                     <div class="div-h-1"></div>
-                    <img style=" height:1.94rem;width:1.94rem" src="/source/static/images/pc/code.png" alt="">
+                    <img style=" height:1.94rem;width:1.94rem" src="@ImageUrl" alt="">
                     <div class="px14 texta-c" style="color:#202020;">(添加客服观看实物视频)</div>
                 </div>
 

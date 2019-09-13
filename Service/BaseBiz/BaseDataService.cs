@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Helper;
+using System.Data;
 
 namespace Service.BaseBiz
 {
@@ -190,6 +191,22 @@ namespace Service.BaseBiz
             }
 
             return result;
+        }
+
+        public static string GetPCEwmCode()
+        {
+            String url = "";
+            BaseDataRepository mr = new BaseDataRepository();
+            DataSet ds = mr.GetQRCode();
+            if (ds != null)
+            {
+                DataTable dt = ds.Tables[0];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    url = URL + dt.Rows[0]["QRImage"];
+                }
+            }
+            return url;
         }
 
         public static List<City> GetAllCity()

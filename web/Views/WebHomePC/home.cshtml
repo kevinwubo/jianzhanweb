@@ -21,9 +21,21 @@
     <meta name="description" content="小匠专场拍卖">
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
     <title>建盏天下网(JianZhanShop.com) - 建窑建盏首席品牌商城</title>
-    <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
-    <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
     <link rel="stylesheet" href="~/source/static/css/pc_home.css" type="text/css" />
+    <script type="text/javascript">
+
+    // JavaScript Document
+    function urlredirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
+            // PC跳转移动端
+            var thisUrl = window.location.href;
+            window.location.href = "/m_index.html";; //跳转为网址后面加mobile的路径
+        }
+    }
+    urlredirect();
+
+    </script>
 </head>
 <div class="banner">
     <img src="/source/static/images/pc/banner.jpg" alt="">

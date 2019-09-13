@@ -25,6 +25,18 @@ namespace DataRepository.DataAccess.BaseData
     public class BaseDataRepository : DataAccessBase
     {
 
+        /// <summary>
+        /// 获取二维码  PC使用
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetQRCode()
+        {
+            DataSet ds = new DataSet();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.GetQRCode, "Text"));
+            ds = command.ExecuteDataSet();
+            return ds;
+        }
+
         public List<CityInfo> GetAllCity()
         {
             List<CityInfo> result = new List<CityInfo>();

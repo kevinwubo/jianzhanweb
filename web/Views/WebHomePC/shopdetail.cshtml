@@ -15,8 +15,8 @@
         <meta name="Keywords" content="建盏名家,@entity.Author ,@entity.Type2 ,@entity.Type3 ,@entity.MarketPrice " />
         <meta name="Description" content="【@entity.Author 】@entity.ProductName ,@entity.Volume @StringHelper.NoHTML(entity.summary) " />
     }
-    <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
-    <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
+    @*<link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">*@
     <link rel="stylesheet" href="/source/static/css/1906_pagination.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pc_shopdetail.css" type="text/css">
 </head>
@@ -32,6 +32,7 @@
 
     @if (entity != null)
     {
+        <input type="hidden" id="Hid_ProductID" value="@entity.ProductID">
         <div class="flex-row jz-body">
             <div class="detail flex-row">
                 <div class="left">
@@ -105,7 +106,7 @@
                         </div>
                     </div>
                     <div style="margin-top:-.14rem">
-                        <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="/source//static/images/pc/code.png" alt="">
+                        <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="@ViewBag.ImageUrl" alt="">
                         <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(识别二维码了解更多)</div>
                     </div>
                 </div>
@@ -207,7 +208,7 @@
         </div>
         <img src="/source//static/images/pc/ly_shu.png" alt="">
         <div>
-            <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="/source//static/images/pc/code.png" alt="">
+            <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="@ViewBag.ImageUrl" alt="">
             <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看事物视频)</div>
         </div>
     </div>

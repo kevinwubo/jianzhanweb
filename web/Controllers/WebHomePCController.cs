@@ -231,6 +231,7 @@ namespace web.Controllers
             ProductEntity entity=  ProductService.GetProductByProductID(productid);
             ViewBag.ProductInfo = entity;
             ViewBag.ListByAuthor = ProductService.GetAllProductByRule(entity.Author, 7, "  order by AddDate desc  ");
+            ViewBag.ImageUrl = BaseDataService.GetPCEwmCode();
             return View();
         }
 

@@ -26,10 +26,24 @@
     <meta name="keywords" content="曜变盏,天目盏,兔毫盏,油滴盏,束口盏" />
     <meta name="description" content="建盏商城是福建省建窑建盏首席品牌商城，提供产地大师名家直供的一手精品货源：兔毫盏、油滴盏、曜变盏、鹧鸪斑、金油滴、敛口盏、束口盏，提供建盏价格、收藏、名家押窑和私人定制服务。" />
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
-    <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
+    @*<link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">*@
     <link rel="stylesheet" href="/source/static/css/1906_pagination.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pc_shop.css" type="text/css">
+    <script type="text/javascript">
+
+    // JavaScript Document
+    function urlredirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
+            // PC跳转移动端
+            var thisUrl = window.location.href;
+            window.location.href = "/m_product_list.html";; //跳转为网址后面加mobile的路径
+        }
+    }
+    urlredirect();
+
+    </script>
 </head>
 
 <div class="body" style="margin-top:.25rem">
