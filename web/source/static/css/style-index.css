@@ -86,8 +86,9 @@ body {
         }
 
         .list .item .t1 {
-            margin-top: .2rem;
+            
             font-size: .28rem;
+			line-height: .40rem;
         }
 
         .list .item .pimg {
@@ -123,8 +124,9 @@ body {
             font-size: .18rem;
         }*/
             .list1 .item1 .t1 {
-                margin-top: .2rem;
+               
                 font-size: .28rem;
+				line-height: .32rem;
             }
 
 
@@ -373,12 +375,12 @@ body {
         }
         .mj-item .t2{
             margin-top: .15rem;
-    height: .2rem;
-    font-size: .2rem;
+    height: .22rem;
+    font-size: .22rem;
     font-family: SourceHanSansCN-Light;
     font-weight: 300;
     color: rgba(115,115,115,1);
-    line-height: .16rem;
+    line-height: .22rem;
     margin-left: .15rem;
         } 
         /* 器形 | 釉色 */
@@ -462,7 +464,7 @@ body {
         .ds-list .ds-item .t1 {
             height: .28rem;
             font-size: .28rem;
-            line-height: .28rem;
+            line-height: .32rem;
             font-family: SourceHanSansCN-Light;
             margin-left: -.1rem;
             text-align: center;
@@ -471,7 +473,7 @@ body {
         .ds-list .ds-item  .t2 {
             height:.24rem;
             text-align: left;
-            line-height: .24rem;
+            line-height: .26rem;
             font-size:.24rem;
             font-family:SourceHanSansCN-Normal;
             color:rgba(153,153,153,1);

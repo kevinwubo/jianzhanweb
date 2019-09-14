@@ -45,7 +45,7 @@
 <body>
     <header>
         <div class="flex-row college-hd">
-            <div class="back"><a href="/m_index.html" style="color: #ffffff;">返回</a></div>
+            <div class="back"><a href="/m_index.html" style="color: #ffffff;">返回上页</a></div>
             <div class="txt px36">名家名堂</div>
             <div class="menu">
                 <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
@@ -60,7 +60,7 @@
                 <div class="flex-row" style="align-items: center;height: .56rem">
 
                     <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" src="~/source/static/images/jianzhan/ic_search.png"  alt="">
-                    <input style="width: 4rem;background: #f7f7f7;text-align: left;border: 0px;" class="px24" id="keyword" type="text" placeholder="大师或者编号" />
+                    <input style="width: 4rem;background: #f7f7f7;text-align: left;border: 0px;" class="px24" id="keyword" type="text" placeholder="输入人名或ID" />
                 </div>
             </div>
             <div class="ssbtn px24 mar-r-30" id="btnSearch">搜索</div>
@@ -76,7 +76,7 @@
                                 <a href="/m_art@(entity.artisanID).html"><img src="@entity.IDHead" alt=""></a>
                             </div>
                             <div class="con-txt">
-                                <h1>@entity.artisanName<span>@*【@entity.reviewDate】*@</span></h1>
+                                <a href="/m_art@(entity.artisanID).html"><h1>@entity.artisanName<span>@*【@entity.reviewDate】*@</span></h1></a>
                                 <p class="clamp3">
                                     简介：@entity.introduction
                                 </p>
@@ -93,7 +93,7 @@
                                             <div class="t1 color_red_c9">ID:@entityPro.ProductID</div>
                                             <a href="/m_@(entityPro.ProductID).html"><div class="pimg" style="background:url(@entityPro.Images)"></div></a>
                                         </div>
-                                        <div class="t1 clamp1">【@entityPro.Author】</div>
+                                        
                                         <div class="t1 clamp1">@entityPro.ProductName</div>
                                         <img class="bt-zx" onclick="javascript:show_zixun('@entityPro.ProductID','@entityPro.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png" />
                                     </div>

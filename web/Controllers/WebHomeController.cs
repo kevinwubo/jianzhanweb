@@ -1,5 +1,6 @@
 ﻿using Common;
 using Entity.ViewModel;
+using Infrastructure.Cache;
 using Service;
 using Service.BaseBiz;
 using System;
@@ -23,6 +24,11 @@ namespace web.Controllers
 
         public void AutoHtml(string type)
         {
+            if ("clearCache".Equals(type))//清空缓存
+            {
+                CacheRuntime cache = new CacheRuntime();
+                cache.ClearAll();//
+            }
             if ("index".Equals(type)) //首页
             {
                 Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index", "m_index.html");
@@ -226,15 +232,15 @@ namespace web.Controllers
 
             
 
-            if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
-            {
+            //if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
+            //{
 
                 mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount>0 ", keyword, " mn_shop", "", pager);
-            }
-            else
-            {
-                mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc", pager);
-            }
+            //}
+            //else
+            //{
+            //    mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc", pager);
+            //}
 
             ViewBag.YJDSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("业界大师"));//业界大师
             ViewBag.LPCCRJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("老牌传承人"));//老牌传承人
@@ -364,14 +370,14 @@ namespace web.Controllers
             pager.SumCount = count;
             pager.URL = "/WebHome/mn_souchang";
 
-            if (1==1)
-            {
+            //if (1==1)
+            //{
                 mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", " ORDER BY NEWID()", pager);
-            }
-            else
-            {
-                mList = ProductService.GetProductInfoPager(" ORDER BY MarketPrice Desc ", pager);
-            }
+            //}
+            //else
+            //{
+            //    mList = ProductService.GetProductInfoPager(" ORDER BY MarketPrice Desc ", pager);
+            //}
 
 
             ViewBag.souchang = mList;

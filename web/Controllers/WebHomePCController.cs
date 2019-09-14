@@ -177,14 +177,14 @@ namespace web.Controllers
             
             
 
-            if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
-            {
+            //if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
+            //{
                 mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "  and InventoryCount>0 ", keyword, " mn_shop", OrderBy, pager);
-            }
-            else
-            {
-                mList = ProductService.GetProductInfoPager(OrderBy, pager);
-            }
+            //}
+            //else
+            //{
+            //    mList = ProductService.GetProductInfoPager(OrderBy, pager);
+            //}
             ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
 
             ViewBag.YJDSList = ArtisanService.getSimpleArtisanList("业界大师");//业界大师
@@ -376,14 +376,14 @@ namespace web.Controllers
             pager.SumCount = count;
             pager.URL = "/WebHomePC/souchang";
 
-            if (1 == 1)
-            {
+            //if (1 == 1)
+            //{
                 mList = ProductService.GetAllProductInfoByRule("", "", "", "", "", sqlwhere, "", "mn_souchang", " ORDER BY NEWID() ", pager);
-            }
-            else
-            {
-                mList = ProductService.GetProductInfoPager(" ORDER BY MarketPrice Desc  ", pager);
-            }
+            //}
+            //else
+            //{
+            //    mList = ProductService.GetProductInfoPager(" ORDER BY MarketPrice Desc  ", pager);
+            //}
 
 
             ViewBag.souchang = mList;

@@ -109,7 +109,10 @@ namespace Common
             {
                 //获取模板Html
                 string TemplateContent = GetHtml(temppath, System.Text.Encoding.UTF8);
-
+                if (string.IsNullOrEmpty(TemplateContent))
+                {
+                    return false;
+                }
                 //创建静态文件
                 return CreateFileHtmlByTemp(TemplateContent, path);
             }

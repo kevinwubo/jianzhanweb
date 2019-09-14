@@ -38,13 +38,13 @@
                 <div class="left">
                     <img style="width:5rem" id="img_urls" src="@entity.Images" alt="">
                     <div class="div-h-4"></div>
-                    <div class="swiper_container_d swiper-container-horizontal" id="pb2">
+                    <div class="swiper_container_d" id="pb2">
                         <div class="swiper-wrapper">
                             @if (entity.lstImagesUrl != null && entity.lstImagesUrl.Count > 0)
                             {
                                 foreach (string str in entity.lstImagesUrl)
                                 {
-                                    <div class="swiper-slide swiper-slide-active" style="width: 89px; margin-right: 28px;">
+                                    <div class="swiper-slide">
                                         <img src="@str" onclick="javascript: ShowImage('@str')" alt="">
                                     </div>
                                 }
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div style="margin-top:-.14rem">
-                        <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="@ViewBag.ImageUrl" alt="">
+                        <img style="margin-left:.2rem ;height:1.75rem;width:1.53rem" src="@ViewBag.ImageUrl" alt="">
                         <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(识别二维码了解更多)</div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
 
             <div class="flex-row" style="align-items: center">
                 <div class="px14">您的称呼：</div>
-                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_ContactName" placeholder="请输入您的称呼">
+                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" placeholder="请输入您的称呼">
                 <div class="input_radio" style="margin-left:.2rem">
                     <input type="radio" checked="checked" name="item" value="先生">
                     <label>先生</label>
@@ -181,7 +181,7 @@
                 <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_telephone" placeholder="请输入您的手机号">
                 <div style="width:.2rem"></div>
                 <div class="px14">微信：</div>
-                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_WxChartID" placeholder="请输入您的微信">
+                <input style="padding: 0 .1rem;border:#ddd 1px solid;height: .28rem;width: 1rem;" type="text" id="txt_ContactName" placeholder="请输入您的微信">
             </div>
             <div class="div-h-2"></div>
             <div class="flex-row">
@@ -198,18 +198,18 @@
         <div class="flex-col" style="padding:0 .4rem">
             <div class="px18">拨打热线，直接沟通</div>
             <div class="div-h-1"></div>
-            <div style="font-size:.22rem;color: #B32735">400-607-9898</div>
+            <div style="font-size:.22rem;color: #B32735">4008-276-376</div>
             <div class="div-h-3"></div>
             <div style="height:1px;background:#ddd;"></div>
             <div class="div-h-3"></div>
             <div class="px18">24小时客服手机号码！</div>
             <div class="div-h-1"></div>
-            <div style="font-size:.22rem;color: #B32735">18221546282<span style="font-size: .18rem;color:#999;">（小沈）</span></div>
+            <div style="font-size:.22rem;color: #B32735">13163806316<span style="font-size: .18rem;color:#999;">（叶煊）</span></div>
         </div>
         <img src="/source//static/images/pc/ly_shu.png" alt="">
         <div>
-            <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="@ViewBag.ImageUrl" alt="">
-            <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看事物视频)</div>
+            <img style="margin-left:.2rem ;height:1.75rem;width:1.53rem" src="@ViewBag.ImageUrl" alt="">
+            <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看实物视频)</div>
         </div>
     </div>
     <div class="div-h-4"></div>

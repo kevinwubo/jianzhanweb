@@ -59,6 +59,14 @@ namespace Infrastructure.Cache
             return (T)HttpRuntime.Cache.Get(key);
         }
 
+        public void ClearAll()
+        {
+            var cache = HttpRuntime.Cache.GetEnumerator();
+            while (cache.MoveNext())
+            {
+                HttpRuntime.Cache.Remove(cache.Key.ToString());
+            }
+        }
 
     }
 }

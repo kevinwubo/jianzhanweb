@@ -66,6 +66,17 @@
         .nb {
             border-bottom: 1px solid #fff !important;
         }
+		
+		.list1 .item1 {
+    text-align: center;
+    width: 49%;
+    float: left;
+    height: 5rem;
+    padding-top: .2rem;
+    border-right: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+}
+
     </style>
 </head>
 
@@ -95,15 +106,15 @@
         <div id="mark" style="background: rgba(0,0,0,.5);width: 100%;position: absolute;z-index: 1;display: none">
             <div style="padding: .2rem .32rem 0.1rem; background:white;overflow: hidden;" id="div_showinfo">
                 <div class="markitem">
-                    土豪
+                    兔毫
                 </div>
 
             </div>
         </div>
     </section>
     <div class="store-con">
-        <span style="color:red">@(ViewBag.Keyword)</span>为您选出<span style="color:red">@(p.SumCount)</span>款
-        <div class="part1" style="height:100%;overflow:auto">            
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">@(ViewBag.Keyword)</span>为您选出<span style="color:red">@(p.SumCount)</span>款<br /><br />
+        <div class="part1" style="height:100%;overflow:auto">          
             <div class="list1">
                 @if(list!=null&&list.Count>0)
                 { 
