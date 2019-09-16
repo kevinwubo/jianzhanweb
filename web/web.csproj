@@ -711,7 +711,6 @@
     <Content Include="source\bootstrap-fileinput\js\fileinput_locale_zh.js" />
     <Content Include="source\bootstrap-fileinput\js\plugins\canvas-to-blob.js" />
     <Content Include="source\bootstrap-fileinput\js\plugins\canvas-to-blob.min.js" />
-    <Content Include="source\Car.js" />
     <Content Include="source\Chargebase.js" />
     <Content Include="source\Common.js" />
     <Content Include="source\Customer.js" />
@@ -729,8 +728,10 @@
     <Content Include="source\My97DatePicker\skin\whyGreen\datepicker.css" />
     <Content Include="source\My97DatePicker\skin\whyGreen\img.gif" />
     <Content Include="source\My97DatePicker\WdatePicker.js" />
+    <Content Include="source\public.js" />
     <Content Include="source\News.js" />
     <Content Include="source\Order\Order.js" />
+    <Content Include="source\pc_o_code.js" />
     <Content Include="source\ProductInfo.js" />
     <Content Include="source\Saler.js" />
     <Content Include="source\static\css\1905_base_1_30.css" />
@@ -953,6 +954,7 @@
     <Content Include="source\static\js\swiper.min.js" />
     <Content Include="source\static\js\utils.js" />
     <Content Include="source\Store.js" />
+    <Content Include="source\wap_o_code.js" />
     <Content Include="UploadFiles\20180504\99999.jpg" />
     <Content Include="UploadFiles\20180504\测试1.jpg" />
     <Content Include="UploadFiles\20180504\测试2.jpg" />

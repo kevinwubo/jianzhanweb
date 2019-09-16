@@ -240,6 +240,7 @@
     <script src="/source/static/js/utils.js"></script>
     <script src="/source/static/js/showdiv.js"></script>
     <script src="/source/static/js/swiper.js"></script>
+    <script src="~/source/public.js"></script>
     <script>
         function OpenUrl(url) {
             window.location.href = url;
@@ -304,6 +305,8 @@
                     $("#Hid_ProductID").val("");
                 }
             });
+            tprm = "ProductID=" + ProductID + "&phone=" + getRandomString(1) + TelJM(Telephone) + getRandomString(1);
+            __ozfac2(tprm, "#inquiryok");
         }
 
         //详情页面资讯

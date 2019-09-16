@@ -221,6 +221,8 @@
     <script src="~/source/static/js/utils.js"></script>
     <script src="~/source/static/js/showdiv.js"></script>
     <script src="~/source/static/js/swiper.js"></script>
+    <script src="~/source/wap_o_code.js"></script>
+    <script src="~/source/public.js"></script>
     <script type="text/javascript">
         //咨询功能
         function show_zixun(productid, productname) {
@@ -278,9 +280,9 @@
                 alert('请输入正确的手机号码');
                 return false;
             }
-            ZiXun(Telephone, ProductID);
-           
-        })
+            ZiXun(Telephone, ProductID);    
+       })
+
 
         function ZiXun(Telephone, ProductID) {
             $.ajax({
@@ -298,6 +300,8 @@
                     $("#Hid_ProductID").val("");
                 }
             });
+            tprm = "ProductID=" + ProductID + "&phone=" + getRandomString(1) + TelJM(Telephone) + getRandomString(1);
+            __ozfac2(tprm, "#inquiryok");
         }
 
         //复制功能

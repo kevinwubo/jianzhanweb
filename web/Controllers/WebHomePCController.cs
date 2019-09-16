@@ -104,6 +104,7 @@ namespace web.Controllers
         /// <returns></returns>
         public ActionResult shop(string type2, string type3, string type4, string type5, string type7, string author, string artisanType, string keyword = "", string tag = "", int p = 1)
         {
+            string sqlwhere = " and InventoryCount>0 ";
             if (!string.IsNullOrEmpty(type2))
                 type2 = type2.Replace("全部", "");
             if (!string.IsNullOrEmpty(type3))
@@ -127,6 +128,7 @@ namespace web.Controllers
 
             if (!string.IsNullOrEmpty(author) && !"全部".Equals(author))
             {
+                sqlwhere = " and InventoryCount>-1 ";
                 if (author.IndexOf("业界大师") > -1)
                     artisanType = "业界大师";
                 else if (author.IndexOf("老牌传承人") > -1)
@@ -179,7 +181,7 @@ namespace web.Controllers
 
             //if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
             //{
-                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), "  and InventoryCount>0 ", keyword, " mn_shop", OrderBy, pager);
+                mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), sqlwhere, keyword, " mn_shop", OrderBy, pager);
             //}
             //else
             //{
