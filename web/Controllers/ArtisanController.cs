@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace web.Controllers
 {
-    public class ArtisanController : Controller
+    public class ArtisanController : BaseController
     {
         //
         // GET: /Artisan/
@@ -48,24 +48,19 @@ namespace web.Controllers
                 mList = ArtisanService.GetArtisanInfoPager(pager);
             }
 
-            ViewBag.Inquiry = mList;
+            ViewBag.ArtisanList = mList;
             ViewBag.Pager = pager;
             return View();
         }
 
 
-        public ActionResult Edit(string pid)
+        public ActionResult Edit(string aid)
         {
             List<BaseDataEntity> list= BaseDataService.GetBaseDataAll();
-            ViewBag.Type2 = list.Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
-            ViewBag.Type3 = list.Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
-            ViewBag.Type4 = list.Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
-            ViewBag.Type5 = list.Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
-            ViewBag.Type6 = list.Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
-            ViewBag.Type7 = list.Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
-            if (!string.IsNullOrEmpty(pid))
+            ViewBag.listAType = list.Where(t => t.PCode == "ArtisanCodes" && t.Status == 1).ToList();
+            if (!string.IsNullOrEmpty(aid))
             {
-                ViewBag.Artisan = ArtisanService.GetArtisanByKey(pid);
+                ViewBag.Artisan = ArtisanService.GetArtisanByKey(aid);
             }
             else
             {

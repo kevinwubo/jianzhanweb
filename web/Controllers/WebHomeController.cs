@@ -24,104 +24,115 @@ namespace web.Controllers
 
         public void AutoHtml(string type)
         {
-            if ("clearCache".Equals(type))//清空缓存
+            try
             {
-                CacheRuntime cache = new CacheRuntime();
-                cache.ClearAll();//
-            }
-            if ("index".Equals(type)) //首页
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index", "m_index.html");
-            }
-            else if ("shop".Equals(type))//商城
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_shop", "m_product_list.html");
-            }
-            else if ("famous".Equals(type))//学堂
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famous", "m_artisan_list.html");
-            }
-            else if ("gyys".Equals(type))//工艺釉色
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_jingdian", "m_gyys.html");
-            }   
-            else if ("college".Equals(type))//学院
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_college", "m_school.html");
-            }
-            else if ("souchang".Equals(type))//收藏
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_souchang", "m_collection.html");
-            }
-            else if ("allProduct".Equals(type))//所有产品
-            {
-                List<ProductEntity> list= ProductService.GetAllProduct();
-                if (list != null && list.Count > 0)
+                if ("clearCache".Equals(type))//清空缓存
                 {
-                    foreach (ProductEntity entity in list)
+                    CacheRuntime cache = new CacheRuntime();
+                    cache.ClearAll();//
+                }
+                if ("index".Equals(type)) //首页
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index", "m_index.html");
+                }
+                else if ("shop".Equals(type))//商城
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_shop", "m_product_list.html");
+                }
+                else if ("famous".Equals(type))//学堂
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famous", "m_artisan_list.html");
+                }
+                else if ("gyys".Equals(type))//工艺釉色
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_jingdian", "m_gyys.html");
+                }
+                else if ("college".Equals(type))//学院
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_college", "m_school.html");
+                }
+                else if ("souchang".Equals(type))//收藏
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_souchang", "m_collection.html");
+                }
+                else if ("allProduct".Equals(type))//所有产品
+                {
+                    List<ProductEntity> list = ProductService.GetAllProduct();
+                    if (list != null && list.Count > 0)
                     {
-                        Common.HtmlHelper.CreateStaticPage(Url + "WebHome/mn_shopdetail?productid=" + entity.ProductID, "m_" + entity.ProductID + ".html");
+                        foreach (ProductEntity entity in list)
+                        {
+                            Common.HtmlHelper.CreateStaticPage(Url + "WebHome/mn_shopdetail?productid=" + entity.ProductID, "m_" + entity.ProductID + ".html");
+                        }
                     }
                 }
-            }
-            else if ("allfamous".Equals(type))//所有艺人
-            {
-                List<ArtisanEntity> list = ArtisanService.GetAllArtisan();
-                if (list != null && list.Count > 0)
+                else if ("allfamous".Equals(type))//所有艺人
                 {
-                    foreach (ArtisanEntity entity in list)
+                    List<ArtisanEntity> list = ArtisanService.GetAllArtisan();
+                    if (list != null && list.Count > 0)
                     {
-                        Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famousdetail?artisanid=" + entity.artisanID, "m_art" + entity.artisanID + ".html");
+                        foreach (ArtisanEntity entity in list)
+                        {
+                            Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famousdetail?artisanid=" + entity.artisanID, "m_art" + entity.artisanID + ".html");
+                        }
                     }
                 }
-            }
 
 
-            if ("pc_index".Equals(type)) //首页
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/home", "index.html");
-            }
-            else if ("pc_shop".Equals(type))//商城
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/shop", "product_list.html");
-            }
-            else if ("pc_famous".Equals(type))//学堂
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/famous", "artisan_list.html");
-            }
-            else if ("pc_college".Equals(type))//学院
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/college", "article_list2.html");
-            }
-            else if ("pc_gyys".Equals(type))//工艺釉色
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/jingdian", "gyys.html");
-            }   
-            else if ("pc_souchang".Equals(type))//收藏
-            {
-                Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/souchang", "collection.html");
-            }
-            else if ("pc_allProduct".Equals(type))//所有产品
-            {
-                List<ProductEntity> list = ProductService.GetAllProduct();
-                if (list != null && list.Count > 0)
+                if ("pc_index".Equals(type)) //首页
                 {
-                    foreach (ProductEntity entity in list)
+                    Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/home", "index.html");
+                }
+                else if ("pc_shop".Equals(type))//商城
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/shop", "product_list.html");
+                }
+                else if ("pc_famous".Equals(type))//学堂
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/famous", "artisan_list.html");
+                }
+                else if ("pc_college".Equals(type))//学院
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/college", "article_list2.html");
+                }
+                else if ("pc_gyys".Equals(type))//工艺釉色
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/jingdian", "gyys.html");
+                }
+                else if ("pc_souchang".Equals(type))//收藏
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/souchang", "collection.html");
+                }
+                else if ("pc_allProduct".Equals(type))//所有产品
+                {
+                    List<ProductEntity> list = ProductService.GetAllProduct();
+                    if (list != null && list.Count > 0)
                     {
-                        Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/shopdetail?productid=" + entity.ProductID, entity.ProductID + ".html");
+                        foreach (ProductEntity entity in list)
+                        {
+                            Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/shopdetail?productid=" + entity.ProductID, entity.ProductID + ".html");
+                        }
                     }
                 }
-            }
-            else if ("pc_allfamous".Equals(type))//所有艺人
-            {
-                List<ArtisanEntity> list = ArtisanService.GetAllArtisan();
-                if (list != null && list.Count > 0)
+                else if ("pc_allfamous".Equals(type))//所有艺人
                 {
-                    foreach (ArtisanEntity entity in list)
+                    List<ArtisanEntity> list = ArtisanService.GetAllArtisan();
+                    if (list != null && list.Count > 0)
                     {
-                        Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/famousdetail?artisanid=" + entity.artisanID, "art" + entity.artisanID + ".html");
+                        foreach (ArtisanEntity entity in list)
+                        {
+                            Common.HtmlHelper.CreateStaticPage(Url + "WebHomePC/famousdetail?artisanid=" + entity.artisanID, "art" + entity.artisanID + ".html");
+                        }
                     }
                 }
+                else if ("adextend".Equals(type))//推广页面
+                {
+                    Common.HtmlHelper.CreateStaticPage(Url + "Adextend/Index", "Bd01/B1_index.html");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteErrorLog("auto", ex.ToString(), DateTime.Now);
             }
 
             Response.Redirect("Auto");

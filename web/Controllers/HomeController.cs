@@ -62,7 +62,7 @@ namespace web.Controllers
             Cache.Remove(ukey);//删掉缓存
             Response.Cookies["ukey"].Expires = DateTime.Now.AddDays(-1);
             Response.Cookies["ckey"].Expires = DateTime.Now.AddDays(-1);
-            Response.Redirect("/", true);
+            Response.Redirect("/Home/AdminLogin", true);
         }
 
 

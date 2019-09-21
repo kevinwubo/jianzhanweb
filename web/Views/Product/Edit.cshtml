@@ -27,7 +27,7 @@
     </style>
 }
 <div class="row-fluid">
-    <form class="form-horizontal" id="StorageForm" action="/Product/Modify" method="post">
+    <form class="form-horizontal" id="productForm" action="/Product/Modify" method="post">
         <div class="widget widget-padding span12">
             <div class="widget-header" style="margin-top:30px">
                 <i class="icon-list-alt"></i><h5>产品更新</h5>
@@ -51,18 +51,6 @@
                         <label class="control-label">副标题</label>
                         <div class="controls">
                             <input class="span5" type="text" placeholder="副标题" id="SubTitle" name="SubTitle" value="@entity.SubTitle" maxlength="100">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">工艺釉色</label>
-                        <div class="controls">
-                            <select tabindex="1" class="span2" id="Type2" name="Type2">
-                                <option value="">--工艺釉色--</option>
-                                @foreach (var item in listType2)
-                                {
-                                    <option value="@item.ValueInfo" @(entity.Type2 == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
-                                }
-                            </select>
                         </div>
                     </div>
                     <div class="control-group">
@@ -145,16 +133,25 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label">摘要</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="摘要" id="Introduction" name="Introduction" value="@entity.Introduction" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label">产品描述</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="产品描述" id="summary" name="summary" value="@entity.summary" maxlength="200">
+                            <span id="span_summary" style="display:none;">@entity.summary</span>
+                            <input class="span5" type="hidden" id="summary" name="summary">
+                            <asp:TextBox ID="txt_summary" name="txt_summary" runat="server" TextMode="MultiLine" value="@entity.summary" Height="400px" Width="1000px" ClientIDMode="Static"></asp:TextBox>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">详细介绍</label>
                         <div class="controls">
-                            @*<input class="span5" type="text" placeholder="详细介绍" id="ProductDetail" name="ProductDetail" value="@entity.ProductDetail" maxlength="200">*@
-                            <asp:TextBox ID="ProductDetail" name="ProductDetail" runat="server" TextMode="MultiLine" Height="400px" Width="1000px" ClientIDMode="Static"></asp:TextBox>
+                            <span id="span_productdetail" style="display:none;">@entity.ProductDetail</span>
+                            <input class="span5" type="hidden" id="ProductDetail" name="ProductDetail">
+                            <asp:TextBox ID="txt_ProductDetail" name="txt_ProductDetail" runat="server" TextMode="MultiLine" Height="400px" value="@entity.ProductDetail" Width="1000px" ClientIDMode="Static"></asp:TextBox>
                         </div>
                     </div>
                     <div class="control-group">
@@ -219,7 +216,7 @@
 <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-    var ues = UE.getEditor('ProductDetail');//初始化对象
+    var ues = UE.getEditor('txt_ProductDetail');//初始化对象
     $(document).ready(function () {
         var ues = UE.getEditor('ProductDetail');
         var proinfo = $("#showcode").text();
@@ -232,14 +229,21 @@
 
     jQuery("#save").click(function () {
         var arr = [];
-        arr.push(UE.getEditor('ProductDetail').getContent());
-        jQuery("#Content").val(arr.join("\n"));
-        jQuery("#newsForm").submit();
+        arr.push(UE.getEditor('txt_summary').getContent());
+        jQuery("#summary").val(arr.join("\n"));
+
+        var arr1 = [];
+        arr1.push(UE.getEditor('txt_summary').getContent());
+        jQuery("#ProductDetail").val(arr1.join("\n"));
+
+        jQuery("#productForm").submit();
+
+
     });
 
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('ProductDetail');
+    var ue = UE.getEditor('txt_summary');
 
 
     function isFocus(e) {

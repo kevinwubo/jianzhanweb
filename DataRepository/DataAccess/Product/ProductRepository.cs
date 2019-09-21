@@ -78,11 +78,11 @@ namespace DataRepository.DataAccess.Product
             return result;
         }
 
-        public ProductInfo GetProductByKey(long gid)
+        public ProductInfo GetProductByKey(long ID)
         {
             ProductInfo result = new ProductInfo();
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.GetProductByKey, "Text"));
-            command.AddInputParameter("@ProductID", DbType.String, gid);
+            command.AddInputParameter("@ID", DbType.Int64, ID);
             result = command.ExecuteEntity<ProductInfo>();
             return result;
         }
@@ -385,7 +385,10 @@ namespace DataRepository.DataAccess.Product
         {
             List<ProductInfo> result = new List<ProductInfo>();
 
-
+            if (string.IsNullOrEmpty(orderBy))
+            {
+                orderBy = "Order By Adddate desc";
+            }
             StringBuilder builder = new StringBuilder();
 
             if (!string.IsNullOrEmpty(type2))
@@ -516,6 +519,10 @@ namespace DataRepository.DataAccess.Product
 
         public List<ProductInfo> GetAllProductInfoPager(string orderby, PagerInfo pager)
         {
+            if (string.IsNullOrEmpty(orderby))
+            {
+                orderby = "Order By Adddate desc";
+            }
             List<ProductInfo> result = new List<ProductInfo>();
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(string.Format(ProductSatement.GetAllProductInfoPager, orderby), "Text"));
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);

@@ -100,19 +100,19 @@
                     <div class="control-group">
                         <label class="control-label">是否合作</label>
                         <div class="controls">
-                            <input type="checkbox" value="1" id="IsCooperation" name="IsCooperation" @(entity.IsCooperation == "1" ? "checked" : "")>
+                            <input type="checkbox" value="1" id="IsCooperation" name="IsCooperation" @(entity.IsCooperation.Equals("1") ? "checked" : "")>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">是否推荐到首页</label>
                         <div class="controls">
-                            <input type="checkbox" value="1" id="IsRecommend" name="IsRecommend" @(entity.IsRecommend == "1" ? "checked" : "")>
+                            <input type="checkbox" value="1" id="IsRecommend" name="IsRecommend" @(entity.IsRecommend.Equals("1") ? "checked" : "")>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">是否推荐到商城</label>
                         <div class="controls">
-                            <input type="checkbox" value="1" id="IsPushMall" name="IsPushMall" @(entity.IsPushMall == "1" ? "checked" : "")>
+                            <input type="checkbox" value="1" id="IsPushMall" name="IsPushMall" @(entity.IsPushMall.Equals("1") ? "checked" : "")>
                         </div>
                     </div>
                     

@@ -30,7 +30,7 @@ namespace DataRepository.DataAccess.Product
 
         public static string GetAllProductTopCountByRule = @"SELECT {0} * FROM dt_Product(NOLOCK) WHERE 1=1 ";
 
-        public static string GetProductByKey = @"SELECT * FROM dt_Product(NOLOCK) WHERE PPId=@PPId";
+        public static string GetProductByKey = @"SELECT * FROM dt_Product(NOLOCK) WHERE ID=@ID";
 
         public static string Remove = @"UPDATE dt_Product SET datastatus=0 WHERE PPId=@PPId";
 

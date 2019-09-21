@@ -37,6 +37,17 @@ namespace Service
             return all;
         }
 
+        public static ProductEntity GetProductByKey(long ID)
+        {
+            if (ID < 1)
+            {
+                return null;
+            }
+            ProductEntity entity = new ProductEntity();
+            ProductRepository mr = new ProductRepository();
+            return TranslateProductEntity(mr.GetProductByKey(ID));
+        }
+
         public static ProductEntity GetProductByProductID(string ProductID)
         {
             if (string.IsNullOrEmpty(ProductID))
