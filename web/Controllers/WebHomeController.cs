@@ -441,5 +441,14 @@ namespace web.Controllers
             };
 
         }
+
+        public JsonResult getWxCodeByDays()
+        {
+            string wxCodes = getWXCode();
+            return new JsonResult
+            {
+                Data = wxCodes
+            };
+        }
     }
 }

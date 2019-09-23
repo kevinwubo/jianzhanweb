@@ -73,7 +73,7 @@ namespace web.Controllers
  
         }
 
-        private static string getWXCode()
+        public static string getWXCode()
         {
             string WXCode = "13163806316";
             DateTime dt = DateTime.Now;

@@ -30,7 +30,7 @@
 </div>
                 <div class="flex-row" style="height:.35rem;align-items:center">
                     <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=fwbz">服务保障</a></div>
-                    <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=fwbz">在线支付</a></div>
+                    <div class="mar-l-30 color_3 px20">在线支付</div>
                 </div>
                 <div class="flex-row" style="height:.43rem;align-items:center">
                     <div class="color_red_c9 px30 mar-l-30">4008-276-376</div>
@@ -42,14 +42,13 @@
             </div>
         </div>
         <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center">
-            闽ICP备17006498号-1 Copyright 2015 建盏天下网
-            版权所有
+            闽ICP备17006498号-1 Copyright 2015 建盏天下网 版权所有
         </div>
         <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center"> 福建省盏天下电子商务有限公司</div>
     </div>
     <div style="height:1.5rem"></div>
     <!-- 底部导航栏 -->
-    <div style="position: fixed;bottom:0px;width:100%;background:#FFF5EE;z-index: 98;">
+    <div style="position: fixed;bottom:0px;width:100%;max-width:750px;background:#FFF5EE;z-index: 98;">
         <div id="header1" class="flex-row pad-l-30 pad-r-30 pad-t-30 pad-b-40" style="text-align: center;align-items: center;">
             <div class="flex-col">
                 <a href="/m_index.html">
@@ -71,9 +70,9 @@
             <div style="width:2rem" class="mar-l-20" onclick="copyTelephone()">
                 <div class="flex-row" style="align-items: center;justify-content: center;">
                     <img style="height: .5rem;" src="~/source/static/images/jianzhan/wxadd.jpg" alt="" />
-                    <!--<div class="flex-col px16">(长按复制添加微信)</div> -->
+                    <!--<div class="flex-col px16">(点击手机号添加微信)</div> -->
                 </div>
-                <div style="margin-top: .1rem;height: .3rem" id="Telephone">@ViewBag.WXCodes</div>
+                <div style="margin-top: .1rem;height: .3rem" id="wx_Telephone"></div>
             </div>
         </div>
     </div>
@@ -113,7 +112,7 @@
 
                         <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" src="~/source/static/images/jianzhan/ic_search.png"
                              alt="">
-                        <input style="background: #f7f7f7;width: 100%;" class="px24" id="txt_keyword" type="text" placeholder="大师或者编号" />
+                        <input style="background: #f7f7f7;width: 100%;" class="px24" id="txt_keyword" type="text" placeholder="人名或ID号" />
                     </div>
 
                 </div>
@@ -190,24 +189,22 @@
                 </div>
             </div>
             <div class="flex-row mar-t-40" style="margin-left: 1rem;align-items: baseline;justify-content: left;">
-                <div style="font-size:.26rem;">咨询建盏:</div>
+                <div style="font-size:.28rem;">咨询建盏：</div>
                 <div class="mar-l-16 px22 color_9" id="div_productname">“看作品价格”</div>
-                <div class="color_9 mar-l-16 px22">（10分钟内回复）</div>
+                
             </div>
 
             <div class="flex-row mar-t-40" style="margin-left: 1rem;align-items: center;justify-content: left;">
-                <div style="font-size:.26rem;">手机号码:</div>
+                <div style="font-size:.28rem;">手机号码：</div>
                 <input type="hidden" id="Hid_ProductID" value="未知">
-                <input placeholder="请输入您的手机号码" class="mar-l-20" type="text" id="txt_telephone" style="width: 3.8rem;border: 1px solid #f6f6f6;padding-left: 0.2rem;text-align: left;height: 0.6rem" />
+                <input placeholder="请输入您的手机号码" class="mar-l-20" type="text" id="txt_telephone" style="width: 3.8rem;border: 1px solid #DF0101;padding-left: 0.2rem;text-align: left;height: 0.6rem" />
 
             </div>
             <div class="div-h-2"></div>
-            <div style="font-size:.26rem;color:#fff;background:#c90319;height: .7rem;margin: 0.2rem .3rem;line-height: .7rem;text-align: center" id="btn_zixun">立即咨询</div>
-            <div class="flex-row mar-t-30 mar-b-40" style="justify-content: center;align-items: baseline;text-align: center;">
-                <div class="flex-col">
-                    <div class="color_57" style="font-size:.26rem;">快速直线:<span style="font-size:.3rem;color:#c90319">4008-276-376</span></div>
-                    <div class="px24 color_9 mar-t-30">福建省盏天下电子商务有限公司</div>
-                </div>
+            <div style="font-size:.32rem;color:#fff;background:#c90319;height: .75rem;margin: 0.2rem .3rem;line-height: .75rem;text-align: center" id="btn_zixun">立即咨询</div>
+			<div class="div-h-2"></div>
+            <div class="mar-l-16 px22 color_9" style="justify-content: center;align-items: baseline;text-align: center;">
+             （10分钟内回复）
             </div>
             <div class="div-h-3"></div>
         </div>
@@ -215,15 +212,30 @@
     @*<div class="totop" style="display: block;">
         <img style="height:.8rem;width:.8rem" src="~/source/static/images/jianzhan/to_top.png">
     </div>*@
+	
+	<script src="/source/wap_o_code.js"></script>
     <script src="~/source/static/js/jquery-2.1.4.js"></script>
     <script src="~/source/static/js/jquery-weui.js"></script>
     @*<script src="~/source/static/js/jquery.pagination.js"></script>*@
     <script src="~/source/static/js/utils.js"></script>
     <script src="~/source/static/js/showdiv.js"></script>
     <script src="~/source/static/js/swiper.js"></script>
-    <script src="~/source/wap_o_code.js"></script>
     <script src="~/source/public.js"></script>
     <script type="text/javascript">
+        init();
+        function init() {
+            $.ajax({
+                url: "/WebHome/getWxCodeByDays",
+                type: 'POST',
+                async: false,
+                data: {
+                },
+                success: function (data) {
+                    $("#wx_Telephone").html(data);
+                }
+            });
+        }
+
         //咨询功能
         function show_zixun(productid, productname) {
             utils.toggleBody(1)
@@ -280,9 +292,9 @@
                 alert('请输入正确的手机号码');
                 return false;
             }
-            ZiXun(Telephone, ProductID);    
-       })
-
+            ZiXun(Telephone, ProductID);
+           
+        })
 
         function ZiXun(Telephone, ProductID) {
             $.ajax({
@@ -300,6 +312,7 @@
                     $("#Hid_ProductID").val("");
                 }
             });
+
             tprm = "ProductID=" + ProductID + "&phone=" + getRandomString(1) + TelJM(Telephone) + getRandomString(1);
             __ozfac2(tprm, "#inquiryok");
         }
@@ -309,7 +322,7 @@
             var val = document.getElementById('Telephone');
             window.getSelection().selectAllChildren(val);
             document.execCommand("Copy");
-            alert("复制成功，可添加微信");
+            alert("复制成功，去微信粘贴加好友");
         }
     </script>
     <script>

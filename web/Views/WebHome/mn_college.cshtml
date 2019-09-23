@@ -78,7 +78,7 @@
                             <a href="/WebHome/mn_collegedetail?id=@entity.id"><img src="@entity.img_url" alt=""></a>
                         </div>
                         <div class="con-txt">
-                            <h1 class="clamp1">@entity.articleTitle</h1>
+                            <h1 class="clamp1" onclick="window.location.href='/WebHome/mn_collegedetail?id=@entity.id'" style="cursor:pointer">@entity.articleTitle</h1>
                             <span>【@entity.AddDate.ToShortDateString()】</span>
                             <p>
                                 @(entity.zhaiyao.Length>40?entity.zhaiyao.Substring(0,39):entity.zhaiyao)...
