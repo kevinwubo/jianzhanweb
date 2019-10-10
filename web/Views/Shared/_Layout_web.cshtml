@@ -22,36 +22,36 @@
     <!-- 添加 -->
     <div style="background: #fbfbfb;padding: .5rem .6rem;margin-bottom: .2rem">
         <div class="flex-row" style="text-align:center">
-            <img style="width:1.5rem;height:1.5rem;margin-left: 1rem" src="@ViewBag.CodeUrl" />
+            <img style="width:1.5rem;height:1.5rem;margin-left: 1rem" src="~/source/static//images/jianzhan/ic_code.jpg" />
             <div class="flex-col">
                 <div class="flex-row" style="height:.35rem;align-items:center">
                     <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=gywm">关于我们</a></div>
-                    <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=gywm">售后服务</a></div>
+                    <div class="mar-l-30 color_3 px20"><a href="/mn_fwbz.html">售后服务</a></div>
 </div>
                 <div class="flex-row" style="height:.35rem;align-items:center">
-                    <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=fwbz">服务保障</a></div>
-                    <div class="mar-l-30 color_3 px20">在线支付</div>
+                    <div class="mar-l-30 color_3 px20"><a href="/mn_fwbz.html">服务保障</a></div>
+                    <div class="mar-l-30 color_3 px20"><a href="/mendianwap.html">实体门店</a></div>
                 </div>
                 <div class="flex-row" style="height:.43rem;align-items:center">
                     <div class="color_red_c9 px30 mar-l-30">4008-276-376</div>
                     <div class="color_red_c9 px16">(24h在线)</div>
                 </div>
                 <div class="flex-row" style="height:.35rem;align-items:center">
-                    <div class="mar-l-30 color_3 px20" style="text-align:left">(识别二维码了解更多)</div>
+                    <div class="mar-l-30 color_3 px20" style="text-align:left">(关注公众号了解更多)</div>
                 </div>
             </div>
         </div>
         <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center">
             闽ICP备17006498号-1 Copyright 2015 建盏天下网 版权所有
         </div>
-        <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center"> 福建省盏天下电子商务有限公司</div>
+        <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center">福建省盏天下电子商务有限公司</div>
     </div>
     <div style="height:1.5rem"></div>
     <!-- 底部导航栏 -->
     <div style="position: fixed;bottom:0px;width:100%;max-width:750px;background:#FFF5EE;z-index: 98;">
         <div id="header1" class="flex-row pad-l-30 pad-r-30 pad-t-30 pad-b-40" style="text-align: center;align-items: center;">
             <div class="flex-col">
-                <a href="@(ViewBag.PageUrl)/m_index.html">
+                <a href="/m_index.html">
                     <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic_home.png" alt="">
                     <div style="margin-top: .1rem;height: .3rem">首页</div>
                 </a>
@@ -59,13 +59,9 @@
             <div style="width:1px;height: .6rem;background: #f7f7f7"></div>
             <div class="flex-col" onclick="moveLeft()">
                 <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic_fl.png" alt="" />
-                <div style="margin-top: .1rem;height: .3rem">分类</div>
+                <div style="margin-top: .1rem;height: .3rem">导航</div>
             </div>
-            <div style="width:1px;height: .6rem;background: #f7f7f7"></div>
-            <div class="flex-col" id="zx">
-                <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic-zx.png" alt="" />
-                <div style="margin-top: .1rem;height: .3rem">咨询</div>
-            </div>
+            
             <div style="width:1px;height: .6rem;background: #f7f7f7"></div>
             <div style="width:2rem" class="mar-l-20" onclick="copyTelephone()">
                 <div class="flex-row" style="align-items: center;justify-content: center;">
@@ -74,10 +70,17 @@
                 </div>
                 <div style="margin-top: .1rem;height: .3rem" id="wx_Telephone"></div>
             </div>
+			
+			<div style="width:1px;height: .6rem;background: #f7f7f7"></div>
+            <div class="flex-col" id="zx">
+                <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic-zx.png" alt="" />
+                <div style="margin-top: .1rem;height: .3rem">立即询价</div>
+            </div>
+			
         </div>
     </div>
     <!-- 立即咨询 -->
-    
+
     <!-- 分类 -->
     <div id='menumark' style="display: none"></div>
     <!--分类弹窗-->
