@@ -88,7 +88,7 @@ namespace Common
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    LogHelper.WriteErrorLog("CreateFileHtmlByTemp", ex.ToString(), DateTime.Now);                    
                 }
             }
             return false;
@@ -107,6 +107,7 @@ namespace Common
         {
             try
             {
+                //LogHelper.WriteTextLog("CreateStaticPage", temppath + "--" + path, DateTime.Now);
                 //获取模板Html
                 string TemplateContent = GetHtml(temppath, System.Text.Encoding.UTF8);
                 if (string.IsNullOrEmpty(TemplateContent))
@@ -118,8 +119,9 @@ namespace Common
             }
             catch (Exception e)
             {
-                throw e;
+                LogHelper.WriteErrorLog("CreateStaticPage", e.ToString(), DateTime.Now); ;
             }
+            return false;
         }
         #endregion
     }

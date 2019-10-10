@@ -208,7 +208,7 @@
 <body>
     <header>
         <div class="flex-row college-hd">
-            <div class="back"><a href="/m_index.html" style="color: #ffffff;">返回首页</a></div>
+            <div class="back"><a href="@(ViewBag.PageUrl)/m_index.html" style="color: #ffffff;">返回首页</a></div>
             <div class="txt px36">收藏阁</div>
             <div class="menu">
                 <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
@@ -235,7 +235,7 @@
                 <div class="item">
                     <div style="margin: 0 .1rem">
                         <div class="t1 color_red_c9">ID:@entity.ProductID</div>
-                        <a href="/m_@(entity.ProductID).html">
+                        <a href="@(ViewBag.PageUrl)/m_@(entity.ProductID).html">
                             <div class="pimg" style="background: url(@entity.Images) no-repeat"></div>
                         </a>
                         <div class="t1 clamp1">【@entity.Author】</div>

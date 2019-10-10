@@ -55,19 +55,19 @@
     </div>
 
     <div class="flex-row pad-l-30 pad-r-30 pad-t-40 pad-b-40" style="text-align: center;align-items: center; background:#F5FFFA; ">
-        <a href="/m_school.html" class="flex-col">
+        <a href="@(ViewBag.PageUrl)/m_school.html" class="flex-col">
             <img style="width: .9rem;" src="~/source/static/images/jianzhan/sc.png" alt="">
         </a>
-        <a href="/m_artisan_list.html" class="flex-col">
+        <a href="@(ViewBag.PageUrl)/m_artisan_list.html" class="flex-col">
             <img style="width: .9rem;" src="~/source/static/images/jianzhan/ic_xt.png" alt="">
         </a>
-        <a href="/m_product_list.html" class="flex-col">
+        <a href="@(ViewBag.PageUrl)/m_product_list.html" class="flex-col">
             <img style="width: .9rem;" src="~/source/static/images/jianzhan/iic_xy.png" alt="" />
         </a>
-        <a href="/m_collection.html" class="flex-col">
+        <a href="@(ViewBag.PageUrl)/m_collection.html" class="flex-col">
             <img style="width: .9rem;" src="~/source/static/images/jianzhan/ic_zt.png" alt="" />
         </a>
-        <a href="/zhuantiwap.html" class="flex-col">
+        <a href="@(ViewBag.PageUrl)/zhuantiwap.html" class="flex-col">
             <img style="width: .9rem;" src="~/source/static/images/jianzhan/ic_sc.png" alt="" />
         </a>
     </div>
@@ -87,7 +87,7 @@
                     <div class="item">
                         <div style="margin: 0 .1rem">
                             <div class="t1 color_red_c9" style="margin-top:0px">ID:@entity.ProductID</div>
-                            <a href="/m_@(entity.ProductID).html">
+                            <a href="@(ViewBag.PageUrl)/m_@(entity.ProductID).html">
                                 <div class="pimg" style="background:url(@entity.Images)"></div>
                             </a>
                         </div>
@@ -101,7 +101,7 @@
         </div>
     </div>
     <div style="text-align: center; padding: .4rem" class="showmore">
-        <a href="/m_product_list.html">
+        <a href="@(ViewBag.PageUrl)/m_product_list.html">
             <img style="width: 1.5rem;" src="~/source/static/images/jianzhan_0509/more_b.png" alt="">
         </a>
     </div>
@@ -120,7 +120,7 @@
                     <div class="item">
                         <div style="margin: 0 .1rem">
                             <div class="t1 color_red_c9">ID:@entity.ProductID</div>
-                            <a href="/m_@(entity.ProductID).html">
+                            <a href="@(ViewBag.PageUrl)/m_@(entity.ProductID).html">
                                 <div class="pimg" style="background:url(@entity.Images)"></div>
                             </a>
                         </div>
@@ -133,7 +133,7 @@
             }
         </div>
         <div style="text-align: center; padding: .4rem" class="showmore">
-            <a href="/m_product_list.html">
+            <a href="@(ViewBag.PageUrl)/m_product_list.html">
                 <img style="width: 1.5rem;" src="~/source/static/images/jianzhan_0509/more_w.png" alt="">
             </a>
         </div>
@@ -147,27 +147,27 @@
         </div>
         <div class="list" style="height: auto;padding-top: .3rem;">
             <div class="mj-item">
-                <a href="/m_art33.html"><img src="/source/static/images/jianzhan_0509/ls01.jpg" alt=""></a>
+                <a href="@(ViewBag.PageUrl)/m_art33.html"><img src="/source/static/images/jianzhan_0509/ls01.jpg" alt=""></a>
                 <div class="t1">[ 孙建兴 ]</div>
                 <div class="t2">中国陶瓷艺术大师，国家级传承</div>
             </div>
             <div class="mj-item">
-                <a href="/m_art18.html"><img src="/source/static/images/jianzhan_0509/ls02.jpg" alt=""></a>
+                <a href="@(ViewBag.PageUrl)/m_art18.html"><img src="/source/static/images/jianzhan_0509/ls02.jpg" alt=""></a>
                 <div class="t1">[ 陈大鹏 ]</div>
                 <div class="t2">终生成就奖，建盏恢复三老之一</div>
             </div>
             <div class="mj-item">
-                <a href="/m_art28.html"><img src="/source/static/images/jianzhan_0509/ls03.jpg" alt=""></a>
+                <a href="@(ViewBag.PageUrl)/m_art28.html"><img src="/source/static/images/jianzhan_0509/ls03.jpg" alt=""></a>
                 <div class="t1">[ 陆金喜 ]</div>
                 <div class="t2">曜变技艺复原第一人，陶艺大师</div>
             </div>
             <div class="mj-item">
-                <a href="/m_art21.html"><img src="/source/static/images/jianzhan_0509/ls04.jpg" alt=""></a>
+                <a href="@(ViewBag.PageUrl)/m_art21.html"><img src="/source/static/images/jianzhan_0509/ls04.jpg" alt=""></a>
                 <div class="t1">[ 黄美金 ]</div>
                 <div class="t2">金油滴宗师，国际注册美术大师</div>
             </div>
         </div>
-        <a href="/m_artisan_list.html" style=" text-align:center; display: block;padding: .4rem">
+        <a href="@(ViewBag.PageUrl)/m_artisan_list.html" style=" text-align:center; display: block;padding: .4rem">
             <img style="width: 1.5rem;" src="~/source/static/images/jianzhan_0509/more_b.png" alt="">
         </a>
     </div>
@@ -279,7 +279,7 @@
                 foreach (ProductEntity entity in listDSTJ)
                 {
                     <div class="ds-item">
-                        <a href="/m_@(entity.ProductID).html">
+                        <a href="@(ViewBag.PageUrl)/m_@(entity.ProductID).html">
                             <div class="pimg" style="background:url(@entity.Images)"></div>
                         </a>
                         <div class="flex-row" style="flex-direction: column">
@@ -304,7 +304,7 @@
             }
         </div>
         <div style="text-align: center; padding: .4rem" class="showmore">
-            <a href="/m_product_list.html">
+            <a href="@(ViewBag.PageUrl)/m_product_list.html">
                 <img style="width: 1.5rem;" src="~/source/static/images/jianzhan_0509/more_w.png" alt="">
             </a>
         </div>

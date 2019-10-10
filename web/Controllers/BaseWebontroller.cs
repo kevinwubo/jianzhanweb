@@ -62,6 +62,18 @@ namespace web.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (!string.IsNullOrEmpty(Request.QueryString["pagetype"]))
+            {
+                ViewBag.CodeUrl = "/source/static/images/jianzhan/ic_codewrite.jpg";
+                ViewBag.PageUrl = "/wxpage/";
+                //ViewBag.Paramter = "";
+            }
+            else
+            {
+                ViewBag.CodeUrl = "/source/static/images/jianzhan/ic_code.jpg";
+                ViewBag.PageUrl = "";
+            }
+            
             ViewBag.UKey = UKey;
             ViewBag.WXCodes = getWXCode();
             //获取菜单信息

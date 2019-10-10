@@ -51,7 +51,7 @@
 <body>
     <header>
         <div class="flex-row college-hd">
-                <div class="back"><a href="/m_index.html" style="color: #ffffff;">返回</a></div>
+                <div class="back"><a href="@(ViewBag.PageUrl)/m_index.html" style="color: #ffffff;">返回</a></div>
                 <div class="txt px36">建盏学院</div>
                 <div class="menu">
                     <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
@@ -75,14 +75,14 @@
                 {
                     <div class="list-con">
                         <div class="con-img">
-                            <a href="/WebHome/mn_collegedetail?id=@entity.id"><img src="@entity.img_url" alt=""></a>
+                            <a href="@(ViewBag.PageUrl)/m_new@(entity.id).html"><img src="@entity.img_url" alt=""></a>
                         </div>
                         <div class="con-txt">
-                            <h1 class="clamp1" onclick="window.location.href='/WebHome/mn_collegedetail?id=@entity.id'" style="cursor:pointer">@entity.articleTitle</h1>
+                            <h1 class="clamp1" onclick="window.location.href='@(ViewBag.PageUrl)/m_new@(entity.id).html'" style="cursor:pointer">@entity.articleTitle</h1>
                             <span>【@entity.AddDate.ToShortDateString()】</span>
                             <p>
                                 @(entity.zhaiyao.Length>40?entity.zhaiyao.Substring(0,39):entity.zhaiyao)...
-                                <a href="/WebHome/mn_collegedetail?id=@entity.id">查看更多></a>
+                                <a href="@(ViewBag.PageUrl)/m_new@(entity.id).html">查看更多></a>
                             </p>
                         </div>
                     </div>

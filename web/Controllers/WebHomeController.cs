@@ -22,10 +22,20 @@ namespace web.Controllers
             return View();
         }
 
-        public void AutoHtml(string type)
+        public void AutoHtml(string type, string paramper)
         {
             try
             {
+                string urlPar = "";
+                string urlPar2 = "";
+                string pageUrl = "";
+                if (!string.IsNullOrEmpty(paramper))
+                {
+                    urlPar = "?pagetype=" + paramper;
+                    urlPar2 = "&pagetype=" + paramper;
+                    pageUrl = "/wxpage/";
+                }
+
                 if ("clearCache".Equals(type))//清空缓存
                 {
                     CacheRuntime cache = new CacheRuntime();
@@ -33,27 +43,27 @@ namespace web.Controllers
                 }
                 if ("index".Equals(type)) //首页
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index", "m_index.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index" + urlPar, pageUrl+"m_index.html");
                 }
                 else if ("shop".Equals(type))//商城
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_shop", "m_product_list.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_shop" + urlPar, pageUrl + "m_product_list.html");
                 }
                 else if ("famous".Equals(type))//学堂
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famous", "m_artisan_list.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famous" + urlPar, pageUrl + "m_artisan_list.html");
                 }
                 else if ("gyys".Equals(type))//工艺釉色
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_jingdian", "m_gyys.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_jingdian" + urlPar, pageUrl + "m_gyys.html");
                 }
                 else if ("college".Equals(type))//学院
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_college", "m_school.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_college" + urlPar, pageUrl + "m_school.html");
                 }
                 else if ("souchang".Equals(type))//收藏
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_souchang", "m_collection.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_souchang" + urlPar, pageUrl + "m_collection.html");
                 }
                 else if ("allProduct".Equals(type))//所有产品
                 {
@@ -62,7 +72,7 @@ namespace web.Controllers
                     {
                         foreach (ProductEntity entity in list)
                         {
-                            Common.HtmlHelper.CreateStaticPage(Url + "WebHome/mn_shopdetail?productid=" + entity.ProductID, "m_" + entity.ProductID + ".html");
+                            Common.HtmlHelper.CreateStaticPage(Url + "WebHome/mn_shopdetail?productid=" + entity.ProductID + urlPar2, pageUrl + "m_" + entity.ProductID + ".html");
                         }
                     }
                 }
@@ -73,7 +83,18 @@ namespace web.Controllers
                     {
                         foreach (ArtisanEntity entity in list)
                         {
-                            Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famousdetail?artisanid=" + entity.artisanID, "m_art" + entity.artisanID + ".html");
+                            Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_famousdetail?artisanid=" + entity.artisanID + urlPar2, pageUrl + "m_art" + entity.artisanID + ".html");
+                        }
+                    }
+                }
+                else if ("allnews".Equals(type))//所有新闻
+                {
+                    List<ArticleEntity> list = ArticleService.GetArticleByRule(-1, -1);
+                    if (list != null && list.Count > 0)
+                    {
+                        foreach (ArticleEntity entity in list)
+                        {
+                            Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_collegedetail?id=" + entity.id + urlPar2, pageUrl + "m_new" + entity.id + ".html");
                         }
                     }
                 }
@@ -129,6 +150,9 @@ namespace web.Controllers
                 {
                     Common.HtmlHelper.CreateStaticPage(Url + "Adextend/Index", "Bd01/B1_index.html");
                 }
+
+
+
             }
             catch (Exception ex)
             {

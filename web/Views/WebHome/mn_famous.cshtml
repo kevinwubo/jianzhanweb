@@ -45,7 +45,7 @@
 <body>
     <header>
         <div class="flex-row college-hd">
-            <div class="back"><a href="/m_index.html" style="color: #ffffff;">返回上页</a></div>
+            <div class="back"><a href="@(ViewBag.PageUrl)/m_index.html" style="color: #ffffff;">返回上页</a></div>
             <div class="txt px36">名家名堂</div>
             <div class="menu">
                 <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
@@ -73,10 +73,10 @@
                     <div class="list-con-wrap">
                         <div class="list-con">
                             <div class="con-img">
-                                <a href="/m_art@(entity.artisanID).html"><img src="@entity.IDHead" alt=""></a>
+                                <a href="@(ViewBag.PageUrl)/m_art@(entity.artisanID).html"><img src="@entity.IDHead" alt=""></a>
                             </div>
                             <div class="con-txt">
-                                <a href="/m_art@(entity.artisanID).html"><h1>@entity.artisanName<span>@*【@entity.reviewDate】*@</span></h1></a>
+                                <a href="@(ViewBag.PageUrl)/m_art@(entity.artisanID).html"><h1>@entity.artisanName<span>@*【@entity.reviewDate】*@</span></h1></a>
                                 <p class="clamp3">
                                     简介：@entity.introduction
                                 </p>
@@ -91,7 +91,7 @@
                                     <div class="item">
                                         <div style="margin: 0 .1rem">
                                             <div class="t1 color_red_c9">ID:@entityPro.ProductID</div>
-                                            <a href="/m_@(entityPro.ProductID).html"><div class="pimg" style="background:url(@entityPro.Images)"></div></a>
+                                            <a href="@(ViewBag.PageUrl)/m_@(entityPro.ProductID).html"><div class="pimg" style="background:url(@entityPro.Images)"></div></a>
                                         </div>
                                         
                                         <div class="t1 clamp1">@entityPro.ProductName</div>

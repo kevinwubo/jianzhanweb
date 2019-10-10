@@ -149,7 +149,7 @@ namespace web.Controllers
                 else if (tag.Equals("新品"))//新品
                     OrderBy = " ORDER BY Adddate Desc ";
                 else if (tag.Equals("销量"))//销量
-                    OrderBy = " ORDER BY InquiryCount Desc ";
+                    OrderBy = " ORDER BY NewID() Desc ";//InquiryCount
                 else if (tag.Equals("人气"))//人气
                     OrderBy = " ORDER BY PVCount Desc ";
             }

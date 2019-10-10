@@ -17,7 +17,7 @@
     <tr>
         <td>@Html.ActionLink("WAP所有产品", "AutoHtml", new { type = "allProduct" })</td>
         <td>@Html.ActionLink("WAP所有艺人", "AutoHtml", new { type = "allfamous" })</td>
-        <td></td>
+        <td>@Html.ActionLink("WAP所有新闻", "AutoHtml", new { type = "allnews" })</td>
         <td></td>
         <td></td>
     </tr>
@@ -50,6 +50,22 @@
         <td></td>
         <td></td>
     </tr>
-
+    <tr>
+        <td>@Html.ActionLink("推广首页", "AutoHtml", new { type = "index",paramper="ad" })</td>
+        <td>@Html.ActionLink("推广商城", "AutoHtml", new { type = "shop", paramper = "ad" })</td>
+        <td>@Html.ActionLink("推广名家名堂", "AutoHtml", new { type = "famous", paramper = "ad" })</td>
+        <td>@Html.ActionLink("推广器型釉色", "AutoHtml", new { type = "gyys", paramper = "ad" })</td>
+        <td>@Html.ActionLink("推广学院", "AutoHtml", new { type = "college", paramper = "ad" })</td>
+        <td>@Html.ActionLink("推广收藏阁", "AutoHtml", new { type = "souchang", paramper = "ad" })</td>
+    </tr>
+    <br />
+    <br />
+    <tr>
+        <td>@Html.ActionLink("推广所有产品", "AutoHtml", new { type = "allProduct", paramper = "ad" })</td>
+        <td>@Html.ActionLink("推广所有艺人", "AutoHtml", new { type = "allfamous", paramper = "ad" })</td>
+        <td>@Html.ActionLink("推广所有新闻", "AutoHtml", new { type = "allnews", paramper = "ad" })</td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 

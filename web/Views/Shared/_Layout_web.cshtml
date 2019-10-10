@@ -22,7 +22,7 @@
     <!-- 添加 -->
     <div style="background: #fbfbfb;padding: .5rem .6rem;margin-bottom: .2rem">
         <div class="flex-row" style="text-align:center">
-            <img style="width:1.5rem;height:1.5rem;margin-left: 1rem" src="~/source/static//images/jianzhan/ic_code.jpg" />
+            <img style="width:1.5rem;height:1.5rem;margin-left: 1rem" src="@ViewBag.CodeUrl" />
             <div class="flex-col">
                 <div class="flex-row" style="height:.35rem;align-items:center">
                     <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=gywm">关于我们</a></div>
@@ -51,7 +51,7 @@
     <div style="position: fixed;bottom:0px;width:100%;max-width:750px;background:#FFF5EE;z-index: 98;">
         <div id="header1" class="flex-row pad-l-30 pad-r-30 pad-t-30 pad-b-40" style="text-align: center;align-items: center;">
             <div class="flex-col">
-                <a href="/m_index.html">
+                <a href="@(ViewBag.PageUrl)/m_index.html">
                     <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic_home.png" alt="">
                     <div style="margin-top: .1rem;height: .3rem">首页</div>
                 </a>
@@ -77,26 +77,7 @@
         </div>
     </div>
     <!-- 立即咨询 -->
-    <div id="guanzhuweixin-s" class="flex-row " style="position: fixed;
-    bottom: 0;
-    display:none;
-    height: 1.62rem;
-    background: white;
-    text-align: center;
-    align-items: center;
-    border-top: 1px solid #f6f6f6;
-    width: 100%;z-index: 99;">
-        <div class="flex-col searchzx mar-l-30">
-
-            <div class="flex-row" style="align-items: center;height: .7rem">
-                <!--
-                <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" src="~/source/static/images/jianzhan/ic_search.png"
-                    alt=""> -->
-                <input style="background: #f7f7f7" class="px28 pad-l-30" type="text" id="txt_simpleTelephone2" placeholder="请输入您的手机号码" />
-            </div>
-        </div>
-        <div class="ssbtnzx px28 mar-r-30" id="ljzx2">立即咨询</div>
-    </div>
+    
     <!-- 分类 -->
     <div id='menumark' style="display: none"></div>
     <!--分类弹窗-->
@@ -319,7 +300,7 @@
 
         //复制功能
         function copyTelephone() {
-            var val = document.getElementById('Telephone');
+            var val = document.getElementById('wx_Telephone');
             window.getSelection().selectAllChildren(val);
             document.execCommand("Copy");
             alert("复制成功，去微信粘贴加好友");

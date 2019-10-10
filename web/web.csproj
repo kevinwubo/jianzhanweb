@@ -819,6 +819,7 @@
     <Content Include="source\static\images\jianzhan\detail2.png" />
     <Content Include="source\static\images\jianzhan\ic-zx.png" />
     <Content Include="source\static\images\jianzhan\ic_15.png" />
+    <Content Include="source\static\images\jianzhan\ic_code.jpg" />
     <Content Include="source\static\images\jianzhan\ic_code.png" />
     <Content Include="source\static\images\jianzhan\ic_fl.png" />
     <Content Include="source\static\images\jianzhan\ic_home.png" />
