@@ -1,0 +1,456 @@
+﻿@using Entity.ViewModel;
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<!doctype html>
+<html>
+
+<head>
+
+    @RenderSection("Header", false)        
+</head>
+
+<body>
+
+    @RenderBody()
+    @*<div class="totop" style="display: block;">
+        <img style="height:.8rem;width:.8rem" src="~/source/static/images/jianzhan/to_top.png">
+    </div>*@
+    <!-- 添加 -->
+    <div style="background: #fbfbfb;padding: .5rem .6rem;margin-bottom: .2rem">
+        <div class="flex-row" style="text-align:center">
+            <img style="width:1.5rem;height:1.5rem;margin-left: 1rem" src="~/source/static//images/jianzhan/ic_code.jpg" />
+            <div class="flex-col">
+                <div class="flex-row" style="height:.35rem;align-items:center">
+                    <div class="mar-l-30 color_3 px20"><a href="/WebHome/mn_about?type=gywm">关于我们</a></div>
+                    <div class="mar-l-30 color_3 px20"><a href="/mn_fwbz.html">售后服务</a></div>
+</div>
+                <div class="flex-row" style="height:.35rem;align-items:center">
+                    <div class="mar-l-30 color_3 px20"><a href="/mn_fwbz.html">服务保障</a></div>
+                    <div class="mar-l-30 color_3 px20"><a href="/mendianwap.html">实体门店</a></div>
+                </div>
+                <div class="flex-row" style="height:.43rem;align-items:center">
+                    <div class="color_red_c9 px30 mar-l-30">4008-276-376</div>
+                    <div class="color_red_c9 px16">(24h在线)</div>
+                </div>
+                <div class="flex-row" style="height:.35rem;align-items:center">
+                    <div class="mar-l-30 color_3 px20" style="text-align:left">(关注公众号了解更多)</div>
+                </div>
+            </div>
+        </div>
+        <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center">
+            闽ICP备17006498号-1 Copyright 2015 建盏天下网 版权所有
+        </div>
+        <div class="color_3 px16 clamp1 mar-t-16" style="text-align:center">福建省盏天下电子商务有限公司</div>
+    </div>
+    <div style="height:1.5rem"></div>
+    <!-- 底部导航栏 -->
+    <div style="position: fixed;bottom:0px;width:100%;max-width:750px;background:#FFF5EE;z-index: 98;">
+        <div id="header1" class="flex-row pad-l-30 pad-r-30 pad-t-30 pad-b-40" style="text-align: center;align-items: center;">
+            <div class="flex-col">
+                <a href="/m_index.html">
+                    <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic_home.png" alt="">
+                    <div style="margin-top: .1rem;height: .3rem">首页</div>
+                </a>
+            </div>
+            <div style="width:1px;height: .6rem;background: #f7f7f7"></div>
+            <div class="flex-col" onclick="moveLeft()">
+                <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic_fl.png" alt="" />
+                <div style="margin-top: .1rem;height: .3rem">导航</div>
+            </div>
+            
+            <div style="width:1px;height: .6rem;background: #f7f7f7"></div>
+            <div style="width:2rem" class="mar-l-20" onclick="copyTelephone()">
+                <div class="flex-row" style="align-items: center;justify-content: center;">
+                    <img style="height: .5rem;" src="~/source/static/images/jianzhan/wxadd.jpg" alt="" />
+                    <!--<div class="flex-col px16">(点击手机号添加微信)</div> -->
+                </div>
+                <div style="margin-top: .1rem;height: .3rem" id="wx_Telephone"></div>
+            </div>
+			
+			<div style="width:1px;height: .6rem;background: #f7f7f7"></div>
+            <div class="flex-col" id="zx">
+                <img style="height: .5rem;width:.5rem" src="~/source/static/images/jianzhan/ic-zx.png" alt="" />
+                <div style="margin-top: .1rem;height: .3rem">立即询价</div>
+            </div>
+			
+        </div>
+    </div>
+    <!-- 立即咨询 -->
+
+    <!-- 分类 -->
+    <div id='menumark' style="display: none"></div>
+    <!--分类弹窗-->
+    <div id="menupart" style="display: none;left:200%;">
+        <div id='menuplane' class="menuplane">
+            <div id="guanzhuweixin-s-cate" class="flex-row pad-l-20 bg_color_f navheight" style="align-items: center;max-width: 750px">
+                <div class="back-tag" style="align-items: center" onclick="moveRight()">
+
+                </div>
+                <div class="flex-col search">
+
+                    <div class="flex-row" style="align-items: center;height: .56rem">
+
+                        <img class="mar-l-30 mar-r-16" style="height: .3rem;width: .25rem" src="~/source/static/images/jianzhan/ic_search.png"
+                             alt="">
+                        <input style="background: #f7f7f7;width: 100%;" class="px24" id="txt_keyword" type="text" placeholder="人名或ID号" />
+                    </div>
+
+                </div>
+                <div class="ssbtn px24 mar-r-30" id="btn_search">搜索</div>
+            </div>
+            <div class="menu-body">
+                <div class="menu-cate-part">
+                    <div class="menu-cate-title">名家大师</div>
+                    <div class='line'></div>
+                    <div class="cate-list">
+                        <div class="item"><a href="/WebHome/mn_shop?artisanType=业界大师"><div>业界大师</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?artisanType=老牌传承人"><div>老牌传承人</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?artisanType=名家工艺师"><div>名家工艺师</div></a></div>
+                    </div>
+                </div>
+                <div class="menu-cate-part">
+                    <div class="menu-cate-title">工艺釉色</div>
+                    <div class='line'></div>
+                    <div class="cate-list">
+                        <div class="item"><a href="/WebHome/mn_shop?type2=兔毫"><div>兔毫</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type2=油滴/鹧鸪斑"><div>油滴/鹧鸪斑</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type2=曜变"><div>曜变</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type2=曜变"><div>乌金釉</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type2=曜变"><div>杂色釉/异毫</div></a></div>                        
+                    </div>
+                </div>
+                <div class="menu-cate-part">
+                    <div class="menu-cate-title">经典器型</div>
+                    <div class='line'></div>
+                    <div class="cate-list">
+                        <div class="item"><a href="/WebHome/mn_shop?type3=束口盏"><div>束口盏</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type3=灯盏"><div>灯盏</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type3=敞口盏/斗笠"><div>敞口盏/斗笠</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type3=撇口盏"><div>撇口盏</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type3=敛口盏"><div>敛口盏</div></a></div>
+                        <div class="item"><a href="/WebHome/mn_shop?type3=钵型盏"><div>钵型盏</div></a></div>
+                    </div>
+                </div>
+                <div class="menu-cate-part">
+                    <div class="menu-cate-title">建盏尺寸</div>
+                    <div class='line'></div>
+                    <div class="cate-list">
+                        <div class="item "><a href="/WebHome/mn_shop?type4=小（口径9cm以下）"><div>小（口径9cm以下）</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type4=中（口径9-12cm）"><div>中（口径9-12cm）</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type4=大（口径12cm以上）"><div>大（口径12cm以上）</div></a></div>                        
+                    </div>
+                </div>
+                <div class="menu-cate-part">
+                    <div class="menu-cate-title">价格</div>
+                    <div class='line'></div>
+                    <div class="cate-list">
+                        <div class="item "><a href="/WebHome/mn_shop?type7=1000以下"><div>1000以下</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type7=1001~3000"><div>1001~3000</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type7=3001~5000"><div>3001~5000</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type7=5001~10000"><div>5001~10000</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type7=10001~50000"><div>10001~50000</div></a></div>
+                        <div class="item "><a href="/WebHome/mn_shop?type7=50000以上"><div>50000以上</div></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--咨询框弹窗-->
+    <div class="tk-mark" id="tixing" style="display: none;">
+        <div style="height:100%;width:100%;position:absolute;left:0;top:0" onclick="hideTiXing()"></div>
+        <div class="gmkuang">
+            <div class="div-h-3"></div>
+            <div class="flex-row" style="justify-content: center">
+                <div class="flex-col"></div>
+                <img style="height:0.93rem" src="~/source/static/images/xiaojiang/logo.png">
+                <div class="flex-col">
+                    <!-- <div class="mar-r-40 px24" style="color:#999;display: initial;float: right;" onclick="hideTiXing()">关闭
+                    </div> -->
+                </div>
+            </div>
+            <div class="flex-row mar-t-40" style="margin-left: 1rem;align-items: baseline;justify-content: left;">
+                <div style="font-size:.28rem;">咨询建盏：</div>
+                <div class="mar-l-16 px22 color_9" id="div_productname">“看作品价格”</div>
+                
+            </div>
+
+            <div class="flex-row mar-t-40" style="margin-left: 1rem;align-items: center;justify-content: left;">
+                <div style="font-size:.28rem;">手机号码：</div>
+                <input type="hidden" id="Hid_ProductID" value="未知">
+                <input placeholder="请输入您的手机号码" class="mar-l-20" type="text" id="txt_telephone" style="width: 3.8rem;border: 1px solid #DF0101;padding-left: 0.2rem;text-align: left;height: 0.6rem" />
+
+            </div>
+            <div class="div-h-2"></div>
+            <div style="font-size:.32rem;color:#fff;background:#c90319;height: .75rem;margin: 0.2rem .3rem;line-height: .75rem;text-align: center" id="btn_zixun">立即咨询</div>
+			<div class="div-h-2"></div>
+            <div class="mar-l-16 px22 color_9" style="justify-content: center;align-items: baseline;text-align: center;">
+             （10分钟内回复）
+            </div>
+            <div class="div-h-3"></div>
+        </div>
+    </div>
+    @*<div class="totop" style="display: block;">
+        <img style="height:.8rem;width:.8rem" src="~/source/static/images/jianzhan/to_top.png">
+    </div>*@
+	
+	<script src="/source/wap_o_code.js"></script>
+    <script src="~/source/static/js/jquery-2.1.4.js"></script>
+    <script src="~/source/static/js/jquery-weui.js"></script>
+    @*<script src="~/source/static/js/jquery.pagination.js"></script>*@
+    <script src="~/source/static/js/utils.js"></script>
+    <script src="~/source/static/js/showdiv.js"></script>
+    <script src="~/source/static/js/swiper.js"></script>
+    <script src="~/source/public.js"></script>
+    <script type="text/javascript">
+        init();
+        function init() {
+            $.ajax({
+                url: "/WebHome/getWxCodeByDays",
+                type: 'POST',
+                async: false,
+                data: {
+                },
+                success: function (data) {
+                    $("#wx_Telephone").html(data);
+                }
+            });
+        }
+
+        //咨询功能
+        function show_zixun(productid, productname) {
+            utils.toggleBody(1)
+            if (productid) {
+                $("#Hid_ProductID").val(productid);
+            }
+            $('#tixing').show();
+            $("#div_productname").html(productname + '"看作品价格"');
+        }
+
+
+        $('#ljzx2').on('click', function () {
+            var Telephone = $("#txt_simpleTelephone2").val();
+            var ProductID = $("#Hid_ProductID").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID);
+        })
+
+        $('#ljzx').on('click', function () {
+            var Telephone = $("#txt_simpleTelephone").val();
+            var ProductID = $("#Hid_ProductID").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID);
+        })
+
+
+        $("#btn_search").click(function () {
+            var keyword = $("#txt_keyword").val();
+            window.location.href = "/WebHome/mn_shop?keyword=" + keyword;
+        })
+
+        $("#btn_zixun").click(function () {
+            var Telephone = $("#txt_telephone").val();
+            var ProductID = $("#Hid_ProductID").val();
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID);
+           
+        })
+
+        function ZiXun(Telephone, ProductID) {
+            $.ajax({
+                url: "/WebHome/CreateInquiry",
+                type: 'POST',
+                async: false,
+                data: {
+                    telephone: Telephone,
+                    productID: ProductID,
+                    sourceform: "MB"
+                },
+                success: function (data) {
+                    alert(data);
+                    $("#txt_telephone").val("");
+                    $("#Hid_ProductID").val("");
+                }
+            });
+
+            tprm = "ProductID=" + ProductID + "&phone=" + getRandomString(1) + TelJM(Telephone) + getRandomString(1);
+            __ozfac2(tprm, "#inquiryok");
+        }
+
+        //复制功能
+        function copyTelephone() {
+            var val = document.getElementById('wx_Telephone');
+            window.getSelection().selectAllChildren(val);
+            document.execCommand("Copy");
+            alert("复制成功，去微信粘贴加好友");
+        }
+    </script>
+    <script>
+
+        //$('.M-box').pagination({
+        //    mode: 'fixed'
+        //});
+        function hideTiXing() {
+            $('#tixing').hide()
+            utils.toggleBody(0)
+        }
+        $('.bt-zx').on('click', function () {
+            utils.toggleBody(1)
+            $('#tixing').show()
+        })
+        $('#zx').on('click', function () {
+            utils.toggleBody(1)
+            $('#tixing').show()
+        })
+
+
+
+
+        function selectStore(i) {
+            var imgarray = [[1, 2], [6, 7], [10, 11]]
+            var addres = ['地址：北京市朝阳区酒仙桥798艺术区西二门', '地址：厦门市思明区观音山宝业大厦705室', '地址：武夷山市水岸花苑小区4栋B单元']
+            $($('.dp-t1')[i]).addClass('dpact').siblings().removeClass('dpact')
+            $('.storedp').hide()
+            $('#storeswiper' + i).show();
+            $('#storeswiper' + i)
+            $('#address').text(addres[i]);
+            storeswiper = new Swiper('#storeswiper' + i, {
+                loop: true,
+                // 如果需要分页器
+                autoplay: 5000,
+                initialSlide: 1,
+                nextButton: '#dpnext',
+                prevButton: '#dpprev',
+                observer: true,
+                observeParents: true
+            })
+        }
+
+        // 店铺
+        var storeswiper = new Swiper('#storeswiper0', {
+            loop: true,
+            // 如果需要分页器
+            autoplay: 5000,
+            initialSlide: 1,
+            nextButton: '#dpnext',
+            prevButton: '#dpprev',
+            observer: true,
+            observeParents: true
+        })
+
+        // 精选
+        var swiper = new Swiper('.swiper_container_suz2', {
+            slidesPerView: 1.3,
+            spaceBetween: 3,
+            nextButton: '#snext',
+            prevButton: '#sprev',
+            // autoplay: 5000,
+        });
+        // $("#content").css("height", window.innerHeight - 0.83 * 58);
+        $('#showMark1').on('click', function () {
+            if ($('#mark1').css('display') == 'none') {
+                utils.toggleBody(1)  //在跳出弹窗的时候
+                $('#mark1').show()
+            }
+        })
+        $('#close').on('click', function () {
+            $('#mark1').hide()
+            utils.toggleBody(0)
+        })
+
+
+        //$('.showmore').on('click', function () {
+        //    $(this).parent().find('.list').css('height', 'unset')
+        //    $(this).hide()
+        //})
+
+
+        //点击隐藏在线咨询面板或拨号面板
+        $('#menumark').click(function () {
+            moveRight();
+        })
+        // 隐藏分类面板
+        function moveRight() {
+            ismenu = false;
+            // console.log("dhgsfhjsgdghj");
+            $("#menupart").animate({ left: '100%' }, "slow", function () {
+                $(this).css("display", "none");
+                $("#menumark").css("display", "none");
+                utils.toggleBody(false)
+            });
+        }
+        //弹出分类面板
+        function moveLeft() {
+            ismenu = true;
+            // console.log("dhgsfhjsgdghj");
+            $('#menupart').css("display", "block");
+            $("#menumark").css("display", "block");
+            $("#menupart").animate({ left: '20%' }, "slow");//8.4
+            utils.toggleBody(true)
+        }
+        // 返回顶部
+        //var backButton = $('.totop');
+        //function backToTop() {
+        //    window.scrollTo(0, 0)
+        //}
+        //backButton.on('click', backToTop);
+
+        //$(window).on('scroll', function () {/*当滚动条的垂直位置大于浏览器所能看到的页面的那部分的高度时，回到顶部按钮就显示 */
+        //    if ($(window).scrollTop() > $(window).height())
+        //        backButton.fadeIn();
+        //    else
+        //        backButton.fadeOut();
+        //});
+        $(window).trigger('scroll');
+
+        isTouchDevice();
+
+        var swiper1 = new Swiper('.swiper-container-1', {
+            pagination: '.swiper-pagination-1',
+            paginationClickable: true,
+            autoplay: 2000,
+        });
+
+        $("#mark").css("height", $('body').height() - $('.college-hd').height() - $('.store-wrap').height());
+        // $(".store-con").css("height", window.innerHeight - $('.store-con').offset().top-$('#foot').height());
+        $(".tab-item").click(function () {
+            var index = $(this).index();
+            globalType = index;
+            $(this).addClass("active").siblings().removeClass("active");
+            $(".store-con .con-item").eq(index).addClass("active").siblings().removeClass("active");
+            $("#mark").show()
+            utils.toggleBody(true)
+        });
+        $("#mark").on("click", function () {
+            $(this).hide()
+            utils.toggleBody(false)
+        })
+    </script>
+</body>
+
+</html>
+@RenderSection("Footer", false);

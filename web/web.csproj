@@ -171,6 +171,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseDataController.cs" />
     <Compile Include="Controllers\BaseWebontroller.cs" />
+    <Compile Include="Controllers\ExtendsController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InquiryController.cs" />
@@ -179,9 +180,11 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WebActiveController.cs" />
     <Compile Include="Controllers\WebHomeController.cs" />
     <Compile Include="Controllers\WebHomePCController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -1028,6 +1031,12 @@
     <Content Include="Views\Inquiry\Add.cshtml" />
     <Content Include="Views\Home\AdminLogin.cshtml" />
     <Content Include="Views\Adextend\Index.cshtml" />
+    <Content Include="Views\Stats\SeoStats.cshtml" />
+    <Content Include="Views\Stats\InquiryStats.cshtml" />
+    <Content Include="Views\Extends\CodesIndex.cshtml" />
+    <Content Include="Views\WebActive\mn_shop.cshtml" />
+    <Content Include="Views\WebActive\mn_shopdetail.cshtml" />
+    <Content Include="Views\Shared\_Layout_Active_web.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

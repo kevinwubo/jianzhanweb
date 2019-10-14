@@ -121,7 +121,7 @@ namespace DataRepository.DataAccess.BaseData
             return result;
         }
 
-        public List<CodeSInfo> GetCodeValuesByRule(string code)
+        public List<CodeSInfo> GetCodeValuesByRule(string code, string isShow)
         {
             List<CodeSInfo> result = new List<CodeSInfo>();
             string sqlText = BaseDataStatement.GetCodeValuesByRule;
@@ -130,10 +130,19 @@ namespace DataRepository.DataAccess.BaseData
                 sqlText += " AND code=@code";
             }
 
+            if (!string.IsNullOrEmpty(isShow))
+            {
+                sqlText += " AND isShow=@isShow";
+            }
+
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             if (!string.IsNullOrEmpty(code))
             {
                 command.AddInputParameter("@code", DbType.String, code);
+            }
+            if (!string.IsNullOrEmpty(isShow))
+            {
+                command.AddInputParameter("@isShow", DbType.String, isShow);
             }
 
             result = command.ExecuteEntityList<CodeSInfo>();

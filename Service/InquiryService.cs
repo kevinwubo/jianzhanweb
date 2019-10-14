@@ -529,7 +529,7 @@ namespace Service
             entity.SaleTelephone = info.SaleTelephone;
             entity.status = info.status;
             entity.SourceForm = info.SourceForm;
-
+            entity.user = UserService.GetUserById(info.OperatorID.ToLong(0));
             entity.product = ProductService.GetProductByProductID(info.ProductID);
             return entity;
         }
@@ -703,9 +703,9 @@ namespace Service
         }
 
         #region 分页相关
-        public static int GetInquiryCount(string name, string tracestate, int status)
+        public static int GetInquiryCount(string keywords, string tracestate, int status)
         {
-            return new InquiryRepository().GetInquiryCount(name, tracestate, -1);
+            return new InquiryRepository().GetInquiryCount(keywords, tracestate, -1);
         }
 
         public static List<InquiryEntity> GetInquiryInfoPager(PagerInfo pager)
@@ -721,11 +721,11 @@ namespace Service
             return all;
         }
 
-        public static List<InquiryEntity> GetInquiryInfoByRule(string name, string tracestate, int status, PagerInfo pager)
+        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, PagerInfo pager)
         {
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
-            List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(name, tracestate, status, pager);
+            List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(keywords, tracestate, status, pager);
 
             if (!miList.IsEmpty())
             {

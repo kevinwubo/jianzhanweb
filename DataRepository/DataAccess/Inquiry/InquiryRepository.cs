@@ -266,7 +266,7 @@ namespace DataRepository.DataAccess.News
 
             if (!string.IsNullOrEmpty(keywords))
             {
-                builder.Append(" AND (ProductID LIKE '%'+@keywords+'%' or telphone LIKE '%'+@keywords+'%' )");
+                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
             }
             if (!string.IsNullOrEmpty(tracestate))
             {
@@ -298,13 +298,13 @@ namespace DataRepository.DataAccess.News
         }
 
 
-        public int GetInquiryCount(string name, string tracestate, int dealStatus)
+        public int GetInquiryCount(string keywords, string tracestate, int dealStatus)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(InquiryStatement.GetInquiryCount);
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(keywords))
             {
-                //builder.Append(" AND CustomerName LIKE '%'+@CustomerName+'%' ");
+                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
             }
             if (!string.IsNullOrEmpty(tracestate))
             {

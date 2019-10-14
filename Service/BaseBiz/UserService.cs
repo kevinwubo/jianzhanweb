@@ -141,7 +141,7 @@ namespace Service.BaseBiz
             UserEntity result = new UserEntity();
             UserRepository mr = new UserRepository();
             UserInfo info = mr.GetUserByKey(uid);
-            result = TranslateUserEntity(info, false);
+            result = TranslateUserEntity(info, true);
             return result;
         }
 

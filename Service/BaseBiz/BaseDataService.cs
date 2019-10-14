@@ -347,12 +347,40 @@ namespace Service.BaseBiz
 
         }
 
+        /// <summary>
+        /// 获取队列信息
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static List<CodeSEntity> GetCodeListByRule(string code,string isshow)
+        {
+            List<CodeSEntity> list = new List<CodeSEntity>();
+            BaseDataRepository mr = new BaseDataRepository();
+            List<CodeSInfo> miList = mr.GetCodeValuesByRule(code, isshow);
+
+            if (!miList.IsEmpty())
+            {
+                foreach (CodeSInfo info in miList)
+                {
+                    CodeSEntity entity = new CodeSEntity();
+                    entity.ID = info.ID;
+                    entity.Code = info.Code;
+                    entity.CodeName = info.CodeName;
+                    entity.CodeValues = info.CodeValues;
+                    entity.change_date = info.change_date.ToString();
+                    list.Add(entity);
+                }
+            }
+            return list;
+
+        }
+
 
         public static CodeSEntity GetCodeValuesByRule(string code)
         {
             CodeSEntity entity = new CodeSEntity();
             BaseDataRepository mr = new BaseDataRepository();
-            List<CodeSInfo> miList = mr.GetCodeValuesByRule(code);
+            List<CodeSInfo> miList = mr.GetCodeValuesByRule(code,"");
 
             if (!miList.IsEmpty())
             {
@@ -360,6 +388,7 @@ namespace Service.BaseBiz
                 {
                     entity.ID = info.ID;
                     entity.Code = info.Code;
+                    entity.CodeName = info.CodeName;
                     entity.CodeValues = info.CodeValues;
                 }
             }

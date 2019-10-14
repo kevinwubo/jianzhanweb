@@ -156,4 +156,27 @@ namespace Entity.ViewModel
         /// </summary>
         public string TraceState { get; set; }
     }
+
+
+    /// <summary>
+    /// 推广数据
+    /// </summary>
+    public class InquiryAdver
+    {
+        public string datetime { get; set; }
+        public string info { get; set; }
+    }
+
+    /// <summary>
+    /// 咨询量统计
+    /// </summary>
+    public class InquiryStatsInfo
+    {
+        public string datetime { get; set; }
+        public string cityname { get; set; }
+        public string salesname { get; set; }
+        public string systemcount { get; set; }
+        public string handcount { get; set; }
+        public string info { get; set; }
+    }
 }
