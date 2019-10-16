@@ -43,5 +43,7 @@ namespace DataRepository.DataAccess.BaseData
                                                      VALUES(@FileName,@FileExtendName,@FilePath,@UploadDate,@FileType,@BusinessType,@Channel,@FileSize,@Remark,@Operator,@CreateDate);SELECT IDENT_CURRENT('Attachment')";
 
         public static string GetAttachmentByKey = @"SELECT * FROM [Attachment](NOLOCK) WHERE AttachmentID IN (#ids#)";
+
+        public static string ModifyCodes = @"UPDATE dt_Codes SET CodeValues=@CodeValues,change_date=GETDATE() WHERE ID=@ID";
     }
 }

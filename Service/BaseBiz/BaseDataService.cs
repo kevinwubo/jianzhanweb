@@ -146,6 +146,25 @@ namespace Service.BaseBiz
             return all;
         }
 
+        /// <summary>
+        /// 更新产品队列信息
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public static bool ModifyCodes(CodeSEntity entity)
+        {
+            BaseDataRepository mr = new BaseDataRepository();
+            int result = 0;
+            if (entity != null)
+            {
+                CodeSInfo info = new CodeSInfo();
+                info.ID = entity.ID;
+                info.CodeValues = entity.CodeValues;
+                result = mr.ModifyCodes(info);
+            }
+            return result > 0;
+        }
+
         public static bool ModifyBaseData(BaseDataEntity baseDataEntity)
         {
             int result = 0;

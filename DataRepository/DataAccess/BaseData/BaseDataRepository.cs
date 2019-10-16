@@ -216,6 +216,20 @@ namespace DataRepository.DataAccess.BaseData
             return command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// 更新产品队列数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public int ModifyCodes(CodeSInfo data)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.ModifyCodes, "Text"));
+            command.AddInputParameter("@ID", DbType.Int32, data.ID);
+            command.AddInputParameter("@CodeValues", DbType.String, data.CodeValues);
+            return command.ExecuteNonQuery();
+        }
+        
+
         public int Remove(int id)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.Remove, "Text"));
