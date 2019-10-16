@@ -91,8 +91,12 @@
         </div>
     </header>
     <div class="div-h-8"></div>
+    <div class="banner">
+        <img src="~/source/static/images/pc/shoucangwap.jpg" alt="" />
+    </div>
     <section class="store-wrap">
         <div class="store-tab">
+            <input type="hidden" id="hid_telephone" value="@ViewBag.telephone" />
             <input type="hidden" id="hid_yjds" value="@ViewBag.YJDSJson" />
             <input type="hidden" id="hid_lpccr" value="@ViewBag.LPCCRJson" />
             <input type="hidden" id="hid_mjgys" value="@ViewBag.MJGYSJson" />
@@ -144,7 +148,7 @@
 
 </html>
 <script src="~/source/static/js/jquery-2.1.4.js"></script>
-<script src="~/source/ProductInfo.js"></script>
+<script src="~/source/ProductInfo_Active.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         productinfo.init();

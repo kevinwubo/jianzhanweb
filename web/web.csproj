@@ -732,6 +732,7 @@
     <Content Include="source\My97DatePicker\skin\whyGreen\datepicker.css" />
     <Content Include="source\My97DatePicker\skin\whyGreen\img.gif" />
     <Content Include="source\My97DatePicker\WdatePicker.js" />
+    <Content Include="source\ProductInfo_Active.js" />
     <Content Include="source\public.js" />
     <Content Include="source\backup\News.js" />
     <Content Include="source\Order\Order.js" />
@@ -1037,6 +1038,7 @@
     <Content Include="Views\WebActive\mn_shop.cshtml" />
     <Content Include="Views\WebActive\mn_shopdetail.cshtml" />
     <Content Include="Views\Shared\_Layout_Active_web.cshtml" />
+    <Content Include="Views\WebActive\mn_login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

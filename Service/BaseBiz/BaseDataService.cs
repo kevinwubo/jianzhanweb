@@ -193,6 +193,33 @@ namespace Service.BaseBiz
             return result;
         }
 
+        /// <summary>
+        /// 获取活动手机号--临时使用
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetTelephone()
+        {
+            List<string> list = new List<string>();
+            BaseDataRepository mr = new BaseDataRepository();
+            DataSet ds = mr.GetTelephone();
+            if (ds != null)
+            {
+                DataTable dt = ds.Tables[0];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string tel = dr["Telephone"].ToString();
+                        if (!string.IsNullOrEmpty(tel) && !list.Contains(tel))
+                        {
+                            list.Add(tel);
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
         public static string GetPCEwmCode()
         {
             String url = "";

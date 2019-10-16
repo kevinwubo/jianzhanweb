@@ -26,6 +26,18 @@ namespace DataRepository.DataAccess.BaseData
     {
 
         /// <summary>
+        /// 获取活动手机号 临时使用
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetTelephone()
+        {
+            DataSet ds = new DataSet();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.GetTelephone, "Text"));
+            ds = command.ExecuteDataSet();
+            return ds;
+        }
+
+        /// <summary>
         /// 获取二维码  PC使用
         /// </summary>
         /// <returns></returns>

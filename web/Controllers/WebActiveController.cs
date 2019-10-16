@@ -15,17 +15,57 @@ namespace web.Controllers
         //
         // GET: /WebActive/
 
-        public ActionResult Index()
+        public ActionResult mn_login(string msg)
         {
             return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="telephone"></param>
+        /// <returns></returns>
+        public JsonResult CheckTelephone(string telephone)
+        {
+            bool result = false;
+
+            List<string> list= BaseDataService.GetTelephone();
+            if (list != null && list.Count > 0)
+            {
+                result = list.Contains(telephone);
+            }
+
+            return new JsonResult
+            {
+                Data = result
+            };
         }
 
         /// <summary>
         /// 商城首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult mn_shop(string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
+        public ActionResult mn_shop(string telephone, string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
         {
+            if (string.IsNullOrEmpty(telephone))
+            {
+                Response.Redirect("/WebActive/mn_login?msg=error");
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                List<string> list = BaseDataService.GetTelephone();
+                bool result = false;
+                if (list != null && list.Count > 0)
+                {
+                    result = list.Contains(telephone);
+                }
+                if (result==false)
+                {
+                    Response.Redirect("/WebActive/mn_login?msg=error");
+                }                
+            }
+
             List<ProductEntity> mList = null;
 
             if (string.IsNullOrEmpty(type2) && string.IsNullOrEmpty(type3) && string.IsNullOrEmpty(type4) && string.IsNullOrEmpty(type7) && string.IsNullOrEmpty(author) && string.IsNullOrEmpty(artisanType) && string.IsNullOrEmpty(keyword))
@@ -50,7 +90,7 @@ namespace web.Controllers
                 }
             }
 
-            int count = ProductService.GetProductCount(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount>0 ", keyword);
+            int count = ProductService.GetProductCount(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount=-2 ", keyword);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -70,6 +110,7 @@ namespace web.Controllers
             //    mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc", pager);
             //}
 
+            ViewBag.telephone = telephone;
             ViewBag.YJDSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("业界大师"));//业界大师
             ViewBag.LPCCRJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("老牌传承人"));//老牌传承人
             ViewBag.MJGYSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("名家工艺师"));//名家工艺师
