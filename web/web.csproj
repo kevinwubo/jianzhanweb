@@ -184,7 +184,7 @@
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\WebActiveController.cs" />
+    <Compile Include="Controllers\1111Controller.cs" />
     <Compile Include="Controllers\WebHomeController.cs" />
     <Compile Include="Controllers\WebHomePCController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -1035,10 +1035,10 @@
     <Content Include="Views\Stats\SeoStats.cshtml" />
     <Content Include="Views\Stats\InquiryStats.cshtml" />
     <Content Include="Views\Extends\CodesIndex.cshtml" />
-    <Content Include="Views\WebActive\mn_shop.cshtml" />
-    <Content Include="Views\WebActive\mn_shopdetail.cshtml" />
+    <Content Include="Views\1111\mn_shop.cshtml" />
+    <Content Include="Views\1111\mn_shopdetail.cshtml" />
     <Content Include="Views\Shared\_Layout_Active_web.cshtml" />
-    <Content Include="Views\WebActive\mn_login.cshtml" />
+    <Content Include="Views\1111\mn_login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

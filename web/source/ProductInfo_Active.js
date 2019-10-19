@@ -14,7 +14,7 @@ var productinfo = {
             if (infos != "") {
                 $("#div_showinfo").html("");
                 for (var i = 0; i < infos.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/WebActive/mn_shop?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                    $("#div_showinfo").append("<div class='markitem'><a href='/1111/mn_shop?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
                 }
             }
         });
@@ -26,7 +26,7 @@ var productinfo = {
             if (infos != "") {
                 $("#div_showinfo").html("");
                 for (var i = 0; i < infos.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/WebActive/mn_shop?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                    $("#div_showinfo").append("<div class='markitem'><a href='/1111/mn_shop?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
                 }
             }
         });
@@ -37,7 +37,7 @@ var productinfo = {
             if (infos != "") {
                 $("#div_showinfo").html("");
                 for (var i = 0; i < infos.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/WebActive/mn_shop?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                    $("#div_showinfo").append("<div class='markitem'><a href='/1111/mn_shop?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
                 }
             }
         });
@@ -49,12 +49,12 @@ var productinfo = {
             if (infoqxs != "") {
                 $("#div_showinfo").html("");
                 for (var i = 0; i < infoqxs.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/WebActive/mn_shop?telephone=" + telephone + "&type3=" + infoqxs[i].ValueInfo + "'>" + infoqxs[i].ValueInfo + "</div>");
+                    $("#div_showinfo").append("<div class='markitem'><a href='/1111/mn_shop?telephone=" + telephone + "&type3=" + infoqxs[i].ValueInfo + "'>" + infoqxs[i].ValueInfo + "</div>");
                 }
             }
             if (infoyss != "") {
                 for (var i = 0; i < infoyss.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/WebActive/mn_shop?telephone=" + telephone + "&type2=" + infoyss[i].ValueInfo + "'>" + infoyss[i].ValueInfo + "</div>");
+                    $("#div_showinfo").append("<div class='markitem'><a href='/1111/mn_shop?telephone=" + telephone + "&type2=" + infoyss[i].ValueInfo + "'>" + infoyss[i].ValueInfo + "</div>");
                 }
             }
         });

@@ -13,7 +13,7 @@ namespace web.Controllers
     public class WebActiveController : Controller
     {
         //
-        // GET: /WebActive/
+        // GET: /1111/
 
         public ActionResult mn_login(string msg)
         {
@@ -50,7 +50,7 @@ namespace web.Controllers
         {
             if (string.IsNullOrEmpty(telephone))
             {
-                Response.Redirect("/WebActive/mn_login?msg=error");
+                Response.Redirect("/1111/mn_login?msg=error");
             }
             if (!string.IsNullOrEmpty(telephone))
             {
@@ -62,7 +62,7 @@ namespace web.Controllers
                 }
                 if (result==false)
                 {
-                    Response.Redirect("/WebActive/mn_login?msg=error");
+                    Response.Redirect("/1111/mn_login?msg=error");
                 }                
             }
 
