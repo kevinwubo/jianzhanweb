@@ -10,12 +10,12 @@ using System.Web.Mvc;
 
 namespace web.Controllers
 {
-    public class WebActiveController : Controller
+    public class W11Controller : Controller
     {
         //
-        // GET: /1111/
+        // GET: /W11/
 
-        public ActionResult mn_login(string msg)
+        public ActionResult login(string msg)
         {
             return View();
         }
@@ -46,11 +46,11 @@ namespace web.Controllers
         /// 商城首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult mn_shop(string telephone, string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
+        public ActionResult paimai(string telephone, string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
         {
             if (string.IsNullOrEmpty(telephone))
             {
-                Response.Redirect("/1111/mn_login?msg=error");
+                Response.Redirect("/W11/login");
             }
             if (!string.IsNullOrEmpty(telephone))
             {
@@ -62,7 +62,7 @@ namespace web.Controllers
                 }
                 if (result==false)
                 {
-                    Response.Redirect("/1111/mn_login?msg=error");
+                    Response.Redirect("/W11/login");
                 }                
             }
 
@@ -70,7 +70,7 @@ namespace web.Controllers
 
             if (string.IsNullOrEmpty(type2) && string.IsNullOrEmpty(type3) && string.IsNullOrEmpty(type4) && string.IsNullOrEmpty(type7) && string.IsNullOrEmpty(author) && string.IsNullOrEmpty(artisanType) && string.IsNullOrEmpty(keyword))
             {
-                artisanType = "业界大师";
+                //artisanType = "业界大师";
             }
 
             if (!string.IsNullOrEmpty(author))
@@ -96,14 +96,14 @@ namespace web.Controllers
             pager.PageIndex = p;
             pager.PageSize = 12;
             pager.SumCount = count;
-            pager.URL = "/WebHome/mn_shop";
+            pager.URL = "/W11/shop";
 
 
 
             //if (!string.IsNullOrEmpty(type2) || !string.IsNullOrEmpty(type3) || !string.IsNullOrEmpty(type4) || !string.IsNullOrEmpty(type7) || !string.IsNullOrEmpty(keyword) || !string.IsNullOrEmpty(author))
             //{
 
-            mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount>0 ", keyword, " mn_shop", "", pager);
+            mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, string.IsNullOrEmpty(author) ? "" : author.TrimEnd(','), " and InventoryCount=-2 ", keyword, " mn_shop", "", pager);
             //}
             //else
             //{
@@ -137,7 +137,7 @@ namespace web.Controllers
         /// 商城首页详情页面
         /// </summary>
         /// <returns></returns> 
-        public ActionResult mn_shopdetail(string productid)
+        public ActionResult paimaidetail(string productid)
         {
             ViewBag.ProductInfo = ProductService.GetProductByProductID(productid);
             return View();
