@@ -133,7 +133,6 @@ namespace DataRepository.DataAccess.Product
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.ModifyProduct, "Text"));
             command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
-            command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
             command.AddInputParameter("@ProductName", DbType.String, info.ProductName);
             command.AddInputParameter("@SubTitle", DbType.String, info.SubTitle);
             command.AddInputParameter("@Type1", DbType.String, info.Type1);
@@ -152,7 +151,7 @@ namespace DataRepository.DataAccess.Product
             command.AddInputParameter("@Volume", DbType.String, info.Volume);
             command.AddInputParameter("@CostPrice", DbType.Decimal, info.CostPrice);
             command.AddInputParameter("@MarketPrice", DbType.Decimal, info.MarketPrice);
-            command.AddInputParameter("@LowPrice", DbType.String, info.LowPrice);
+            command.AddInputParameter("@LowPrice", DbType.Decimal, info.LowPrice);
 
             command.AddInputParameter("@ArtisanID", DbType.Int32, info.ArtisanID);
             command.AddInputParameter("@VideoUrl", DbType.String, info.VideoUrl);
@@ -161,8 +160,8 @@ namespace DataRepository.DataAccess.Product
             command.AddInputParameter("@Author", DbType.String, info.Author);
             command.AddInputParameter("@ProImageDetail", DbType.String, info.ProImageDetail);
             command.AddInputParameter("@IsPushMall", DbType.String, info.IsPushMall);
-            command.AddInputParameter("@UpdateDate", DbType.DateTime, info.UpdateDate);
-            command.AddInputParameter("@ID", DbType.DateTime, info.ID);
+            command.AddInputParameter("@UpdateDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@ID", DbType.Int32, info.ID);
             return command.ExecuteNonQuery();
         }
 

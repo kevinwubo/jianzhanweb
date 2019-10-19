@@ -70,6 +70,8 @@ namespace web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
         public void Modify(ArtisanEntity entity)
         {
             if (entity != null)

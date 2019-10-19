@@ -96,7 +96,7 @@ namespace web.Controllers
             pager.PageIndex = p;
             pager.PageSize = 12;
             pager.SumCount = count;
-            pager.URL = "/W11/shop";
+            pager.URL = "/W11/paimai";
 
 
 

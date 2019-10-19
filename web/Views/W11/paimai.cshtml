@@ -13,9 +13,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>建盏商城 - 建盏天下网</title>
-    <meta name="keywords" content="曜变盏,天目盏,兔毫盏,油滴盏,束口盏" />
-    <meta name="description" content="建盏商城是福建省建窑建盏首席品牌商城，提供产地大师名家直供的一手精品货源：兔毫盏、油滴盏、曜变盏、鹧鸪斑、金油滴、敛口盏、束口盏，提供建盏价格、收藏、名家押窑和私人定制服务。" />
+    <title>非极致不登台图录 - 建盏君</title>
+    <meta name="keywords" content="非极致不登台" />
+    <meta name="description" content="非极致不登台" />
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
     <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
     <link rel="stylesheet" href="~/source/static/css/1905_style.css">
@@ -82,17 +82,18 @@
 
 <body>
     <header>
-        <div class="flex-row college-hd">
-            <div class="back"><a href="@(ViewBag.PageUrl)/m_index.html" style="color: #ffffff;">返回</a></div>
-            <div class="txt px36">建盏商城</div>
+        <div class="flex-row college-hd">    
+            <div class="back"><a href="/W11/paimai?telephone=13916116545&author=" style="color: #ffffff;">首页</a></div>
+            <div class="txt px36">拍卖图录</div>
             <div class="menu">
-                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+                
             </div>
         </div>
     </header>
     <div class="div-h-8"></div>
+	<div class="div-h-2"></div>
     <div class="banner">
-        <img src="~/source/static/images/pc/shoucangwap.jpg" alt="" />
+        <img src="~/source/static/images/pc/paimai.jpg" alt="" />
     </div>
     <section class="store-wrap">
         <div class="store-tab">
@@ -104,7 +105,7 @@
             <input type="hidden" id="hid_ys" value="@ViewBag.YSJson" />
             <div class="tab-item @(ViewBag.ArtisanType == "业界大师"?"active":"")" id="div_yjds"><span>业界大师</span></div>
             <div class="tab-item @(ViewBag.ArtisanType == "老牌传承人" ? "active" : "")" id="div_lpccr"><span>老牌传承人</span></div>
-            <div class="tab-item @(ViewBag.ArtisanType == "名家工艺师" ? "active" : "")" id="div_mjgys"><span>名家工艺师</span></div>
+            <div class="tab-item @(ViewBag.ArtisanType == "茶具/茶叶" ? "active" : "")" id="div_mjgys"><span>茶具/茶叶</span></div>
             <div class="tab-item @(ViewBag.ArtisanType == "器形/釉色" ? "active" : "")" id="div_qxys"><span>器形/釉色</span></div>
         </div>
         <div id="mark" style="background: rgba(0,0,0,.5);width: 100%;position: absolute;z-index: 1;display: none">
@@ -117,7 +118,7 @@
         </div>
     </section>
     <div class="store-con">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">@(ViewBag.Keyword)</span>为您选出<span style="color:red">@(p.SumCount)</span>款<br /><br />
+        <p style="padding-top: .08rem; padding-left: 0.6rem;"><span>@(ViewBag.Keyword)</span> 甄选出<span style="color:red">@(p.SumCount)</span>款 <a href="/W11/paimai?telephone=13916116545&author=">看全部老师</a></p><br />
         <div class="part1" style="height:100%;overflow:auto">          
             <div class="list1">
                 @if(list!=null&&list.Count>0)
@@ -132,13 +133,14 @@
                                 </a>
                                 <div class="t1 clamp1">【@entity.Author】</div>
                                 <div class="t1 clamp1">@entity.ProductName</div>
-                                <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" src="~/source/static/images/jianzhan/btn_ljzx.png">
+                                <a href="/W11/paimaidetail?productid=@(entity.ProductID)"><img class="bt-zx" src="~/source/static/images/jianzhan/chakan.png"></a>
                             </div>
                         </div>
                     }
                 }
             </div>
             <!-- 分页器 -->
+			<p style="padding-top: .18rem; padding-left: 0.6rem;">每页12款</p>
             @{ Html.RenderPartial("../Pager_mm", p); }                           
             <div class="div-h-8"></div>
         </div>

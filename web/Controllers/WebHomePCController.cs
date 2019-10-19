@@ -35,12 +35,12 @@ namespace web.Controllers
                 sqlwhere = " and Author in(" + sb.ToString().TrimEnd(',') + ")";
             }
 
-            List<ProductEntity> listNew = ProductService.GetProductsBySqlWhere(4, 2, "");//新品好货
+            List<ProductEntity> listNew = ProductService.GetProductsBySqlWhere(4, 2, " and InventoryCount>0 ");//新品好货
             #endregion
 
             #region 名家名堂  显示艺人最新上架 每个人显示一个
             List<ArtisanEntity> listAll = ArtisanService.GetAllArtisan();
-            sqlwhere = "";
+            sqlwhere = " and InventoryCount>0 ";
             if (list != null && list.Count > 0)
             {
                 StringBuilder sb = new StringBuilder();
@@ -61,7 +61,7 @@ namespace web.Controllers
             {
                 if (!string.IsNullOrEmpty(entityrq.CodeValues))
                 {
-                    listHot = ProductService.GetProductsBySqlWhere(4, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                    listHot = ProductService.GetProductsBySqlWhere(4, "and ProductID in(" + entityrq.CodeValues + ") and InventoryCount>0 ", " InventoryCount desc,Adddate desc");
                 }
             }
             #endregion
@@ -187,7 +187,7 @@ namespace web.Controllers
             //{
             //    mList = ProductService.GetProductInfoPager(OrderBy, pager);
             //}
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
+                ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, " and InventoryCount>0 ");//新品好货
 
             ViewBag.YJDSList = ArtisanService.getSimpleArtisanList("业界大师");//业界大师
             ViewBag.LPCCRList = ArtisanService.getSimpleArtisanList("老牌传承人");//老牌传承人
@@ -260,7 +260,7 @@ namespace web.Controllers
             {
                 mList = ArtisanService.GetArtisanInfoPager(pager, 4);
             }
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, " and InventoryCount>0");//新品好货
             ViewBag.Pager = pager;
             ViewBag.ArtisanList = mList;
             return View();
@@ -281,13 +281,13 @@ namespace web.Controllers
             {
                 if (!string.IsNullOrEmpty(entityrq.CodeValues))
                 {
-                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ") and InventoryCount>0", " InventoryCount desc,Adddate desc");
                 }
             }
             #endregion
 
             ViewBag.listHot = listHot;
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//新品好货
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, " and InventoryCount>0");//新品好货
             return View();
         }
 
@@ -301,7 +301,7 @@ namespace web.Controllers
             ViewBag.ListB = ArticleService.GetArticleByRule(5, 6);
             ViewBag.ListC = ArticleService.GetArticleByRule(6, 6);
             ViewBag.ListD = ArticleService.GetArticleByRule(7, 6);
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(4, 1, " and InventoryCount>0 ");//推荐
             return View();
         }
 
@@ -329,7 +329,7 @@ namespace web.Controllers
             {
                 mList = ArticleService.GetArticleInfoPager(pager);
             }
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(7, 1, " and InventoryCount>0 ");//推荐
             ViewBag.Category_ID = category_id;
             ViewBag.ArticleList = mList;
             ViewBag.Pager = pager;
@@ -352,13 +352,13 @@ namespace web.Controllers
             {
                 if (!string.IsNullOrEmpty(entityrq.CodeValues))
                 {
-                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ") and InventoryCount>0", " InventoryCount desc,Adddate desc");
                 }
             }
             #endregion
 
             ViewBag.listHot = listHot;
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(6, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(6, 1, " and InventoryCount>0 ");//推荐
             return View();
         }
 
@@ -411,11 +411,11 @@ namespace web.Controllers
             {
                 if (!string.IsNullOrEmpty(entityrq.CodeValues))
                 {
-                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ") and InventoryCount>0", " InventoryCount desc,Adddate desc");
                 }
             }
             #endregion
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(6, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(6, 1, " and InventoryCount>0 ");//推荐
             ViewBag.listHot = listHot;
 
             ViewBag.listYS = listYS;
@@ -436,11 +436,11 @@ namespace web.Controllers
             {
                 if (!string.IsNullOrEmpty(entityrq.CodeValues))
                 {
-                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                    listHot = ProductService.GetProductsBySqlWhere(8, "and ProductID in(" + entityrq.CodeValues + ") and InventoryCount>0", " InventoryCount desc,Adddate desc");
                 }
             }
             #endregion
-            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, "");//推荐
+            ViewBag.listTJ = ProductService.GetProductsBySqlWhere(5, 1, " and InventoryCount>0 ");//推荐
             ViewBag.listHot = listHot;
             ViewBag.ArtisanModel = ArtisanService.GetArtisanByKey(artisanid);
             return View();

@@ -75,6 +75,8 @@ namespace web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
         public void Modify(ProductEntity entity)
         {
             if (entity != null)

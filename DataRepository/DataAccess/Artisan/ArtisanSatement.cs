@@ -43,7 +43,7 @@ namespace DataRepository.DataAccess.Artisan
         public static string Modify = @"UPDATE dt_Artisan SET artisanName = @artisanName,artisanName2 = @artisanName2,sex = @sex
                                         ,IDNumber = @IDNumber,birthday = @birthday,workPlace = @workPlace,reviewDate = @reviewDate,artisanType = @artisanType
                                         ,artisanTitle = @artisanTitle,masterWorker = @masterWorker,artisanSpecial = @artisanSpecial,introduction = @introduction
-                                        ,IDHead = @IDHead,DetailedIntroduction,VideoUrl = @VideoUrl,IsCooperation = @IsCooperation,IsRecommend = @IsRecommend
+                                        ,IDHead = @IDHead,DetailedIntroduction=@DetailedIntroduction,VideoUrl = @VideoUrl,IsCooperation = @IsCooperation,IsRecommend = @IsRecommend
                                         ,IsPushMall = @IsPushMall,Sort = @Sort,update_time = @update_time WHERE artisanID=@artisanID";
 
         #region 分页相关

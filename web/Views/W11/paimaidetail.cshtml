@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     @if (entity != null)
     {
-        <title>【@entity.Author 】@entity.ProductName —建盏天下</title>
+        <title>【@entity.Author 】@entity.ProductName —非极致不登台</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="Keywords" content="建盏名家,@entity.Author ,@entity.Type2 ,@entity.Type3 ,@entity.MarketPrice " />
         <meta name="Description" content="【@entity.Author 】@entity.ProductName ,@entity.Volume @StringHelper.NoHTML(entity.summary) " />
@@ -48,7 +48,7 @@
             </div>
             <div class="txt px36">作品详情</div>
             <div class="menu">
-                <img src="~/source/static/images/college/menu.png" onclick="moveLeft()" alt="">
+                
             </div>
         </div>
     </header>
@@ -79,23 +79,9 @@
                     <span>ID:@entity.ProductID</span>
                 </div>
                 <div style="background: #ccc;width: 3px;height: .7rem;margin-right: .3rem;"></div>
-                <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" style="margin-top: 0;margin-right: .3rem;height: .7rem;width: 1.8rem" src="~/source/static/images/jianzhan/btn_ljzx.png">
+                <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" style="margin-top: 0;margin-right: .3rem;height: .7rem;width: 1.8rem" src="~/source/static/images/jianzhan/paimai.png">
             </div>
-            <div class="flex-row " style="
-        bottom: 0;
-        height: 1.62rem;
-        background: white;
-        text-align: center;
-        align-items: center;
-        border-top: .1rem solid #f6f6f6;
-        width: 100%;z-index: 99;">
-                <div class="flex-col searchzx mar-l-30">
-                    <div class="flex-row" style="align-items: center;height: .7rem">
-                        <input style="background: #f7f7f7; width:80%; border: 0px solid #ebebeb; " id="txt_simpleTelephone" class="px24 pad-l-30" type="text" placeholder="请输入您的手机号码" />
-                    </div>
-                </div>
-                <div class="ssbtnzx px24 mar-r-30" id="ljzx">立即咨询</div>
-            </div>
+            
 
             <div class="details-info">
                 <div class="infp-wrap flex-row">
@@ -131,12 +117,12 @@
                         </div>
                     </div>
             </div>
-            <div><img style="width:100%" src="~/source/static/images/jianzhan/detail2.png" alt=""></div>
-            <div><img style="width:100%" src="~/source/static/images/jianzhan/detail1.png" alt=""></div>
+            <div><img style="width:100%" src="~/source/static/images/jianzhan/paimaihui.jpg" alt=""></div>
             <div class="img-show" style="padding:.3rem">
                 @Html.Raw(entity.summary.Replace("900", "730"))
                 @Html.Raw(entity.ProImageDetail)
             </div>
+			<div><img style="width:100%" src="~/source/static/images/jianzhan/detail2.jpg" alt=""></div>
         </section>
     }
 </body>

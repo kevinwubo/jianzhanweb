@@ -14,7 +14,9 @@ var productinfo = {
             if (infos != "") {
                 $("#div_showinfo").html("");
                 for (var i = 0; i < infos.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                    if (infos[i].artisanName != "杨义东") {
+                        $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                    }
                 }
             }
         });
@@ -25,20 +27,33 @@ var productinfo = {
             var telephone = $("#hid_telephone").val();
             if (infos != "") {
                 $("#div_showinfo").html("");
-                for (var i = 0; i < infos.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                for (var i = 0; i < infos.length; i++) {                                                                                
+                    if (infos[i].artisanName != "叶礼旺" && infos[i].artisanName != "叶礼忠" && infos[i].artisanName != "吴立勇" && infos[i].artisanName != "廖设生") {
+                        $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
+                    }
                 }
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=吴立主'>吴立主</div>");
             }
         });
-        //名家工艺师
+        //茶具茶叶
         $("#div_mjgys").on("click", function () {
             var infos = JSON.parse($("#hid_mjgys").val());
             var telephone = $("#hid_telephone").val();
             if (infos != "") {
                 $("#div_showinfo").html("");
-                for (var i = 0; i < infos.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=" + infos[i].artisanName + "'>" + infos[i].artisanName + "</div>");
-                }
+                //for (var i = 0; i < infos.length; i++) {
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=白印'>白印</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=茶叶'>茶叶</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=绿雪芽'>绿雪芽</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=铁印'>铁印</div>");
+
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=鼎炉'>鼎炉</div>");              
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=方几'>方几</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=铜火钵'>铜火钵</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=铜炉'>铜炉</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=锡茶'>锡茶</div>");
+                $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&author=锡罐'>锡罐</div>");              
+                //}
             }
         });
         //器形/釉色
@@ -46,17 +61,16 @@ var productinfo = {
             var infoqxs = JSON.parse($("#hid_qx").val());
             var infoyss = JSON.parse($("#hid_ys").val());
             var telephone = $("#hid_telephone").val();
-            if (infoqxs != "") {
-                $("#div_showinfo").html("");
-                for (var i = 0; i < infoqxs.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=" + infoqxs[i].ValueInfo + "'>" + infoqxs[i].ValueInfo + "</div>");
-                }
-            }
-            if (infoyss != "") {
-                for (var i = 0; i < infoyss.length; i++) {
-                    $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type2=" + infoyss[i].ValueInfo + "'>" + infoyss[i].ValueInfo + "</div>");
-                }
-            }
+            $("#div_showinfo").html("");          
+            
+            
+            $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=束口盏'>束口盏</div>");
+            $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=敞口盏/斗笠'>敞口盏/斗笠</div>");
+            $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=钵型盏'>钵型盏</div>");
+            $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=创新器型'>创新器型</div>");
+            $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=敛口盏'>敛口盏</div>");
+            $("#div_showinfo").append("<div class='markitem'><a href='/W11/paimai?telephone=" + telephone + "&type3=撇口盏'>撇口盏</div>");
+
         });
 
     }

@@ -269,11 +269,14 @@ namespace Service
                 ProductInfo info = TranslateProductInfo(entity);
                 if (entity.ID > 0)
                 {
-                    info.ID = entity.ID;                    
+                    info.ID = entity.ID;
+                    info.UpdateDate = DateTime.Now;
                     result = mr.ModifyProduct(info);
                 }
                 else
                 {
+                    info.Adddate = DateTime.Now;
+                    info.UpdateDate = DateTime.Now;
                     result = mr.CreateNew(info);
                 }
             }

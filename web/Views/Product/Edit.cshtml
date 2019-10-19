@@ -34,6 +34,7 @@
             </div>
             <div class="widget-body" style="overflow: hidden; display: block;">
                 <div class="widget-forms clearfix">
+                    <input type="hidden" id="InventoryCount" name="InventoryCount" value="@entity.InventoryCount" />
                     <input type="hidden" id="ID" name="ID" value="@entity.ID">
                     <div class="control-group">
                         <label class="control-label">产品编号</label>
@@ -143,15 +144,15 @@
                         <div class="controls">
                             <span id="span_summary" style="display:none;">@entity.summary</span>
                             <input class="span5" type="hidden" id="summary" name="summary">
-                            <asp:TextBox ID="txt_summary" name="txt_summary" runat="server" TextMode="MultiLine" value="@entity.summary" Height="400px" Width="1000px" ClientIDMode="Static"></asp:TextBox>
+                            <asp:TextBox ID="txt_summary" name="txt_summary" runat="server" TextMode="MultiLine" value="@entity.summary" Height="400px" Width="600px" ClientIDMode="Static"></asp:TextBox>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">详细介绍</label>
                         <div class="controls">
-                            <span id="span_productdetail" style="display:none;">@entity.ProductDetail</span>
+                            <span id="showcode" style="display:none;">@entity.ProductDetail</span>
                             <input class="span5" type="hidden" id="ProductDetail" name="ProductDetail">
-                            <asp:TextBox ID="txt_ProductDetail" name="txt_ProductDetail" runat="server" TextMode="MultiLine" Height="400px" value="@entity.ProductDetail" Width="1000px" ClientIDMode="Static"></asp:TextBox>
+                            <asp:TextBox ID="txt_ProductDetail" name="txt_ProductDetail" runat="server" TextMode="MultiLine" Height="400px" value="@entity.ProductDetail" Width="600px" ClientIDMode="Static"></asp:TextBox>
                         </div>
                     </div>
                     <div class="control-group">
@@ -163,19 +164,19 @@
                     <div class="control-group">
                         <label class="control-label">成本价</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="成本价" id="CostPrice" name="CostPrice" value="@entity.CostPrice" maxlength="20">
+                            <input class="span5" type="text" placeholder="成本价" id="CostPrice" name="CostPrice" value="@(string.IsNullOrEmpty(entity.CostPrice) ? "0" : entity.CostPrice)" maxlength="20">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">市场价</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="市场价" id="Volume" name="Volume" value="@entity.MarketPrice" maxlength="20">
+                            <input class="span5" type="text" placeholder="市场价" id="MarketPrice" name="MarketPrice" value="@(string.IsNullOrEmpty(entity.MarketPrice) ? "0" : entity.MarketPrice)" maxlength="20">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">最低价</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="最低价" id="LowPrice" name="LowPrice" value="@entity.LowPrice" maxlength="20">
+                            <input class="span5" type="text" placeholder="最低价" id="LowPrice" name="LowPrice" value="@(string.IsNullOrEmpty(entity.LowPrice) ? "0" : entity.LowPrice)" maxlength="20">
                         </div>
                     </div>
                     <div class="control-group">
@@ -216,10 +217,23 @@
 <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
+    //详细介绍
     var ues = UE.getEditor('txt_ProductDetail');//初始化对象
     $(document).ready(function () {
-        var ues = UE.getEditor('ProductDetail');
+        var ues = UE.getEditor('txt_ProductDetail');
         var proinfo = $("#showcode").text();
+
+        ues.ready(function () {//编辑器初始化完成再赋值
+            ues.setContent(proinfo);  //赋值给UEditor
+        });
+
+    });
+
+    //产品描述
+    var ues = UE.getEditor('txt_summary');//初始化对象
+    $(document).ready(function () {
+        var ues = UE.getEditor('txt_summary');
+        var proinfo = $("#span_summary").text();
 
         ues.ready(function () {//编辑器初始化完成再赋值
             ues.setContent(proinfo);  //赋值给UEditor
