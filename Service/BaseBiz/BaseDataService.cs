@@ -239,6 +239,12 @@ namespace Service.BaseBiz
             return list;
         }
 
+        public static long InsertTelephone(string telphone)
+        {
+            BaseDataRepository mr = new BaseDataRepository();
+            return mr.InsertTelephone(telphone);
+        }
+
         public static string GetPCEwmCode()
         {
             String url = "";

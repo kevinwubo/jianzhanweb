@@ -29,6 +29,19 @@ namespace DataRepository.DataAccess.BaseData
         /// 获取活动手机号 临时使用
         /// </summary>
         /// <returns></returns>
+        public long InsertTelephone(string telephone)        {
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(BaseDataStatement.InsertTelephone, "Text"));
+            command.AddInputParameter("@Telephone", DbType.String, telephone);
+
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt64(o);
+        }
+
+        /// <summary>
+        /// 获取活动手机号 临时使用
+        /// </summary>
+        /// <returns></returns>
         public DataSet GetTelephone()
         {
             DataSet ds = new DataSet();

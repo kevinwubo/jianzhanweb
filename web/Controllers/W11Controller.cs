@@ -15,6 +15,20 @@ namespace web.Controllers
         //
         // GET: /W11/
 
+        /// <summary>
+        /// 手机号添加
+        /// </summary>
+        /// <param name="tel"></param>
+        /// <returns></returns>
+        public ActionResult Tel(string tel)
+        {
+            if (!string.IsNullOrEmpty(tel))
+            {
+                BaseDataService.InsertTelephone(tel);
+            }            
+            return View();
+        }
+
         public ActionResult login(string msg)
         {
             return View();

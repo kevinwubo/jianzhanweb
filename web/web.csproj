@@ -1039,6 +1039,7 @@
     <Content Include="Views\W11\paimaidetail.cshtml" />
     <Content Include="Views\Shared\_Layout_Active_web.cshtml" />
     <Content Include="Views\W11\login.cshtml" />
+    <Content Include="Views\W11\Tel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

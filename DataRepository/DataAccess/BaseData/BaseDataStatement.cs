@@ -8,6 +8,8 @@ namespace DataRepository.DataAccess.BaseData
 {
     public class BaseDataStatement
     {
+        public static string InsertTelephone = @"INSERT INTO dt_TempInfo(Telephone) VALUES(@Telephone)";
+
         public static string GetTelephone = @"SELECT ID,Telephone FROM dt_TempInfo(NOLOCK)";
 
         public static string GetQRCode = @"SELECT * FROM dt_QRCode(NOLOCK) WHERE 1=1 ";

@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Tel";
+    Layout = null;
+}
+<link href="~/source/assets/css/bootstrap.css" rel="stylesheet">
+<link href="~/source/assets/css/theme.css" rel="stylesheet">
+<link href="~/source/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/source/assets/css/alertify.css" rel="stylesheet">
+<link href="~/source/assets/css/OpenSans.css" rel="stylesheet" /> 
+<div class="row-fluid">
+    <form class="form-horizontal" id="AddForm" action="/W11/Tel" method="post">
+        <div class="widget widget-padding span12">
+            <div class="widget-header" style="margin-top:30px">
+                <i class="icon-list-alt"></i><h5>手机号增加</h5>
+            </div>
+            <div class="widget-body" style="overflow: hidden; display: block;">
+                <div class="widget-forms clearfix">
+                    <div class="control-group">
+                        <label class="control-label">手机号</label>
+                        <div class="controls">
+                            <input class="span5" type="text" id="tel" placeholder="请输入手机号" name="tel"/>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="widget-footer">
+                <button class="btn btn-primary" type="submit" id="save">保存</button>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
