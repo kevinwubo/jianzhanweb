@@ -177,8 +177,8 @@ namespace web.Controllers
                 }
                 sqlwhere = " and Author in(" + sb.ToString().TrimEnd(',') + ")";
             }
-            
-            List<ProductEntity> listNew = ProductService.GetProductsBySqlWhere(9, 2, "");//新品好货
+
+            List<ProductEntity> listNew = ProductService.GetProductsBySqlWhere(9, 2, "  and InventoryCount>0 ");//新品好货
 
             #region 人气推荐
             List<ProductEntity> listHot = new List<ProductEntity>();//人气推荐
@@ -187,7 +187,7 @@ namespace web.Controllers
             {
                 if (!string.IsNullOrEmpty(entityrq.CodeValues))
                 {
-                    listHot = ProductService.GetProductsBySqlWhere(9, "and ProductID in(" + entityrq.CodeValues + ")", " InventoryCount desc,Adddate desc");
+                    listHot = ProductService.GetProductsBySqlWhere(9, "and ProductID in(" + entityrq.CodeValues + ")  and InventoryCount>0 ", " InventoryCount desc,Adddate desc");
                 }
             }
             #endregion

@@ -74,7 +74,7 @@
                     {
                         <div style="width: 3.6rem;
                         height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
-                            <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListA[0].img_url" alt="">
+                            <a href="/WebHomePC/collegedetail?id=@ListA[0].id" target="_blank"><img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListA[0].img_url" alt=""></a>
                             <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
                                 @ListA[0].articleTitle
                             </div>
@@ -104,11 +104,12 @@
                     {
                         <div style="width: 3.6rem;
                         height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
-                            <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListB[0].img_url" alt="">
-                            <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
-                                @ListB[0].articleTitle
-                            </div>
-                        </div>
+                            <a href="/WebHomePC/collegedetail?id=@ListB[0].id" target="_blank">
+                                <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListB[0].img_url" alt=""></a>
+                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                    @ListB[0].articleTitle
+                                </div>
+</div>
                         <div style="width:.28rem"></div>
                         <div class="flex-col">
 
@@ -132,13 +133,13 @@
                     border-bottom: #eee solid 0px;">
                     @if (ListC != null && ListC.Count > 0)
                     {
-                        <div style="width: 3.6rem;
-                        height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
-                            <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListC[0].img_url" alt="">
-                            <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
-                                @ListC[0].articleTitle
-                            </div>
-                        </div>
+                        <div style="width: 3.6rem;            height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
+                            <a href="/WebHomePC/collegedetail?id=@ListC[0].id" target="_blank">
+                                <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListC[0].img_url" alt=""></a>
+                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                    @ListC[0].articleTitle
+                                </div>
+</div>
                         <div style="width:.28rem"></div>
                         <div class="flex-col">
                             @foreach (ArticleEntity entity in ListC)
@@ -164,11 +165,12 @@
                     {
                         <div style="width: 3.6rem;
                         height: 2.4rem;position: relative;background: #fff ;border: 1px solid #f8f8f8;">
-                            <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListD[0].img_url" alt="">
-                            <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
-                                @ListD[0].articleTitle
-                            </div>
-                        </div>
+                            <a href="/WebHomePC/collegedetail?id=@ListD[0].id" target="_blank">
+                                <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListD[0].img_url" alt=""></a>
+                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                    @ListD[0].articleTitle
+                                </div>
+</div>
                         <div style="width:.28rem"></div>
                         <div class="flex-col">
 
