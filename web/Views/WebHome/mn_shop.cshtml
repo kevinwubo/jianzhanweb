@@ -113,7 +113,7 @@
         </div>
     </section>
     <div class="store-con">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">@(ViewBag.Keyword)</span>为您选出<span style="color:red">@(p.SumCount)</span>款<br /><br />
+        <p style="padding-top: .08rem; padding-left: 0.6rem;"><u>"@(ViewBag.Keyword)"</u> 为您选出<span style="color:red">@(p.SumCount)</span>款 <a href="/WebHome/mn_shop?author=">看全部老师</a></p><br />
         <div class="part1" style="height:100%;overflow:auto">          
             <div class="list1">
                 @if(list!=null&&list.Count>0)

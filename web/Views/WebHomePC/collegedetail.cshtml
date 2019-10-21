@@ -41,25 +41,19 @@
             {
                 <section class="college-wrap">
                     <div class="wrap-title">
-                        <h1 class="clamp1" style="font-size: .22rem">@entity.articleTitle</h1>
-                        <span class="px14">日期：2017-12-16 版块：<em>@entity.articleType</em></span>
+                        <h1 class="clamp1" style="font-size: .24rem">@entity.articleTitle</h1>
+                        <span class="px14">日期：@entity.AddDate.ToShortDateString() 版块：<u style="color: red">@entity.articleType</u></span>
                     </div>
                     <div class="wrap-con">
-                        <h2 class="px14">
-                            @entity.zhaiyao
-                        </h2>
+                        
                         @Html.Raw(entity.content)
                     </div>
                     <div class="wrap-footer flex-row">
-                        <div>
-                            
-                        </div>
+                        
                         <div class="flex-col">
 
                         </div>
-                        <div>
-                            
-                        </div>
+                        
                     </div>
                 </section>
             }
@@ -152,11 +146,11 @@
                 <div style="margin-left: .4rem">
                     <div class="px18 texta-c">拨打热线，直接沟通</div>
                     <div class="div-h-1"></div>
-                    <div class="texta-c" style="font-size:.22rem;color: #B32735">400-607-9898</div>
+                    <div class="texta-c" style="font-size:.22rem;color: #B32735">4008-276-376</div>
                     <div class="div-h-1"></div>
                     <div style="height:1px;background:#ddd;"></div>
                     <img style="margin-left:.2rem ;height:1.94rem;width:1.94rem" src="/source/static/images/pc/5_code.png" alt="">
-                    <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看事物视频)</div>
+                    <div class="px14 texta-c" style="margin-left: .2rem;color:#202020;">(扫码查看实物视频)</div>
                 </div>
             </div>
         </div>

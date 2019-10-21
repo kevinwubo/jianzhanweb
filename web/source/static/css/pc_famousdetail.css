@@ -411,13 +411,13 @@
     }
 
     .about-wrap .about-con .fea-main p {
-        text-indent: .5rem;
+        text-indent: .35rem;
         color: #353535;
         font-size: .16rem;
-        line-height: .4rem;
+        line-height: .3rem;
         font-weight: 400;
-        border-bottom: 2px solid #E6E6E6;
-        padding: .3rem 0;
+        border-bottom: 0.5px solid #E6E6E6;
+        padding: .1rem 0;
     }
 
         .about-wrap .about-con .fea-main p:nth-last-child(1) {

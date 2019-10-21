@@ -117,6 +117,7 @@ namespace Service
             try
             {
                 List<UserEntity> allList = UserService.GetUserAll(false);
+                LogHelper.WriteTextLog("所有销售队列", JsonHelper.ToJson(allList), DateTime.Now);
                 //当前销售队列
                 string codes = BaseDataService.GetCodeValuesByRule(code).CodeValues;
                 //当前销售队列
@@ -145,7 +146,7 @@ namespace Service
                 string[] codeList = codes.Split(',');
                 foreach (string name in codeList)
                 {
-                    UserEntity entity = allList.Find(p => p.NickName.Equals(name) && (p.SalesCount < p.currentSalesCount || p.currentSalesCount == 0));
+                    UserEntity entity = allList.Find(p => p.NickName.Equals(name) && (p.SalesCount > p.currentSalesCount || p.currentSalesCount == 0));
                     if (entity != null)
                     {
                         list.Add(entity);

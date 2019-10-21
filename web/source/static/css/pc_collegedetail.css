@@ -347,7 +347,7 @@ html {
     text-align: center;
     /* width: 3.39rem; */
     width: 2.65rem;
-    height: 3.05rem;
+    height: 2.9rem;
     padding: .1rem;
     margin-left: .1rem;
     background: #f0f0f0;
@@ -372,7 +372,7 @@ html {
     }
 
     .left .ds-item .pimg {
-        height: 2rem;
+        height: 1.8rem;
         /* margin-top: .1rem; */
         width: 100%;
         background-size: 100% !important;
@@ -581,7 +581,7 @@ html {
     .college-wrap .wrap-title h1 {
         color: #262626;
         text-align: center;
-        font-weight: 400;
+        font-weight: 600;
     }
 
     .college-wrap .wrap-title span {
@@ -601,9 +601,10 @@ html {
 
     .college-wrap .wrap-con h2 {
         color: #353535;
-        text-indent: .4rem;
-        line-height: .4rem;
+        text-indent: .35rem;
+        line-height: .35rem;
         padding-bottom: .2rem;
+		font-family: 宋体;
     }
 
     .college-wrap .wrap-con span {
@@ -621,9 +622,9 @@ html {
     }
 
     .college-wrap .wrap-con p {
-        font-size: .24rem;
-        color: #353535;
-        line-height: .4rem;
-        text-indent: .4rem;
+        font-size: .17rem;
+        color: #161616;
+        line-height: .36rem;
+        text-indent: .36rem;
         /* font-weight: bold; */
     }

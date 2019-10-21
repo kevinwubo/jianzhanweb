@@ -31,11 +31,15 @@ namespace Service
             entity.articleTitle = info.title;
             entity.articleType = getArticleType(info.category_id);
             entity.id = info.id.ToString();
-            entity.img_url = info.img_url;            
+            entity.img_url = info.img_url;
             if (string.IsNullOrEmpty(info.img_url))
             {
                 int i = info.id & 5;
                 entity.img_url = "/Images/" + i + ".jpg";
+            }
+            else
+            {
+                entity.img_url = info.img_url.Replace("http://121.42.156.253", FileUrl);
             }
             entity.zhaiyao = info.zhaiyao;
             entity.content = info.content;
@@ -117,12 +121,12 @@ namespace Service
         {
             List<ArticleEntity> all = new List<ArticleEntity>();
             ArticleRepository mr = new ArticleRepository();
-            List<ArticleInfo> miList = Cache.Get<List<ArticleInfo>>("GetAllArticleInfoByRule" + category_id);
+            List<ArticleInfo> miList = Cache.Get<List<ArticleInfo>>("GetAllArticleInfoByRule" + category_id + pager.PageIndex + pager.PageCount);
 
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllArticleInfoByRule(category_id, pager);
-                Cache.Add("GetAllArticleInfoByRule" + category_id, miList);
+                Cache.Add("GetAllArticleInfoByRule" + category_id + pager.PageIndex + pager.PageCount, miList);
             }
             if (!miList.IsEmpty())
             {

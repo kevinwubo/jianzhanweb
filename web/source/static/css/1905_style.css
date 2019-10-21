@@ -687,7 +687,7 @@
     border-bottom: .1rem solid #F2F2F2;
 }
 .details-wrap .infp-wrap{
-    padding: .34rem .26rem;
+    padding: .26rem .26rem;
     display: flex;
     border-bottom: 1px solid #EBEBEB;
 }
@@ -735,8 +735,8 @@
 }
 
 .store-wrap .store-tab .tab-item span{
-    color: #292929;
-    font-size: .24rem;
+    color: #c90319;
+    font-size: .25rem;
     text-align: center;
     padding: .12rem;
     margin: .02rem;
