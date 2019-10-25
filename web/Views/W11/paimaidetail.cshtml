@@ -2,7 +2,7 @@
 @using Common;
 @{
     ViewBag.Title = "mn_shopdetail";
-    Layout = "~/Views/Shared/_Layout_Active_web.cshtml";
+    Layout = "/Views/Shared/_Layout_Active_web.cshtml";
     ProductEntity entity = (ProductEntity)ViewBag.ProductInfo;
 }
 <!doctype html>
@@ -18,10 +18,10 @@
         <meta name="Description" content="【@entity.Author 】@entity.ProductName ,@entity.Volume @StringHelper.NoHTML(entity.summary) " />
     }
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
-    <link rel="stylesheet" href="~/source/static/css/1905_swiper.min.css">
-    <link rel="stylesheet" href="~/source/static/css/1905_base_1_30.css" type="text/css">
-    <link rel="stylesheet" href="~/source/static/css/1905_style.css">
-    <link rel="stylesheet" href="~/source/static/css/style-index.css" type="text/css" />
+    <link rel="stylesheet" href="/source/static/css/1905_swiper.min.css">
+    <link rel="stylesheet" href="/source/static/css/1905_base_1_30.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/1905_style.css">
+    <link rel="stylesheet" href="/source/static/css/style-index.css" type="text/css" />
     <style>
         body {
             background: #fff;
@@ -76,7 +76,7 @@
             <div class="goods-info flex-row">
                 <div class="flex-col">
                     <div class="tit">@entity.ProductName</div>
-                    <span>ID:@entity.ProductID</span>
+                    <span>拍品编号:@entity.ProductID</span>
                 </div>
                 <div style="background: #ccc;width: 3px;height: .7rem;margin-right: .3rem;"></div>
                 <img class="bt-zx" onclick="javascript:show_zixun('@entity.ProductID','@entity.ProductName')" style="margin-top: 0;margin-right: .3rem;height: .7rem;width: 1.8rem" src="~/source/static/images/jianzhan/paimai.png">
@@ -117,12 +117,12 @@
                         </div>
                     </div>
             </div>
-            <div><img style="width:100%" src="~/source/static/images/jianzhan/paimaihui.jpg" alt=""></div>
+            <div><img style="width:100%" src="/source/static/images/jianzhan/paimaihui.jpg" alt=""></div>
             <div class="img-show" style="padding:.3rem">
                 @Html.Raw(entity.summary.Replace("900", "730"))
                 @Html.Raw(entity.ProImageDetail)
             </div>
-			<div><img style="width:100%" src="~/source/static/images/jianzhan/detail2.jpg" alt=""></div>
+			<div><img style="width:100%" src="/source/static/images/jianzhan/detail2.jpg" alt=""></div>
         </section>
     }
 </body>

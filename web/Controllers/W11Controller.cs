@@ -50,6 +50,12 @@ namespace web.Controllers
                 result = list.Contains(telephone);
             }
 
+            if (result)
+            {
+                Response.Cookies["Telephone"].Value = telephone;
+                Response.Cookies["Telephone"].Expires = DateTime.Now.AddDays(1);
+            }
+
             return new JsonResult
             {
                 Data = result
@@ -60,8 +66,9 @@ namespace web.Controllers
         /// 商城首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult paimai(string telephone, string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
+        public ActionResult paimai( string type2, string type3, string type4, string type7, string author, string artisanType, string keyword = "", int p = 1)
         {
+            string telephone = Request.Cookies["Telephone"] != null ? Request.Cookies["Telephone"].Value : "";
             if (string.IsNullOrEmpty(telephone))
             {
                 Response.Redirect("/W11/login");
@@ -124,7 +131,7 @@ namespace web.Controllers
             //    mList = ProductService.GetProductInfoPager("ORDER BY Adddate Desc", pager);
             //}
 
-            ViewBag.telephone = telephone;
+            //ViewBag.telephone = telephone;
             ViewBag.YJDSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("业界大师"));//业界大师
             ViewBag.LPCCRJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("老牌传承人"));//老牌传承人
             ViewBag.MJGYSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("名家工艺师"));//名家工艺师

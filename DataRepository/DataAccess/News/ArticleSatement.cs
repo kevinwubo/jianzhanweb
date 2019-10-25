@@ -57,6 +57,13 @@ namespace DataRepository.DataAccess.New
 		                                                  SELECT *  FROM article 
 		                                                  WHERE RowNumber BETWEEN @UP+1 AND @UP+@PageSize
 	                                                  END";
+
+
+        public static string ModifyArticle = @"UPDATE dbo.dt_article SET channel_id = @channel_id,category_id = @category_id,call_index = @call_index,title = @title
+                                        ,link_url = @link_url,img_url = @img_url,seo_title = @seo_title,seo_keywords = @seo_keywords,seo_description = @seo_description
+                                        ,zhaiyao = @zhaiyao,content = @content,sort_id = @sort_id,click = @click,status = @status,user_name = @user_name,update_time = @update_time  WHERE id=@id";
+
+        public static string ModifyContent = @"UPDATE dbo.dt_article SET content = @content ,update_time = @update_time  WHERE id=@id";
         #endregion     
     }
 }

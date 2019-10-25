@@ -83,7 +83,7 @@
 <body>
     <header>
         <div class="flex-row college-hd">    
-            <div class="back"><a href="/W11/paimai?telephone=13916116545&author=" style="color: #ffffff;">首页</a></div>
+            <div class="back"><a href="/W11/paimai" style="color: #ffffff;">首页</a></div>
             <div class="txt px36">拍卖图录</div>
             <div class="menu">
                 
@@ -105,7 +105,7 @@
             <input type="hidden" id="hid_ys" value="@ViewBag.YSJson" />
             <div class="tab-item @(ViewBag.ArtisanType == "业界大师"?"active":"")" id="div_yjds"><span>业界大师</span></div>
             <div class="tab-item @(ViewBag.ArtisanType == "老牌传承人" ? "active" : "")" id="div_lpccr"><span>老牌传承人</span></div>
-            <div class="tab-item @(ViewBag.ArtisanType == "茶具/茶叶" ? "active" : "")" id="div_mjgys"><span>茶具/茶叶</span></div>
+            <div class="tab-item @(ViewBag.ArtisanType == "茶叶/茶具" ? "active" : "")" id="div_mjgys"><span>茶叶/茶具</span></div>
             <div class="tab-item @(ViewBag.ArtisanType == "器形/釉色" ? "active" : "")" id="div_qxys"><span>器形/釉色</span></div>
         </div>
         <div id="mark" style="background: rgba(0,0,0,.5);width: 100%;position: absolute;z-index: 1;display: none">
@@ -118,7 +118,7 @@
         </div>
     </section>
     <div class="store-con">
-        <p style="padding-top: .08rem; padding-left: 0.6rem;"><span>@(ViewBag.Keyword)</span> 甄选出<span style="color:red">@(p.SumCount)</span>款 <a href="/W11/paimai?telephone=13916116545&author=">看全部老师</a></p><br />
+        <p style="padding-top: .08rem; padding-left: 0.7rem;"><span>@(ViewBag.Keyword)</span> 甄选出<span style="color:red">@(p.SumCount)</span>款 <a href="/W11/paimai?telephone=1111&author=">看全部拍品</a></p><br />
         <div class="part1" style="height:100%;overflow:auto">          
             <div class="list1">
                 @if(list!=null&&list.Count>0)
@@ -127,7 +127,7 @@
                     { 
                         <div class="item1">
                             <div style="margin: 0 .1rem">
-                                <div class="t1 color_red_c9">ID:@entity.ProductID</div>
+                                <div class="t1 color_red_c9">拍品编号:@entity.ProductID</div>
                                 <a href="/W11/paimaidetail?productid=@(entity.ProductID)">
                                     <div class="pimg" style="background: url(@entity.Images) no-repeat"></div>
                                 </a>
@@ -149,8 +149,8 @@
 </body>
 
 </html>
-<script src="~/source/static/js/jquery-2.1.4.js"></script>
-<script src="~/source/ProductInfo_Active.js?@(DateTime.Now.ToString("yyyyMMddHHmmss"))"></script>
+<script src="/source/static/js/jquery-2.1.4.js"></script>
+<script src="/source/ProductInfo_Active.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         productinfo.init();

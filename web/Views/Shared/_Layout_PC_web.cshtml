@@ -8,8 +8,70 @@
 <!doctype html>
 <html>
 <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="/source/static/css/1905_jquery-weui.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/pcstyle.css" type="text/css">
+    <style>
+        .footermain .botbg {
+            position: fixed;
+            bottom: 0px;
+            z-index: 100;
+           background: rgba(0,0,0,.8);
+            width: 100%;
+            height: 100px;
+        }
+
+        .footermain .botbg .qrcode {
+            width: 125px;
+            height: 125px;
+            position: absolute;
+            top: -30px;
+            left: 130px;
+        }
+
+        .footermain .botbg .img2 {
+            width: 302px;
+            height: 83px;
+            position: absolute;
+            top: 10px;
+            left: 280px;
+        }
+
+        .footermain .botbg dl {
+            float: left;
+            margin-left: 600px;
+            margin-top: 30px;
+        }
+
+        .footermain .botbg dd {
+            float: left;
+        }
+
+        .footermain .botbg dd:nth-child(2) {
+            margin-left: 10px;
+        }
+
+        .footermain .botbg dd .txt {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            height: 40px;
+            width: 300px;
+            padding-left: 20px;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        .footermain .botbg dd .btn {
+            background: #ffe610;
+            color: #666;
+            width: 146px;
+            border: 0px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 40px;
+            height: 40px;
+        }
+    </style>
 </head>
 <meta charset="utf-8">@RenderSection("Header", false)
 
@@ -136,7 +198,7 @@
                             <div style="height:.375rem;line-height: .375rem;text-align: left">器型：<label id="lb_Type3" /></div>
                         </div>
                         <div class="flex-col">
-                            <div style="height:.375rem;line-height: .375rem;text-align: left">名称：<label id="lb_ProductName" /></div>
+                            <div style="height:.375rem;line-height: .375rem;text-align: left">名称：<label id="lb_ProductName"  title=""/></div>
                             <div style="height:.375rem;line-height: .375rem;text-align: left">釉色：<label id="lb_Type2" /></div>
                         </div>
                     </div>
@@ -234,6 +296,22 @@
             </div>
         </div>
     </footer>
+    <div class="footermain">
+        <div class="botbg">
+            <div class="wrapmain">
+                <img src="/source/static/images/pc/botqr.jpg" class="qrcode">
+                <img src="/source/static/images/pc/botconsult2.jpg" class="img2">
+                <dl>
+                    <dd>
+                        <input type="text" id="txtconsult_botphone" class="txt" placeholder="请输入手机号码">
+                    </dd>
+                    <dd>
+                        <input type="button" value="申请获取" class="btn" id="btn_FooterMain">
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
     <script src="/source/pc_o_code.js"></script>
     <script src="/source/static/js/jquery-2.1.4.js"></script>
     <script src="/source/static/js/jquery-weui.js"></script>
@@ -253,7 +331,11 @@
         function showzx(productid, productname, type3, type2) {
             utils.toggleBody(1)
             $("#lb_ProductID").text(productid);
-            $("#lb_ProductName").text(productname);
+            if (productname != "") {
+                $("#lb_ProductName").text(productname.length > 6 ? productname.substring(0, 6) : productname);
+                $("#lb_ProductName").attr("title", productname);
+            }
+            
             $("#lb_Type3").text(type3);
             $("#lb_Type2").text(type2);
             $('#tixing').show();
@@ -332,6 +414,25 @@
         $("#btn_easyZX").click(function () {
             var Telephone = $("#txt_easyTel").val();
             var ProductID = 0;
+            var ContactName = "";
+            var WxChartID = "";
+            var Content = "";
+            if (Telephone == "") {
+                alert('请输入您的手机号码');
+                return false;
+            }
+            if (Telephone.length != 11) {
+                alert('请输入正确的手机号码');
+                return false;
+            }
+            ZiXun(Telephone, ProductID, ContactName, WxChartID);
+
+        })
+
+        //浮层资讯
+        $("#btn_FooterMain").click(function () {            
+            var Telephone = $("#txtconsult_botphone").val();
+            var ProductID = -1;
             var ContactName = "";
             var WxChartID = "";
             var Content = "";

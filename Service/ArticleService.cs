@@ -31,7 +31,7 @@ namespace Service
             entity.AddDate = info.add_time;
             entity.articleTitle = info.title;
             entity.articleType = getArticleType(info.category_id);
-            entity.id = info.id.ToString();
+            entity.id = info.id;
             entity.img_url = info.img_url;
             if (string.IsNullOrEmpty(info.img_url))
             {
@@ -105,6 +105,15 @@ namespace Service
             return type;
         }
 
+        public static int ModifyContent(ArticleEntity entity)
+        {
+            ArticleRepository mr = new ArticleRepository();
+            ArticleInfo info=new ArticleInfo();
+            info.id = entity.id;
+            info.content = entity.content;
+            info.update_time = DateTime.Now;
+            return  mr.ModifyContent(info);
+        }
 
         public static List<ArticleEntity> GetArticleByRule(int category_id, int count)
         {

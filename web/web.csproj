@@ -919,6 +919,8 @@
     <Content Include="source\static\images\pc\5_top_line.png" />
     <Content Include="source\static\images\pc\6_top_line.png" />
     <Content Include="source\static\images\pc\banner.png" />
+    <Content Include="source\static\images\pc\botconsult2.jpg" />
+    <Content Include="source\static\images\pc\botqr.jpg" />
     <Content Include="source\static\images\pc\code.png" />
     <Content Include="source\static\images\pc\dc1.png" />
     <Content Include="source\static\images\pc\dc2.png" />

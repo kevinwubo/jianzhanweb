@@ -54,6 +54,17 @@ namespace DataRepository.DataAccess.News
             return result;
         }
 
+
+        public int ModifyContent(ArticleInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArticleSatement.ModifyContent, "Text"));
+            command.AddInputParameter("@content", DbType.String, info.content);
+            command.AddInputParameter("@update_time", DbType.String, info.update_time);
+            command.AddInputParameter("@id", DbType.String, info.id);
+            return command.ExecuteNonQuery();
+        }
+
+
         #region 分页方法
         /// <summary>
         /// 

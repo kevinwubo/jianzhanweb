@@ -43,7 +43,7 @@ namespace web.Controllers
                 }
                 if ("index".Equals(type)) //首页
                 {
-                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index" + urlPar, pageUrl+"m_index.html");
+                    Common.HtmlHelper.CreateStaticPage(Url + "webhome/mn_index" + urlPar, pageUrl + "m_index.html");
                 }
                 else if ("shop".Equals(type))//商城
                 {

@@ -23,15 +23,20 @@ $(document).ready(function () {
 
     $(".b_C1F8A9").click(function () {//处理左边栏菜单收缩放开
         event.stopPropagation();
-        if ($(this).hasClass("collapsed")) {
-            console.log(1);
-            $(this).removeClass("collapsed").next(".collapse").css("height", "auto");
-        }
-        else {
-            console.log(2);
+        console.log(1);
+        var height = $(this).addClass("collapsed").next(".collapse").height();
+        //循环所有关闭
+        if (height > 0) {
             $(this).addClass("collapsed").next(".collapse").css("height", "0px");
         }
-        
+        else {
+
+            $(".b_C1F8A9").each(function () {
+                $(this).addClass("collapsed").next(".collapse").css("height", "0px");
+            });
+            //当前菜单打开
+            $(this).removeClass("collapsed").next(".collapse").css("height", "auto");
+        }
     })
 
     $(document).keyup(function (event) {

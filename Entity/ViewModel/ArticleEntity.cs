@@ -23,7 +23,7 @@ namespace Entity.ViewModel
         /// <summary>
         /// 编号
         /// </summary>
-        public string id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// 内容
