@@ -25,25 +25,25 @@
 
 <div class="body" style="margin-top:.25rem">
 
-    <img src="/source/static//images/pc/minjia.jpg" style="height:1.2rem" alt="">
+    <img src="/source/static/images/pc/minjia.jpg" style="height:1.2rem" alt="">
 
-    <img src="/source/static//images/pc/line.png" alt="">
+    <img src="/source/static/images/pc/line.png" alt="">
 
     <div class="flex-row jz-body">
         <div class="left">
-            <img src="/source/static/images//pc//hot.png" style="margin: .2rem .1rem;" alt="">
+            <img src="/source/static/images/pc/hot.png" style="margin: .2rem .1rem;" alt="">
 
             @*<div class="c1">
                 <img src="/source/static/images/pc/jz1.png" alt="">
                 <div class="px14 color_f" style="width: 100%;line-height: .34rem;text-align: center;position: absolute;bottom: 0;left: 0;;height: .34rem;;background:rgba(0, 0, 0,.3)">
-                    红花阿瑟费几点回
+                    
                 </div>
             </div>
             <div class="div-h-1"></div>
             <div class="c1">
                 <img src="/source/static/images/pc/jz1.png" alt="">
                 <div class="px14 color_f" style="width: 100%;line-height: .34rem;text-align: center;position: absolute;bottom: 0;left: 0;;height: .34rem;;background:rgba(0, 0, 0,.3)">
-                    红花阿瑟费几点回
+                    
                 </div>
             </div>*@
 @if (tjList != null && tjList.Count > 0)
@@ -74,14 +74,14 @@
                     {
                         <a class="flex-row" style="padding: .3rem 0;
                     border-bottom: #eee solid 1px;">
-                            <div style="width: 3rem;height: 3rem;position: relative;background: #fff">
+                            <div style="width: 3rem;height: 2.65rem;position: relative;background: #fff">
                                 <img style="
 								padding: .07rem; 
 								height: 2.56rem; 
 								width: 2.86rem; 
 								border: 1px solid #f8f8f8;cursor:pointer" src="@entity.IDHead" alt="" onclick="OpenUrl('/art@(entity.artisanID).html')">
-                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
-                                    @entity.artisanName 
+                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:94%;position:absolute;bottom:0;left:0.1rem;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                    @entity.artisanName
                                 </div>
                             </div>
                             <div style="width:.28rem"></div>
@@ -89,7 +89,7 @@
                                 <div class="color_3" style="font-size:21px"> @entity.artisanName</div>
                                 <div class="div-h-1"></div>                                
                                 <div class="color_3" >@entity.artisanTitle</div>
-                                <div class="div-h-1"></div>
+				<div class="div-h-1"></div>
                                 <div class="clamp3" style="line-height:.29rem;position: relative;">
                                     @(string.IsNullOrEmpty(entity.introduction) ? "" : (entity.introduction.Length > 118 ? entity.introduction.Substring(0, 117) : entity.introduction))
                                     <span style="position: absolute;

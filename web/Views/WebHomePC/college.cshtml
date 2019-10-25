@@ -31,22 +31,22 @@
         <div class="flex-col p6-item  p6-item-act">
             <a href="/WebHomePC/college">学院首页</a>
         </div>
-        @*1新闻资讯/3拍卖行情/33建盏天下/5建盏工艺/6百科知识/7选盏技巧/8文化历史*@
+        @*6入门知识/8文化历史/1媒体新闻/5传承工艺/7选盏技巧/3鉴赏秘籍/33建盏天下*@
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=1" target="_blank">新闻资讯</a>
+            <a href="/WebHomePC/collegelist?category_id=6" target="_blank">入门知识</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=3" target="_blank">实拍行情</a>
+            <a href="/WebHomePC/collegelist?category_id=8" target="_blank">文化历史</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=5" target="_blank">建盏工艺</a>
+            <a href="/WebHomePC/collegelist?category_id=1" target="_blank">媒体新闻</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=6" target="_blank">百科知识</a>
+            <a href="/WebHomePC/collegelist?category_id=5" target="_blank">传承工艺</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
@@ -54,7 +54,7 @@
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item">
-            <a href="/WebHomePC/collegelist?category_id=8" target="_blank">文化历史</a>
+            <a href="/WebHomePC/collegelist?category_id=3" target="_blank">鉴赏秘籍</a>
         </div>
     </div>
     <div class="flex-row jz-body">
@@ -62,20 +62,18 @@
 
             <div class="list-4">
                 <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff;">
-                    <div class="px18" style="font-family:SourceHanSansCN-Bold;
-                                                font-weight:bold;">新闻资讯</div>
+                    <div class="px18" style="font-family:SourceHanSansCN-Bold; font-weight:bold;">入门知识</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=1" target="_blank">MORE 》</a></div>
+                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=6" target="_blank">MORE 》</a></div>
                 </div>
-                <img src="/source/static//images/pc/6_top_line.png" alt="">
+                <img src="/source/static/images/pc/6_top_line.png" alt="">
                 <div class="flex-row" style="padding: .2rem 0;
                     border-bottom: #eee solid 0px;">
                     @if (ListA != null && ListA.Count > 0)
                     {
-                        <div style="width: 3.6rem;
-                        height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
+                        <div style="width: 3.6rem; height: 2.33rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
                             <a href="/WebHomePC/collegedetail?id=@ListA[0].id" target="_blank"><img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListA[0].img_url" alt=""></a>
-                            <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                            <div style="line-height: .5rem;text-align: center;height: .5rem;width:95%;position:absolute;bottom:0;left:0.09rem; font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
                                 @ListA[0].articleTitle
                             </div>
                         </div>
@@ -84,7 +82,7 @@
                             @foreach (ArticleEntity entity in ListA)
                             {
                                 <a class="info clamp1" target="_blank" href="/WebHomePC/collegedetail?id=@entity.id">
-                                    ·@entity.articleTitle
+                                    • @entity.articleTitle
                                 </a>
                             }
 
@@ -92,21 +90,19 @@
                     }
                 </div>
                 <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff;">
-                    <div class="px18" style="font-family:SourceHanSansCN-Bold;
-                                                    font-weight:bold;">建盏工艺</div>
+                    <div class="px18" style="font-family:SourceHanSansCN-Bold; font-weight:bold;">媒体新闻</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=5" target="_blank">MORE 》</a></div>
+                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=1" target="_blank">MORE 》</a></div>
                 </div>
-                <img src="/source/static//images/pc/6_top_line.png" alt="">
+                <img src="/source/static/images/pc/6_top_line.png" alt="">
                 <div class="flex-row" style="padding: .2rem 0;
                     border-bottom: #eee solid 0px;">
                     @if (ListB != null && ListB.Count > 0)
                     {
-                        <div style="width: 3.6rem;
-                        height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
+                        <div style="width: 3.6rem; height: 2.33rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
                             <a href="/WebHomePC/collegedetail?id=@ListB[0].id" target="_blank">
                                 <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListB[0].img_url" alt=""></a>
-                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                <div style="line-height: .5rem;text-align: center;height: .5rem;width:95%;position:absolute;bottom:0;left:0.09rem;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
                                     @ListB[0].articleTitle
                                 </div>
 </div>
@@ -116,27 +112,26 @@
                             @foreach (ArticleEntity entity in ListB)
                             {
                                 <a class="info clamp1" target="_blank" href="/WebHomePC/collegedetail?id=@entity.id">
-                                    ·@entity.articleTitle
+                                    • @entity.articleTitle
                                 </a>
                             }
                         </div>
                     }
                 </div>
                 <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff">
-                    <div class="px18" style="font-family:SourceHanSansCN-Bold;
-                                                    font-weight:bold;">百科知识</div>
+                    <div class="px18" style="font-family:SourceHanSansCN-Bold; font-weight:bold;">选盏技巧</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=6">MORE 》</a></div>
+                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=7">MORE 》</a></div>
                 </div>
-                <img src="/source/static//images/pc/6_top_line.png" alt="">
+                <img src="/source/static/images/pc/6_top_line.png" alt="">
                 <div class="flex-row" style="padding: .2rem 0;
                     border-bottom: #eee solid 0px;">
                     @if (ListC != null && ListC.Count > 0)
                     {
-                        <div style="width: 3.6rem;            height: 2.4rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
+                        <div style="width: 3.6rem; height: 2.33rem;position: relative;background: #fff;border: 1px solid #f8f8f8;">
                             <a href="/WebHomePC/collegedetail?id=@ListC[0].id" target="_blank">
                                 <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListC[0].img_url" alt=""></a>
-                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                <div style="line-height: .5rem;text-align: center;height: .5rem;width:95%;position:absolute;bottom:0;left:0.09rem;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
                                     @ListC[0].articleTitle
                                 </div>
 </div>
@@ -145,7 +140,7 @@
                             @foreach (ArticleEntity entity in ListC)
                             {
                                 <a class="info clamp1" target="_blank" href="/WebHomePC/collegedetail?id=@entity.id">
-                                    ·@entity.articleTitle
+                                    • @entity.articleTitle
                                 </a>
                             }
 
@@ -153,21 +148,19 @@
                     }
                 </div>
                 <div class="flex-row" style="padding:.2rem 0 0rem;background: #fff;border: 1px solid #f8f8f8;">
-                    <div class="px18" style="font-family:SourceHanSansCN-Bold;
-                                                    font-weight:bold;">选盏技巧</div>
+                    <div class="px18" style="font-family:SourceHanSansCN-Bold; font-weight:bold;">文化历史</div>
                     <div class="flex-col"></div>
-                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=7" target="_blank">MORE 》</a></div>
+                    <div class="px14 color_73"><a href="/WebHomePC/collegelist?category_id=8" target="_blank">MORE 》</a></div>
                 </div>
-                <img src="/source/static//images/pc/6_top_line.png" alt="">
+                <img src="/source/static/images/pc/6_top_line.png" alt="">
                 <div class="flex-row" style="padding: .2rem 0;
                     border-bottom: #eee solid 0px;">
                     @if (ListD != null && ListD.Count > 0)
                     {
-                        <div style="width: 3.6rem;
-                        height: 2.4rem;position: relative;background: #fff ;border: 1px solid #f8f8f8;">
+                        <div style="width: 3.6rem; height: 2.33rem;position: relative;background: #fff ;border: 1px solid #f8f8f8;">
                             <a href="/WebHomePC/collegedetail?id=@ListD[0].id" target="_blank">
                                 <img style="margin:.07rem;height:2.26rem;width:3.46rem" src="@ListD[0].img_url" alt=""></a>
-                                <div style="line-height: .6rem;text-align: center;height:.6rem;width:100%;position:absolute;bottom:0;left:0;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
+                                <div style="line-height: .5rem;text-align: center;height: .5rem;width:95%;position:absolute;bottom:0;left:0.09rem;font-size: .22rem;color: #fff;background: rgba(0, 0, 0,.3)">
                                     @ListD[0].articleTitle
                                 </div>
 </div>
@@ -177,7 +170,7 @@
                             @foreach (ArticleEntity entity in ListD)
                             {
                                 <a class="info clamp1" target="_blank" href="/WebHomePC/collegedetail?id=@entity.id">
-                                    ·@entity.articleTitle
+                                    • @entity.articleTitle
                                 </a>
                             }
 
@@ -190,8 +183,7 @@
         <!-- 右边的布局 -->
         <div class="left">
             <div class="flex-row leftdownline">
-                <div class="px16" style="font-family:SourceHanSansCN-Bold;
-                                    font-weight:bold;"><span style="color:#B32735">建盏</span>推荐</div>
+                <div class="px16" style="font-family:SourceHanSansCN-Bold; font-weight:bold;"><span style="color:#B32735">建盏</span>推荐</div>
                 <div class="flex-col"></div>
                 <div class="px14 color_73">MORE 》</div>
             </div>

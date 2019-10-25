@@ -288,7 +288,7 @@ html {
 
 
     .jz-body .right .list {
-        padding: .1rem .2rem;
+        padding: .1rem .2rem 0rem .2rem;
 		overflow: hidden;
         height: 3.1rem;
     }

@@ -38,28 +38,28 @@
             <a href="/WebHomePC/college">学院首页</a>
         </div>
 		 <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item @(ViewBag.Category_ID == 1 ? "p6-item-act" : "")">
-            <a href="/WebHomePC/collegelist?category_id=1">新闻资讯</a>
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 6 ? "p6-item-act" : "")">
+            <a href="/WebHomePC/collegelist?category_id=6">入门知识</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item @(ViewBag.Category_ID == 3 ? "p6-item-act" : "")">
-            <a href="/WebHomePC/collegelist?category_id=3">实拍行情</a>
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 8 ? "p6-item-act" : "")">
+            <a href="/WebHomePC/collegelist?category_id=8">文化历史</a>
+        </div>
+        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 1 ? "p6-item-act" : "")">
+            <a href="/WebHomePC/collegelist?category_id=1">媒体新闻</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item @(ViewBag.Category_ID == 5 ? "p6-item-act" : "")">
-            <a href="/WebHomePC/collegelist?category_id=5">建盏工艺</a>
-        </div>
-        <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item @(ViewBag.Category_ID == 6 ? "p6-item-act" : "")">
-            <a href="/WebHomePC/collegelist?category_id=6">百科知识</a>
+            <a href="/WebHomePC/collegelist?category_id=5">传承工艺</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
         <div class="flex-col p6-item @(ViewBag.Category_ID == 7 ? "p6-item-act" : "")">
             <a href="/WebHomePC/collegelist?category_id=7">选盏技巧</a>
         </div>
         <div style="height: .27rem;width:1px;background:#434343;margin:0rem .2rem"></div>
-        <div class="flex-col p6-item @(ViewBag.Category_ID == 8 ? "p6-item-act" : "")">
-            <a href="/WebHomePC/collegelist?category_id=8">文化历史</a>
+        <div class="flex-col p6-item @(ViewBag.Category_ID == 3 ? "p6-item-act" : "")">
+            <a href="/WebHomePC/collegelist?category_id=3">鉴赏秘籍</a>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
                     <div class="flex-col"></div>
                     <div class="px14 color_73">MORE 》</div>
                 </div>
-                <img src="/source/static//images/pc/6_top_line.png" alt="">
+                <img src="/source/static/images/pc/6_top_line.png" alt="">
                 @if (list != null && list.Count > 0)
                 {
                     foreach (ArticleEntity entity in list)
@@ -87,7 +87,7 @@
                             <div class="flex-col">
                                 <div class="color_3" style="font-size:21px"> @entity.articleTitle</div>
                                 <div class="div-h-1"></div>
-                                <div style="color:#999">【时间】@entity.AddDate.ToShortDateString()</div>
+                                <div style="color:#999">时间：@entity.AddDate.ToShortDateString()</div>
                                 <div class="div-h-1"></div>
                                 <div class="clamp2" style="line-height:.29rem;position: relative;">
                                     @entity.zhaiyao
@@ -97,7 +97,8 @@
                                     background: #fff;
                                     right: 0;
                                     bottom: 0;
-                                    padding: 0 .2rem;">[查看详情]</span>
+									line-height: .2rem;
+                                    padding: 0 .2rem;">【查看详情】</span>
                                 </div>
 
                             </div>
