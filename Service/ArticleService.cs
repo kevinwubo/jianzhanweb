@@ -30,6 +30,7 @@ namespace Service
             ArticleEntity entity = new ArticleEntity();
             entity.AddDate = info.add_time;
             entity.articleTitle = info.title;
+            entity.category_id= info.category_id;
             entity.articleType = getArticleType(info.category_id);
             entity.id = info.id;
             entity.img_url = info.img_url;

@@ -6,42 +6,50 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Common;
+using Service.BaseBiz;
 
 namespace web.Controllers
 {
     public class NewsController : BaseController
     {
+        int PAGESIZE = 20;
         //
         // GET: /News/
 
-        public ActionResult Index(string title,string status)
+        public ActionResult Index(int category_id = -1, int p = 1)
         {
-            List<NewsEntity> nList = null;
-            if (!string.IsNullOrEmpty(title) || !string.IsNullOrEmpty(status))
-            {
-                nList = NewsService.GetNews(title, status.ToInt(0));
-            }
-            else
-            {
-                nList = NewsService.GetNews("", -1);
-            }
-            ViewBag.Name = title ?? "";
-            ViewBag.Status = status;
+            List<ArticleEntity> nList = null;
+            int count = ArticleService.GetArticleCount(category_id);
+            PagerInfo pager = new PagerInfo();
+            pager.PageIndex = p;
+            pager.PageSize = PAGESIZE;
+            pager.SumCount = count;
+            pager.URL = "/Index";
+
+            nList = ArticleService.GetAllArticleInfoByRule(category_id, pager);
+
+            List<BaseDataEntity>  newTypeList= BaseDataService.GetBaseDataByPCode("NewsS00");
+
+            ViewBag.category_id = category_id;
+            ViewBag.Pager = pager;
             ViewBag.News = nList;
+            ViewBag.newTypeList = newTypeList;
             return View();
         }
 
         [HttpGet]
         public ActionResult Edit(string ID)
         {
+            List<BaseDataEntity> newTypeList = BaseDataService.GetBaseDataByPCode("NewsS00");
             if (!string.IsNullOrEmpty(ID))
             {
-                ViewBag.News = NewsService.GetNewsByID(ID.ToInt(0));
+                ViewBag.News = ArticleService.GetArticleByID(ID);
             }
             else
             {
-                ViewBag.News = new NewsEntity();
+                ViewBag.News = new ArticleEntity();
             }
+            ViewBag.newTypeList = newTypeList;
             return View();
         }
 

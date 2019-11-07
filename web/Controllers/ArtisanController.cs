@@ -48,16 +48,34 @@ namespace web.Controllers
                 mList = ArtisanService.GetArtisanInfoPager(pager);
             }
 
+            ViewBag.listAType = BaseDataService.GetBaseDataByPCode("ArtisanCodes");
+            ViewBag.artisanName = artisanname;
+            ViewBag.artisanType = artisantype;
             ViewBag.ArtisanList = mList;
             ViewBag.Pager = pager;
             return View();
         }
 
 
+        /// <summary>
+        /// 更新艺人顺序
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="inventoryCount"></param>
+        /// <returns></returns>
+        public JsonResult ModifySortByID(int id, int sort)
+        {
+            ArtisanService.ModifySort(id, sort);
+            return new JsonResult
+            {
+                Data = "顺序更新成功！"
+            };
+        }
+
         public ActionResult Edit(string aid)
         {
-            List<BaseDataEntity> list= BaseDataService.GetBaseDataAll();
-            ViewBag.listAType = list.Where(t => t.PCode == "ArtisanCodes" && t.Status == 1).ToList();
+            ViewBag.listAType = BaseDataService.GetBaseDataByPCode("ArtisanCodes");
+
             if (!string.IsNullOrEmpty(aid))
             {
                 ViewBag.Artisan = ArtisanService.GetArtisanByKey(aid);

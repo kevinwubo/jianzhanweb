@@ -156,6 +156,8 @@ namespace DataRepository.DataAccess.Product
                                                         SELECT ROW_NUMBER() OVER (ORDER BY {0}) AS 'RowNumber', * FROM dbo.dt_product {1}
                                                     ) AS ProductInfo
                                                     WHERE RowNumber BETWEEN ( ( ( @pageIndex - 1 ) * @pageSize ) + 1 ) AND ( @pageIndex * @pageSize )";
+
+        public static string ModifyInventoryCountByID = @"UPDATE [dbo].[dt_Product]   SET [InventoryCount] = @InventoryCount,[UpdateDate] = @UpdateDate WHERE ID=@ID";
         #endregion
     }
 }

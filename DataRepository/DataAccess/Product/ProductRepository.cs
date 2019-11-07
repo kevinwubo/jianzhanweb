@@ -165,6 +165,15 @@ namespace DataRepository.DataAccess.Product
             return command.ExecuteNonQuery();
         }
 
+        public int ModifyInventoryCountByID(ProductInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.ModifyInventoryCountByID, "Text"));
+            command.AddInputParameter("@InventoryCount", DbType.Int32, info.InventoryCount);
+            command.AddInputParameter("@UpdateDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@ID", DbType.Int32, info.ID);
+            return command.ExecuteNonQuery();
+        }
+
         public int Remove(long ProductID)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.Remove, "Text"));

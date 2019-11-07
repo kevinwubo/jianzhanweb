@@ -24,11 +24,11 @@ namespace web.Controllers
         /// <param name="status"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        public ActionResult Index(string name, string tracestate, int CustomerID = 0, int status = -1, int p = 1)
+        public ActionResult Index(string name, string tracestate, int CustomerID = 0, int status = -1, string begindate = "", string enddate = "", int p = 1)
         {
             List<InquiryEntity> mList = null;
 
-            int count = InquiryService.GetInquiryCount(name, tracestate, status);
+            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -37,14 +37,14 @@ namespace web.Controllers
             pager.URL = "/Inquiry";
 
             ViewBag.InquiryCode = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryS00" && t.Status == 1).ToList();//跟踪状态
-            if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
-            {
-                mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, pager);
-            }
-            else
-            {
-                mList = InquiryService.GetInquiryInfoPager(pager);
-            }
+            //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
+            //{
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, pager);
+            //}
+            //else
+            //{
+            //    mList = InquiryService.GetInquiryInfoPager(pager);
+            //}
 
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
@@ -52,6 +52,8 @@ namespace web.Controllers
             ViewBag.CustomerID = CustomerID;
             ViewBag.Inquiry = mList;
             ViewBag.Pager = pager;
+            ViewBag.BeginDate = begindate;
+            ViewBag.EndDate = enddate;
             return View();
         }
         #region 手动添加咨询量

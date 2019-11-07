@@ -18,30 +18,30 @@ namespace web.Controllers
         public ActionResult Index(string name = "",int status = -1, int p = 1)
         {
             
-            List<InquiryEntity> mList = null;
+            //List<InquiryEntity> mList = null;
 
-            int count = InquiryService.GetInquiryCount("", "", status);
+            //int count = InquiryService.GetInquiryCount("", "", status);
 
-            PagerInfo pager = new PagerInfo();
-            pager.PageIndex = p;
-            pager.PageSize = PAGESIZE;
-            pager.SumCount = count;
-            pager.URL = "/Inquiry";
+            //PagerInfo pager = new PagerInfo();
+            //pager.PageIndex = p;
+            //pager.PageSize = PAGESIZE;
+            //pager.SumCount = count;
+            //pager.URL = "/Inquiry";
 
 
-            if (!string.IsNullOrEmpty(name) || status > -1)
-            {
-                mList = InquiryService.GetInquiryInfoByRule(name, "", status, pager);
-            }
-            else
-            {
-                mList = InquiryService.GetInquiryInfoPager(pager);
-            }
-            ViewBag.Name = name ?? "";
-            ViewBag.Status = status;
-            //ViewBag.ModelCode = mcode;
-            ViewBag.Inquiry = mList;
-            ViewBag.Pager = pager;
+            //if (!string.IsNullOrEmpty(name) || status > -1)
+            //{
+            //    mList = InquiryService.GetInquiryInfoByRule(name, "", status, pager);
+            //}
+            //else
+            //{
+            //    mList = InquiryService.GetInquiryInfoPager(pager);
+            //}
+            //ViewBag.Name = name ?? "";
+            //ViewBag.Status = status;
+            ////ViewBag.ModelCode = mcode;
+            //ViewBag.Inquiry = mList;
+            //ViewBag.Pager = pager;
             return View();
         }
 

@@ -99,6 +99,7 @@ namespace Service
                 entity.artisanName = info.artisanName;
                 entity.artisanName2 = info.artisanName2;
                 entity.sex = info.sex;
+                entity.Sort = info.Sort;
                 entity.IDNumber = info.IDNumber;
                 entity.birthday = info.birthday;
                 entity.workPlace = info.workPlace;
@@ -151,6 +152,20 @@ namespace Service
             return info;
         }
 
+        /// <summary>
+        /// 更新顺序
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public static void ModifySort(int id, int sort)
+        {
+            ArtisanInfo info = new ArtisanInfo();
+            info.artisanID = id;
+            info.Sort = sort;
+            ArtisanRepository mr = new ArtisanRepository();
+            mr.ModifySort(info);
+        }
 
         public static bool Modify(ArtisanEntity entity)
         {
@@ -187,11 +202,11 @@ namespace Service
         {
             List<ArtisanEntity> all = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
-            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetArtisanInfoPager");
+            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetArtisanInfoPager" + pager.PageIndex);
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllArtisanInfoPager(pager);
-                Cache.Add("GetAllArtisanInfoPager", miList);
+                Cache.Add("GetAllArtisanInfoPager" + pager.PageIndex, miList);
             }
 
             if (!miList.IsEmpty())
@@ -209,12 +224,12 @@ namespace Service
         {
             List<ArtisanEntity> all = new List<ArtisanEntity>();
             ArtisanRepository mr = new ArtisanRepository();
-            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetAllArtisanInfoByRule" + artisantype + artisanname);
+            List<ArtisanInfo> miList = Cache.Get<List<ArtisanInfo>>("GetAllArtisanInfoByRule" + artisantype + artisanname + pager.PageIndex);
 
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllArtisanInfoByRule(artisantype, artisanname, pager);
-                Cache.Add("GetAllArtisanInfoByRule" + artisantype + artisanname, miList);
+                Cache.Add("GetAllArtisanInfoByRule" + artisantype + artisanname + pager.PageIndex, miList);
             }
             if (!miList.IsEmpty())
             {

@@ -46,6 +46,8 @@ namespace DataRepository.DataAccess.Artisan
                                         ,IDHead = @IDHead,DetailedIntroduction=@DetailedIntroduction,VideoUrl = @VideoUrl,IsCooperation = @IsCooperation,IsRecommend = @IsRecommend
                                         ,IsPushMall = @IsPushMall,Sort = @Sort,update_time = @update_time WHERE artisanID=@artisanID";
 
+        public static string ModifySort = @"UPDATE dt_Artisan SET Sort = @Sort,update_time = @update_time WHERE artisanID=@artisanID";
+
         #region 分页相关
         public static string GetArtisanCount = @"SELECT COUNT(1) AS C FROM dt_Artisan(NOLOCK) WHERE 1=1 ";
 

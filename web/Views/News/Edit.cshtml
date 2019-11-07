@@ -2,7 +2,8 @@
 @using Entity.ViewModel;
 @{
     ViewBag.Title = "编辑新闻资讯";
-    NewsEntity newsEntity = (NewsEntity)ViewBag.News;
+    ArticleEntity entity = (ArticleEntity)ViewBag.News;
+    List<BaseDataEntity> newTypeList = (List<BaseDataEntity>)ViewBag.newTypeList;
 }
 @section Header{
 }<link href="~/source/assets/css/timepicker.css" rel="stylesheet" />
@@ -30,78 +31,52 @@
             </div>
             <div class="widget-body" style="overflow: hidden; display: block;">
                 <div class="widget-forms clearfix">
-                    <input type="hidden" id="ID" name="ID" value="@newsEntity.ID">
-                    <div class="control-group">
-                        <label class="control-label">新闻标题</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="新闻标题" id="Title" name="Title" value="@newsEntity.Title">
-                        </div>
-                    </div>
+                    <input type="hidden" id="ID" name="ID" value="@entity.id">
                     <div class="control-group">
                         <label class="control-label">新闻分类</label>
-                        <div class="controls">
-                            <select tabindex="1" class="span5" id="ChannelID" name="ChannelID">
-                                <option value="">--请选择--</option>
-                                <option value="1" @(newsEntity.ChannelID == 1 ? "selected" : "")>新闻资讯</option>
-                                <option value="2" @(newsEntity.ChannelID == 2 ? "selected" : "")>拍卖行情</option>
-                                <option value="5" @(newsEntity.ChannelID == 5 ? "selected" : "")>建盏工艺</option>
-                                <option value="6" @(newsEntity.ChannelID == 6 ? "selected" : "")>百科知识</option>
-                                <option value="7" @(newsEntity.ChannelID == 7 ? "selected" : "")>选盏技巧</option>
-                                <option value="8" @(newsEntity.ChannelID == 8 ? "selected" : "")>文化历史</option>
-                                <option value="33" @(newsEntity.ChannelID == 33 ? "selected" : "")>建盏天下</option>
+                        <div class="controls">                            
+                            <select tabindex="1" class="" id="category_id" name="category_id">
+                                <option value="">--新闻分类--</option>
+                                @foreach (var item in newTypeList)
+                                {
+                                    <option value="@item.ValueInfo" @(entity.category_id.ToString() == item.ValueInfo ? "selected" : "")>@item.Description</option>
+                                }
                             </select>
                         </div>
                     </div>
-                    @*<div class="control-group">
-                            <label class="control-label">新闻图片</label>
-                            <div class="controls">
-                                <input class="span5" type="text" placeholder="新闻图片" id="AttachmentIDs" name="AttachmentIDs" value="@newsEntity.AttachmentIDs">
-                            </div>
-                        </div>*@
                     <div class="control-group">
-                        <label class="control-label">图片预览</label>
-                        <div class="controls" id="picContainer">
-
-                            @if (newsEntity.Attachments != null && newsEntity.Attachments.Count > 0)
-                            {
-                                foreach (var item in newsEntity.Attachments)
-                                {
-                                    <span class="picRemove" val="@item.AttachmentID" style="height:0px"></span>
-                                    <img src="@item.FilePath.Replace("~","")" alt="@(item.FileName+item.FileExtendName)" style="width: 150px; height: 150px; margin-top: 15px">
-                                }
-                            }
+                        <label class="control-label">新闻标题</label>
+                        <div class="controls">
+                            <input class="span5" type="text" placeholder="新闻标题" id="Title" name="Title" value="@entity.articleTitle">
                         </div>
                     </div>
-                    <input type="hidden" id="AttachmentIDs" name="AttachmentIDs" value="@newsEntity.AttachmentIDs">
-                    @if (newsEntity.Attachments == null || newsEntity.Attachments.Count < 1)
-                    {
-                        <div class="control-group" id="uploadC">
-                            <label class="control-label">上传图片</label>
+                    <div class="control-group">
+                            <label class="control-label">封面图片</label>
                             <div class="controls">
-                                <input type="file" name="file" id="file" multiple />
+                                <input class="span5" type="text" placeholder="封面图片" id="img_url" name="img_url" value="@entity.img_url">
                             </div>
                         </div>
-                    }
+ 
                     <div class="control-group">
                         <label class="control-label">新闻摘要</label>
                         <div class="controls">
-                            <textarea id="zhaiyao" class="span5" name="zhaiyao" style="width:450px;height:80px;">@newsEntity.zhaiyao</textarea>                            
+                            <textarea id="zhaiyao" class="span5" name="zhaiyao" style="width:450px;height:80px;">@entity.zhaiyao</textarea>                            
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">新闻内容</label>
                         <div class="controls">
-                            <span id="showcode" style="display:none;">@newsEntity.Content</span>
-                            <input class="span5" type="hidden" id="Content" name="Content">
+                            <span id="showcode" style="display:none;">@entity.content</span>
+                            <input class="span5" type="hidden" id="content" name="content">
                             <asp:TextBox ID="txtEditorContents" name="txtEditorContents" runat="server" TextMode="MultiLine" Height="400px" Width="1000px" ClientIDMode="Static"></asp:TextBox>
                         </div>
                     </div>
-                    <div class="control-group">
+                    @*<div class="control-group">
                         <label class="control-label">是否可用</label>
                         <div class="controls">
-                            <input type="checkbox" value="1" id="Status" name="Status" @(newsEntity.Status == 1 ? "checked" : "")>
+                            <input type="checkbox" value="1" id="Status" name="Status" @(entity.Status == 1 ? "checked" : "")>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="widget-footer">
@@ -114,25 +89,11 @@
 @section Footer{
     <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
     <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
-    <script type="text/javascript" src="~/source/News.js"></script>
+    @*<script type="text/javascript" src="~/source/News.js"></script>*@
     <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.all.min.js"> </script>
     <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            var len = 5;
-            var ids = $("#AttachmentIDs").val().split(",");
-            if (ids.length < 5) {
-                len = 5 - ids.length;
-            }
-
-
-            var oFileInput = new FileInput();
-            oFileInput.Init("file", "/Upload/UploadFile", len);
-
-            newsInfo.init();
-
-        });
 
         var ues = UE.getEditor('txtEditorContents');//初始化对象
         $(document).ready(function () {
@@ -148,7 +109,7 @@
         jQuery("#save").click(function () {
             var arr = [];
             arr.push(UE.getEditor('txtEditorContents').getContent());
-            jQuery("#Content").val(arr.join("\n"));
+            jQuery("#content").val(arr.join("\n"));
             jQuery("#newsForm").submit();
         });
 

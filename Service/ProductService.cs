@@ -283,6 +283,15 @@ namespace Service
             return result > 0;
         }
 
+        public static int ModifyInventoryCountByID(int ID,int inventoryCount)
+        {
+            ProductInfo info = new ProductInfo();
+            info.ID = ID;
+            info.InventoryCount = inventoryCount;
+            ProductRepository mr = new ProductRepository();
+           return  mr.ModifyInventoryCountByID(info);
+        }
+
         public static void Remove(long productid)
         {
             ProductRepository mr = new ProductRepository();
@@ -299,7 +308,7 @@ namespace Service
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoPager"+orderby);
+            List<ProductInfo> miList = null;//Cache.Get<List<ProductInfo>>("GetAllProductInfoPager"+orderby);
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllProductInfoPager(orderby, pager);
@@ -321,7 +330,7 @@ namespace Service
         {
             List<ProductEntity> all = new List<ProductEntity>();
             ProductRepository mr = new ProductRepository();
-            List<ProductInfo> miList = Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy + pager.PageIndex);
+            List<ProductInfo> miList =null;// Cache.Get<List<ProductInfo>>("GetAllProductInfoByRule" + type2 + type3 + type4 + type7 + author + sqlwhere + keyword + pagename + orderBy + pager.PageIndex);
 
             if (miList.IsEmpty())
             {

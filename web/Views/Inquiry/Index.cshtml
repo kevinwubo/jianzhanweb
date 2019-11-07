@@ -21,19 +21,25 @@
         <div class="widget-body" style="margin-bottom:50px">
             <div id="menus_wrapper" class="dataTables_wrapper form-inline" role="grid">
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="">
                         <form action="/Inquiry/Index" method="get">
                             <div class="dataTables_length" id="menus_filter">
-                                <label>咨询查询: <input type="text" placeholder="产品编号、手机号、作者" aria-controls="menus" id="name" name="name" value="@ViewBag.Name"></label>                               
+                                <label>咨询查询: <input type="text" placeholder="产品编号、手机号、作者" aria-controls="menus" id="name" name="name" value="@ViewBag.Name"></label>
                                 <label>
                                     跟踪状态: <select class="span3" style="width:80px" id="tracestate" name="tracestate">
-                                <option value="">全部</option>
-                                @foreach (var item in codes)
-                                {
-                                    <option value="@item.ValueInfo" @(ViewBag.ModelCode == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
-                                }
-                            </select>
+                                        <option value="">全部</option>
+                                        @foreach (var item in codes)
+                                        {
+                                            <option value="@item.ValueInfo" @(ViewBag.ModelCode == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
+                                        }
+                                    </select>
 
+                                </label>
+                                <label>
+                                    <input type="text" aria-controls="menus" class="layui-input" style="width:200px" placeholder="咨询时间" id="begindate" value="@ViewBag.BeginDate" lay-key="1" autocomplete="off" name="begindate">
+                                </label>
+                                <label>
+                                    <input type="text" aria-controls="menus" class="layui-input" style="width:200px" placeholder="咨询时间" id="enddate" value="@ViewBag.EndDate" lay-key="2" autocomplete="off" name="enddate">
                                 </label>
                                 <button class="btn btn-info" type="submit">搜索</button>
                             </div>
@@ -50,11 +56,11 @@
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:120px">产品名称</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">作者</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:200px">联系方式</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">关联销售</th>                                                             
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">跟踪状态</th>  
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">处理状态</th>  
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:180px">留言时间</th>  
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">所属城市</th>  
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">关联销售</th>
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">跟踪状态</th>
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">处理状态</th>
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:180px">留言时间</th>
+                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">所属城市</th>
                                 <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 100px;">操作</th>
                             </tr>
                         </thead>
@@ -65,11 +71,12 @@
                                 <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "")">
                                     <td><input type="checkbox" /></td>
                                     <td class=" sorting_1">@list[i].ProductID</td>
-                                    <td class=" ">@(list[i].product!=null?list[i].product.ProductName:"")</td>
-                                    <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>                                    
-                                    <td class=" "><span class="label label-warning">手机号:</span>：@list[i].telphone 
+                                    <td class=" ">@(list[i].product != null ? list[i].product.ProductName : "")</td>
+                                    <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>
+                                    <td class=" ">
+                                        <span class="label label-warning">手机号:</span>：@list[i].telphone
                                         @if (!string.IsNullOrEmpty(list[i].WebChartID))
-                                        { 
+                                        {
                                             <span class="label label-warning">微信号:</span>@list[i].WebChartID
                                         }
                                     </td>
@@ -85,11 +92,11 @@
                                             <span class="label">未处理</span>
                                         }
 
-                                    </td> 
+                                    </td>
                                     <td class=" ">@list[i].AddDate.ToString()</td>
                                     <td class=" ">@list[i].Provence@list[i].City</td>
-                                    <td class=" ">                
-                                            <a href="/Inquiry/Edit?cid=@list[i].PPId"><i class="icon-edit"></i> 客户跟踪</a>                                 
+                                    <td class=" ">
+                                        <a href="/Inquiry/Edit?cid=@list[i].PPId"><i class="icon-edit"></i> 客户跟踪</a>
                                     </td>
                                 </tr>
                             }
@@ -102,3 +109,20 @@
         </div> <!-- /widget-body -->
     </div> <!-- /widget -->
 </div>
+@section Footer{
+<script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
+<script src="~/source/layui/layui.js"></script>
+<script>
+    layui.use('laydate', function () {
+
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#begindate' //指定元素
+        });
+        laydate.render({
+            elem: '#enddate' //指定元素
+        });
+    });
+</script>
+
+}

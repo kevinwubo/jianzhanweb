@@ -39,14 +39,25 @@ namespace web.Controllers
             pager.SumCount = count;
             pager.URL = "/Product";
 
-            if (!string.IsNullOrEmpty(type2) )
-            {
+            //if (!string.IsNullOrEmpty(type2) )
+            //{
                 mList = ProductService.GetAllProductInfoByRule(type2, type3, type4, type7, author, sqlwhere, Keyword, "", "", pager);
-            }
-            else
-            {
-                mList = ProductService.GetProductInfoPager("", pager);
-            }
+            //}
+            //else
+            //{
+            //    mList = ProductService.GetProductInfoPager("", pager);
+            //}
+            List<BaseDataEntity> list = BaseDataService.GetBaseDataAll();
+            ViewBag.TypeList2 = list.Where(t => t.PCode == "YS000" && t.Status == 1).ToList();
+            ViewBag.TypeList3 = list.Where(t => t.PCode == "QX000" && t.Status == 1).ToList();
+            ViewBag.TypeList4 = list.Where(t => t.PCode == "KJCodes" && t.Status == 1).ToList();
+            ViewBag.TypeList7 = list.Where(t => t.PCode == "JGCodes" && t.Status == 1).ToList();
+
+            ViewBag.type2 = type2;
+            ViewBag.type3 = type3;
+            ViewBag.type4 = type4;
+            ViewBag.type7 = type7;
+            ViewBag.author = author;
 
             ViewBag.Product = mList;
             ViewBag.Pager = pager;
@@ -58,7 +69,7 @@ namespace web.Controllers
         {
             List<BaseDataEntity> list= BaseDataService.GetBaseDataAll();
             ViewBag.Type2 = list.Where(t => t.PCode == "YS000" && t.Status == 1).ToList();
-            ViewBag.Type3 = list.Where(t => t.PCode == "QXCode" && t.Status == 1).ToList();
+            ViewBag.Type3 = list.Where(t => t.PCode == "QX000" && t.Status == 1).ToList();
             ViewBag.Type4 = list.Where(t => t.PCode == "KJCodes" && t.Status == 1).ToList();
             ViewBag.Type5 = list.Where(t => t.PCode == "GNCodes" && t.Status == 1).ToList();
             ViewBag.Type6 = list.Where(t => t.PCode == "LZCodes" && t.Status == 1).ToList();
@@ -85,6 +96,21 @@ namespace web.Controllers
             }
             ProductService.ModifyProduct(entity);
             Response.Redirect("/Product/");
+        }
+
+        /// <summary>
+        /// 更新库存数量
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="inventoryCount"></param>
+        /// <returns></returns>
+        public JsonResult ModifyInventoryCountByID(int id, int inventoryCount)
+        {
+            ProductService.ModifyInventoryCountByID(id, inventoryCount);
+            return new JsonResult
+            {
+                Data = "库存更新成功！"
+            };
         }
 
         public void Remove(string pid)

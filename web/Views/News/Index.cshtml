@@ -1,7 +1,9 @@
 ﻿@using Entity.ViewModel;
 @{
-    ViewBag.Title = "菜单信息";
-    List<NewsEntity> news = (List<NewsEntity>)ViewBag.News;
+    ViewBag.Title = "新闻资讯信息";
+
+    List<BaseDataEntity> newTypeList = (List<BaseDataEntity>)ViewBag.newTypeList;
+    List<ArticleEntity> news = (List<ArticleEntity>)ViewBag.News;
 }
 <div class="row-fluid">
     <h2 class="heading" style="margin-top:20px">新闻资讯信息</h2>
@@ -19,14 +21,15 @@
             <div id="menus_wrapper" class="dataTables_wrapper form-inline" role="grid">
                 <div class="row-fluid">
                     <div class="span6">
-                        <form action="/Store/Index" method="get">
-                            <div class="dataTables_length" id="menus_filter">
-                                <label>新闻标题: <input type="text" aria-controls="menus" id="name" name="name" value="@ViewBag.Name"></label>
-                                <label>
-                                    新闻状态: <select class="span3" style="width:80px" id="status" name="status">
-                                        <option value="-1" @(ViewBag.Status == -1 ? "selected" : "")>全部</option>
-                                        <option value="1" @(ViewBag.Status == 1 ? "selected" : "")>可用</option>
-                                        <option value="0" @(ViewBag.Status == 0 ? "selected" : "")>不可用</option>
+                        <form action="/News/Index" method="get">
+                            <div class="dataTables_length" id="menus_filter">                                
+                                <label>新闻分类
+                                    <select tabindex="1" class="" id="category_id" name="category_id">
+                                        <option value="">--新闻分类--</option>
+                                        @foreach (var item in newTypeList)
+                                        {
+                                            <option value="@item.ValueInfo" @((ViewBag.category_id.ToString() == item.ValueInfo) ? "selected" : "")>@item.Description</option>
+                                        }
                                     </select>
                                 </label>
                                 <button class="btn btn-info" type="submit">搜索</button>
@@ -49,33 +52,17 @@
                         </thead>
 
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            @for (int i = 0; i < news.Count; i++)
+                            @foreach (ArticleEntity entity in news)
                             {
 
-                                <tr class=@(i%2==0?"odd":"even")>
-                                    <td class=" sorting_1">@news[i].Title</td>
+                                <tr>
+                                    <td class=" sorting_1">@entity.articleTitle</td>
                                     <td class=" ">
-                                        
-                                        @if (news[i].ChannelID == 1)
-                                        {
-                                            <b>新闻资讯</b>
-                                        }
-                                        else if (news[i].ChannelID == 2)
-                                        {
-                                            <b>最新资讯</b>
-                                        }
+                                        @entity.articleType
                                     </td>
-                                    <td class=" ">@news[i].Sort</td>      
-                                    <td class=" ">@news[i].CreateDate.ToString()</td>                                    
-                                    <td class=" ">
-                                        @if (news[i].Status == 0)
-                                        {
-                                            <span class="label">不可用</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="label label-success">可用</span>
-                                        }
+                                    <td class=" "></td>      
+                                    <td class=" ">@entity.AddDate.ToString()</td>                                    
+                                    <td class=" ">                                       
 
                                     </td>
                                     <td class=" ">
@@ -85,8 +72,8 @@
                                                 <span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
-                                                <li><a href="/News/Edit?ID=@news[i].ID"><i class="icon-edit"></i> 编辑</a></li>
-                                                <li><a href="/News/Remove?ID=@news[i].ID"><i class="icon-trash"></i> 删除</a></li>
+                                                <li><a href="/News/Edit?ID=@entity.id"><i class="icon-edit"></i> 编辑</a></li>
+                                                <li><a href="/News/Remove?ID=@entity.id"><i class="icon-trash"></i> 删除</a></li>
                                             </ul>
                                         </div>
                                     </td>

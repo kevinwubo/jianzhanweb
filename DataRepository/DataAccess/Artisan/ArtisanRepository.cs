@@ -158,6 +158,18 @@ namespace DataRepository.DataAccess.Artisan
         }
 
 
+        public long ModifySort(ArtisanInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.ModifySort, "Text"));
+            command.AddInputParameter("@Sort", DbType.Int32, info.Sort);
+            command.AddInputParameter("@update_time", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@artisanID", DbType.Int32, info.artisanID);
+            return command.ExecuteNonQuery();
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt64(o);
+        }
+
+
         public int Remove(int artisanID)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArtisanSatement.Remove, "Text"));

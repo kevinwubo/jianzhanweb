@@ -257,7 +257,7 @@ namespace DataRepository.DataAccess.News
         #endregion
 
         #region 分页方法
-        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, PagerInfo pager)
+        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, PagerInfo pager)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
 
@@ -272,7 +272,10 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND TraceState=@TraceState ");
             }
-
+            if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
+            {
+                builder.Append(" AND AddDate BETWEEN @begindate AND @enddate ");
+            }
             string sql = InquiryStatement.GetAllInquiryInfoPagerHeader + builder.ToString() + InquiryStatement.GetAllInquiryInfoPagerFooter;
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
@@ -285,10 +288,11 @@ namespace DataRepository.DataAccess.News
             {
                 command.AddInputParameter("@TraceState", DbType.String, tracestate);
             }
-            //if (dealStatus > -1)
-            //{
-            //    command.AddInputParameter("@DealStatus", DbType.Int32, dealStatus);
-            //}
+            if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
+            {
+                command.AddInputParameter("@begindate", DbType.String, begindate+" 00:00:01");
+                command.AddInputParameter("@enddate", DbType.String, enddate+" 23:59:59");
+            }
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
@@ -298,7 +302,7 @@ namespace DataRepository.DataAccess.News
         }
 
 
-        public int GetInquiryCount(string keywords, string tracestate, int dealStatus)
+        public int GetInquiryCount(string keywords, string tracestate, int dealStatus,string begindate, string enddate)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(InquiryStatement.GetInquiryCount);
@@ -310,14 +314,21 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND TraceState=@TraceState ");
             }
-
+            if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
+            {
+                builder.Append(" AND AddDate BETWEEN @begindate AND @enddate ");
+            }
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
 
             if (!string.IsNullOrEmpty(tracestate))
             {
                 command.AddInputParameter("@TraceState", DbType.String, tracestate);
             }
-
+            if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
+            {
+                command.AddInputParameter("@begindate", DbType.String, begindate+" 00:00:01");
+                command.AddInputParameter("@enddate", DbType.String, enddate+" 23:59:59");
+            }
 
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);

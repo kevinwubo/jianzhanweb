@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "艺人管理";
     List<ArtisanEntity> list = (List<ArtisanEntity>)ViewBag.ArtisanList;
-    //List<BaseDataEntity> codes = ((List<BaseDataEntity>)ViewBag.InquiryCode) ?? new List<BaseDataEntity>();
+    List<BaseDataEntity> listAType = ((List<BaseDataEntity>)ViewBag.listAType) ?? new List<BaseDataEntity>();
     PagerInfo p = (PagerInfo)ViewBag.Pager;
 }
 <div class="row-fluid">
-    <h2 class="heading" style="margin-top:20px">艺人管理</h2>
+    <h2 class="heading" style="margin-top:50px">艺人管理</h2>
 </div>
 <div class="row-fluid">
     <div class="widget widget-padding span12">
@@ -21,20 +21,21 @@
         <div class="widget-body" style="margin-bottom:50px">
             <div id="menus_wrapper" class="dataTables_wrapper form-inline" role="grid">
                 <div class="row-fluid">
-                    <div class="span6">
-                        <form action="/Inquiry/Index" method="get">
+                    <div class="">
+                        <form action="/Artisan/Index" method="get">
                             <div class="dataTables_length" id="menus_filter">
-                                <label>产品编号: <input type="text" placeholder="产品编号" aria-controls="menus" id="name" name="name" value="@ViewBag.ProductID"></label>                               
-                                @*<label>
-                                    跟踪状态: <select class="span3" style="width:80px" id="tracestate" name="tracestate">
-                                <option value="">全部</option>
-                                @foreach (var item in codes)
-                                {
-                                    <option value="@item.ValueInfo" @(ViewBag.ModelCode == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
-                                }
-                            </select>
+                                <label>艺人名称: <input type="text" placeholder="艺人名称" aria-controls="menus" id="artisanname" name="artisanname" value="@ViewBag.artisanName"></label>
+                                <label>
+                                    艺人类型:
+                                    <select tabindex="1" class="" id="artisantype" name="artisantype">
+                                        <option value="">---艺人类型---</option>
+                                        @foreach (var item in listAType)
+                                        {
+                                            <option value="@item.ValueInfo" @(ViewBag.artisanType == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
+                                        }
+                                    </select>
 
-                                </label>*@
+                                </label>
                                 <button class="btn btn-info" type="submit">搜索</button>
                             </div>
                         </form>
@@ -65,7 +66,7 @@
                                     <td class=" ">@(entity.artisanType)</td>
                                     <td class=" ">@(entity.IsCooperation.Equals("1")?"是":"否")</td>                                    
                                     <td class=" ">@entity.artisanTitle</td>
-                                    <td class=" ">@entity.Sort</td>
+                                    <td class=" "><input type="text" onchange="javascript:Update_Sort('@entity.artisanID')" style="width:70px;" id="txt_Sort_@(entity.artisanID)" value="@entity.Sort" /></td>
                                     <td class=" ">                
                                         <a href="/Artisan/Edit?aid=@entity.artisanID"><i class="icon-edit"></i> 编辑</a>                                 
                                     </td>
@@ -80,3 +81,29 @@
         </div> <!-- /widget-body -->
     </div> <!-- /widget -->
 </div>
+@section Footer{
+    <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="~/Scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript">
+        function Update_Sort(ID) {
+            var sort = $("#txt_Sort_" + ID).val();
+            $.ajax({
+                url: "ModifySortByID",
+                type: 'POST',
+                async: false,
+                data: {
+                    id: ID,
+                    sort: sort
+                },
+                success: function (data) {
+                    if (!!data) {
+                        alert("更新成功！");
+                    }
+                }
+            });
+        }
+    </script>
+}

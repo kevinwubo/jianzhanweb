@@ -31,6 +31,11 @@ namespace Entity.ViewModel
         public string content { get; set; }
 
         /// <summary>
+        /// 文字分类ID
+        /// </summary>
+        public int category_id { get; set; }
+
+        /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime AddDate { get; set; }
