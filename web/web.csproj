@@ -1080,34 +1080,6 @@
     <Content Include="source\static\js\utils.js" />
     <Content Include="source\backup\Store.js" />
     <Content Include="source\wap_o_code.js" />
-    <Content Include="UploadFiles\20180504\99999.jpg" />
-    <Content Include="UploadFiles\20180504\测试1.jpg" />
-    <Content Include="UploadFiles\20180504\测试2.jpg" />
-    <Content Include="UploadFiles\20180505\1072651549-test.jpg" />
-    <Content Include="UploadFiles\20180505\110414427-2.jpg" />
-    <Content Include="UploadFiles\20180505\1422771558-2.jpg" />
-    <Content Include="UploadFiles\20180505\1695472944-test.jpg" />
-    <Content Include="UploadFiles\20180505\2.jpg" />
-    <Content Include="UploadFiles\20180505\398282298-2.jpg" />
-    <Content Include="UploadFiles\20180505\405254944-2.jpg" />
-    <Content Include="UploadFiles\20180505\474043599-test.jpg" />
-    <Content Include="UploadFiles\20180505\803071178-2.jpg" />
-    <Content Include="UploadFiles\20180505\test.jpg" />
-    <Content Include="UploadFiles\20180507\2.jpg" />
-    <Content Include="UploadFiles\20180507\cc.jpg" />
-    <Content Include="UploadFiles\20180510\测试2.jpg" />
-    <Content Include="UploadFiles\20180512\1261801586-437872.jpg" />
-    <Content Include="UploadFiles\20180512\A.jpg" />
-    <Content Include="UploadFiles\20180522\2137509695-测试2.jpg" />
-    <Content Include="UploadFiles\20180522\测试2.jpg" />
-    <Content Include="UploadFiles\20180524\02.jpg" />
-    <Content Include="UploadFiles\20180524\03.jpg" />
-    <Content Include="UploadFiles\20180630\1330535691-GEELY.jpg" />
-    <Content Include="UploadFiles\20180630\1913306914-GEELY.jpg" />
-    <Content Include="UploadFiles\20180630\GEELY.jpg" />
-    <Content Include="UploadFiles\20180630\力帆.jpg" />
-    <Content Include="UploadFiles\20180716\1331138218-ABM.jpg" />
-    <Content Include="UploadFiles\20180716\ABM.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

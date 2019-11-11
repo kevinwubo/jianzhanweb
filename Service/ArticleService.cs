@@ -116,6 +116,16 @@ namespace Service
             return  mr.ModifyContent(info);
         }
 
+        public static int ModifyImageUrlByID(ArticleEntity entity)
+        {
+            ArticleRepository mr = new ArticleRepository();
+            ArticleInfo info = new ArticleInfo();
+            info.id = entity.id;
+            info.img_url = entity.img_url;
+            info.update_time = DateTime.Now;
+            return mr.ModifyImageUrlByID(info);
+        }
+
         public static List<ArticleEntity> GetArticleByRule(int category_id, int count)
         {
             List<ArticleEntity> all = new List<ArticleEntity>();

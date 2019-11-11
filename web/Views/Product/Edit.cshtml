@@ -131,6 +131,10 @@
                         <label class="control-label">身份图片</label>
                         <div class="controls">
                             <input class="span5" type="text" placeholder="身份图片" id="Images" name="Images" value="@entity.Images" maxlength="200">
+                            <div class="lcQueryItem">
+                                <div class="upImg">上传图片<input type="file" class="upfile"></div>
+                            </div>
+                            <img id="img_Url" src="@(!string.IsNullOrEmpty(entity.Images) ? entity.Images : "")" style="display:@(!string.IsNullOrEmpty(entity.Images) ? "" : "none")" />
                         </div>
                     </div>
                     <div class="control-group">
@@ -366,6 +370,39 @@
         alert("已清空草稿箱")
     }
 
+
+    //点击上传图片
+    $(".lcQueryItem").on("change", ".upfile", function () {
+        var formData = new FormData();
+
+        formData.append('file', $(this)[0].files[0]);
+        formData.append('dataId', $("#ID").val());
+        formData.append('type', "Product");
+
+        var fileType = $(this)[0].files[0].name.split(".");
+        fileType = fileType[fileType.length - 1];
+
+        if (fileType == "png" || fileType == "jpg") {
+            $.ajax({
+                url: "/Upload/UploadFile/",
+                type: 'post',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false
+            }).done(function (res) {
+                if ("" != res) {
+                    console.log(res);
+                    $("#img_Url").show();
+                    $("#img_Url").attr("src", res);
+                }
+            }).fail(function (res) {
+                console.log(res);       
+            });
+        } else {
+            alert("请上传png,jpg格式的图片")
+        }
+    })
 </script>
 
 }

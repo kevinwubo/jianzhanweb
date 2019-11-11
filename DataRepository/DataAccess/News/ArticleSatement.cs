@@ -64,6 +64,8 @@ namespace DataRepository.DataAccess.New
                                         ,zhaiyao = @zhaiyao,content = @content,sort_id = @sort_id,click = @click,status = @status,user_name = @user_name,update_time = @update_time  WHERE id=@id";
 
         public static string ModifyContent = @"UPDATE dbo.dt_article SET content = @content ,update_time = @update_time  WHERE id=@id";
+
+        public static string ModifyImageUrlByID = @"UPDATE dbo.dt_article SET img_url = @img_url ,update_time = @update_time  WHERE id=@id";
         #endregion     
     }
 }

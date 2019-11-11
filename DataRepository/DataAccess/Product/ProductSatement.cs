@@ -158,6 +158,8 @@ namespace DataRepository.DataAccess.Product
                                                     WHERE RowNumber BETWEEN ( ( ( @pageIndex - 1 ) * @pageSize ) + 1 ) AND ( @pageIndex * @pageSize )";
 
         public static string ModifyInventoryCountByID = @"UPDATE [dbo].[dt_Product]   SET [InventoryCount] = @InventoryCount,[UpdateDate] = @UpdateDate WHERE ID=@ID";
+
+        public static string ModifyImagesByID = @"UPDATE [dbo].[dt_Product]   SET [Images] = @Images,[UpdateDate] = @UpdateDate WHERE ID=@ID";
         #endregion
     }
 }

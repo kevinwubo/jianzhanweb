@@ -174,6 +174,15 @@ namespace DataRepository.DataAccess.Product
             return command.ExecuteNonQuery();
         }
 
+        public int ModifyImagesByID(ProductInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.ModifyImagesByID, "Text"));
+            command.AddInputParameter("@Images", DbType.String, info.Images);
+            command.AddInputParameter("@UpdateDate", DbType.DateTime, DateTime.Now);
+            command.AddInputParameter("@ID", DbType.Int32, info.ID);
+            return command.ExecuteNonQuery();
+        }
+
         public int Remove(long ProductID)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ProductSatement.Remove, "Text"));

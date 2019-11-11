@@ -64,6 +64,15 @@ namespace DataRepository.DataAccess.News
             return command.ExecuteNonQuery();
         }
 
+        public int ModifyImageUrlByID(ArticleInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(ArticleSatement.ModifyImageUrlByID, "Text"));
+            command.AddInputParameter("@img_url", DbType.String, info.img_url);
+            command.AddInputParameter("@update_time", DbType.String, info.update_time);
+            command.AddInputParameter("@id", DbType.String, info.id);
+            return command.ExecuteNonQuery();
+        }
+        
 
         #region 分页方法
         /// <summary>

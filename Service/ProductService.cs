@@ -292,6 +292,22 @@ namespace Service
            return  mr.ModifyInventoryCountByID(info);
         }
 
+
+        /// <summary>
+        ///  修改产品图片
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="imageUrl"></param>
+        /// <returns></returns>
+        public static int ModifyImagesByID(int ID, string imageUrl)
+        {
+            ProductInfo info = new ProductInfo();
+            info.ID = ID;
+            info.Images = imageUrl;
+            ProductRepository mr = new ProductRepository();
+            return mr.ModifyImagesByID(info);
+        }
+
         public static void Remove(long productid)
         {
             ProductRepository mr = new ProductRepository();

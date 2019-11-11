@@ -1,6 +1,7 @@
 ﻿using Common;
 using Entity.ViewModel;
 using Infrastructure.Cache;
+using Service;
 using Service.BaseBiz;
 using System;
 using System.Collections.Generic;
@@ -16,17 +17,17 @@ namespace web.Controllers
     {
         public JsonResult UploadFile()
         {
-            List<AttachmentEntity> result = new List<AttachmentEntity>();
             // 文件数为0证明上传不成功
             if (Request.Files.Count == 0)
             {
                 throw new Exception("请选择上传文件！");
             }
-
+            string dataid = Request.Form["dataId"];
+            string type = Request.Form["type"];
             string urlSufix = DateTime.Now.ToString("yyyyMMdd");
-            string reuploadPath = "~/UploadFiles/" + urlSufix + "/";
+            string reuploadPath = "/upload/UploadFiles/" + urlSufix + "/";
             string uploadPath = Server.MapPath("../UploadFiles/" + urlSufix+"/");
-
+            string fileName = "";
             // 如果UploadFiles文件夹不存在则先创建
             if (!Directory.Exists(uploadPath))
             {
@@ -39,7 +40,7 @@ namespace web.Controllers
                 HttpPostedFileBase file = Request.Files[i];
 
                 string filePath = uploadPath + Path.GetFileName(file.FileName);
-                string fileName = file.FileName;
+                fileName = file.FileName;
 
                 // 获取文件扩展名
                 string fileExtension = Path.GetExtension(filePath).ToLower();
@@ -55,26 +56,26 @@ namespace web.Controllers
                 // 保存文件到服务器
                 file.SaveAs(filePath);
 
-                AttachmentEntity attachment = new AttachmentEntity();
-                attachment.FileName = fileName.Substring(0, fileName.IndexOf("."));
-                attachment.FileExtendName = fileExtension;
-                attachment.FilePath = reuploadPath + fileName;
-                attachment.FileType = "产品文件上传";
-                attachment.BusinessType = "产品文件上传";
-                attachment.Remark = "";
-                attachment.FileSize = "";
-                attachment.Channel = "Offline";
-                attachment.UploadDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                attachment.Operator = CurrentUser == null ? 0 : CurrentUser.UserID;
-
-                attachment.AttachmentID = BaseDataService.CreateAttachment(attachment);
-
-                result.Add(attachment);
-
+                string Url =  reuploadPath + fileName;
+                if (type.Equals("News"))//新闻图片
+                { 
+                    ArticleEntity entity=new ArticleEntity();
+                    entity.id=dataid.ToInt(0);
+                    entity.img_url = Url; 
+                    ArticleService.ModifyImageUrlByID(entity);
+                }
+                if (type.Equals("Product"))//产品图片
+                {
+                    ProductService.ModifyImagesByID(dataid.ToInt(0), Url);
+                }
+                if (type.Equals("Artisan"))//艺人图片
+                {
+                    ArtisanService.ModifyIDHead(dataid.ToInt(0), Url);
+                }
 
             }
 
-            return Json(result);
+            return Json(reuploadPath + fileName);
         }
         
     }

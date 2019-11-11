@@ -167,6 +167,20 @@ namespace Service
             mr.ModifySort(info);
         }
 
+        /// <summary>
+        /// 更新产品图片
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sort"></param>
+        public static void ModifyIDHead(int id, string imgaeUrl)
+        {
+            ArtisanInfo info = new ArtisanInfo();
+            info.artisanID = id;
+            info.IDHead = imgaeUrl;
+            ArtisanRepository mr = new ArtisanRepository();
+            mr.ModifyIDHead(info);
+        }
+
         public static bool Modify(ArtisanEntity entity)
         {
             long result = 0;
