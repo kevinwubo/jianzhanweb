@@ -1123,6 +1123,10 @@
     <Content Include="source\layui\font\iconfont.ttf" />
     <Content Include="source\layui\font\iconfont.woff" />
     <Content Include="source\layui\font\iconfont.woff2" />
+    <Content Include="Views\Shared\_Layout_mobile_admin.cshtml" />
+    <Content Include="Views\Inquiry\MobileIndex.cshtml" />
+    <Content Include="Views\Inquiry\MobileEdit.cshtml" />
+    <Content Include="Views\Extends\MobileCodesIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

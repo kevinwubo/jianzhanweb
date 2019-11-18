@@ -115,6 +115,77 @@ namespace web.Controllers
             Response.Redirect("/Inquiry/");
         }
 
+        #region 手机站点资讯页面 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="tracestate">跟踪状态</param>
+        /// <param name="CustomerID"></param>
+        /// <param name="status"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public ActionResult MobileIndex(string name, string tracestate, int CustomerID = 0, int status = -1, string begindate = "", string enddate = "", int p = 1)
+        {
+            List<InquiryEntity> mList = null;
 
+            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate);
+
+            PagerInfo pager = new PagerInfo();
+            pager.PageIndex = p;
+            pager.PageSize = PAGESIZE;
+            pager.SumCount = count;
+            pager.URL = "/MobileIndex";
+
+            ViewBag.InquiryCode = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryS00" && t.Status == 1).ToList();//跟踪状态
+            //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
+            //{
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, pager);
+            //}
+            //else
+            //{
+            //    mList = InquiryService.GetInquiryInfoPager(pager);
+            //}
+
+            ViewBag.Name = name ?? "";
+            ViewBag.Status = status;
+            ViewBag.ModelCode = tracestate;
+            ViewBag.CustomerID = CustomerID;
+            ViewBag.Inquiry = mList;
+            ViewBag.Pager = pager;
+            ViewBag.BeginDate = begindate;
+            ViewBag.EndDate = enddate;
+            return View();
+        }
+
+        /// <summary>
+        ///  手机站点编辑页面
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+
+        public ActionResult MobileEdit(string cid)
+        {
+            ViewBag.InquiryModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
+
+            List<UserEntity> userList = UserService.GetUserAll();
+
+            if (!string.IsNullOrEmpty(cid))
+            {
+                ViewBag.Inquiry = InquiryService.GetInquiryEntityById(cid.ToLong(0));
+            }
+            else
+            {
+                ViewBag.Inquiry = new InquiryEntity();
+            }
+            ViewBag.UserList = userList;
+            return View();
+        }
+        public void MobileModify(InquiryEntity entity)
+        {
+            InquiryService.ModifyInquiry(entity);
+            Response.Redirect("/Inquiry/MobileIndex");
+        }
+        #endregion
     }
 }

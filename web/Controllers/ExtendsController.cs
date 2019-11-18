@@ -51,5 +51,30 @@ namespace web.Controllers
             ViewBag.Type = type;
             return View();
         }
+
+
+        #region 手机站点
+        public ActionResult MobileCodesIndex(string codes = "", string isshow = "0", string type = "")
+        {
+            if (!string.IsNullOrEmpty(type))
+            {
+                if (type.Equals("WYS"))//武夷山
+                {
+                    codes = "WuYiShanSales";
+                }
+                if (type.Equals("XM"))//厦门
+                {
+                    codes = "XiaMenSales";
+                }
+            }
+
+            ViewBag.CodesList = BaseDataService.GetCodeListByRule(codes, isshow);
+            ViewBag.Codes = codes;
+            ViewBag.Type = type;
+            return View();
+        }
+        #endregion      
+
+        
     }
 }

@@ -67,20 +67,16 @@
         <input type="hidden" name="ukey" value="@ViewBag.UKey" />
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
-                <div class="navbar nav_title" style="background: #23527c;">
-                    <div class="logo">
-                        <img src="~/Images/logo.png" style="width:230px;height:40px;" alt="Realm Admin Template">
-                    </div>
-                </div>
                 <div class="container-fluid">
-                    <div class="nav toggle">
+                    <div class="nav toggle" style="height: 45px;line-height: 45px;vertical-align: middle;">
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                         <div class="responsive-logo">
-
+                            <a href="/Inquiry/MobileIndex" style="color:#fff;font-size: 16px;">客户询价查询</a>
+                            <a href="/Extends/MobileCodesIndex" style="color:#fff;font-size: 16px;">队列维护</a>
                         </div>
                     </div>
-                    <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar">欢迎dddd</span>
+                    @*<a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar">欢迎</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
@@ -88,12 +84,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </a>
+                    </a>*@
                     <div class="top-menu visible-desktop">
-                        <ul class="pull-left" style="display:none">
+                        @*<ul class="pull-left" style="display:none">
                             <li><a id="messages" data-notification="2" href="#"><i class="icon-envelope"></i> Messages</a></li>
                             <li><a id="notifications" data-notification="3" href="#"><i class="icon-globe"></i> Notifications</a></li>
-                        </ul>
+                        </ul>*@
                         <ul class="pull-right">
                             <li><a href="/User/ModifyPassword"><i class="icon-pencil"></i> 修改密码</a></li>
                             <li><a href="/Home/LogOut"><i class="icon-off"></i> 注销</a></li>
@@ -110,53 +106,7 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="sidebar-nav nav-collapse collapse">
-                <div class="user_side clearfix" style="display:none">
-                    <img src="~/source/assets/img/odinn.jpg" alt="Odinn god of Thunder">
-                    <h5>Odinn</h5>
-                    <a href="#"><i class="icon-cog"></i> Settings</a>
-                </div>
-                <div class="accordion" id="accordion2">
-                    @if (menus != null && menus.Count > 0)
-                    {
-                        var dict = menus.GroupBy(t => t.GroupCode);
-
-                        foreach (var item in dict)
-                        {
-                            BaseDataEntity b = item.First().BaseData;
-                            bool isShow = false;
-                            foreach (var inner in item)
-                            {
-                                if (inner.IsShow)
-                                {
-                                    isShow = true;
-                                    break;
-                                }
-                            }
-                            var collapsed = isShow ? "" : "collapsed";
-                            var height = isShow ? "auto;" : "0px;";
-
-                            <div class="accordion-group">
-                                <div class="accordion-heading">
-
-                                    <a class="accordion-toggle b_C1F8A9 @collapsed" data-toggle="collapse" data-parent="#accordion2" href="javascript:void(0)"><i class="icon-bar-chart"></i> <span>@b.Description</span></a>
-                                    <div id="baseData" class="accordion-body in collapse" style="height:@height">
-                                        <div class="accordion-inner">
-                                            @foreach (var inner in item)
-                                            {
-                                                <a class="accordion-toggle" href="@inner.URL"><i class="@inner.PreFlag"></i>  @inner.MenuName</a>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-                    }
-
-                </div>
-            </div>
-            <div class="main_container" id="tables_page">
+            <div class="main_container" style="margin-left:0px!important;padding: 0 0 0 0;" id="tables_page">
                 @RenderBody()
             </div>
         </div>
@@ -182,20 +132,4 @@
 @*<script type="text/javascript" src="~/source/assets/js/realm.js"></script>*@
 <script type="text/javascript" src="~/source/assets/js/jquery.slimscroll.min.js"></script>
 <script type="text/javascript" src="~/source/Common.js"></script>
-<script type="text/javascript">
-
-    // JavaScript Document
-    function urlredirect() {
-        var sUserAgent = navigator.userAgent.toLowerCase();
-        if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
-            // PC跳转移动端
-            var thisUrl = window.location.href;
-            window.location.href = "/Inquiry/MobileIndex";; //跳转为网址后面加mobile的路径
-        }
-    }
-    urlredirect();
-
-</script>
-
-
 @RenderSection("Footer", false);

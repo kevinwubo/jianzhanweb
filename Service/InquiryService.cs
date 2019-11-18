@@ -41,7 +41,7 @@ namespace Service
             {
                 LogHelper.WriteTextLog("咨询开始","资讯手机号开始" + Telephone, DateTime.Now);
                 string code = GetTimeRangleCode(Telephone, "");
-                List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and telphone='" + StringHelper.ConvertBy123(Telephone) + "' ", "", "");
+                List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(Telephone) + "' or telphone='" + Telephone + "') ", "", "");
                 UserEntity entity = null;
                 bool isNew = false;
                 if(listInquiry!=null&&listInquiry.Count>0)
