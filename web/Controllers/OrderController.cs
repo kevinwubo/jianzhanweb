@@ -57,7 +57,7 @@ namespace web.Controllers
         public ActionResult Edit(string cid)
         {
             ViewBag.Province = BaseDataService.GetAllProvince();
-            ViewBag.OrderModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "OrderCode" && t.Status == 1).ToList();
+            ViewBag.OrderModel = BaseDataService.GetBaseDataByPCode("OrderCode");
             if (!string.IsNullOrEmpty(cid))
             {
                 ViewBag.Order = OrderService.GetOrderEntityById(cid.ToLong(0));

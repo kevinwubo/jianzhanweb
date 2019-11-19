@@ -36,7 +36,7 @@ namespace web.Controllers
             pager.SumCount = count;
             pager.URL = "/Inquiry";
 
-            ViewBag.InquiryCode = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryS00" && t.Status == 1).ToList();//跟踪状态
+            ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
             mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, pager);
@@ -82,7 +82,7 @@ namespace web.Controllers
 
         public ActionResult Edit(string cid)
         {
-            ViewBag.InquiryModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
+            ViewBag.InquiryModel = BaseDataService.GetBaseDataByPCode("InquiryCode");
 
             List<UserEntity> userList = UserService.GetUserAll();
 
@@ -137,7 +137,7 @@ namespace web.Controllers
             pager.SumCount = count;
             pager.URL = "/MobileIndex";
 
-            ViewBag.InquiryCode = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryS00" && t.Status == 1).ToList();//跟踪状态
+            ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
             mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, pager);
@@ -166,7 +166,7 @@ namespace web.Controllers
 
         public ActionResult MobileEdit(string cid)
         {
-            ViewBag.InquiryModel = BaseDataService.GetBaseDataAll().Where(t => t.PCode == "InquiryCode" && t.Status == 1).ToList();
+            ViewBag.InquiryModel = BaseDataService.GetBaseDataByPCode("InquiryCode");
 
             List<UserEntity> userList = UserService.GetUserAll();
 

@@ -135,8 +135,8 @@ namespace web.Controllers
             ViewBag.YJDSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("业界大师"));//业界大师
             ViewBag.LPCCRJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("老牌传承人"));//老牌传承人
             ViewBag.MJGYSJson = JsonHelper.ToJson(ArtisanService.getSimpleArtisanList("名家工艺师"));//名家工艺师
-            ViewBag.QXJson = JsonHelper.ToJson(BaseDataService.GetBaseDataAll().Where(t => t.PCode == "QX000" && t.Status == 1).ToList());//器型
-            ViewBag.YSJson = JsonHelper.ToJson(BaseDataService.GetBaseDataAll().Where(t => t.PCode == "YS000" && t.Status == 1).ToList());//釉色
+            ViewBag.QXJson = JsonHelper.ToJson(BaseDataService.GetBaseDataByPCode("QX000"));//器型
+            ViewBag.YSJson = JsonHelper.ToJson(BaseDataService.GetBaseDataByPCode("YS000"));//釉色
             ViewBag.ArtisanType = artisanType;
             ViewBag.Product = mList;
             ViewBag.Pager = pager;
