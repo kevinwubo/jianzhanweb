@@ -64,7 +64,9 @@ namespace DataRepository.DataAccess.User
             command.AddInputParameter("@Password", DbType.String, user.Password);
             command.AddInputParameter("@RoleIDs", DbType.String, user.RoleIDs);
             command.AddInputParameter("@GroupIDs", DbType.String, user.GroupIDs);
+            command.AddInputParameter("@CityName", DbType.String, user.CityName);
             command.AddInputParameter("@Status", DbType.Int32, user.Status);
+            command.AddInputParameter("@SalesCount", DbType.Int32, user.SalesCount);
             command.AddInputParameter("@CreateDate", DbType.DateTime, user.CreateDate);
 
             return command.ExecuteNonQuery();
@@ -78,6 +80,8 @@ namespace DataRepository.DataAccess.User
             command.AddInputParameter("@NickName", DbType.String, user.NickName);         
             command.AddInputParameter("@RoleIDs", DbType.String, user.RoleIDs);
             command.AddInputParameter("@GroupIDs", DbType.String, user.GroupIDs);
+            command.AddInputParameter("@CityName", DbType.String, user.CityName);
+            command.AddInputParameter("@SalesCount", DbType.Int32, user.SalesCount);
             command.AddInputParameter("@Status", DbType.Int32, user.Status);
 
             return command.ExecuteNonQuery();
@@ -114,6 +118,16 @@ namespace DataRepository.DataAccess.User
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(UserStatement.ModifyPassword, "Text"));
             command.AddInputParameter("@UserID", DbType.Int64, userid);
             command.AddInputParameter("@Password", DbType.String, password);
+
+            return command.ExecuteNonQuery();
+        }
+
+            
+        public int ModifySalesCountByID(long userid, int salesCount)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(UserStatement.ModifySalesCountByID, "Text"));
+            command.AddInputParameter("@UserID", DbType.Int64, userid);
+            command.AddInputParameter("@SalesCount", DbType.Int32, salesCount);
 
             return command.ExecuteNonQuery();
         }

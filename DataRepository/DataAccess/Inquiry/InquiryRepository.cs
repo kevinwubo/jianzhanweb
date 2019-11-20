@@ -257,7 +257,7 @@ namespace DataRepository.DataAccess.News
         #endregion
 
         #region 分页方法
-        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, PagerInfo pager)
+        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, PagerInfo pager)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
 
@@ -275,6 +275,10 @@ namespace DataRepository.DataAccess.News
             if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
             {
                 builder.Append(" AND AddDate BETWEEN @begindate AND @enddate ");
+            }
+            if (!string.IsNullOrEmpty(operatorid))//根据销售编号查询
+            {
+                builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
             string sql = InquiryStatement.GetAllInquiryInfoPagerHeader + builder.ToString() + InquiryStatement.GetAllInquiryInfoPagerFooter;
 
@@ -302,7 +306,7 @@ namespace DataRepository.DataAccess.News
         }
 
 
-        public int GetInquiryCount(string keywords, string tracestate, int dealStatus,string begindate, string enddate)
+        public int GetInquiryCount(string keywords, string tracestate, int dealStatus,string begindate, string enddate,string operatorid)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(InquiryStatement.GetInquiryCount);
@@ -317,6 +321,10 @@ namespace DataRepository.DataAccess.News
             if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
             {
                 builder.Append(" AND AddDate BETWEEN @begindate AND @enddate ");
+            }
+            if (!string.IsNullOrEmpty(operatorid))//根据销售编号查询
+            {
+                builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
 

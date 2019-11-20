@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar">欢迎dddd</span>
+                        <span class="icon-bar">欢迎</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
@@ -182,20 +182,7 @@
 @*<script type="text/javascript" src="~/source/assets/js/realm.js"></script>*@
 <script type="text/javascript" src="~/source/assets/js/jquery.slimscroll.min.js"></script>
 <script type="text/javascript" src="~/source/Common.js"></script>
-<script type="text/javascript">
 
-    // JavaScript Document
-    function urlredirect() {
-        var sUserAgent = navigator.userAgent.toLowerCase();
-        if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
-            // PC跳转移动端
-            var thisUrl = window.location.href;
-            window.location.href = "/Inquiry/MobileIndex";; //跳转为网址后面加mobile的路径
-        }
-    }
-    urlredirect();
-
-</script>
 
 
 @RenderSection("Footer", false);

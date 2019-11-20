@@ -28,7 +28,9 @@ namespace web.Controllers
         {
             List<InquiryEntity> mList = null;
 
-            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate);
+            string operatorid = getUserID(CurrentUser);
+
+            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -39,7 +41,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, pager);
             //}
             //else
             //{
@@ -129,7 +131,9 @@ namespace web.Controllers
         {
             List<InquiryEntity> mList = null;
 
-            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate);
+            string operatorid = getUserID(CurrentUser);
+
+            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -140,7 +144,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, pager);
             //}
             //else
             //{
@@ -156,6 +160,45 @@ namespace web.Controllers
             ViewBag.BeginDate = begindate;
             ViewBag.EndDate = enddate;
             return View();
+        }
+
+        /// <summary>
+        /// 获取当前用户ID
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private string getUserID(UserEntity user)
+        {
+            string operatorid = "";
+            if (user != null && user.Roles.Count > 0)
+            {
+                int roleID = user.Roles[0].RoleID;
+                int i = (int)RoleEnum.Admin;
+                int sm = (int)RoleEnum.SalesManager;
+
+                if (roleID == i)//管理员查询所有
+                {
+                    return operatorid;
+                }
+                else if (roleID == sm)//销售主管可以查看当前城市下所有的销售
+                {
+                    List<UserEntity> listUser = UserService.GetUserAll().FindAll(p => p.CityName.Equals(user.CityName));
+                    if (listUser != null && listUser.Count > 0)
+                    {
+                        foreach (UserEntity item in listUser)
+                        {
+                            operatorid += item.UserID + ",";
+                        }
+                    }
+                    return !string.IsNullOrEmpty(operatorid) ? operatorid.Substring(0, operatorid.Length - 1) : "";
+                }
+                else
+                {
+                    operatorid = user.UserID.ToString();
+                }
+
+            }
+            return operatorid;
         }
 
         /// <summary>

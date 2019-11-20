@@ -10,13 +10,22 @@ namespace Common
     {
 
     }
-    //承运商：Carrier 仓库：Storage  客户：Customer  门店：Store Receiver:收货人
-    public enum UnionType
+
+    /// <summary>
+    /// //1	管理员
+    //4	销售组
+    //5	财务组
+    //6	仓储组
+    //7	销售管理组
+    /// </summary>
+    public enum RoleEnum
     {
-        Carrier,
-        Storage,
-        Customer,
-        Store,
-        Receiver
+        Admin = 1,
+        Sales = 4,
+        Finance = 5,
+        Storage = 6,
+        SalesManager = 7
     }
+
+
 }

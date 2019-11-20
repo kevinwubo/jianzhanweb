@@ -24,7 +24,7 @@ namespace web.Controllers
             else
             {
                 uList = UserService.GetUserAll();
-            }
+            }            
 
             ViewBag.Users = uList;
             ViewBag.Name = name ?? "";
@@ -52,6 +52,8 @@ namespace web.Controllers
                 ViewBag.User = user;
             }
 
+            ViewBag.CityList = BaseDataService.GetBaseDataByPCode("CityCode00");
+
             return View();
         }
 
@@ -64,6 +66,8 @@ namespace web.Controllers
             int status = (Request["Status"] ?? "").ToInt(0);
             string roleids = Request["RoleIDs"] ?? "";
             string groupids = Request["GroupIDs"] ?? "";
+            string cityname = Request["CityName"] ?? "";
+            string salesCount = Request["SalesCount"] ?? "";
             UserEntity user = new UserEntity();
             user.UserID = uid;
             user.UserName = userName;
@@ -71,6 +75,8 @@ namespace web.Controllers
             user.Roles = RoleService.GetRoleByKeys(roleids);
             user.Groups = GroupService.GetGroupByKeys(groupids);
             user.Status = status;
+            user.CityName = cityname;
+            user.SalesCount = salesCount.ToInt(0);
             UserService.ModifyUser(user);
 
             Response.Redirect("/User/");
@@ -90,6 +96,22 @@ namespace web.Controllers
             return View();
         }
 
+
+        //
+        /// <summary>
+        /// 更新库存数量
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="inventoryCount"></param>
+        /// <returns></returns>
+        public JsonResult ModifySalesCountByID(int id, int salesCount)
+        {
+            UserService.ModifySalesCountByID(id, salesCount);
+            return new JsonResult
+            {
+                Data = "更新成功！"
+            };
+        }
         [HttpPost]
         public ContentResult CheckPwd(string oldPwd)
         {

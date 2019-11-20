@@ -149,7 +149,7 @@ namespace Service.BaseBiz
         {
             List<UserEntity> all = new List<UserEntity>();
             UserRepository mr = new UserRepository();
-            List<UserInfo> miList = Cache.Get<List<UserInfo>>("UserALL");
+            List<UserInfo> miList = null;// Cache.Get<List<UserInfo>>("UserALL");
             if (miList.IsEmpty())
             {
                 miList = mr.GetAllUser();
@@ -199,6 +199,12 @@ namespace Service.BaseBiz
         {
             UserRepository mr = new UserRepository();
             return mr.ModifyPassword(uid,pwd);
+        }
+
+        public static int ModifySalesCountByID(long uid, int salesCount)
+        {
+            UserRepository mr = new UserRepository();
+            return mr.ModifySalesCountByID(uid, salesCount);
         }
 
         public static UserEntity GetLoginUser(string name, string pwd)

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "编辑用户";
     UserEntity user = ((UserEntity)ViewBag.User) ?? new UserEntity();
-
+    List < BaseDataEntity > CityList = ((List<BaseDataEntity>)ViewBag.CityList) ?? new List<BaseDataEntity>();
 }
 <form class="form-horizontal" action="/User/Modify" method="post" id="userForm">
     <div class="row-fluid" style="margin-top:30px">
@@ -12,7 +12,6 @@
             </div>
             <div class="widget-body">
                 <div class="widget-forms clearfix">
-
                     <input class="span7" type="hidden" id="UserID" name="UserID" value="@user.UserID">
                     <div class="control-group">
                         <label class="control-label">用户名</label>
@@ -46,6 +45,23 @@
                             <div class="widget-body">
                                 @Html.Raw(ViewBag.GroupHtml)
                             </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">开通城市</label>
+                        <div class="controls">
+                            <select class="span3" style="width:80px" id="CityName" name="CityName">
+                                @foreach (var item in CityList)
+                                {
+                                    <option value="@item.ValueInfo" @(user.CityName == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">销售咨询量(单日)</label>
+                        <div class="controls">
+                            <input class="span7" type="text" placeholder="销售咨询量(单日)" id="SalesCount" name="SalesCount" value="@user.SalesCount" maxlength="20">
                         </div>
                     </div>
 

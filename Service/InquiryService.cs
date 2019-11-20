@@ -709,9 +709,9 @@ namespace Service
         }
 
         #region 分页相关
-        public static int GetInquiryCount(string keywords, string tracestate, int status, string begindate, string enddate)
+        public static int GetInquiryCount(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid)
         {
-            return new InquiryRepository().GetInquiryCount(keywords, tracestate, -1, begindate, enddate);
+            return new InquiryRepository().GetInquiryCount(keywords, tracestate, -1, begindate, enddate, operatorid);
         }
 
         public static List<InquiryEntity> GetInquiryInfoPager(PagerInfo pager)
@@ -727,11 +727,11 @@ namespace Service
             return all;
         }
 
-        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, PagerInfo pager)
+        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid, PagerInfo pager)
         {
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
-            List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(keywords, tracestate, status,begindate,enddate, pager);
+            List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(keywords, tracestate, status,begindate,enddate, operatorid, pager);
 
             if (!miList.IsEmpty())
             {
