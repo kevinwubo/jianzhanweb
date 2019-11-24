@@ -168,11 +168,11 @@ namespace Service.BaseBiz
 
         }
 
-        public static List<UserEntity> GetUserByRule(string name, int status)
+        public static List<UserEntity> GetUserByRule(string name, int status, string nickname="")
         {
             List<UserEntity> all = new List<UserEntity>();
             UserRepository mr = new UserRepository();
-            List<UserInfo> miList = mr.GetUsersByRule(name, status);
+            List<UserInfo> miList = mr.GetUsersByRule(name, nickname, status);
 
             if (!miList.IsEmpty())
             {

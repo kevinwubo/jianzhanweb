@@ -57,6 +57,8 @@
     <Compile Include="DataAccess\BaseData\ManagerRepository.cs" />
     <Compile Include="DataAccess\BaseData\ManagerStatement.cs" />
     <Compile Include="DataAccess\Data\StatsRepository.cs" />
+    <Compile Include="DataAccess\InquiryHistory\InquiryHistoryRepository.cs" />
+    <Compile Include="DataAccess\InquiryHistory\InquiryHistoryStatement.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryRepository.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryStatement.cs" />
     <Compile Include="DataAccess\News\ArticleRepository.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="DataModel\CityInfo.cs" />
     <Compile Include="DataModel\CodeSInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
+    <Compile Include="DataModel\InquiryHistoryInfo.cs" />
     <Compile Include="DataModel\InquiryInfo.cs" />
     <Compile Include="DataModel\ManagerInfo.cs" />
     <Compile Include="DataModel\MenuInfo.cs" />

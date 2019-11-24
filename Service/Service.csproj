@@ -47,6 +47,7 @@
     <Compile Include="BaseBiz\GroupService.cs" />
     <Compile Include="BaseBiz\MenuService.cs" />
     <Compile Include="BaseBiz\RoleService.cs" />
+    <Compile Include="InquiryHistoryService.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="InquiryService.cs" />
     <Compile Include="NewsService.cs" />

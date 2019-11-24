@@ -42,6 +42,7 @@
                                     <input type="text" aria-controls="menus" class="layui-input" style="width:200px" placeholder="咨询时间" id="enddate" value="@ViewBag.EndDate" lay-key="2" autocomplete="off" name="enddate">
                                 </label>
                                 <button class="btn btn-info" type="submit">搜索</button>
+                                <button class="btn btn-info" id="btn_IntoInquiry" type="button">移动到释放库</button>
                             </div>
                         </form>
                     </div>
@@ -69,7 +70,7 @@
                             @for (int i = 0; i < list.Count; i++)
                             {
                                 <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "")">
-                                    <td><input type="checkbox" /></td>
+                                    <td><input type="checkbox" value="@list[i].PPId" /></td>
                                     <td class=" sorting_1">@list[i].ProductID</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.ProductName : "")</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>
@@ -121,6 +122,22 @@
         });
         laydate.render({
             elem: '#enddate' //指定元素
+        });
+    });
+    
+    $("#btn_IntoInquiry").click(function () {
+        var ppids = "";
+        $("input[name='checkbox']:checkbox:checked").each(function () {
+            ppids += $(this).val() + ",";
+        })
+        $.ajax({
+            url: "IntoHistoryInquiry",
+            type: 'POST',
+            async: false,
+            data: { ppids: ppids },
+            success: function (data) {
+                alert(data);
+            }
         });
     });
 </script>

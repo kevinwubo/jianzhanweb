@@ -331,6 +331,13 @@ namespace Service
         }
 
 
+        public static int IntoHistoryInquiry(string ppids)
+        {
+            InquiryRepository mr = new InquiryRepository();
+            return mr.IntoHistoryInquiry(ppids);
+        }
+
+
         public static List<DefineInquiryInfo> GetLastSaleNameByCodes(string salenames)
         {
             InquiryRepository mr = new InquiryRepository();

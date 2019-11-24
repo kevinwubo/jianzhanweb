@@ -10,20 +10,27 @@ using System.Threading.Tasks;
 
 namespace DataRepository.DataAccess.News
 {
-    public class InquiryRepository : DataAccessBase
+    public class InquiryHistoryRepository : DataAccessBase
     {
-        public List<InquiryInfo> GetAllInquiry()
+        public List<InquiryHistoryInfo> GetAllInquiry(int count)
         {
-            List<InquiryInfo> result = new List<InquiryInfo>();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.GetAllInquiry, "Text"));
-            result = command.ExecuteEntityList<InquiryInfo>();
+            List<InquiryHistoryInfo> result = new List<InquiryHistoryInfo>();
+
+            string sql = InquiryHistoryStatement.GetAllInquiry;
+            if (count > 0)
+            {
+                sql = string.Format(InquiryHistoryStatement.GetAllInquiryTopCount, count);
+            }
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
+            result = command.ExecuteEntityList<InquiryHistoryInfo>();
             return result;
         }
 
         public List<DefineInquiryInfo> GetLastSaleNameByOperatorID(string OperatorID)
         {
             List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
-            string sqlText = string.Format(InquiryStatement.GetLastSaleNameByOperatorID, OperatorID);
+            string sqlText = string.Format(InquiryHistoryStatement.GetLastSaleNameByOperatorID, OperatorID);
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             DataSet ds = command.ExecuteDataSet();
             result = ListByDataSet(ds);
@@ -34,30 +41,30 @@ namespace DataRepository.DataAccess.News
 
         public int IntoHistoryInquiry(string keys)
         {
-            string sqlText = InquiryStatement.IntoHistoryInquiry;
+            string sqlText = InquiryHistoryStatement.IntoHistoryInquiry;
             sqlText = sqlText.Replace("#ppids#", keys);
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);
         }
-        public List<InquiryInfo> GetInquiryByKeys(string keys)
+        public List<InquiryHistoryInfo> GetInquiryByKeys(string keys)
         {
-            List<InquiryInfo> result = new List<InquiryInfo>();
+            List<InquiryHistoryInfo> result = new List<InquiryHistoryInfo>();
             if (!string.IsNullOrEmpty(keys))
             {
-                string sqlText = InquiryStatement.GetInquiryByKeys;
+                string sqlText = InquiryHistoryStatement.GetInquiryByKeys;
                 sqlText = sqlText.Replace("#ids#", keys);
                 DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
-                result = command.ExecuteEntityList<InquiryInfo>();
+                result = command.ExecuteEntityList<InquiryHistoryInfo>();
             }
 
             return result;
         }
 
-        public List<InquiryInfo> GetInquiryByRule(string productid, string telephone, string name, string sqlwhere, string status, string OperatorID)
+        public List<InquiryHistoryInfo> GetInquiryByRule(string productid, string telephone, string name, string sqlwhere, string status, string OperatorID)
         {
-            List<InquiryInfo> result = new List<InquiryInfo>();
-            string sqlText = InquiryStatement.GetAllInquiryByRule;
+            List<InquiryHistoryInfo> result = new List<InquiryHistoryInfo>();
+            string sqlText = InquiryHistoryStatement.GetAllInquiryByRule;
             if (!string.IsNullOrEmpty(name))
             {
                 sqlText += " AND InquiryName LIKE '%'+@key+'%'";
@@ -104,22 +111,22 @@ namespace DataRepository.DataAccess.News
             {
                 command.AddInputParameter("@OperatorID", DbType.String, OperatorID);
             }
-            result = command.ExecuteEntityList<InquiryInfo>();
+            result = command.ExecuteEntityList<InquiryHistoryInfo>();
             return result;
         }
 
-        public InquiryInfo GetInquiryByKey(long gid)
+        public InquiryHistoryInfo GetInquiryByKey(long gid)
         {
-            InquiryInfo result = new InquiryInfo();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.GetInquiryByKey, "Text"));
+            InquiryHistoryInfo result = new InquiryHistoryInfo();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.GetInquiryByKey, "Text"));
             command.AddInputParameter("@PPID", DbType.String, gid);
-            result = command.ExecuteEntity<InquiryInfo>();
+            result = command.ExecuteEntity<InquiryHistoryInfo>();
             return result;
         }
 
-        public long CreateSimpleInquiry(InquiryInfo info)
+        public long CreateSimpleInquiry(InquiryHistoryInfo info)
         {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateSimpleInquiry, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.CreateSimpleInquiry, "Text"));
             command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
             command.AddInputParameter("@telphone", DbType.String, info.telphone);
             command.AddInputParameter("@WebChartID", DbType.String, info.WebChartID);
@@ -139,9 +146,9 @@ namespace DataRepository.DataAccess.News
         }
 
 
-        public long CreateNew(InquiryInfo info)
+        public long CreateNew(InquiryHistoryInfo info)
         {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateNewInquiry, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.CreateNewInquiry, "Text"));
             command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
             command.AddInputParameter("@telphone", DbType.String, info.telphone);
             command.AddInputParameter("@WebChartID", DbType.String, info.WebChartID);
@@ -168,9 +175,9 @@ namespace DataRepository.DataAccess.News
             return Convert.ToInt64(o);
         }
 
-        public int ModifyInquiry(InquiryInfo info)
+        public int ModifyInquiry(InquiryHistoryInfo info)
         {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.ModifyInquiry, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.ModifyInquiry, "Text"));
             command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
             command.AddInputParameter("@telphone", DbType.String, info.telphone);
             command.AddInputParameter("@WebChartID", DbType.String, info.WebChartID);
@@ -194,9 +201,9 @@ namespace DataRepository.DataAccess.News
             return command.ExecuteNonQuery();
         }
 
-        public int UpdateOperatorIDByPPId(InquiryInfo info)
+        public int UpdateOperatorIDByPPId(InquiryHistoryInfo info)
         {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.UpdateOperatorIDByPPId, "Text"));          
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.UpdateOperatorIDByPPId, "Text"));          
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);            
             command.AddInputParameter("@PPId", DbType.String, info.PPId);
             return command.ExecuteNonQuery();
@@ -205,7 +212,7 @@ namespace DataRepository.DataAccess.News
 
         public int Remove(long InquiryID)
         {
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.Remove, "Text"));
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.Remove, "Text"));
             command.AddInputParameter("@InquiryID", DbType.Int64, InquiryID);
             int result = command.ExecuteNonQuery();
             return result;
@@ -215,7 +222,7 @@ namespace DataRepository.DataAccess.News
         public List<DefineInquiryInfo> GetLastSaleName(string salenames)
         {
             List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
-            string sqlText = InquiryStatement.GetLastSaleName;     
+            string sqlText = InquiryHistoryStatement.GetLastSaleName;     
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             if (!string.IsNullOrEmpty(salenames))
             {
@@ -256,7 +263,7 @@ namespace DataRepository.DataAccess.News
         public List<DefineInquiryInfo> GetLastSaleNameByCodes(string salenames)
         {
             List<DefineInquiryInfo> result = new List<DefineInquiryInfo>();
-            string sqlText = string.Format(InquiryStatement.GetLastSaleNameByCodes, salenames);
+            string sqlText = string.Format(InquiryHistoryStatement.GetLastSaleNameByCodes, salenames);
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             DataSet ds = command.ExecuteDataSet();
             result = ListByDataSet(ds);
@@ -266,9 +273,9 @@ namespace DataRepository.DataAccess.News
         #endregion
 
         #region 分页方法
-        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, PagerInfo pager)
+        public List<InquiryHistoryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, PagerInfo pager)
         {
-            List<InquiryInfo> result = new List<InquiryInfo>();
+            List<InquiryHistoryInfo> result = new List<InquiryHistoryInfo>();
 
 
             StringBuilder builder = new StringBuilder();
@@ -289,7 +296,7 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
-            string sql = InquiryStatement.GetAllInquiryInfoPagerHeader + builder.ToString() + InquiryStatement.GetAllInquiryInfoPagerFooter;
+            string sql = InquiryHistoryStatement.GetAllInquiryInfoPagerHeader + builder.ToString() + InquiryHistoryStatement.GetAllInquiryInfoPagerFooter;
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
 
@@ -310,7 +317,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
 
-            result = command.ExecuteEntityList<InquiryInfo>();
+            result = command.ExecuteEntityList<InquiryHistoryInfo>();
             return result;
         }
 
@@ -318,7 +325,7 @@ namespace DataRepository.DataAccess.News
         public int GetInquiryCount(string keywords, string tracestate, int dealStatus,string begindate, string enddate,string operatorid)
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(InquiryStatement.GetInquiryCount);
+            builder.Append(InquiryHistoryStatement.GetInquiryCount);
             if (!string.IsNullOrEmpty(keywords))
             {
                 builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
@@ -351,14 +358,14 @@ namespace DataRepository.DataAccess.News
             return Convert.ToInt32(o);
         }
 
-        public List<InquiryInfo> GetAllInquiryInfoPager(PagerInfo pager)
+        public List<InquiryHistoryInfo> GetAllInquiryInfoPager(PagerInfo pager)
         {
-            List<InquiryInfo> result = new List<InquiryInfo>();
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.GetAllInquiryInfoPager, "Text"));
+            List<InquiryHistoryInfo> result = new List<InquiryHistoryInfo>();
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.GetAllInquiryInfoPager, "Text"));
             command.AddInputParameter("@PageIndex", DbType.Int32, pager.PageIndex);
             command.AddInputParameter("@PageSize", DbType.Int32, pager.PageSize);
             command.AddInputParameter("@recordCount", DbType.Int32, pager.SumCount);
-            result = command.ExecuteEntityList<InquiryInfo>();
+            result = command.ExecuteEntityList<InquiryHistoryInfo>();
             return result;
         }
         #endregion

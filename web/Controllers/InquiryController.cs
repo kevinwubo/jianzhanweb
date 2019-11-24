@@ -80,7 +80,22 @@ namespace web.Controllers
         }
         #endregion
 
-       
+
+        #region 
+        /// <summary>
+        /// 移动到释放库
+        /// </summary>
+        /// <param name="ppids"></param>
+        /// <returns></returns>
+        public JsonResult IntoHistoryInquiry(string ppids)
+        {
+            InquiryService.IntoHistoryInquiry(ppids);
+            return new JsonResult
+            {
+                Data = "移动释放库成功！"
+            };
+        }
+        #endregion
 
         public ActionResult Edit(string cid)
         {
