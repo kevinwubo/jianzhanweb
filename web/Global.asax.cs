@@ -31,11 +31,41 @@ namespace web
             AuthConfig.RegisterAuth();
 
             //定义定时器  
-
             System.Timers.Timer myTimer = new System.Timers.Timer(300000);
             myTimer.Elapsed += new ElapsedEventHandler(myTimer_Elapsed);
             myTimer.Enabled = true;
             myTimer.AutoReset = true;
+
+            //释放库分配
+            System.Timers.Timer myTimerHistory = new System.Timers.Timer(1000);
+            myTimerHistory.Elapsed += new ElapsedEventHandler(myTimer_ElapsedHistory);
+            myTimerHistory.Enabled = true;
+            myTimerHistory.AutoReset = true;
+        }
+
+
+        void myTimer_ElapsedHistory(object source, ElapsedEventArgs e)
+        {
+
+            try
+            {
+                DateTime dtNow = DateTime.Now;
+                int hour = dtNow.Hour;
+                int minute = dtNow.Minute;
+                int second = dtNow.Second;
+
+                //每天早上9点10分10秒开始执行 历史数据分配
+                if (hour == 9 && minute == 10 && second == 10)
+                {
+                    LogHelper.WriteAutoSystemLog("释放库分配", "执行自动分配--开始", DateTime.Now);
+                    InquiryHistoryService.HandHistoryInquiry();
+                    LogHelper.WriteAutoSystemLog("释放库分配", "执行自动分配--结束", DateTime.Now);
+                }
+            }
+            catch (Exception ee)
+            {
+                LogHelper.WriteErrorLog("Application Error", ee.ToString(), DateTime.Now);
+            }
         }
 
         void myTimer_Elapsed(object source, ElapsedEventArgs e)
@@ -54,7 +84,7 @@ namespace web
         void YourTask()
         {
             //在这里写你需要执行的任务  
-            LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--开始", DateTime.Now);   
+            LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--开始", DateTime.Now);
             //InquiryService.AutoAllocation();//自动分配
             LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--结束", DateTime.Now);   
         }

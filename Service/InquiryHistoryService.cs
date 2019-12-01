@@ -40,9 +40,10 @@ namespace Service
                             foreach (InquiryHistoryEntity entity in listAll)
                             {
                                 entity.OperatorID = userInfo.UserID.ToString();
-
+                                //添加到正式库
                                 AddInquiry(entity);
-
+                                //释放库删除
+                                Remove(entity.PPId);
                             }
                         }
                     }
@@ -60,15 +61,15 @@ namespace Service
                 info.ProductID = entity.ProductID;
                 info.SourceForm = entity.SourceForm;
                 info.ProcessingState = "0";
-                info.telphone = entity.telphone;
+                info.telphone = StringHelper.ConvertBy123(entity.telphone);
 
 
                 info.Provence = entity.Provence;
                 info.City = entity.City;
-                info.smsMess = "释放库转移！";
+                info.InquiryContent = "释放库转移重新分配";
                 info.status = "";
-                info.HistoryOperatorID = entity.HistoryOperatorID.ToString();
-                info.OperatorID = entity.OperatorID.ToString();
+                info.HistoryOperatorID = !string.IsNullOrEmpty(entity.HistoryOperatorID) ? entity.HistoryOperatorID : entity.OperatorID;
+                info.OperatorID = entity.OperatorID;
                 info.SaleTelephone = entity.SaleTelephone;
                 info.CustomerName = entity.CustomerName;
                 info.WebChartID = entity.WebChartID;

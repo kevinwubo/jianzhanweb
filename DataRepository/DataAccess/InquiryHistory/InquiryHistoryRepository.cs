@@ -208,12 +208,12 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@PPId", DbType.String, info.PPId);
             return command.ExecuteNonQuery();
         }
-        
 
-        public int Remove(long InquiryID)
+
+        public int Remove(long PPId)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryHistoryStatement.Remove, "Text"));
-            command.AddInputParameter("@InquiryID", DbType.Int64, InquiryID);
+            command.AddInputParameter("@PPId", DbType.Int64, PPId);
             int result = command.ExecuteNonQuery();
             return result;
         }

@@ -18,7 +18,7 @@ namespace DataRepository.DataAccess.News
 
         public static string GetInquiryByKey = @"SELECT * FROM dt_proInquiry_history(NOLOCK) WHERE PPId=@PPId";
 
-        public static string Remove = @"UPDATE dt_proInquiry_history SET datastatus=0 WHERE PPId=@PPId";
+        public static string Remove = @"DELETE FROM  dt_proInquiry_history WHERE PPId=@PPId";
 
         public static string GetInquiryByKeys = @"SELECT * FROM dt_proInquiry_history(NOLOCK) WHERE PPId IN (#ids#)";
 
