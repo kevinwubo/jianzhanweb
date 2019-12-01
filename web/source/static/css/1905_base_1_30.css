@@ -419,7 +419,7 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 
 .pad-t-30 {
-    padding-top: 0.2rem !important;
+    padding-top: 0.15rem !important;
 }
 
 .pad-b-30 {
@@ -439,7 +439,7 @@ input:-moz-placeholder { /* Firefox 18- */
 }
 
 .pad-b-40 {
-    padding-bottom: 0.15rem !important;
+    padding-bottom: 0.1rem !important;
 }
 
 .pad-l-40 {
