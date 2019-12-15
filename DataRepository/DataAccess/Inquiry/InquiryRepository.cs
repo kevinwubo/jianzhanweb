@@ -134,6 +134,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
             command.AddInputParameter("@TraceState", DbType.String, info.TraceState);
             command.AddInputParameter("@IpAddress", DbType.String, info.IpAddress);
+            command.AddInputParameter("@AddDate", DbType.DateTime, info.AddDate);
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt64(o);
         }

@@ -73,6 +73,7 @@ namespace Service
                 info.SaleTelephone = entity.SaleTelephone;
                 info.CustomerName = entity.CustomerName;
                 info.WebChartID = entity.WebChartID;
+                info.AddDate = DateTime.Now;
                 ir.CreateSimpleInquiry(info);
             }
             catch (Exception ex)

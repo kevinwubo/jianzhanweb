@@ -54,7 +54,9 @@
     <Compile Include="DataAccess\Artisan\ArtisanSatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataStatement.cs" />
     <Compile Include="DataAccess\BaseData\BaseDataRepository.cs" />
+    <Compile Include="DataAccess\BaseData\TestRepository.cs" />
     <Compile Include="DataAccess\BaseData\ManagerRepository.cs" />
+    <Compile Include="DataAccess\BaseData\TestStatement.cs" />
     <Compile Include="DataAccess\BaseData\ManagerStatement.cs" />
     <Compile Include="DataAccess\Data\StatsRepository.cs" />
     <Compile Include="DataAccess\InquiryHistory\InquiryHistoryRepository.cs" />

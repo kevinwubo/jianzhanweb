@@ -383,6 +383,7 @@ namespace Service
                 info.SaleTelephone = entity.Telephone;
                 info.CustomerName = contactName;
                 info.WebChartID = wxChartID;
+                info.AddDate = DateTime.Now;
                 ir.CreateSimpleInquiry(info);
             }
             catch (Exception ex)
@@ -635,6 +636,7 @@ namespace Service
             info.OperatorID = user.UserID.ToString();
             info.SaleTelephone = user.Telephone;
             info.CustomerName = entity.CustomerName;
+            info.AddDate = DateTime.Now;
             ir.CreateSimpleInquiry(info);
         }
 

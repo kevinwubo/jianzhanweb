@@ -186,6 +186,7 @@
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\W11Controller.cs" />
+    <Compile Include="Controllers\TempController.cs" />
     <Compile Include="Controllers\WebHomeController.cs" />
     <Compile Include="Controllers\WebHomePCController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -1129,6 +1130,7 @@
     <Content Include="Views\Inquiry\MobileEdit.cshtml" />
     <Content Include="Views\Extends\MobileCodesIndex.cshtml" />
     <Content Include="Views\InquiryHistory\Index.cshtml" />
+    <Content Include="Views\Temp\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
