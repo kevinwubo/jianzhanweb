@@ -42,6 +42,9 @@ namespace DataRepository.DataModel
         [DataMapping("Telephone", DbType.String)]
         public string Telephone { get; set; }
 
+        [DataMapping("PrivateTelephone", DbType.String)]
+        public string PrivateTelephone { get; set; }
+
         [DataMapping("SalesCount", DbType.Int32)]
         public int SalesCount { get; set; }
 

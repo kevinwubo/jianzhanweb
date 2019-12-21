@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="GroupEntity.cs" />
     <Compile Include="ViewModel\InquiryHistoryEntity.cs" />
+    <Compile Include="ViewModel\InquiryMonitorEntity.cs" />
     <Compile Include="ViewModel\ManagerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ArticleEntity.cs" />

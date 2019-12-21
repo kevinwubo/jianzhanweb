@@ -95,7 +95,20 @@ namespace web.Controllers
 
             Response.Redirect("/InquiryHistory/");
         }
-       
+
+        /// <summary>
+        /// 执行手动分配
+        /// </summary>
+        public void HandHistoryInquiry()
+        {
+            LogHelper.WriteAutoSystemLog("释放库分配", "执行手动分配--开始" + CurrentUser.NickName, DateTime.Now);
+            InquiryHistoryService.HandHistoryInquiry();
+            LogHelper.WriteAutoSystemLog("释放库分配", "执行手动分配--结束" + CurrentUser.NickName, DateTime.Now);
+
+            Response.Redirect("/InquiryHistory/");
+        }
+
+        
 
         /// <summary>
         /// 获取当前用户ID

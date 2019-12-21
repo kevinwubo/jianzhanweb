@@ -158,7 +158,30 @@ namespace Common
             }
             return info;
         }
-
+        /// <summary>
+        ///  '已成交'  
+        /// '有意向'
+        /// '假号'  
+        /// 其他 ''
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static string getColorStyle(String status)
+        {
+            if (status.Equals("已成交"))
+            {
+                return ";color:red";
+            }
+            else if (status.Equals("有意向"))
+            {
+                return ";color:blue";
+            }
+            else if (status.Equals("假号"))
+            {
+                return ";color:lightgrey";
+            }
+            return "";
+        }
         public static ProCityEntity getProCityInfo()
         {
             ProCityEntity info = new ProCityEntity();

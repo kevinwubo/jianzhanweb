@@ -1,6 +1,7 @@
 ﻿using Common;
 using Entity.ViewModel;
 using Infrastructure.Cache;
+using Service;
 using Service.BaseBiz;
 using System;
 using System.Collections.Generic;

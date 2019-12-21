@@ -1131,6 +1131,7 @@
     <Content Include="Views\Extends\MobileCodesIndex.cshtml" />
     <Content Include="Views\InquiryHistory\Index.cshtml" />
     <Content Include="Views\Temp\Index.cshtml" />
+    <Content Include="Views\Inquiry\InquiryMonitor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

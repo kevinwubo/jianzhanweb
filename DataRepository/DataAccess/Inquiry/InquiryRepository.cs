@@ -117,6 +117,23 @@ namespace DataRepository.DataAccess.News
             return result;
         }
 
+
+        /// <summary>
+        /// 资讯日志流水记录
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public long CreateInuiryLog(InquiryLogInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateInuiryLog, "Text"));
+            command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
+            command.AddInputParameter("@Telephone", DbType.String, info.Telephone);
+            command.AddInputParameter("@JMTelephone", DbType.String, info.JMTelephone);
+            command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
+            command.AddInputParameter("@CreateDate", DbType.String, info.CreateDate);
+            var o = command.ExecuteScalar<object>();
+            return Convert.ToInt64(o);
+        }
         public long CreateSimpleInquiry(InquiryInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateSimpleInquiry, "Text"));
@@ -276,7 +293,7 @@ namespace DataRepository.DataAccess.News
 
             if (!string.IsNullOrEmpty(keywords))
             {
-                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
+                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%'  or telphone LIKE '%" +StringHelper.ConvertBy123(keywords) + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
             }
             if (!string.IsNullOrEmpty(tracestate))
             {
@@ -322,7 +339,7 @@ namespace DataRepository.DataAccess.News
             builder.Append(InquiryStatement.GetInquiryCount);
             if (!string.IsNullOrEmpty(keywords))
             {
-                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
+                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or telphone LIKE '%" + StringHelper.ConvertBy123(keywords) + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
             }
             if (!string.IsNullOrEmpty(tracestate))
             {

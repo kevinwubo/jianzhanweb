@@ -69,13 +69,13 @@
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                             @for (int i = 0; i < list.Count; i++)
                             {
-                                <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "")">
-                                    <td><input type="checkbox" value="@list[i].PPId" /></td>
+                                <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "") @(list[i].colorStyle)">
+                                    <td @Html.Raw(list[i].colorStyle)><input type="checkbox" value="@list[i].PPId" /></td>
                                     <td class=" sorting_1">@list[i].ProductID</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.ProductName : "")</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>
                                     <td class=" ">
-                                        <span class="label label-warning">手机号:</span>：@list[i].telphone
+                                        <span class="label label-warning">手机号:</span>：@list[i].showTelephone                                     
                                         @if (!string.IsNullOrEmpty(list[i].WebChartID))
                                         {
                                             <span class="label label-warning">微信号:</span>@list[i].WebChartID
@@ -83,10 +83,10 @@
                                     </td>
                                     <td class=" ">@(list[i].user != null ? list[i].user.NickName : "")</td>
                                     <td class=" ">@list[i].TraceState</td>
-                                    <td class=" ">
+                                    <td>
                                         @if (list[i].ProcessingState.Equals("1"))
                                         {
-                                            <span class="label label-success">已处理</span>
+                                            <span class="label label-success" >已处理</span>
                                         }
                                         else
                                         {

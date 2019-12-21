@@ -24,33 +24,57 @@ namespace web.Controllers
         {
             return View();
         }
-
         public void Execute()
         {
-            try
+            List<InquiryEntity> inquiryList = InquiryService.GetInquiryByRule("", "", "", " and  AddDate BETWEEN '2019-12-15 00:00:01' AND '2019-12-16 00:00:01' ", "", "");
+            if (inquiryList != null && inquiryList.Count > 0)
             {
-                TestRepository test = new TestRepository();
-                DataSet ds = test.GetDataSet();
-                DataTable dt = ds.Tables[0];
-                if (dt.Rows.Count > 0)
+                foreach (InquiryEntity entity in inquiryList)
                 {
-                    foreach (DataRow dr in dt.Rows)
+                    List<InquiryEntity> list = InquiryService.GetInquiryByRule("", entity.telphone, "", " and  AddDate <'2019-12-15 00:00:01'", "", "");
+                    foreach (InquiryEntity entityIn in list)
                     {
-                        List<InquiryEntity> inquiryList = InquiryService.GetInquiryByRule("", StringHelper.ConvertBy123(dr["D3"].ToString()), "", "", "", "");
-                        if (inquiryList == null || inquiryList.Count == 0)
-                        {
-                            AddInquiry(dr["D3"].ToString(), dr["D4"].ToString(), dr["D1"].ToString() + " " + dr["D2"].ToString());
-                        }
+
+                        InquiryRepository ir = new InquiryRepository();
+                        InquiryInfo infoU = new InquiryInfo();
+                        infoU.OperatorID = entityIn.user.UserID.ToString();
+                        infoU.PPId = entityIn.PPId;
+                        infoU.ChangeDate = DateTime.Now;
+                        ir.UpdateOperatorIDByPPId(infoU);
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                LogHelper.WriteErrorLog("auto", ex.ToString(), DateTime.Now);
-            }
-
-            Response.Redirect("Auto");
         }
+
+
+
+        //public void Execute()
+        //{
+        //    try
+        //    {
+        //        TestRepository test = new TestRepository();
+        //        DataSet ds = test.GetDataSet();
+        //        DataTable dt = ds.Tables[0];
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            foreach (DataRow dr in dt.Rows)
+        //            {
+        //                List<InquiryEntity> inquiryList = InquiryService.GetInquiryByRule("", StringHelper.ConvertBy123(dr["D3"].ToString()), "", "", "", "");
+        //                //if (inquiryList == null || inquiryList.Count == 0)
+        //                //{
+        //                string dt1 = Convert.ToDateTime(dr["D1"].ToString()).ToShortDateString() + " " + Convert.ToDateTime(dr["D2"].ToString()).ToShortTimeString();
+        //                    AddInquiry(dr["D3"].ToString(), dr["D4"].ToString(), dt1);
+        //                //}
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogHelper.WriteErrorLog("auto", ex.ToString(), DateTime.Now);
+        //    }
+
+        //    Response.Redirect("Auto");
+        //}
 
         private static InquiryInfo AddInquiry(string tel, string productid, string adddate)
         {
@@ -67,7 +91,7 @@ namespace web.Controllers
                 info.Provence = "";
                 info.City = "";
                 info.InquiryContent = "99资讯量";
-                info.status = "";
+                info.status = "新";
                 info.HistoryOperatorID = "2";
                 info.OperatorID = "2";
                 info.SaleTelephone = "";

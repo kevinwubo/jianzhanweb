@@ -28,6 +28,9 @@ namespace Entity.ViewModel
 
         public int Status { get; set; }
         public string Telephone { get;set;}
+
+        public string PrivateTelephone { get; set; }
+
         public int SalesCount { get; set; }
         public string CityName { get; set; }
 

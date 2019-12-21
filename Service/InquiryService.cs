@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Infrastructure.Helper;
 using Service.BaseBiz;
 using DataRepository.DataAccess.BaseData;
+using System.Text.RegularExpressions;
 namespace Service
 {
     public class InquiryService
@@ -18,6 +19,9 @@ namespace Service
 
         public static string CreateInquiry(string Telephone, string productID, string sourceform, string contactName, string wxChartID)
         {
+
+            CreateInuiryLog(productID, Telephone, sourceform);
+
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
             CodeSEntity blackmobile = BaseDataService.GetCodeValuesByRule("BlackMobile");//手机号黑名单
             //当天同手机号同产品编号只能资讯2次
@@ -86,10 +90,16 @@ namespace Service
                     SmsMess = SmsMess.Replace("-", "-");
 
                     SMSHelper.SeedSMS(entity.Telephone, SmsMess);
-                    LogHelper.WriteTextLog("sendSMS", "--手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
-                    //发送给老板
-                    SMSHelper.SeedSMS("13916116545", SmsMess);
-                    LogHelper.WriteTextLog("sendSMS", "--手机号 BOSS：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    LogHelper.WriteTextLog("sendSMS", "--工作手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+
+                    if (!string.IsNullOrEmpty(entity.PrivateTelephone))
+                    {
+                        SMSHelper.SeedSMS(entity.PrivateTelephone, SmsMess);
+                        LogHelper.WriteTextLog("sendSMS", "--私人手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    }
+                    ////发送给老板
+                    //SMSHelper.SeedSMS("13916116545", SmsMess);
+                    //LogHelper.WriteTextLog("sendSMS", "--手机号 BOSS：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
                     //发送城市对应的主管销售人员
                     if (entity.CityName.Equals("厦门"))
                     {
@@ -331,6 +341,32 @@ namespace Service
         }
 
 
+        /// <summary>
+        /// 资讯日志流水添加
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <param name="telephone"></param>
+        /// <param name="sourceform"></param>
+        public static void CreateInuiryLog(string productID,string telephone,string sourceform)
+        {
+            try
+            {
+                InquiryRepository mr = new InquiryRepository();
+                InquiryLogInfo info=new InquiryLogInfo();
+                info.ProductID = productID;
+                info.Telephone = telephone;
+                info.JMTelephone = StringHelper.ConvertBy123(telephone);
+                info.SourceForm = sourceform;
+                info.CreateDate = DateTime.Now;
+                mr.CreateInuiryLog(info);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+
         public static int IntoHistoryInquiry(string ppids)
         {
             InquiryRepository mr = new InquiryRepository();
@@ -454,6 +490,19 @@ namespace Service
                     infoU.PPId = item.PPId;
                     infoU.ChangeDate = DateTime.Now;
                     ir.UpdateOperatorIDByPPId(infoU);
+
+                    #region 记录转移日志
+                    InquiryMonitorEntity monitorEntity = new InquiryMonitorEntity();
+                    monitorEntity.PPId = item.PPId;
+                    monitorEntity.ProductID = item.ProductID;
+                    monitorEntity.OriginOperatorID = item.OperatorID;
+                    monitorEntity.OriginSalesName = item.user.NickName;
+                    monitorEntity.NewOperatorID = entity.UserID.ToString();
+                    monitorEntity.NewSalesName = entity.NickName;
+                    monitorEntity.Remark = "超时自动转移";
+                    monitorEntity.CreateDate = DateTime.Now;
+                    InquiryMonitorService.Modify(monitorEntity);
+                    #endregion                    
                 }
             }
         }
@@ -520,7 +569,7 @@ namespace Service
             return result;
         }
 
-        private static InquiryEntity TranslateInquiryEntity(InquiryInfo info)
+        private static InquiryEntity TranslateInquiryEntity(InquiryInfo info, string loginUserID = "")
         {
             InquiryEntity entity = new InquiryEntity();
             entity.PPId = info.PPId;
@@ -545,8 +594,25 @@ namespace Service
             entity.SourceForm = info.SourceForm;
             entity.user = UserService.GetUserById(info.OperatorID.ToLong(0));
             entity.product = ProductService.GetProductByProductID(info.ProductID);
+            entity.colorStyle = StringHelper.getColorStyle(info.TraceState);
+            entity.showTelephone = getTelephone(loginUserID, entity.telphone, entity.OperatorID);
             return entity;
         }
+
+        private static string getTelephone(string loginUserID,string telephone,string operatorid)
+        {
+            if (!string.IsNullOrEmpty(loginUserID))
+            {
+                if (!loginUserID.Equals(operatorid))
+                {
+                    return Regex.Replace(telephone, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+                }
+                
+            }
+            return telephone;
+        }
+
+        
 
         private static InquiryInfo TranslateInquiryInfo(InquiryEntity entity)
         {
@@ -736,7 +802,7 @@ namespace Service
             return all;
         }
 
-        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid, PagerInfo pager)
+        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid,string userID, PagerInfo pager)
         {
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
@@ -746,7 +812,7 @@ namespace Service
             {
                 foreach (InquiryInfo mInfo in miList)
                 {
-                    InquiryEntity storeEntity = TranslateInquiryEntity(mInfo);
+                    InquiryEntity storeEntity = TranslateInquiryEntity(mInfo, userID);
                     all.Add(storeEntity);
                 }
             }

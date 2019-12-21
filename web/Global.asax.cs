@@ -31,7 +31,7 @@ namespace web
             AuthConfig.RegisterAuth();
 
             //定义定时器  
-            System.Timers.Timer myTimer = new System.Timers.Timer(300000);
+            System.Timers.Timer myTimer = new System.Timers.Timer(300000);//五分钟
             myTimer.Elapsed += new ElapsedEventHandler(myTimer_Elapsed);
             myTimer.Enabled = true;
             myTimer.AutoReset = true;
@@ -85,7 +85,7 @@ namespace web
         {
             //在这里写你需要执行的任务  
             LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--开始", DateTime.Now);
-            //InquiryService.AutoAllocation();//自动分配
+            InquiryService.AutoAllocation();//自动分配
             LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--结束", DateTime.Now);   
         }
 

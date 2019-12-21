@@ -68,6 +68,8 @@ namespace web.Controllers
             string groupids = Request["GroupIDs"] ?? "";
             string cityname = Request["CityName"] ?? "";
             string salesCount = Request["SalesCount"] ?? "";
+            string Telephone = Request["Telephone"] ?? "";
+            string PrivateTelephone = Request["PrivateTelephone"] ?? "";
             UserEntity user = new UserEntity();
             user.UserID = uid;
             user.UserName = userName;
@@ -76,6 +78,8 @@ namespace web.Controllers
             user.Groups = GroupService.GetGroupByKeys(groupids);
             user.Status = status;
             user.CityName = cityname;
+            user.Telephone = Telephone;
+            user.PrivateTelephone = PrivateTelephone;
             user.SalesCount = salesCount.ToInt(0);
             UserService.ModifyUser(user);
 

@@ -26,6 +26,18 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label">工作手机号</label>
+                        <div class="controls">
+                            <input class="span7" type="text" placeholder="工作手机号" id="Telephone" name="Telephone" value="@user.Telephone" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">私人手机号</label>
+                        <div class="controls">
+                            <input class="span7" type="text" placeholder="私人手机号" id="PrivateTelephone" name="PrivateTelephone" value="@user.PrivateTelephone" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label">是否可用</label>
                         <div class="controls">
                             <input type="checkbox" value="1" id="Status" name="Status" @(user.Status == 1 ? "checked" : "")>

@@ -118,6 +118,15 @@ namespace Entity.ViewModel
         ///  关联销售
         /// </summary>
         public UserEntity user { get; set; }
+
+        /// <summary>
+        /// '已成交'  'style=color:red' 
+        /// '有意向'  'style=color:blue' 
+        /// '假号'  'style=color:lightgrey'
+        /// 其他 ''
+        /// </summary>
+        public string colorStyle { get; set; }
+        public string showTelephone { get; set; }
     }
 
     public class SimpleInquiryEntity

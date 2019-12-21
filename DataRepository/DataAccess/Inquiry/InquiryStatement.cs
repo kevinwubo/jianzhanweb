@@ -96,7 +96,12 @@ namespace DataRepository.DataAccess.News
 
         public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='1' WHERE PPId=@PPId";
 
+
         #endregion
-        
+
+
+        #region 资讯日志记录
+        public static string CreateInuiryLog = @"INSERT INTO dt_Inquiry_Log(ProductID,Telephone,JMTelephone,SourceForm,CreateDate)VALUES(@ProductID,@Telephone,@JMTelephone,@SourceForm,@CreateDate)";
+        #endregion
     }
 }

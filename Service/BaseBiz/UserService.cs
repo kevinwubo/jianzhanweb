@@ -46,6 +46,7 @@ namespace Service.BaseBiz
                 userInfo.NickName = userEntity.NickName;
                 userInfo.Status = userEntity.Status;
                 userInfo.Telephone = userEntity.Telephone;
+                userInfo.PrivateTelephone = userEntity.PrivateTelephone;
                 userInfo.SalesCount = userEntity.SalesCount;
                 userInfo.CityName = userEntity.CityName;
                 userInfo.GroupIDs = groupbuilder.ToString().TrimEnd(',');
@@ -64,9 +65,10 @@ namespace Service.BaseBiz
             {
                 userEntity.UserID = userInfo.UserID;
                 userEntity.UserName = userInfo.UserName;
-                userEntity.NickName = userInfo.NickName;
+                userEntity.NickName = userInfo.NickName;                
                 userEntity.Status = userInfo.Status;
                 userEntity.Telephone = userInfo.Telephone;
+                userEntity.PrivateTelephone = userInfo.PrivateTelephone;
                 userEntity.SalesCount = userInfo.SalesCount;
                 userEntity.CityName = userInfo.CityName;
                 if (isRead)

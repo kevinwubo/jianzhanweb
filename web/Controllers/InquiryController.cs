@@ -41,7 +41,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), pager);
             //}
             //else
             //{
@@ -56,6 +56,7 @@ namespace web.Controllers
             ViewBag.Pager = pager;
             ViewBag.BeginDate = begindate;
             ViewBag.EndDate = enddate;
+            ViewBag.LoginUserID = CurrentUser.UserID;
             return View();
         }
         #region 手动添加咨询量
@@ -81,7 +82,7 @@ namespace web.Controllers
         #endregion
 
 
-        #region 
+        #region  移动到释放库 
         /// <summary>
         /// 移动到释放库
         /// </summary>
@@ -159,7 +160,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), pager);
             //}
             //else
             //{
@@ -243,6 +244,30 @@ namespace web.Controllers
         {
             InquiryService.ModifyInquiry(entity);
             Response.Redirect("/Inquiry/MobileIndex");
+        }
+        #endregion
+
+
+
+        #region 销售转移监控列表
+        public ActionResult InquiryMonitor(int p = 1)
+        {
+            List<InquiryMonitorEntity> mList = null;
+
+
+            int count = InquiryMonitorService.GetInquiryCount();
+
+            PagerInfo pager = new PagerInfo();
+            pager.PageIndex = p;
+            pager.PageSize = PAGESIZE;
+            pager.SumCount = count;
+            pager.URL = "/InquiryMonitor";
+
+
+            mList = InquiryMonitorService.GetInquiryInfoByRule(pager);
+            ViewBag.InquiryMonitor = mList;
+            ViewBag.Pager = pager;
+            return View();
         }
         #endregion
     }

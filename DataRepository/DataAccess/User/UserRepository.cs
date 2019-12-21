@@ -69,6 +69,8 @@ namespace DataRepository.DataAccess.User
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(UserStatement.CreateNewUser, "Text"));
             command.AddInputParameter("@UserName", DbType.String, user.UserName);
             command.AddInputParameter("@NickName", DbType.String, user.NickName);
+            command.AddInputParameter("@Telephone", DbType.String, user.Telephone);
+            command.AddInputParameter("@PrivateTelephone", DbType.String, user.PrivateTelephone);
             command.AddInputParameter("@Password", DbType.String, user.Password);
             command.AddInputParameter("@RoleIDs", DbType.String, user.RoleIDs);
             command.AddInputParameter("@GroupIDs", DbType.String, user.GroupIDs);
@@ -85,7 +87,9 @@ namespace DataRepository.DataAccess.User
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(UserStatement.ModifyUser, "Text"));
             command.AddInputParameter("@UserID", DbType.Int64, user.UserID);
             command.AddInputParameter("@UserName", DbType.String, user.UserName);
-            command.AddInputParameter("@NickName", DbType.String, user.NickName);         
+            command.AddInputParameter("@NickName", DbType.String, user.NickName);
+            command.AddInputParameter("@Telephone", DbType.String, user.Telephone);
+            command.AddInputParameter("@PrivateTelephone", DbType.String, user.PrivateTelephone);
             command.AddInputParameter("@RoleIDs", DbType.String, user.RoleIDs);
             command.AddInputParameter("@GroupIDs", DbType.String, user.GroupIDs);
             command.AddInputParameter("@CityName", DbType.String, user.CityName);
