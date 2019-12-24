@@ -560,12 +560,12 @@ namespace Service
 
         #endregion
 
-        public static InquiryEntity GetInquiryEntityById(long cid)
+        public static InquiryEntity GetInquiryEntityById(long cid,string userid)
         {
             InquiryEntity result = new InquiryEntity();
             InquiryRepository mr = new InquiryRepository();
             InquiryInfo info = mr.GetInquiryByKey(cid);
-            result = TranslateInquiryEntity(info);
+            result = TranslateInquiryEntity(info,userid);
             return result;
         }
 
@@ -784,9 +784,9 @@ namespace Service
         }
 
         #region 分页相关
-        public static int GetInquiryCount(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid)
+        public static int GetInquiryCount(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid,string sqlwhere="")
         {
-            return new InquiryRepository().GetInquiryCount(keywords, tracestate, -1, begindate, enddate, operatorid);
+            return new InquiryRepository().GetInquiryCount(keywords, tracestate, -1, begindate, enddate, operatorid, sqlwhere);
         }
 
         public static List<InquiryEntity> GetInquiryInfoPager(PagerInfo pager)
@@ -802,11 +802,11 @@ namespace Service
             return all;
         }
 
-        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid,string userID, PagerInfo pager)
+        public static List<InquiryEntity> GetInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid,string userID,string sqlwhere, PagerInfo pager)
         {
             List<InquiryEntity> all = new List<InquiryEntity>();
             InquiryRepository mr = new InquiryRepository();
-            List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(keywords, tracestate, status,begindate,enddate, operatorid, pager);
+            List<InquiryInfo> miList = mr.GetAllInquiryInfoByRule(keywords, tracestate, status, begindate, enddate, operatorid, sqlwhere, pager);
 
             if (!miList.IsEmpty())
             {

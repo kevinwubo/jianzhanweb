@@ -39,28 +39,29 @@
                     <div class="control-group">
                         <label class="control-label">询价销售转移</label>
                         <div class="controls">
-                            @*<input class="span5" type="text" placeholder="询价销售转移" id="OperatorID" name="OperatorID" value="@entity.OperatorID" maxlength="100">*@
-                            <select tabindex="1" class="span2" id="OperatorID" name="OperatorID">
+                            <select tabindex="1" class="span2" id="OperatorID" name="OperatorID" @(ViewBag.CanEdit ? "" : "disabled=disabled")>
                                 @if (userList != null && userList.Count > 0)
                                 {
-                                    foreach(UserEntity item in userList)
+                                    foreach (UserEntity item in userList)
                                     {
                                         <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
-                                    }                                    
+                                    }
                                 }
-                            </select>                            
+                            </select>
+                            
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">客户姓名</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="客户姓名" id="CustomerName" name="CustomerName" value="@entity.CustomerName" maxlength="200">
+                            <input class="span5" type="text" placeholder="客户姓名" id="CustomerName" name="CustomerName" value="@entity.CustomerName" maxlength="200">                            
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">电话号码</label>
                         <div class="controls">
-                            <input class="span5" type="text" placeholder="电话号码" id="telphone" name="telphone" value="@entity.telphone" maxlength="200">
+                            <input class="span5" type="text" placeholder="电话号码" id="showTelephone" name="showTelephone" value="@entity.showTelephone" maxlength="200">
+                            <input type="hidden" id="telphone" name="telphone" value="@entity.telphone" />
                         </div>
                     </div>
                     <div class="control-group">

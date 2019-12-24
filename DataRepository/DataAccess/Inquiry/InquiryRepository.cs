@@ -284,7 +284,7 @@ namespace DataRepository.DataAccess.News
         #endregion
 
         #region 分页方法
-        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, PagerInfo pager)
+        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, string sqlwhere, PagerInfo pager)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
 
@@ -307,6 +307,11 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
+            }
+
             string sql = InquiryStatement.GetAllInquiryInfoPagerHeader + builder.ToString() + InquiryStatement.GetAllInquiryInfoPagerFooter;
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sql, "Text"));
@@ -333,7 +338,7 @@ namespace DataRepository.DataAccess.News
         }
 
 
-        public int GetInquiryCount(string keywords, string tracestate, int dealStatus,string begindate, string enddate,string operatorid)
+        public int GetInquiryCount(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, string sqlwhere)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(InquiryStatement.GetInquiryCount);
@@ -353,6 +358,11 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
+            }
+
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
 
             if (!string.IsNullOrEmpty(tracestate))

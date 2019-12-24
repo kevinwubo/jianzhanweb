@@ -28,9 +28,17 @@ namespace web.Controllers
         {
             List<InquiryEntity> mList = null;
 
-            string operatorid = getUserID(CurrentUser);
+            bool userManagers=false;
+            string operatorid = getUserID(CurrentUser, ref userManagers);
+            string sqlwhere = "";
+            //管理者在客户询价查询库里，是不会搜索到释放库的咨询量
+            if (userManagers)
+            {
+                sqlwhere = " and Status!='释' ";
+            }
 
-            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid);
+
+            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -41,7 +49,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(),sqlwhere, pager);
             //}
             //else
             //{
@@ -106,12 +114,20 @@ namespace web.Controllers
 
             if (!string.IsNullOrEmpty(cid))
             {
-                ViewBag.Inquiry = InquiryService.GetInquiryEntityById(cid.ToLong(0));
+                ViewBag.Inquiry = InquiryService.GetInquiryEntityById(cid.ToLong(0), CurrentUser.UserID.ToString());
             }
             else
             {
                 ViewBag.Inquiry = new InquiryEntity();
             }
+            bool canEdit = StringHelper.checkRole(CurrentUser, 7) || StringHelper.checkRole(CurrentUser, 1);// 销售管理组 销售组
+            if (canEdit)
+            {
+                int index = userList.FindIndex(p => p.UserID == CurrentUser.UserID);
+                userList.RemoveAt(index);
+            }
+            ViewBag.CanEdit = canEdit;
+
             ViewBag.UserList = userList;
             return View();
         }
@@ -146,10 +162,17 @@ namespace web.Controllers
         public ActionResult MobileIndex(string name, string tracestate, int CustomerID = 0, int status = -1, string begindate = "", string enddate = "", int p = 1)
         {
             List<InquiryEntity> mList = null;
+            bool userManagers = false;
+            string operatorid = getUserID(CurrentUser, ref userManagers);
 
-            string operatorid = getUserID(CurrentUser);
+            string sqlwhere = "";
+            //管理者在客户询价查询库里，是不会搜索到释放库的咨询量
+            if (userManagers)
+            {
+                sqlwhere = " and Status!='释' ";
+            }
 
-            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid);
+            int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
@@ -160,7 +183,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), sqlwhere, pager);
             //}
             //else
             //{
@@ -183,7 +206,7 @@ namespace web.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private string getUserID(UserEntity user)
+        private string getUserID(UserEntity user,ref bool userManagers)
         {
             string operatorid = "";
             if (user != null && user.Roles.Count > 0)
@@ -194,6 +217,7 @@ namespace web.Controllers
 
                 if (roleID == i)//管理员查询所有
                 {
+                    userManagers = true;
                     return operatorid;
                 }
                 else if (roleID == sm)//销售主管可以查看当前城市下所有的销售
@@ -206,10 +230,12 @@ namespace web.Controllers
                             operatorid += item.UserID + ",";
                         }
                     }
+                    userManagers = true;
                     return !string.IsNullOrEmpty(operatorid) ? operatorid.Substring(0, operatorid.Length - 1) : "";
                 }
                 else
                 {
+                    userManagers = false;
                     operatorid = user.UserID.ToString();
                 }
 
@@ -231,7 +257,7 @@ namespace web.Controllers
 
             if (!string.IsNullOrEmpty(cid))
             {
-                ViewBag.Inquiry = InquiryService.GetInquiryEntityById(cid.ToLong(0));
+                ViewBag.Inquiry = InquiryService.GetInquiryEntityById(cid.ToLong(0), CurrentUser.UserID.ToString());
             }
             else
             {

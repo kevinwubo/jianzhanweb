@@ -22,9 +22,11 @@ namespace Service
         /// </summary>
         public static void HandHistoryInquiry()
         {
-            CodeSEntity entityrq = BaseDataService.GetCodeValuesByRule("HistoryInquiryCodes");
-            CodeSEntity entityCount = BaseDataService.GetCodeValuesByRule("HistoryInquiryCount");
+            CodeSEntity entityrq = BaseDataService.GetCodeValuesByRule("HistoryInquiryCodes");//释放库销售队列
+            CodeSEntity entityTotalCount = BaseDataService.GetCodeValuesByRule("InquiryCount");//咨询量总数
+            CodeSEntity entityCount = BaseDataService.GetCodeValuesByRule("HistoryInquiryCount");//释放库转移数量
             string count = entityCount != null ? entityCount.CodeValues : "10";
+            int totalCount = entityTotalCount != null ? entityTotalCount.CodeValues.ToInt(0) : 800;
             if (entityrq != null)
             {
                 string[] list = entityrq.CodeValues.Split(',');
@@ -39,11 +41,16 @@ namespace Service
                         {
                             foreach (InquiryHistoryEntity entity in listAll)
                             {
-                                entity.OperatorID = userInfo.UserID.ToString();
-                                //添加到正式库
-                                AddInquiry(entity);
-                                //释放库删除
-                                Remove(entity.PPId);
+                                int totalInquiryCount = InquiryService.GetInquiryCount("", "", -1, "", userInfo.UserID.ToString(), " and Status!='释' ");
+                                LogHelper.WriteTextLog("销售：" + userInfo.NickName, "当前总销售数量" + totalInquiryCount, DateTime.Now);
+                                if (totalInquiryCount <= totalCount)
+                                {
+                                    entity.OperatorID = userInfo.UserID.ToString();
+                                    //添加到正式库
+                                    AddInquiry(entity);
+                                    //释放库删除
+                                    Remove(entity.PPId);
+                                }
                             }
                         }
                     }
@@ -67,7 +74,7 @@ namespace Service
                 info.Provence = entity.Provence;
                 info.City = entity.City;
                 info.InquiryContent = "释放库转移重新分配";
-                info.status = "";
+                info.status = "释";
                 info.HistoryOperatorID = !string.IsNullOrEmpty(entity.HistoryOperatorID) ? entity.HistoryOperatorID : entity.OperatorID;
                 info.OperatorID = entity.OperatorID;
                 info.SaleTelephone = entity.SaleTelephone;

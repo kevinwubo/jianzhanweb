@@ -14,6 +14,23 @@ namespace Common
 {
     public static class StringHelper
     {
+        /// <summary>
+        /// 判断用户信息
+        /// </summary>
+        /// <param name="CurrentUser"></param>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
+        public static bool checkRole(UserEntity CurrentUser,int roleID)
+        {
+            if (CurrentUser != null && CurrentUser.Roles != null && CurrentUser.Roles.Count > 0)
+            {
+                if (CurrentUser.Roles.Find(p => p.RoleID == roleID) != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public static long ToLong(this string str, long defaultVal)
         {

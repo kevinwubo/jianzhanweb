@@ -34,13 +34,14 @@ namespace web.Controllers
 
         public ActionResult CodesIndex(string codes = "", string isshow = "0", string type = "")
         {
-            if (!string.IsNullOrEmpty(type))
+            //销售管理组
+            if (CurrentUser != null && CurrentUser.Roles != null && CurrentUser.Roles.Count > 0 && CurrentUser.Roles[0].RoleID == 7)
             {
-                if (type.Equals("WYS"))//武夷山
+                if (CurrentUser.CityName.Equals("武夷山"))//武夷山
                 {
                     codes = "WuYiShanSales";
                 }
-                if (type.Equals("XM"))//厦门
+                if (CurrentUser.CityName.Equals("厦门"))//厦门
                 {
                     codes = "XiaMenSales";
                 }
