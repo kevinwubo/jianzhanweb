@@ -866,6 +866,7 @@
     <Content Include="source\static\css\1906_pagination.css" />
     <Content Include="source\static\css\admin_pagination.css" />
     <Content Include="source\static\css\flexible_base.css" />
+    <Content Include="source\static\css\jquery-ui.css" />
     <Content Include="source\static\css\pc_collegelist.css" />
     <Content Include="source\static\css\pc_collegedetail.css" />
     <Content Include="source\static\css\pc_college.css" />
@@ -1078,7 +1079,10 @@
     <Content Include="source\static\images\xiaojiang\lp.png" />
     <Content Include="source\static\images\xiaojiang\tl_top.png" />
     <Content Include="source\static\images\xiaojiang\top.png" />
+    <Content Include="source\static\js\flexible.js" />
+    <Content Include="source\static\js\flexible_css.js" />
     <Content Include="source\static\js\jquery-2.1.4.js" />
+    <Content Include="source\static\js\jquery-ui.js" />
     <Content Include="source\static\js\jquery-weui.js" />
     <Content Include="source\static\js\jquery-weui.min.js" />
     <Content Include="source\static\js\jquery.pagination.js" />

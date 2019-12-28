@@ -19,11 +19,12 @@
     <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/1905_pagination.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/index.css" type="text/css">
-    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script>
-
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="/source/static/js/flexible_css.js"></script>
+    <script src="/source/static/js/flexible.js"></script>
+    <link rel="stylesheet" href="/source/static/css/jquery-ui.css" type="text/css">
     <script src="/source/static/js/jquery-2.1.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/source/static/js/jquery-ui.js"></script>
+    
 
     <title>首页</title>
     <style>
@@ -244,5 +245,8 @@
 <script>
     $(function () {
         $("#NextVisitTime").datepicker();
+    });
+    $("#goback").click(function () {
+        window.location.href = "/Inquiry/MobileIndex";
     });
 </script>
