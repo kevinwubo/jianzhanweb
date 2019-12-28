@@ -1,135 +1,104 @@
-﻿@using Entity.ViewModel;
-@{
-    List<MenuEntity> menus = (List<MenuEntity>)ViewBag.CommonMenus;
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>建盏天下，中国建盏业内精品零售平台！</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="shortcut icon" href="~/source/assets/ico/favicon.html">
-    @*基础CSS加载*@
-    <link href="~/source/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="~/source/assets/css/theme.css" rel="stylesheet">
-    <link href="~/source/assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/source/assets/css/alertify.css" rel="stylesheet">
-    <link href="~/source/assets/css/OpenSans.css" rel="stylesheet" />
-    <link href="~/source/layui/css/layui.css" rel="stylesheet" />
-    @RenderSection("Header", false)
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta content="maximum-dpr=2" name="flexible" />
+    <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/admin_pagination.css" type="text/css">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script>
+
+    <title>首页</title>
     <style>
-        label.error {
-            margin-left: 10px;
-            width: auto;
-            display: inline;
-            color: red;
+        html {
+            background: #fafafa;
         }
 
-        .window-mask {
-            position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 199;
-            width: 100%;
-            height: 100%;
-            filter: none;
-            background-color: rgba(0,0,0,0.3);
+        .khzxgl {
+            background: #fafafa;
         }
 
-        /*图片上传*/
-        .upImg {
-            width: 80px;
-            height: 40px;
-            text-align: center;
-            line-height: 40px;
-            font-size: 12px;
-            background: #00a7d0;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 3px;
-            position: relative;
-        }
-
-            .upImg .upfile {
-                width: 80px;
-                height: 40px;
-                position: absolute;
-                overflow: hidden;
-                right: 0;
-                top: 0;
-                opacity: 0;
+            .khzxgl .navheight {
+                position: fixed;
+                width: 100%;
             }
+
+        .sdss {
+            font-size: 22px;
+            color: #fff;
+            background: #c90319;
+            height: .586667rem;
+            margin: 0.2rem 0 .2rem .2rem;
+            line-height: .586667rem;
+            text-align: center;
+            width: 1.866667rem;
+            border-radius: .066667rem;
+        }
+
+        .khzxgl input[type=checkbox] {
+            width: .293333rem;
+            height: .293333rem;
+            text-align: center;
+        }
+
+            .khzxgl input[type=checkbox]:after {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                content: " ";
+                background-color: White;
+                color: #000000;
+                display: inline-block;
+                visibility: visible;
+                border-radius: 2px;
+                border: 0px solid black;
+            }
+
+            .khzxgl input[type=checkbox][disabled=disabled]:after {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                content: " ";
+                background-color: #DCDCDC;
+                color: #000000;
+                display: inline-block;
+                visibility: visible;
+                border-radius: 2px;
+                border: 0px solid #A9A9A9 !important;
+            }
+
+            .khzxgl input[type=checkbox]:checked:after {
+                content: "\2713";
+                /*UNICODE中对号*/
+                font-size: 25px;
+                line-height: .293333rem;
+                font-weight: bold;
+            }
+
+        .khzxgl .menu .act {
+            color: #c90319;
+        }
     </style>
 </head>
-<body>
-    <div id="wrap">
-        <input type="hidden" name="ukey" value="@ViewBag.UKey" />
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <div class="nav toggle" style="height: 45px;line-height: 45px;vertical-align: middle;">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                        <div class="responsive-logo">
-                            <a href="/Inquiry/MobileIndex" style="color:#fff;font-size: 16px;">客户询价查询</a>
-                            <a href="/Extends/MobileCodesIndex" style="color:#fff;font-size: 16px;">队列维护</a>
-                        </div>
-                    </div>
-                    @*<a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar">欢迎</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="btn btn-navbar slide_menu_left visible-tablet">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>*@
-                    <div class="top-menu visible-desktop">
-                        @*<ul class="pull-left" style="display:none">
-                            <li><a id="messages" data-notification="2" href="#"><i class="icon-envelope"></i> Messages</a></li>
-                            <li><a id="notifications" data-notification="3" href="#"><i class="icon-globe"></i> Notifications</a></li>
-                        </ul>*@
-                        <ul class="pull-right">
-                            <li><a href="/User/ModifyPassword"><i class="icon-pencil"></i> 修改密码</a></li>
-                            <li><a href="/Home/LogOut"><i class="icon-off"></i> 注销</a></li>
-                        </ul>
-                    </div>
-                    <div class="top-menu visible-phone visible-tablet">
-                        <ul class="pull-right">
-                            <li><a title="link to View all Messages page, no popover in phone view or tablet" href="#"><i class="icon-envelope"></i></a></li>
-                            <li><a title="link to View all Notifications page, no popover in phone view or tablet" href="#"><i class="icon-globe"></i></a></li>
-                            <li><a href="/Home/LogOut"><i class="icon-off"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="main_container" style="margin-left:0px!important;padding: 0 0 0 0;" id="tables_page">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
-
+<body class="khzxgl">
+    @RenderBody()
 </body>
 </html>
-@*基础JS加载*@
-<script type="text/javascript" src="~/source/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/raphael-min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/bootstrap.js"></script>
-@*<script type="text/javascript" src='~/source/assets/js/sparkline.js'></script>*@
-<script type="text/javascript" src='~/source/assets/js/morris.min.js'></script>
-<script type="text/javascript" src="~/source/assets/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/jquery.masonry.min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/jquery.imagesloaded.min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/jquery.facybox.js"></script>
-<script type="text/javascript" src="~/source/assets/js/jquery.alertify.min.js"></script>
-<script type="text/javascript" src="~/source/assets/js/jquery.knob.js"></script>
-<script type='text/javascript' src='~/source/assets/js/fullcalendar.min.js'></script>
-<script type='text/javascript' src='~/source/assets/js/jquery.gritter.min.js'></script>
-@*<script type="text/javascript" src="~/source/assets/js/realm.js"></script>*@
-<script type="text/javascript" src="~/source/assets/js/jquery.slimscroll.min.js"></script>
-<script type="text/javascript" src="~/source/Common.js"></script>
+<script src="/source/static/js/jquery-2.1.4.js"></script>
+<script src="/source/static/js/jquery-weui.js"></script>
+<script src="/source/static/js/jquery.pagination.js"></script>
+<script src="/source/static/js/utils.js"></script>
+<script>
+    //$('.M-box').pagination({
+    //    count: 3,
+    //    mode: 'fixed',
+    //    coping: true,
+    //    homePage: 'CRM总数(去重2000)',
+    //    prevContent: '上页',
+    //    nextContent: '下页',
+    //});
+</script>
+
 @RenderSection("Footer", false);

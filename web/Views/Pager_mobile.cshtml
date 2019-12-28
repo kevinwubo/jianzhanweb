@@ -1,0 +1,54 @@
+﻿@using Common;
+@{
+    Layout = null;
+    PagerInfo p = Model as PagerInfo;
+    int centSize = 10;
+}
+@if (p.PageCount > 1)
+{
+    <div class="m-style M-box" style="margin: .3rem auto;display: table;">
+                @*<ul>*@
+                    @if (p.PageIndex > 1)
+                    {
+                        <a href="javacsript:void(0)" class="prev" onclick="return getUrl('@p.URL','@(p.PageIndex - 1)');">←</a>
+                    }
+                    @foreach (int i in p.Pages)
+                    {
+                        if (i < 0)
+                        {
+                            <a href="javacsript:void(0)">...</a>
+                        }
+                        else
+                        {
+                           <a href="javacsript:void(0)" @(i == p.PageIndex ? "class=active" : "") onclick="return getUrl('@p.URL','@i');">@i</a>
+                        }
+                    }
+                    @if (p.PageIndex < p.PageCount)
+                    {
+                        <a href="javacsript:void(0)" class="next" onclick="return getUrl('@p.URL','@(p.PageIndex + 1)');">→</a>
+                    }
+                @*</ul>*@
+  
+    </div>
+}
+<script type="text/javascript">
+    function getUrl(url, index)
+    {
+        var result = url;
+        var thisUrl = window.location.href.split("?"), queryString = "";
+        if (thisUrl.length > 1) {
+            queryString = thisUrl[1];
+            var cq = queryString.replace(/p=\d{0,9}&?/g, "");
+            var newq = cq.length > 0 ? "p=" + index+"&" : "p=" + index;
+            queryString = newq + cq;
+            result = thisUrl[0] + "?" + queryString;
+        }
+        else {
+            result = url + "?p=" + index;
+        }
+        window.location.href = result;
+
+        return false;
+
+    }
+</script>

@@ -585,7 +585,7 @@ namespace Service
             entity.Provence = info.Provence;
             entity.City = info.City;
             entity.TraceContent = info.TraceContent;
-            entity.TraceState = info.TraceState;
+            entity.TraceState = !string.IsNullOrEmpty(info.TraceState) ? info.TraceState : "未处理";
             entity.NextVisitTime = info.NextVisitTime;
             entity.AddDate = info.AddDate;
             entity.OperatorID = info.OperatorID;
@@ -595,6 +595,7 @@ namespace Service
             entity.user = UserService.GetUserById(info.OperatorID.ToLong(0));
             entity.product = ProductService.GetProductByProductID(info.ProductID);
             entity.colorStyle = StringHelper.getColorStyle(info.TraceState);
+            entity.mobileColorStyle = info.ProcessingState.Equals("0") ? "background:#ff7308;" : StringHelper.getMobileColorStyle(info.TraceState);
             entity.showTelephone = getTelephone(loginUserID, entity.telphone, entity.OperatorID);
             return entity;
         }
@@ -786,7 +787,7 @@ namespace Service
         #region 分页相关
         public static int GetInquiryCount(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid,string sqlwhere="")
         {
-            return new InquiryRepository().GetInquiryCount(keywords, tracestate, -1, begindate, enddate, operatorid, sqlwhere);
+            return new InquiryRepository().GetInquiryCount(keywords, tracestate, status, begindate, enddate, operatorid, sqlwhere);
         }
 
         public static List<InquiryEntity> GetInquiryInfoPager(PagerInfo pager)

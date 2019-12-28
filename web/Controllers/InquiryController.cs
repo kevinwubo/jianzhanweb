@@ -178,7 +178,7 @@ namespace web.Controllers
             pager.PageIndex = p;
             pager.PageSize = PAGESIZE;
             pager.SumCount = count;
-            pager.URL = "/MobileIndex";
+            pager.URL = "/Inquiry/MobileIndex";
 
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
@@ -263,7 +263,14 @@ namespace web.Controllers
             {
                 ViewBag.Inquiry = new InquiryEntity();
             }
+            bool canEdit = StringHelper.checkRole(CurrentUser, 7) || StringHelper.checkRole(CurrentUser, 1);// 销售管理组 销售组
+            if (canEdit)
+            {
+                int index = userList.FindIndex(p => p.UserID == CurrentUser.UserID);
+                userList.RemoveAt(index);
+            }
             ViewBag.UserList = userList;
+            ViewBag.CanEdit = canEdit;
             return View();
         }
         public void MobileModify(InquiryEntity entity)

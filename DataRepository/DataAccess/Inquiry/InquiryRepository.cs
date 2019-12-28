@@ -35,8 +35,12 @@ namespace DataRepository.DataAccess.News
         public int IntoHistoryInquiry(string keys)
         {
             string sqlText = InquiryStatement.IntoHistoryInquiry;
-            sqlText = sqlText.Replace("#ppids#", keys);
+            //sqlText = sqlText.Replace("#ppids#", keys.TrimEnd(','));
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            if (!string.IsNullOrEmpty(keys))
+            {
+                command.AddInputParameter("@ppids", DbType.String, keys.TrimEnd(','));
+            }
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt32(o);
         }
@@ -284,7 +288,7 @@ namespace DataRepository.DataAccess.News
         #endregion
 
         #region 分页方法
-        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, string sqlwhere, PagerInfo pager)
+        public List<InquiryInfo> GetAllInquiryInfoByRule(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid, string sqlwhere, PagerInfo pager)
         {
             List<InquiryInfo> result = new List<InquiryInfo>();
 
@@ -307,6 +311,10 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
+            if (status > -1)
+            {
+                builder.Append(" AND ProcessingState=@ProcessingState ");//ProcessingState 0未跟踪  1已跟踪
+            }
             if (!string.IsNullOrEmpty(sqlwhere))
             {
                 builder.Append(sqlwhere);
@@ -324,6 +332,10 @@ namespace DataRepository.DataAccess.News
             {
                 command.AddInputParameter("@TraceState", DbType.String, tracestate);
             }
+            if (status > -1)
+            {
+                command.AddInputParameter("@ProcessingState", DbType.String, status);//ProcessingState 0未跟踪  1已跟踪
+            }
             if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
             {
                 command.AddInputParameter("@begindate", DbType.String, begindate+" 00:00:01");
@@ -338,7 +350,7 @@ namespace DataRepository.DataAccess.News
         }
 
 
-        public int GetInquiryCount(string keywords, string tracestate, int dealStatus, string begindate, string enddate, string operatorid, string sqlwhere)
+        public int GetInquiryCount(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid, string sqlwhere)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(InquiryStatement.GetInquiryCount);
@@ -358,6 +370,10 @@ namespace DataRepository.DataAccess.News
             {
                 builder.Append(" AND OperatorID IN(" + operatorid + ") ");
             }
+            if (status > -1)
+            {
+                builder.Append(" AND ProcessingState=@ProcessingState ");//ProcessingState 0未跟踪  1已跟踪
+            }
             if (!string.IsNullOrEmpty(sqlwhere))
             {
                 builder.Append(sqlwhere);
@@ -368,6 +384,10 @@ namespace DataRepository.DataAccess.News
             if (!string.IsNullOrEmpty(tracestate))
             {
                 command.AddInputParameter("@TraceState", DbType.String, tracestate);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@ProcessingState", DbType.String, status);//ProcessingState 0未跟踪  1已跟踪
             }
             if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
             {

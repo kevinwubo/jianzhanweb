@@ -7,135 +7,122 @@
     PagerInfo p = (PagerInfo)ViewBag.Pager;
     Layout = "~/Views/Shared/_Layout_mobile_admin.cshtml";
 }
-<div class="row-fluid">
-    <div class="widget widget-padding span12">
-        <div class="widget-header">
-            <i class="icon-laptop"></i>
-            <h5>客户咨询管理</h5>
-            <div class="widget-buttons">
-                <a href="/Inquiry/Add"><i class="icon-laptop"></i> 手动添加咨询量</a>
+
+<div class="flex-row  navheight" style="align-items: center;background: #f8f8f8">
+    <div class="flex-row pad-l-30" style="width: 1rem;align-items: center">
+        <img class="mar-r-16" style="width: .666667rem" src="/source/static/images/icon/back.png" />
+        <div class="px28 color_57"></div>
+    </div>
+    <div class="flex-col texta-c color_57" style="font-size: 38px;">客户咨询管理</div>
+    <div class="pad-r-30" style="width: 1rem;align-items: right">
+        <img style="float: right;width:.666667rem" src="/source/static/images/icon/menu.png" />
+        @*<div class="px32 color_1e"></div>*@
+    </div>
+</div>
+<div style="padding-top: 1.333333rem;width: 100%;background: #f2f2f2">
+    <form action="/Inquiry/MobileIndex" method="get">
+        <div class="flex-row pad-l-30 pad-r-30" style="padding-top: .1rem; align-items: center;justify-content: left;">
+            <img style="float: right;width: .293333rem;" class="mar-r-10" src="/source/static/images/icon/input.png" />
+            <div class="color_3" style="font-size:22px;"><a href="/Inquiry/Add"><i class="icon-laptop"></i> 手动添加咨询量</a></div>
+            <input placeholder="生产编号 手机号 作者" class="mar-l-20 flex-col" id="name" name="name" value="@ViewBag.Name"
+                   style="font-size: .253333rem;;border: 1px solid #f6f6f6;padding-left: 0.2rem;text-align: left; height: .586667rem;" />
+            @*<div class="sdss">搜索</div>*@
+            <button class="btn btn-info" class="sdss" type="submit">搜索</button>
+        </div>
+    </form>
+</div>
+<div class="flex-row menu"
+     style="padding:.3rem .4rem;align-items: center;justify-content: left;background: #f2f2f2;">
+    @*<input type="checkbox"  />*@
+    <div class="flex-col px22" style="margin-left: 0.1rem;">全选</div>
+    <div class="flex-col act px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=已成交">已成交</a></div>
+    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=有意向">有意向</a></div>
+    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=无意向">无意向</a></div>
+    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?status=0">未跟踪</a></div>
+    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=假号">假号</a></div>
+    <div class="color_6 px22" id="btn_IntoInquiry" style="text-decoration:underline">移到释放库</div>
+</div>
+<div style="padding-top:.2rem;width: 100%;background: #fafafa">
+@if (list != null && list.Count > 0)
+{
+    foreach(InquiryEntity entity in list)
+    {
+        <div class="pad-l-20 pad-r-20 pad-b-20">
+            <div class="flex-row pad-l-20 pad-r-20 pad-b-20 pad-t-20"
+                 style="border-radius: 3px 3px 0 0;@(entity.mobileColorStyle) align-items: center;justify-content: left;">
+                <input type="checkbox" name="checkbox" value="@entity.PPId" />
+                <div class="color_f flex-col px22" style="margin-left: 0.1rem;">@entity.AddDate.ToString() (@entity.TraceState)</div>
+                <img style="float: right;width: .293333rem;" class="mar-r-10" src="/source/static/images/icon/input.png" />
+                <div class="color_6 px22"><a href="MobileEdit?cid=@entity.PPId">客户跟踪</a></div>
+            </div>
+            <div class="flex-row pad-l-20 pad-r-20"
+                 style="padding: .2rem;justify-content: left;border-radius:0 0 3px 3px;">@*background-color: #b32b2018;*@
+                <div class="flex-col">
+                    <div class="px25 mar-b-20" style="text-align: center;">产品信息</div>
+                    <div class="px23 color_9" style="text-align: center;">@entity.ProductID</div>
+                </div>
+                <div style="margin:.1rem .1rem;width:1px;background: #fff;height: 1.2rem;"></div>
+                <div class="flex-col">
+                    <div class="px25 mar-b-20" style="text-align: center">名称</div>
+                    <div class="px23 color_9" style="text-align: center;">@(entity.product!=null?entity.product.ProductName:"")</div>
+                </div>
+                <div style="margin:.1rem .1rem;width: 1px;background: #fff;height: 1.2rem;"></div>
+                <div>
+                    <div class="px25 mar-b-20" style="text-align: center">作者</div>
+                    <div class="px23 color_9" style="text-align: center;">@(entity.product!=null?entity.product.Author:"" )</div>
+                </div>
+                <div style="margin:.1rem .1rem;width: 1px;background: #fff;height: 1.2rem;"></div>
+                <div class="flex-col" style="font-size: 14px;">
+                    <div class="px25 mar-b-20" style="text-align: center">销售</div>
+                    <div class="px23" style="text-align: center;color: #c90319;">@(entity.user!=null?entity.user.NickName:"")</div>
+                </div>
+                <div style="margin:.1rem .1rem;width: 1px;background: #fff;height: 1.2rem;"></div>
+                <div style="font-size: 14px;">
+                    <div class="px25 mar-b-20" style="text-align: center">联系方式</div>
+                    <div class="px23 mar-b-20" style="text-align: center;color: #c90319;">@entity.showTelephone</div>
+                    <div class="px15" style="text-align: center;color: #999;">@(entity.Provence+entity.City)</div>
+                </div>
             </div>
         </div>
-        <div class="widget-body" style="margin-bottom:50px">
-            <div id="menus_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                <div class="row-fluid">
-                    <div class="">
-                        <form action="/Inquiry/MobileIndex" method="get">
-                            <div class="dataTables_length" id="menus_filter">
-                                <label>咨询查询: <input type="text" placeholder="产品编号、手机号、作者" aria-controls="menus" id="name" name="name" value="@ViewBag.Name"></label>
-                                <label>
-                                    跟踪状态: <select class="span3" style="width:80px" id="tracestate" name="tracestate">
-                                        <option value="">全部</option>
-                                        @foreach (var item in codes)
-                                        {
-                                            <option value="@item.ValueInfo" @(ViewBag.ModelCode == item.ValueInfo ? "selected" : "")>@item.ValueInfo</option>
-                                        }
-                                    </select>
-
-                                </label>
-                                @*<label>
-                    <input type="text" aria-controls="menus" class="layui-input" style="width:200px" placeholder="咨询时间" id="begindate" value="@ViewBag.BeginDate" lay-key="1" autocomplete="off" name="begindate">
-                </label>
-                <label>
-                    <input type="text" aria-controls="menus" class="layui-input" style="width:200px" placeholder="咨询时间" id="enddate" value="@ViewBag.EndDate" lay-key="2" autocomplete="off" name="enddate">
-                </label>*@
-                                <button class="btn btn-info" type="submit">搜索</button>
-                                <button class="btn btn-info" id="btn_IntoInquiry" type="button">移动到释放库</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                @if (list != null && list.Count > 0)
-                {
-                    <table id="users" class="table table-striped table-bordered dataTable" aria-describedby="users_info">
-                        <thead>
-                            <tr role="row">
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">编号</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:120px">名称</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">作者</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:200px">电话</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">销售</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">状态</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">状态</th>
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:180px">时间</th>
-                                @*<th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width:80px">所属城市</th>*@
-                                <th role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 100px;">操作</th>
-                            </tr>
-                        </thead>
-
-                        <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            @for (int i = 0; i < list.Count; i++)
-                            {
-                                <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "")">
-                                    <td class=" sorting_1"><input type="checkbox" value="@list[i].PPId" />@list[i].ProductID</td>
-                                    <td class=" ">@(list[i].product != null ? list[i].product.ProductName : "")</td>
-                                    <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>
-                                    <td class=" ">
-                                        <span class="label label-warning">手机号:</span>：@list[i].telphone
-                                        @if (!string.IsNullOrEmpty(list[i].WebChartID))
-                                        {
-                                            <span class="label label-warning">微信号:</span>@list[i].WebChartID
-                                        }
-                                    </td>
-                                    <td class=" ">@(list[i].user != null ? list[i].user.NickName : "")</td>
-                                    <td class=" ">@list[i].TraceState</td>
-                                    <td class=" ">
-                                        @if (list[i].ProcessingState.Equals("1"))
-                                        {
-                                            <span class="label label-success">已处理</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="label">未处理</span>
-                                        }
-
-                                    </td>
-                                    <td class=" ">@list[i].AddDate.ToString()</td>
-                                    @*<td class=" ">@list[i].Provence@list[i].City</td>*@
-                                    <td class=" ">
-                                        <a href="/Inquiry/MobileEdit?cid=@list[i].PPId"><i class="icon-edit"></i> 跟踪</a>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
-                }
-                @{ Html.RenderPartial("../Pager", p); }
-            </div>
-        </div> <!-- /widget-body -->
-    </div> <!-- /widget -->
-</div>
-@section Footer{
-<script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
-<script src="~/source/layui/layui.js"></script>
-<script>
-    layui.use('laydate', function () {
-
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#begindate' //指定元素
-        });
-        laydate.render({
-            elem: '#enddate' //指定元素
-        });
-    });
-
-    $("#btn_IntoInquiry").click(function () {
-        var ppids = "";
-        $("input[name='checkbox']:checkbox:checked").each(function () {
-            ppids += $(this).val() + ",";
-        })
-        $.ajax({
-            url: "IntoHistoryInquiry",
-            type: 'POST',
-            async: false,
-            data: { ppids: ppids },
-            success: function (data) {
-                alert(data);
-            }
-        });
-    });
-</script>
-
+    }
 }
+    @{ Html.RenderPartial("../Pager_mobile", p); }
+    </div>
+
+    @section Footer{
+        <script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
+        <script src="~/source/layui/layui.js"></script>
+        <script>
+            layui.use('laydate', function () {
+
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#begindate' //指定元素
+                });
+                laydate.render({
+                    elem: '#enddate' //指定元素
+                });
+            });
+
+            $("#btn_IntoInquiry").click(function () {
+                var ppids = "";
+                $("input[name='checkbox']:checkbox:checked").each(function () {
+                    ppids += $(this).val() + ",";
+                })
+                $.ajax({
+                    url: "/Inquiry/IntoHistoryInquiry",
+                    type: 'POST',
+                    async: false,
+                    data: { ppids: ppids },
+                    success: function (data) {
+                        alert(data);
+                        window.location.reload();
+                    }
+                });
+            });
+        </script>
+    }

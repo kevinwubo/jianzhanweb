@@ -864,6 +864,8 @@
     <Content Include="source\static\css\1905_style.css" />
     <Content Include="source\static\css\1905_swiper.min.css" />
     <Content Include="source\static\css\1906_pagination.css" />
+    <Content Include="source\static\css\admin_pagination.css" />
+    <Content Include="source\static\css\flexible_base.css" />
     <Content Include="source\static\css\pc_collegelist.css" />
     <Content Include="source\static\css\pc_collegedetail.css" />
     <Content Include="source\static\css\pc_college.css" />
@@ -920,6 +922,10 @@
     <Content Include="source\static\images\college\listimg1.png" />
     <Content Include="source\static\images\college\menu.png" />
     <Content Include="source\static\images\college\xiangxia.png" />
+    <Content Include="source\static\images\icon\back.png" />
+    <Content Include="source\static\images\icon\date.png" />
+    <Content Include="source\static\images\icon\input.png" />
+    <Content Include="source\static\images\icon\menu.png" />
     <Content Include="source\static\images\jianzhan\backhome.png" />
     <Content Include="source\static\images\jianzhan\banner.png" />
     <Content Include="source\static\images\jianzhan\banner1.png" />
@@ -1126,12 +1132,13 @@
     <Content Include="source\layui\font\iconfont.woff" />
     <Content Include="source\layui\font\iconfont.woff2" />
     <Content Include="Views\Shared\_Layout_mobile_admin.cshtml" />
-    <Content Include="Views\Inquiry\MobileIndex.cshtml" />
     <Content Include="Views\Inquiry\MobileEdit.cshtml" />
     <Content Include="Views\Extends\MobileCodesIndex.cshtml" />
     <Content Include="Views\InquiryHistory\Index.cshtml" />
     <Content Include="Views\Temp\Index.cshtml" />
     <Content Include="Views\Inquiry\InquiryMonitor.cshtml" />
+    <Content Include="Views\Inquiry\MobileIndex.cshtml" />
+    <Content Include="Views\Pager_mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

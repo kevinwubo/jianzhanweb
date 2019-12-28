@@ -4,167 +4,245 @@
     ViewBag.Title = "咨询量更新";
     InquiryEntity entity = (InquiryEntity)ViewBag.Inquiry;
     List<UserEntity> userList = (List<UserEntity>)ViewBag.UserList;
-    Layout = "~/Views/Shared/_Layout_mobile_admin.cshtml";
+    Layout = null;
 }
-@section Header{
-    <link href="~/source/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta content="maximum-dpr=2" name="flexible" />
+    <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/1905_pagination.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/index.css" type="text/css">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="/source/static/js/jquery-2.1.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <title>首页</title>
     <style>
-        .picRemove {
-            height: 15px;
-            width: 15px;
-            background-color: #e4e5e6;
-            position: absolute;
-            margin-top: 15px;
-            /*filter: alpha(opacity:70);
-            opacity: 0.7;
-            -moz-opacity: 0.7;
-            -khtml-opacity: 0.7;*/
+        html {
+            background: #fafafa;
+        }
+
+        .edit .cancel {
+            height: .8rem;
+            width: 2.7rem;
+            background-color: #b3b3b3;
+            line-height: .8rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .edit .sumbit {
+            height: .8rem;
+            width: 2.7rem;
+            background-color: #b32b2b;
+            line-height: .8rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .edit .ztact {
+            background-color: #199fd4;
+            color: #fff;
+        }
+
+        .edit .xsselect {
+            width: 2rem;
+            height: .706667rem;
+            line-height: .706667rem;
+            padding: 0 .3rem;
+            border: 1px solid #ddd;
+        }
+
+            .edit .xsselect option {
+                font-size: 25px;
+            }
+
+        .city-picker-selector .selector-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            background-color: #fff;
+            height: .706667rem;
+            line-height: .706667rem;
+            float: left;
+            margin-left: 20px;
+            font-size: 25px;
+            position: relative;
+        }
+
+        .city-picker-selector li {
+            border-top: 1px solid #f7f7f7;
+            color: #333;
+            cursor: pointer;
+            font-size: 25px;
+            width: 90%;
+            padding: 0 5%;
+            height: .706667rem;
+            line-height: .706667rem;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .city-picker-selector .selector-name {
+            border-radius: 5px;
+            color: #333;
+            font-size: 25px;
+            display: block;
+            text-indent: 5%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .city-picker-selector .selector-item:after {
+            top: 25px;
+            right: 15px;
         }
     </style>
-}
-<div class="row-fluid">
+</head>
+
+<body class="edit">
     <form class="form-horizontal" id="EditForm" action="/Inquiry/MobileModify" method="post">
-        <div class="widget widget-padding span12">
-            <div class="widget-header" style="margin-top:30px">
-                <i class="icon-list-alt"></i><h5>咨询量更新</h5>
-            </div>
-            <div class="widget-body" style="overflow: hidden; display: block;">
-                <div class="widget-forms clearfix">
-                    <input type="hidden" id="PPId" name="PPId" value="@entity.PPId">
-                    <div class="control-group">
-                        <label class="control-label">产品名称/编号</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="产品名称/编号" id="ProductID" name="ProductID" value="@entity.ProductID" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">询价销售转移</label>
-                        <div class="controls">
-                            @*<input class="span5" type="text" placeholder="询价销售转移" id="OperatorID" name="OperatorID" value="@entity.OperatorID" maxlength="100">*@
-                            <select tabindex="1" class="span2" id="OperatorID" name="OperatorID">
-                                @if (userList != null && userList.Count > 0)
-                                {
-                                    foreach (UserEntity item in userList)
-                                    {
-                                        <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">客户姓名</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="客户姓名" id="CustomerName" name="CustomerName" value="@entity.CustomerName" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">电话号码</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="电话号码" id="telphone" name="telphone" value="@entity.telphone" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">电话号码2</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="电话号码2" id="CommentContent" name="CommentContent" value="@entity.CommentContent" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">QQ/微信号码</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="QQ/微信号码" id="WebChartID" name="WebChartID" value="@entity.WebChartID" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">留言内容</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="留言内容" id="InquiryContent" name="InquiryContent" value="@entity.InquiryContent" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">处理状态</label>
-                        <div class="controls">
-                            @*<input  type="radio" value="" />已处理
-                                <input type="radio" value="" />未处理*@
-                            <input type="radio" id="ProcessingState" name="ProcessingState" @(@entity.ProcessingState.Equals("1") ? "checked='checked'" : "") value="1" />已处理
-                            <input type="radio" id="ProcessingState" name="ProcessingState" @(@entity.ProcessingState.Equals("0") ? "checked='checked'" : "") value="0" />未处理
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">所在地</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="省份" id="Provence" name="Provence" style="width:110px" value="@entity.Provence" maxlength="50">
-                            <input class="span5" type="text" placeholder="城市" id="City" name="City" style="width:110px" value="@entity.City" maxlength="50">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">跟踪内容</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="跟踪内容" id="TraceContent" name="TraceContent" value="@entity.TraceContent" maxlength="200">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">跟踪状态</label>
-                        <div class="controls">
-                            <select tabindex="1" class="span2" id="TraceState" name="TraceState">
-                                <option value="有意向" @(entity.TraceState.Equals("有意向") ? "selected" : "")>--有意向--</option>
-                                <option value="已成交" @(entity.TraceState.Equals("已成交") ? "selected" : "")>--已成交--</option>
-                                <option value="无意向" @(entity.TraceState.Equals("无意向") ? "selected" : "")>--无意向--</option>
-                                <option value="假号" @(entity.TraceState.Equals("假号") ? "selected" : "")>--假号--</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">下次回访时间</label>
-                        <div class="controls">
-                            <input class="span5" type="text" placeholder="下次回访时间" id="NextVisitTime" name="NextVisitTime" value="@(entity.NextVisitTime > Convert.ToDateTime("2000-01-01") ? entity.NextVisitTime.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" maxlength="200">
-                        </div>
-                    </div>
+        <div style="padding: 1rem;">
+            <input type="hidden" id="AddDate" name="AddDate" value="@entity.AddDate.ToString()" />
+            <input type="hidden" id="PPId" name="PPId" value="@entity.PPId">
+
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="line-height:.706667rem;width:1.466667rem;">编号名称</div>
+                <div style="line-height:.706667rem;height: .706667rem;" class="px25 color_9">
+                    <input type="text" placeholder="产品名称/编号" id="ProductID" name="ProductID" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;" value="@entity.ProductID">
                 </div>
             </div>
-            <div class="widget-footer">
-                <button class="btn btn-primary" type="submit" id="save">保存</button>
-                <button class="btn btn-primary" type="button" id="goback">返回</button>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">询价销售</div>
+                <div class="px25 color_9 flex-col">
+                    <select tabindex="1" class="xsselect px25" id="OperatorID" @(ViewBag.CanEdit ? "" : "disabled=disabled") name="OperatorID">
+                        @if (userList != null && userList.Count > 0)
+                        {
+                            foreach (UserEntity item in userList)
+                            {
+                                <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
+                            }
+                        }
+                    </select>
+                </div>
+
             </div>
-        </div>
-    </form>
-
-
-
-
-
-
-
-</div>
-<div class="window-mask" style="display:none"></div>
-<div id="imgContainer" style="z-index:999;display:none">
-    <div class="row-fluid" style="margin-top:30px">
-        <div class="widget widget-padding span12">
-            <div class="widget-header">
-                <div class="widget-buttons">
-                    <a href="javascript:void(0)" id="closeDeal"><i class="icon-remove"></i>关闭</a>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">客户姓名</div>
+                <div class="px25 color_9 flex-col">
+                    <input type="text" id="CustomerName" name="CustomerName" value="@entity.CustomerName" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;" />
                 </div>
             </div>
-            <div class="widget-body" id="imgshow" style="text-align: center;"></div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">电话号码</div>
+                <div class="px25 color_9 flex-col">
+                    <input type="text" id="telphone" name="telphone" value="@entity.telphone" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;" />
+                </div>
+            </div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">备用号码</div>
+                <div class="px25 color_9 flex-col">
+                    <input type="text" id="CommentContent" name="CommentContent" value="@entity.CommentContent" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;" />
+                </div>
+            </div>
+
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">QQ/微信</div>
+                <div class="px25 color_9 flex-col">
+                    <input type="text" id="WebChartID" name="WebChartID" value="@entity.WebChartID" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;">
+                </div>
+            </div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">留言内容</div>
+                <div class="px25 color_9 flex-col">
+                    <input type="text" id="InquiryContent" name="InquiryContent" value="@entity.InquiryContent" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;">
+                </div>
+            </div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">处理状态</div>
+                <div class="px25 color_9 flex-col">
+                    <select class="xsselect px25" id="ProcessingState" name="ProcessingState">
+                        <option value="1" @(entity.ProcessingState.Equals("1") ? "selected" : "")>未处理</option>
+                        <option value="0" @(entity.ProcessingState.Equals("0") ? "selected" : "")>已处理</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">省份城市</div>
+                <div class="px25 color_9 flex-col">
+                    <input type="text" placeholder="省份" id="Provence" name="Provence" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;width:110px;" value="@entity.Provence" maxlength="50">
+                    <input type="text" placeholder="城市" id="City" name="City" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;width:110px;" value="@entity.City" maxlength="50">
+                </div>
+            </div>
+            <div class="flex-row" style="height:auto;margin-bottom: .346667rem;">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪内容</div>
+                <div class="px25 color_9 flex-col">
+                    <input class="span5" type="text" placeholder="跟踪内容" style="padding: 0 .333333rem; height: 1.406667rem; border: 1px solid #ddd;width: -webkit-fill-available;line-height: 53px"
+                           id="TraceContent" name="TraceContent" value="@entity.TraceContent" >
+                </div>
+            </div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪状态</div>
+                <div class="px25 color_9 flex-col">
+                    <select class="xsselect px25" id="TraceState" name="TraceState">
+                        <option value="有意向" @(entity.TraceState.Equals("有意向") ? "selected" : "")>有意向</option>
+                        <option value="已成交" @(entity.TraceState.Equals("已成交") ? "selected" : "")>已成交</option>
+                        <option value="无意向" @(entity.TraceState.Equals("无意向") ? "selected" : "")>无意向</option>
+                        <option value="假号" @(entity.TraceState.Equals("假号") ? "selected" : "")>假号</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">回访日期</div>
+                <div class="px25 color_9 flex-col" style="position: relative;">
+                    <input type="text" id="NextVisitTime" name="NextVisitTime" value="@(entity.NextVisitTime > Convert.ToDateTime("2000-01-01") ? entity.NextVisitTime.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" style="padding: 0 .333333rem;width: -webkit-fill-available;
+                height: .706667rem;
+                border: 1px solid #ddd;">
+                    @*<img style="width: .293333rem;
+               position: absolute;
+               top: 17px;
+               right: 17px;" class="mar-r-10" src="/source/static/images/icon/date.png" />*@
+                </div>
+            </div>
+            <div class="flex-row" style="margin: auto;width: 5.9rem;">
+                <button class="sumbit px25" type="submit" id="save">保存</button>
+                <div style="width:.5rem;"></div>
+                <button class="cancel px25" type="button" id="goback">返回</button>
+            </div>
+
         </div>
-    </div>
-</div>
-@section Footer{
-<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput.js"></script>
-<script type="text/javascript" src="~/source/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
+</body>
+</html>
+<script src="/source/static/js/jquery.pagination.js"></script>
 <script>
-    $("#goback").click(function () {
-        window.location.href = "/Inquiry/MobileIndex";
+    $(function () {
+        $("#NextVisitTime").datepicker();
     });
 </script>
-
-
-
-
-
-
-
-
-
-}

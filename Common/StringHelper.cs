@@ -199,6 +199,33 @@ namespace Common
             }
             return "";
         }
+
+        /// <summary>
+        ///  '已成交'  
+        /// '有意向'
+        /// '假号'  
+        /// 其他 ''
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static string getMobileColorStyle(String status)
+        {
+            if (status.Equals("已成交"))
+            {
+                return "background:#b32b2b;";
+            }
+            else if (status.Equals("有意向"))
+            {
+                return "background:#8fc2fc;";
+            }
+            else if (status.Equals("假号"))
+            {
+                return "background:#e6e6e6;";
+            }
+            return "";
+        }
+
+
         public static ProCityEntity getProCityInfo()
         {
             ProCityEntity info = new ProCityEntity();

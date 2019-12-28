@@ -126,6 +126,8 @@ namespace Entity.ViewModel
         /// 其他 ''
         /// </summary>
         public string colorStyle { get; set; }
+
+        public string mobileColorStyle { get; set; }
         public string showTelephone { get; set; }
     }
 
