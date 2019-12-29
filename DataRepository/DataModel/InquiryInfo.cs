@@ -150,6 +150,11 @@ namespace DataRepository.DataModel
         [DataMapping("IpAddress", DbType.String)]
         public String IpAddress { get; set; }
 
+        /// <summary>
+        /// 转移次数
+        /// </summary>
+        [DataMapping("transferCount", DbType.Int32)]
+        public int transferCount { get; set; }
         public string smsMess { get; set; }
        
     }

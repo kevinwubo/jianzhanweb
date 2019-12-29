@@ -118,6 +118,11 @@ namespace Entity.ViewModel
         ///  关联销售
         /// </summary>
         public UserEntity user { get; set; }
+
+        /// <summary>
+        /// 转移次数
+        /// </summary>
+        public int transferCount { get; set; }
     }
 
 }
