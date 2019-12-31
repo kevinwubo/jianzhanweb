@@ -34,15 +34,22 @@ namespace DataRepository.DataAccess.News
 
         public int IntoHistoryInquiry(string keys)
         {
-            string sqlText = InquiryStatement.IntoHistoryInquiry;
-            //sqlText = sqlText.Replace("#ppids#", keys.TrimEnd(','));
-            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
-            if (!string.IsNullOrEmpty(keys))
+            if(!string.IsNullOrEmpty(keys))
             {
-                command.AddInputParameter("@ppids", DbType.String, keys.TrimEnd(','));
+                string[] ppids= keys.Split(',');
+                foreach(string ppid in ppids)
+                {
+                    if (!string.IsNullOrEmpty(ppid))
+                    {
+                        string sqlText = InquiryStatement.IntoHistoryInquiry;
+                        DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+                        command.AddInputParameter("@ppids", DbType.String, ppid);
+                        var o = command.ExecuteScalar<object>();
+                    }
+                    //return Convert.ToInt32(o);
+                }
             }
-            var o = command.ExecuteScalar<object>();
-            return Convert.ToInt32(o);
+            return 0;
         }
         public List<InquiryInfo> GetInquiryByKeys(string keys)
         {
@@ -155,6 +162,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
             command.AddInputParameter("@TraceState", DbType.String, info.TraceState);
             command.AddInputParameter("@IpAddress", DbType.String, info.IpAddress);
+            command.AddInputParameter("@transferCount", DbType.Int32, info.transferCount);
             command.AddInputParameter("@AddDate", DbType.DateTime, info.AddDate);
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt64(o);

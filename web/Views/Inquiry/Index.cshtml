@@ -70,7 +70,7 @@
                             @for (int i = 0; i < list.Count; i++)
                             {
                                 <tr style="@(list[i].ProcessingState.Equals("0") ? "background:#ff5a00" : "") @(list[i].colorStyle)">
-                                    <td @Html.Raw(list[i].colorStyle)><input type="checkbox" value="@list[i].PPId" /></td>
+                                    <td @Html.Raw(list[i].colorStyle)><input type="checkbox" name="checkbox" value="@list[i].PPId" /></td>
                                     <td class=" sorting_1">@list[i].ProductID</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.ProductName : "")</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>
@@ -131,12 +131,13 @@
             ppids += $(this).val() + ",";
         })
         $.ajax({
-            url: "IntoHistoryInquiry",
+            url: "/Inquiry/IntoHistoryInquiry",
             type: 'POST',
             async: false,
             data: { ppids: ppids },
             success: function (data) {
                 alert(data);
+                window.location.reload();
             }
         });
     });

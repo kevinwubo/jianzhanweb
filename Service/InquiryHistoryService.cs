@@ -41,7 +41,7 @@ namespace Service
                         {
                             foreach (InquiryHistoryEntity entity in listAll)
                             {
-                                int totalInquiryCount = InquiryService.GetInquiryCount("", "", -1, "", userInfo.UserID.ToString(), " and Status!='释' and TraceState!='假号' ");
+                                //int totalInquiryCount = InquiryService.GetInquiryCount("", "", -1, "", userInfo.UserID.ToString(), " and Status!='释' and TraceState!='假号' ");
                                 {
                                     entity.OperatorID = userInfo.UserID.ToString();
                                     //添加到正式库
