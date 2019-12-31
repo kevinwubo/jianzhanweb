@@ -1141,8 +1141,8 @@
     <Content Include="Views\InquiryHistory\Index.cshtml" />
     <Content Include="Views\Temp\Index.cshtml" />
     <Content Include="Views\Inquiry\InquiryMonitor.cshtml" />
-    <Content Include="Views\Inquiry\MobileIndex.cshtml" />
     <Content Include="Views\Pager_mobile.cshtml" />
+    <Content Include="Views\Inquiry\MobileIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,21 +14,24 @@
 
     <title>首页</title>
     <style>
-        html {
-            background: #fafafa;
+       html {
+            background: #f0f0f0;
+            /* width:80% */
         }
 
         .khzxgl {
-            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+            background: #fafafa
         }
 
-            .khzxgl .navheight {
-                position: fixed;
-                width: 100%;
-            }
+        .khzxgl .navheight {
+            position: fixed;
+            width: 100%
+        }
 
         .sdss {
-            font-size: 22px;
+            font-size: 11px;
             color: #fff;
             background: #c90319;
             height: .586667rem;
@@ -36,7 +39,10 @@
             line-height: .586667rem;
             text-align: center;
             width: 1.866667rem;
-            border-radius: .066667rem;
+            border-radius: .066667rem
+        }
+        [data-dpr="2"] .sdss{
+            font-size: 22px;
         }
 
         .khzxgl input[type=checkbox] {
@@ -45,46 +51,49 @@
             text-align: center;
         }
 
-            .khzxgl input[type=checkbox]:after {
-                width: 100%;
-                height: 100%;
-                top: 0px;
-                content: " ";
-                background-color: White;
-                color: #000000;
-                display: inline-block;
-                visibility: visible;
-                border-radius: 2px;
-                border: 0px solid black;
-            }
+        .khzxgl input[type=checkbox]:after {
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            content: " ";
+            background-color: White;
+            color: #000000;
+            display: inline-block;
+            visibility: visible;
+            border-radius: 2px;
+            border: 0px solid black;
+        }
 
-            .khzxgl input[type=checkbox][disabled=disabled]:after {
-                width: 100%;
-                height: 100%;
-                top: 0;
-                content: " ";
-                background-color: #DCDCDC;
-                color: #000000;
-                display: inline-block;
-                visibility: visible;
-                border-radius: 2px;
-                border: 0px solid #A9A9A9 !important;
-            }
+        .khzxgl input[type=checkbox][disabled=disabled]:after {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            content: " ";
+            background-color: #DCDCDC;
+            color: #000000;
+            display: inline-block;
+            visibility: visible;
+            border-radius: 2px;
+            border: 0px solid #A9A9A9 !important;
+        }
 
-            .khzxgl input[type=checkbox]:checked:after {
-                content: "\2713";
-                /*UNICODE中对号*/
-                font-size: 25px;
-                line-height: .293333rem;
-                font-weight: bold;
-            }
+        .khzxgl input[type=checkbox]:checked:after {
+            content: "\2713";
+            /*UNICODE中对号*/
+            font-size: 12.5px;
+            line-height: .293333rem;
+            font-weight: bold;
+        }
+        [data-dpr="2"] .khzxgl input[type=checkbox]:checked:after {
+            font-size: 25px;
+        }
 
         .khzxgl .menu .act {
             color: #c90319;
         }
     </style>
 </head>
-<body class="khzxgl">
+<body class="khzxgl" style="font-size: 12px;">
     @RenderBody()
 </body>
 </html>

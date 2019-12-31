@@ -149,20 +149,20 @@ namespace DataRepository.DataAccess.News
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateSimpleInquiry, "Text"));
             command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
-            command.AddInputParameter("@telphone", DbType.String, info.telphone);
-            command.AddInputParameter("@WebChartID", DbType.String, info.WebChartID);
-            command.AddInputParameter("@Provence", DbType.String, info.Provence);
-            command.AddInputParameter("@City", DbType.String, info.City);
-            command.AddInputParameter("@InquiryContent", DbType.String, info.InquiryContent);
-            command.AddInputParameter("@CustomerName", DbType.String, info.CustomerName);
+            command.AddInputParameter("@telphone", DbType.String, string.IsNullOrEmpty(info.telphone) ? "" : info.telphone);
+            command.AddInputParameter("@WebChartID", DbType.String, string.IsNullOrEmpty(info.WebChartID) ? "" : info.WebChartID);
+            command.AddInputParameter("@Provence", DbType.String, string.IsNullOrEmpty(info.Provence) ? "" : info.Provence);
+            command.AddInputParameter("@City", DbType.String, string.IsNullOrEmpty(info.City) ? "" : info.City);
+            command.AddInputParameter("@InquiryContent", DbType.String, string.IsNullOrEmpty(info.InquiryContent) ? "" : info.InquiryContent);
+            command.AddInputParameter("@CustomerName", DbType.String, string.IsNullOrEmpty(info.CustomerName) ? "" : info.CustomerName);
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
-            command.AddInputParameter("@HistoryOperatorID", DbType.String, info.HistoryOperatorID);
-            command.AddInputParameter("@status", DbType.String, info.status);
+            command.AddInputParameter("@HistoryOperatorID", DbType.String, info.OperatorID);
+            command.AddInputParameter("@status", DbType.String, string.IsNullOrEmpty(info.status) ? "" : info.status);
             command.AddInputParameter("@ProcessingState", DbType.String, info.ProcessingState);
-            command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
+            command.AddInputParameter("@SourceForm", DbType.String, string.IsNullOrEmpty(info.SourceForm) ? "" : info.SourceForm);
             command.AddInputParameter("@TraceState", DbType.String, info.TraceState);
-            command.AddInputParameter("@IpAddress", DbType.String, info.IpAddress);
-            command.AddInputParameter("@transferCount", DbType.Int32, info.transferCount);
+            command.AddInputParameter("@IpAddress", DbType.String, string.IsNullOrEmpty(info.IpAddress) ? "" : info.IpAddress);
+            command.AddInputParameter("@transferCount", DbType.Int32, 0);
             command.AddInputParameter("@AddDate", DbType.DateTime, info.AddDate);
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt64(o);
@@ -178,22 +178,21 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@InquiryContent", DbType.String, info.InquiryContent);
             command.AddInputParameter("@CommentContent", DbType.String, info.CommentContent);
             command.AddInputParameter("@ProcessingState", DbType.String, info.ProcessingState);
-            command.AddInputParameter("@ProcessingTime", DbType.String, info.ProcessingTime);
+            command.AddInputParameter("@ProcessingTime", DbType.DateTime, info.ProcessingTime);
             command.AddInputParameter("@Provence", DbType.String, info.Provence);
             command.AddInputParameter("@City", DbType.String, info.City);
             command.AddInputParameter("@TraceContent", DbType.String, info.TraceContent);
             command.AddInputParameter("@TraceState", DbType.String, info.TraceState);
-            command.AddInputParameter("@NextVisitTime", DbType.String, info.NextVisitTime);
+            command.AddInputParameter("@NextVisitTime", DbType.DateTime, info.NextVisitTime);
             command.AddInputParameter("@CustomerName", DbType.String, info.CustomerName);
             command.AddInputParameter("@sex", DbType.String, info.Sex);
 
             command.AddInputParameter("@status", DbType.String, info.status);
             command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);
-            command.AddInputParameter("@AddDate", DbType.String, info.AddDate);
+            command.AddInputParameter("@AddDate", DbType.DateTime, info.AddDate);
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
             command.AddInputParameter("@HistoryOperatorID", DbType.String, info.HistoryOperatorID);
-            command.AddInputParameter("@datastatus", DbType.String, info.datastatus);
-            return command.ExecuteNonQuery();
+            command.AddInputParameter("@datastatus", DbType.String, info.datastatus);            
             var o = command.ExecuteScalar<object>();
             return Convert.ToInt64(o);
         }

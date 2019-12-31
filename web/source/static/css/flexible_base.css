@@ -1,17 +1,17 @@
 /*重置*/
-body, h1, h2, h3, h4, h5, dl, dd, dt, p, ul, li, ol {
+/* body, h1, h2, h3, h4, h5, dl, dd, dt, p, ul, li, ol {
     margin: 0;
     padding: 0;
-}
+} */
 
-html {
+/* html {
     width: 100%;
     min-height: 100%;
     height: 100%;
-}
+} */
 
 /*html{-webkit-text-size-adjust:none}*/
-input, select, form, textarea, button {
+/* input, select, form, textarea, button {
     border: none;
     margin: 0;
     outline: none;
@@ -47,7 +47,7 @@ li {
 
 div {
     -webkit-tab-highlight-color: rgba(0, 0, 0, 0);
-}
+} */
 
 input{
     -webkit-appearance: none;
@@ -178,18 +178,52 @@ input:-moz-placeholder { /* Firefox 18- */
 
 /*规范字体大小*/
 .px15 {
+    font-size: 7.5px;
+}
+[data-dpr="2"] .px15 {
     font-size: 15px;
 }
-.px22 {
-    font-size: 22px;
-}
-.px23 {
-    font-size: 23px;
-}
-.px25 {
-    font-size: 25px;
+[data-dpr="3"] .px15 {
+    font-size: 21.5px;
 }
 
+.px22 {
+    font-size: 11px;
+}
+[data-dpr="2"] .px22 {
+    font-size: 22px;
+}
+[data-dpr="3"] .px22 {
+    font-size: 33px;
+}
+
+
+.px23 {
+    font-size: 11.5px;
+}
+[data-dpr="2"] .px23 {
+    font-size: 23px;
+}
+[data-dpr="3"] .px23 {
+    font-size: 34.5px;
+}
+
+.px25 {
+    font-size: 12.5px;
+}
+[data-dpr="2"] .px25 {
+    font-size: 25px;
+}
+[data-dpr="3"] .px25 {
+    font-size: 37.5px;
+}
+
+.px38{
+    font-size: 19px;
+}
+[data-dpr="2"] .px38 {
+    font-size: 38px;
+}
 /*通用颜色*/
 .color_3 {
     color: #333 !important;

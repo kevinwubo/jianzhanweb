@@ -134,7 +134,7 @@
                         {
                             foreach (UserEntity item in userList)
                             {
-                                <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
+                                <option value="@item.UserID" @(!string.IsNullOrEmpty(entity.OperatorID) && entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
                             }
                         }
                     </select>
@@ -186,8 +186,8 @@
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">处理状态</div>
                 <div class="px25 color_9 flex-col">
                     <select class="xsselect px25" id="ProcessingState" name="ProcessingState">
-                        <option value="1" @(entity.ProcessingState.Equals("1") ? "selected" : "")>未处理</option>
-                        <option value="0" @(entity.ProcessingState.Equals("0") ? "selected" : "")>已处理</option>
+                        <option value="1" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("1") ? "selected" : "")>未处理</option>
+                        <option value="0" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("0") ? "selected" : "")>已处理</option>
                     </select>
                 </div>
             </div>
@@ -213,10 +213,10 @@
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪状态</div>
                 <div class="px25 color_9 flex-col">
                     <select class="xsselect px25" id="TraceState" name="TraceState">
-                        <option value="有意向" @(entity.TraceState.Equals("有意向") ? "selected" : "")>有意向</option>
-                        <option value="已成交" @(entity.TraceState.Equals("已成交") ? "selected" : "")>已成交</option>
-                        <option value="无意向" @(entity.TraceState.Equals("无意向") ? "selected" : "")>无意向</option>
-                        <option value="假号" @(entity.TraceState.Equals("假号") ? "selected" : "")>假号</option>
+                        <option value="有意向" @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("有意向") ? "selected" : "")>有意向</option>
+                        <option value="已成交" @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("已成交") ? "selected" : "")>已成交</option>
+                        <option value="无意向" @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("无意向") ? "selected" : "")>无意向</option>
+                        <option value="假号" @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("假号") ? "selected" : "")>假号</option>
                     </select>
                 </div>
             </div>

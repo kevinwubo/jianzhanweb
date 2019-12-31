@@ -5,107 +5,218 @@
     List<InquiryEntity> list = (List<InquiryEntity>)ViewBag.Inquiry;
     List<BaseDataEntity> codes = ((List<BaseDataEntity>)ViewBag.InquiryCode) ?? new List<BaseDataEntity>();
     PagerInfo p = (PagerInfo)ViewBag.Pager;
-    Layout = "~/Views/Shared/_Layout_mobile_admin.cshtml";
+    Layout = null;
 }
 
-<div class="flex-row  navheight" style="align-items: center;background: #f8f8f8">
-    <div class="flex-row pad-l-30" style="width: 1rem;align-items: center">
-        <img class="mar-r-16" style="width: .666667rem" src="/source/static/images/icon/back.png" />
-        <div class="px28 color_57"></div>
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="Shortcut Icon" href="favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
+    <link rel="stylesheet" href="/source/static/css/1905_pagination.css" type="text/css">
+    <title>首页</title>
+    <style>
+        html {
+            background: #f0f0f0;
+            /* width:80% */
+        }
+
+        .khzxgl {
+            position: relative;
+            overflow: hidden;
+            background: #fafafa;
+        }
+
+            .khzxgl .navheight {
+                position: fixed;
+                width: 100%;
+            }
+
+        .sdss {
+            font-size: 11px;
+            color: #fff;
+            background: #c90319;
+            height: .586667rem;
+            margin: 0.2rem 0 .2rem .2rem;
+            line-height: .586667rem;
+            text-align: center;
+            width: 1.866667rem;
+            border-radius: .066667rem;
+        }
+
+        [data-dpr="2"] .sdss {
+            font-size: 22px;
+        }
+
+        .khzxgl input[type=checkbox] {
+            width: .293333rem;
+            height: .293333rem;
+            text-align: center;
+        }
+
+            .khzxgl input[type=checkbox]:after {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                content: " ";
+                background-color: White;
+                color: #000000;
+                display: inline-block;
+                visibility: visible;
+                border-radius: 2px;
+                border: 0px solid black;
+            }
+
+            .khzxgl input[type=checkbox][disabled=disabled]:after {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                content: " ";
+                background-color: #DCDCDC;
+                color: #000000;
+                display: inline-block;
+                visibility: visible;
+                border-radius: 2px;
+                border: 0px solid #A9A9A9 !important;
+            }
+
+            .khzxgl input[type=checkbox]:checked:after {
+                content: "\2713";
+                /*UNICODE中对号*/
+                font-size: 12.5px;
+                line-height: .293333rem;
+                font-weight: bold;
+            }
+
+        [data-dpr="2"] .khzxgl input[type=checkbox]:checked:after {
+            font-size: 25px;
+        }
+
+        .khzxgl .menu .act {
+            color: #c90319;
+        }
+    </style>
+</head>
+
+<body class="khzxgl">
+    <div class="flex-row  navheight" style="align-items: center;background: #f8f8f8">
+        <div class="flex-row pad-l-30" style="width: 1rem;align-items: center">
+            <img class="mar-r-16" style="width: .666667rem" src="/source/static/images/icon/back.png" />
+            <div class="px28 color_57"></div>
+        </div>
+        <div class="flex-col texta-c color_57 px38">客户咨询管理</div>
+        <div class="pad-r-30" style="width: 1rem;align-items: right">
+            <img style="float: right;width:.666667rem" src="/source/static/images/icon/menu.png" />
+            <!--<div class="px32 color_1e">按钮</div>-->
+        </div>
     </div>
-    <div class="flex-col texta-c color_57" style="font-size: 38px;">客户咨询管理</div>
-    <div class="pad-r-30" style="width: 1rem;align-items: right">
-        <img style="float: right;width:.666667rem" src="/source/static/images/icon/menu.png" />
-        @*<div class="px32 color_1e"></div>*@
-    </div>
-</div>
-<div style="padding-top: 1.333333rem;width: 100%;background: #f2f2f2">
-    <form action="/Inquiry/MobileIndex" method="get">
+    <div style="padding-top: 1.333333rem;width: 100%;background: #f2f2f2">
         <div class="flex-row pad-l-30 pad-r-30" style="padding-top: .1rem; align-items: center;justify-content: left;">
             <img style="float: right;width: .293333rem;" class="mar-r-10" src="/source/static/images/icon/input.png" />
-            <div class="color_3" style="font-size:22px;"><a href="/Inquiry/Add"><i class="icon-laptop"></i> 手动添加</a></div>
-            <input placeholder="生产编号 手机号 作者" class="mar-l-20 flex-col" id="name" name="name" value="@ViewBag.Name"
-                   style="font-size: .253333rem;;border: 1px solid #f6f6f6;padding-left: 0.2rem;text-align: left; height: .586667rem;" />
-            <button class="sdss" type="submit">搜索</button>
+            <div class="color_3 px22"><a href="/Inquiry/MobileEdit">手动添加:</a></div>
+            <input placeholder="生产编号 手机号 作者" class="mar-l-20 flex-col px22" style="border: 1px solid #f6f6f6;padding-left: 0.2rem;text-align: left; height: .586667rem;" />
+            <div class="sdss px22">搜索</div>
         </div>
-    </form>
-</div>
-<div class="flex-row menu"
-     style="padding:.3rem .4rem;align-items: center;justify-content: left;background: #f2f2f2;">
-    @*<input type="checkbox"  />*@
-    <div class="flex-col px22" style="margin-left: 0.1rem;">全选</div>
-    <div class="flex-col act px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=已成交">已成交</a></div>
-    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
-    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=有意向">有意向</a></div>
-    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
-    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=无意向">无意向</a></div>
-    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
-    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?status=0">未跟踪</a></div>
-    <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
-    <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=假号">假号</a></div>
-    <div class="color_6 px22" id="btn_IntoInquiry" style="text-decoration:underline">移到释放库</div>
-</div>
-<div style="padding-top:.2rem;width: 100%;background: #fafafa">
+    </div>
+    <div class="flex-row menu" style="padding:.3rem .4rem;align-items: center;justify-content: left;background: #f2f2f2;">
+        @*<input type="checkbox" />*@
+        <div class="flex-col px22" style="margin-left: 0.1rem;">全选</div>
+        <div class="flex-col act px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=已成交">已成交</a></div>
+        <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+        <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=有意向">有意向</a></div>
+        <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+        <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=无意向">无意向</a></div>
+        <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+        <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?status=0">未跟踪</a></div>
+        <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
+        <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=假号">假号</a></div>
+        <div class="color_6 px22" id="btn_IntoInquiry" style="text-decoration:underline">移到释放库</div>
+    </div>
+    <div style="padding-top:.2rem;width: 100%;background: #fafafa">
 @if (list != null && list.Count > 0)
 {
-    foreach(InquiryEntity entity in list)
+    foreach (InquiryEntity entity in list)
     {
         <div class="pad-l-20 pad-r-20 pad-b-20">
-            <div class="flex-row pad-l-20 pad-r-20 pad-b-20 pad-t-20"
-                 style="border-radius: 3px 3px 0 0;@(entity.mobileColorStyle) align-items: center;justify-content: left;">
+            <div class="flex-row pad-l-20 pad-r-20 pad-b-20 pad-t-20" style="border-radius: 3px 3px 0 0;@(entity.mobileColorStyle); align-items: center;justify-content: left;">
                 <input type="checkbox" name="checkbox" value="@entity.PPId" />
                 <div class="color_f flex-col px22" style="margin-left: 0.1rem;">@entity.AddDate.ToString() (@entity.TraceState)</div>
                 <img style="float: right;width: .293333rem;" class="mar-r-10" src="/source/static/images/icon/input.png" />
                 <div class="color_6 px22"><a href="MobileEdit?cid=@entity.PPId">客户跟踪</a></div>
             </div>
-            <div class="flex-row pad-l-20 pad-r-20"
-                 style="padding: .2rem;justify-content: left;border-radius:0 0 3px 3px;">@*background-color: #b32b2018;*@
+            <div class="flex-row pad-l-20 pad-r-20" style="padding: .2rem;background-color: rgba(255,0,0,0.1);justify-content: left;border-radius:0 0 3px 3px;">
                 <div class="flex-col">
                     <div class="px25 mar-b-20" style="text-align: center;">产品信息</div>
                     <div class="px23 color_9" style="text-align: center;">@entity.ProductID</div>
                 </div>
-                <div style="margin:.1rem .1rem;width:1px;background: #fff;height: 1.2rem;"></div>
+                <div style="margin:.1rem .1rem;width:1px;background: #fff;height: 1.1rem;"></div>
                 <div class="flex-col">
                     <div class="px25 mar-b-20" style="text-align: center">名称</div>
-                    <div class="px23 color_9" style="text-align: center;">@(entity.product!=null?entity.product.ProductName:"")</div>
+                    <div class="px23 color_9" style="text-align: center;">@(entity.product != null ? entity.product.ProductName : "")</div>
                 </div>
-                <div style="margin:.1rem .1rem;width: 1px;background: #fff;height: 1.2rem;"></div>
-                <div>
+                <div style="margin:.1rem .1rem;width:1px;background: #fff;height: 1.1rem;"></div>
+                <div style="width:1.133333rem">
                     <div class="px25 mar-b-20" style="text-align: center">作者</div>
-                    <div class="px23 color_9" style="text-align: center;">@(entity.product!=null?entity.product.Author:"" )</div>
+                    <div class="px23 color_9" style="text-align: center;">@(entity.product != null ? entity.product.Author : "")</div>
                 </div>
-                <div style="margin:.1rem .1rem;width: 1px;background: #fff;height: 1.2rem;"></div>
-                <div class="flex-col" style="font-size: 14px;">
+                <div style="margin:.1rem .1rem;width:1px;background: #fff;height: 1.1rem;"></div>
+                <div style="width:1.133333rem">
                     <div class="px25 mar-b-20" style="text-align: center">销售</div>
-                    <div class="px23" style="text-align: center;color: #c90319;">@(entity.user!=null?entity.user.NickName:"")</div>
+                    <div class="px23" style="text-align: center;color: #c90319;">@(entity.user != null ? entity.user.NickName : "")</div>
                 </div>
-                <div style="margin:.1rem .1rem;width: 1px;background: #fff;height: 1.2rem;"></div>
-                <div style="font-size: 14px;">
+                <div style="margin:.1rem .1rem;width:1px;background: #fff;height: 1.1rem;"></div>
+                <div>
                     <div class="px25 mar-b-20" style="text-align: center">联系方式</div>
-                    <div class="px23 mar-b-20" style="text-align: center;color: #c90319;">@entity.showTelephone</div>
-                    <div class="px15" style="text-align: center;color: #999;">@(entity.Provence+entity.City)</div>
+                    <div class="px23 mar-b-10" style="text-align: center;color: #c90319;">@entity.showTelephone</div>
+                    <div class="px15" style="text-align: center;color: #999;">@(entity.Provence + entity.City)</div>
                 </div>
             </div>
         </div>
     }
 }
-    @{ Html.RenderPartial("../Pager_mobile", p); }
+        @{ Html.RenderPartial("../Pager_mobile", p); }
     </div>
+    <div class="m-style M-box" style="margin: .3rem auto;
+    display: table;"></div>
+    <script src="/source/static/js/jquery-2.1.4.js"></script>
+    <script src="/source/static/js/jquery-weui.js"></script>
+    <script src="/source/static/js/jquery.pagination.js"></script>
+    <script src="/source/static/js/utils.js"></script>
+    <script>
+        //$('.M-box').pagination({
+        //    count: 3,
+        //    mode: 'fixed',
+        //    coping: true,
+        //    homePage: 'CRM总数(去重2000)',
+        //    prevContent: '上页',
+        //    nextContent: '下页',
+        //});
+    </script>
+</body>
 
-    @section Footer{
-        <script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
+</html>
+
+        @*<script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>*@
         <script src="~/source/layui/layui.js"></script>
         <script>
-            layui.use('laydate', function () {
+            //layui.use('laydate', function () {
 
-                var laydate = layui.laydate;
-                laydate.render({
-                    elem: '#begindate' //指定元素
-                });
-                laydate.render({
-                    elem: '#enddate' //指定元素
-                });
-            });
+            //    var laydate = layui.laydate;
+            //    laydate.render({
+            //        elem: '#begindate' //指定元素
+            //    });
+            //    laydate.render({
+            //        elem: '#enddate' //指定元素
+            //    });
+            //});
 
             $("#btn_IntoInquiry").click(function () {
                 var ppids = "";
@@ -124,4 +235,3 @@
                 });
             });
         </script>
-    }

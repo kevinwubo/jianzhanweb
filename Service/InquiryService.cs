@@ -669,9 +669,11 @@ namespace Service
                 }
                 else
                 {
+                    InquiryInfo.telphone = StringHelper.ConvertBy123(InquiryInfo.telphone);
+                    InquiryInfo.ProcessingTime = DateTime.Now;
                     InquiryInfo.ChangeDate = DateTime.Now;
                     InquiryInfo.AddDate = DateTime.Now;
-                    result = mr.CreateNew(InquiryInfo);
+                    result = mr.CreateSimpleInquiry(InquiryInfo);
                 }
 
 
