@@ -6,6 +6,33 @@
     List<BaseDataEntity> codes = ((List<BaseDataEntity>)ViewBag.InquiryCode) ?? new List<BaseDataEntity>();
     PagerInfo p = (PagerInfo)ViewBag.Pager;
 }
+
+<style>
+    .lcQueryItem {
+        width: 80px;
+        height: 40px;
+        text-align: center;
+        padding: 6px 18px;
+        line-height: 40px;
+        font-size: 14px;
+        background: #42C1F7;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 3px;
+        position: relative;
+    }
+
+        .lcQueryItem .upfile {
+            width: 80px;
+            height: 40px;
+            position: absolute;
+            overflow: hidden;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+</style>
+
 <div class="row-fluid">
     <h2 class="heading" style="margin-top:50px">释放库管理</h2>
 </div>
@@ -17,6 +44,10 @@
             <div class="widget-buttons">
                 <a href="/InquiryHistory/HandHistoryInquiry"><i class="icon-laptop"></i> 释放库手动转移</a>
             </div>
+            <h5><a href="/source/template/Inquiry.xlsx">导入模版下载</a></h5>
+            <span class="lcQueryItem">
+                咨询量导入<input class="upfile" type="file" />
+            </span>
         </div>
         <div class="widget-body" style="margin-bottom:50px">
             <div id="menus_wrapper" class="dataTables_wrapper form-inline" role="grid">
@@ -111,7 +142,7 @@
     </div> <!-- /widget -->
 </div>
 @section Footer{
-<script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
+@*<script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>*@
 <script src="~/source/layui/layui.js"></script>
 <script>
     layui.use('laydate', function () {
@@ -140,6 +171,34 @@
             }
         });
     });
+
+
+    //Excel导入
+    $(".lcQueryItem").on("change", ".upfile", function () {
+        var formData = new FormData();
+        formData.append('file', $(this)[0].files[0]);
+        var fileType = $(this)[0].files[0].name.split(".");
+        fileType = fileType[fileType.length - 1];
+
+        if (fileType == "xls" || fileType == "xlsx") {
+            $.ajax({
+                url: "/Inquiry/InquiryImportData",
+                type: 'post',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false
+            }).done(function (data) {
+                    console.log(data);
+                    alert(data);
+            }).fail(function (res) {
+                alert("fail");
+                console.log(res);
+            });
+        } else {
+            alert("请上传xls,xlsx格式的文件")
+        }
+    })
 </script>
 
 }

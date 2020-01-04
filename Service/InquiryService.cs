@@ -11,6 +11,7 @@ using Infrastructure.Helper;
 using Service.BaseBiz;
 using DataRepository.DataAccess.BaseData;
 using System.Text.RegularExpressions;
+using System.Data;
 namespace Service
 {
     public class InquiryService
@@ -821,6 +822,58 @@ namespace Service
             }
 
             return all;
+        }
+        #endregion
+
+        #region 咨询量导入
+        public static int InquiryImportData(DataTable dt)
+        {
+            int count = 0;
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    InquiryImportDataEntity entity = new InquiryImportDataEntity();
+                    entity.date = Convert.ToDateTime(dr["日期"].ToString()).ToShortDateString();
+                    entity.time = Convert.ToDateTime(dr["时间"].ToString()).ToShortTimeString();
+                    entity.telephone = dr["手机号"].ToString();
+                    entity.productID = dr["作品编号"].ToString();
+
+                    List<InquiryEntity> inquiryList = GetInquiryByRule("", StringHelper.ConvertBy123(entity.telephone), "", "", "", "");
+                    if (inquiryList == null || inquiryList.Count == 0)
+                    {
+                        AddInquiry(entity.telephone, entity.productID, entity.date + " " + entity.time);
+                        count = count + 1;
+                    }
+                }
+            }
+            return count;
+        }
+
+        private static InquiryInfo AddInquiry(string Telephone, string productID, string adddate)
+        {
+            InquiryRepository ir = new InquiryRepository();
+            InquiryInfo info = new InquiryInfo();
+            try
+            {
+                info.ProductID = productID;
+                info.SourceForm = "91Import";
+                info.ProcessingState = "0";
+                info.telphone = StringHelper.ConvertBy123(Telephone);
+                info.status = "新";
+                info.HistoryOperatorID = "2";
+                info.OperatorID = "2";
+                info.SaleTelephone = "";
+                info.CustomerName = "";
+                info.WebChartID = "";
+                info.AddDate = Convert.ToDateTime(adddate);
+                ir.CreateSimpleInquiry(info);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteErrorLog("AddInquiry", ex.ToString(), DateTime.Now);
+            }
+            return info;
         }
         #endregion
     }

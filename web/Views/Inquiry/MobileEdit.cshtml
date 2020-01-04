@@ -16,6 +16,8 @@
     <meta content="yes" name="apple-touch-fullscreen" />
     <meta content="telephone=no,email=no" name="format-detection" />
     <meta content="maximum-dpr=2" name="flexible" />
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="Shortcut Icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/1905_pagination.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/index.css" type="text/css">
@@ -24,12 +26,10 @@
     <link rel="stylesheet" href="/source/static/css/jquery-ui.css" type="text/css">
     <script src="/source/static/js/jquery-2.1.4.js"></script>
     <script src="/source/static/js/jquery-ui.js"></script>
-    
-
     <title>首页</title>
     <style>
         html {
-            background: #fafafa;
+            background: #fafafa
         }
 
         .edit .cancel {
@@ -63,9 +63,13 @@
             border: 1px solid #ddd;
         }
 
-            .edit .xsselect option {
-                font-size: 25px;
-            }
+        .edit .xsselect option {
+            font-size: 12.5px;
+        }
+
+        [data-dpr="2"] .edit .xsselect option {
+            font-size: 25px;
+        }
 
         .city-picker-selector .selector-item {
             border: 1px solid #ccc;
@@ -76,15 +80,19 @@
             line-height: .706667rem;
             float: left;
             margin-left: 20px;
-            font-size: 25px;
+            font-size: 12.5px;
             position: relative;
+        }
+
+        [data-dpr="2"] .city-picker-selector .selector-item {
+            font-size: 25px;
         }
 
         .city-picker-selector li {
             border-top: 1px solid #f7f7f7;
             color: #333;
             cursor: pointer;
-            font-size: 25px;
+            font-size: 12.5px;
             width: 90%;
             padding: 0 5%;
             height: .706667rem;
@@ -94,15 +102,23 @@
             white-space: nowrap;
         }
 
+        [data-dpr="2"] .city-picker-selector li {
+            font-size: 25px;
+        }
+
         .city-picker-selector .selector-name {
             border-radius: 5px;
             color: #333;
-            font-size: 25px;
+            font-size: 12.5px;
             display: block;
             text-indent: 5%;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+        }
+
+        [data-dpr="2"] .city-picker-selector .selector-name {
+            font-size: 25px;
         }
 
         .city-picker-selector .selector-item:after {

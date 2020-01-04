@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using Common;
 using Service.BaseBiz;
+using System.IO;
+using System.Data;
 
 namespace web.Controllers
 {
@@ -28,7 +30,7 @@ namespace web.Controllers
         {
             List<InquiryEntity> mList = null;
 
-            bool userManagers=false;
+            bool userManagers = false;
             string operatorid = getUserID(CurrentUser, ref userManagers);
             string sqlwhere = "";
             //管理者在客户询价查询库里，是不会搜索到释放库的咨询量
@@ -49,7 +51,7 @@ namespace web.Controllers
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
-            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(),sqlwhere, pager);
+            mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), sqlwhere, pager);
             //}
             //else
             //{
@@ -90,7 +92,7 @@ namespace web.Controllers
         #endregion
 
 
-        #region  移动到释放库 
+        #region  移动到释放库
         /// <summary>
         /// 移动到释放库
         /// </summary>
@@ -149,7 +151,7 @@ namespace web.Controllers
             Response.Redirect("/Inquiry/");
         }
 
-        #region 手机站点资讯页面 
+        #region 手机站点资讯页面
         /// <summary>
         /// 
         /// </summary>
@@ -206,7 +208,7 @@ namespace web.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private string getUserID(UserEntity user,ref bool userManagers)
+        private string getUserID(UserEntity user, ref bool userManagers)
         {
             string operatorid = "";
             if (user != null && user.Roles.Count > 0)
@@ -301,6 +303,40 @@ namespace web.Controllers
             ViewBag.InquiryMonitor = mList;
             ViewBag.Pager = pager;
             return View();
+        }
+        #endregion
+
+
+        #region 咨询量数据导入
+        public JsonResult InquiryImportData()
+        {
+            List<InquiryImportDataEntity> list = new List<InquiryImportDataEntity>();
+            DataSet ds = new DataSet();
+            if (Request.Files.Count == 0)
+            {
+                throw new Exception("请选择导入文件！");
+            }
+            int count=0;
+            // 保存文件到UploadFiles文件夹
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                HttpPostedFileBase file = Request.Files[i];
+                var fileName = file.FileName;
+                var filePath = Server.MapPath(string.Format("~/{0}", "UploadFiles"));
+                string path = Path.Combine(filePath, fileName);
+                file.SaveAs(path);
+                ds = ExcelHelper.ImportExcelXLSXtoDt(path);
+
+                if (ds != null && ds.Tables[0] != null)
+                {
+                    count = InquiryService.InquiryImportData(ds.Tables[0]);
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = "成功导入" + count + "条数据！"
+            };
         }
         #endregion
     }
