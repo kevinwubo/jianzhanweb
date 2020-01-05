@@ -94,7 +94,7 @@ namespace DataRepository.DataAccess.News
 
         public static string GetLastSaleNameByOperatorID = @"select top 1 b.real_name,a.OperatorID,salesCount,0 as countCurrentDay from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and a.OperatorID in({0}) order by PPId desc ";
 
-        public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='1' WHERE PPId=@PPId";
+        public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='0' WHERE PPId=@PPId";
 
 
         #endregion

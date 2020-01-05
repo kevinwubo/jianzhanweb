@@ -128,7 +128,7 @@ namespace Service
             try
             {
                 List<UserEntity> allList = UserService.GetUserAll(false);
-                LogHelper.WriteTextLog("所有销售队列", JsonHelper.ToJson(allList), DateTime.Now);
+                //LogHelper.WriteTextLog("所有销售队列", JsonHelper.ToJson(allList), DateTime.Now);
                 //当前销售队列
                 string codes = BaseDataService.GetCodeValuesByRule(code).CodeValues;
                 //当前销售队列
@@ -310,7 +310,7 @@ namespace Service
                 {
                     code = "GSalesQueue";
                 }
-
+                LogHelper.WriteTextLog("GetTimeRangleCode", "CODE:" + code, DateTime.Now);
                 #region 城市信息优先级最高
                 ProCityEntity info = StringHelper.getProCityInfo();//StringHelper.getCity(Telephone);
                 String CityName = "";
@@ -330,7 +330,7 @@ namespace Service
             }
             catch (Exception ex)
             {
-                LogHelper.WriteErrorLog("GetTimeRangleCode", ex.ToString(), DateTime.Now);                
+                LogHelper.WriteErrorLog("GetTimeRangleCode", ex.ToString(), DateTime.Now);
             }
             return code;
         }
@@ -473,6 +473,7 @@ namespace Service
         public static void AutoAllocation()
         {
             List<InquiryEntity> list = new List<InquiryEntity>();
+            InquiryRepository ir = new InquiryRepository();
             list = GetInquiryByRule("", "", "", " AND datediff(mi,AddDate,GETDATE())>15 AND status='新' and ProcessingState='0' ", "", "");
             if (list != null && list.Count > 0)
             {
@@ -480,30 +481,53 @@ namespace Service
                 string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
                 foreach (InquiryEntity item in list)
                 {
-                    string code = GetTimeRangleCode(item.telphone, item.City);
-                    UserEntity entity = GetSalesNameNew(code);
-                    sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
+                    try
+                    {
+                        string code = GetTimeRangleCode(item.telphone, item.City);
+                        UserEntity entity = GetSalesNameNew(code);
+                        sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
 
-                    //更新OperatorID
-                    InquiryRepository ir = new InquiryRepository();
-                    InquiryInfo infoU = new InquiryInfo();
-                    infoU.OperatorID = entity.UserID.ToString();
-                    infoU.PPId = item.PPId;
-                    infoU.ChangeDate = DateTime.Now;
-                    ir.UpdateOperatorIDByPPId(infoU);
+                        //该手机下的资讯量 转移处理
+                        List<InquiryEntity> inquiryList = GetInquiryByRule("", StringHelper.ConvertBy123(item.telphone), "", "", "", "");
+                        if (inquiryList != null && inquiryList.Count > 0)
+                        {
+                            foreach (InquiryEntity ientity in inquiryList)
+                            {
+                                //更新OperatorID
+                                InquiryInfo infoUp = new InquiryInfo();
+                                infoUp.OperatorID = entity.UserID.ToString();
+                                infoUp.PPId = ientity.PPId;
+                                infoUp.ChangeDate = DateTime.Now;
+                                ir.UpdateOperatorIDByPPId(infoUp);
 
-                    #region 记录转移日志
-                    InquiryMonitorEntity monitorEntity = new InquiryMonitorEntity();
-                    monitorEntity.PPId = item.PPId;
-                    monitorEntity.ProductID = item.ProductID;
-                    monitorEntity.OriginOperatorID = item.OperatorID;
-                    monitorEntity.OriginSalesName = item.user.NickName;
-                    monitorEntity.NewOperatorID = entity.UserID.ToString();
-                    monitorEntity.NewSalesName = entity.NickName;
-                    monitorEntity.Remark = "超时自动转移";
-                    monitorEntity.CreateDate = DateTime.Now;
-                    InquiryMonitorService.Modify(monitorEntity);
-                    #endregion                    
+
+                                #region 记录转移日志
+                                InquiryMonitorEntity monitorEntity = new InquiryMonitorEntity();
+                                monitorEntity.PPId = ientity.PPId;
+                                monitorEntity.ProductID = ientity.ProductID;
+                                monitorEntity.OriginOperatorID = ientity.OperatorID;
+                                monitorEntity.OriginSalesName = ientity.user.NickName;
+                                monitorEntity.NewOperatorID = entity.UserID.ToString();
+                                monitorEntity.NewSalesName = entity.NickName;
+                                monitorEntity.Remark = "超时自动转移";
+                                monitorEntity.CreateDate = DateTime.Now;
+                                InquiryMonitorService.Modify(monitorEntity);
+                                #endregion    
+                            }
+                        }
+
+                        //InquiryInfo infoU = new InquiryInfo();
+                        //infoU.OperatorID = entity.UserID.ToString();
+                        //infoU.PPId = item.PPId;
+                        //infoU.ChangeDate = DateTime.Now;
+                        //ir.UpdateOperatorIDByPPId(infoU);
+
+                                     
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.WriteErrorLog("AutoAllocation", ex.ToString(), DateTime.Now);
+                    }
                 }
             }
         }

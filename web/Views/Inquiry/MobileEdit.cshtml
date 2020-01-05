@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/source/static/css/index.css" type="text/css">
     <script src="/source/static/js/flexible_css.js"></script>
     <script src="/source/static/js/flexible.js"></script>
+    <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
     <link rel="stylesheet" href="/source/static/css/jquery-ui.css" type="text/css">
     <script src="/source/static/js/jquery-2.1.4.js"></script>
     <script src="/source/static/js/jquery-ui.js"></script>
@@ -202,8 +203,8 @@
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">处理状态</div>
                 <div class="px25 color_9 flex-col">
                     <select class="xsselect px25" id="ProcessingState" name="ProcessingState">
-                        <option value="1" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("1") ? "selected" : "")>未处理</option>
-                        <option value="0" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("0") ? "selected" : "")>已处理</option>
+                        <option value="1" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("1") ? "selected" : "")>已处理</option>
+                        <option value="0" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("0") ? "selected" : "")>未处理</option>
                     </select>
                 </div>
             </div>
