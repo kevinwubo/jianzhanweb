@@ -38,7 +38,7 @@ namespace web.Controllers
             string result = "";
             UserEntity user = UserService.GetLoginUser(name, EncryptHelper.MD5Encrypt(pwd));
             Log.WriteTextLog(JsonHelper.ToJson(user), DateTime.Now);
-            if (user != null && user.UserID > 0)
+            if (user != null && user.UserID > 0 && user.Status != 0)
             {
                 Log.WriteTextLog(user.UserID.ToString(), DateTime.Now);
                 HttpCookie cookie = WebHelper.CreateSingleValueCookie("ukey", ukey, 0);//把缓存key放入cookie

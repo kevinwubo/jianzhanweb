@@ -256,6 +256,70 @@ namespace DataRepository.DataAccess.News
         }
 
         /// <summary>
+        /// 获取当前用户ID 手机号去重数据
+        /// </summary>
+        /// <param name="operatorid"></param>
+        /// <returns></returns>
+        public DataSet GetDistinctTelephone(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid, string sqlwhere)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(InquiryStatement.GetDistinctTelephone);
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                builder.Append(" AND (ProductID LIKE '%" + keywords + "%' or telphone LIKE '%" + keywords + "%' or telphone LIKE '%" + StringHelper.ConvertBy123(keywords) + "%' or ProductID in(select ProductID from dt_product where Author like '%" + keywords + "%'))");
+            }
+            if (!string.IsNullOrEmpty(tracestate))
+            {
+                builder.Append(" AND TraceState=@TraceState ");
+            }
+            if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
+            {
+                builder.Append(" AND AddDate BETWEEN @begindate AND @enddate ");
+            }
+            if (!string.IsNullOrEmpty(operatorid))//根据销售编号查询
+            {
+                builder.Append(" AND OperatorID IN(" + operatorid + ") ");
+            }
+            if (status > -1)
+            {
+                builder.Append(" AND ProcessingState=@ProcessingState ");//ProcessingState 0未跟踪  1已跟踪
+            }
+            if (!string.IsNullOrEmpty(sqlwhere))
+            {
+                builder.Append(sqlwhere);
+            }
+
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(builder.ToString(), "Text"));
+
+            if (!string.IsNullOrEmpty(tracestate))
+            {
+                command.AddInputParameter("@TraceState", DbType.String, tracestate);
+            }
+            if (status > -1)
+            {
+                command.AddInputParameter("@ProcessingState", DbType.String, status);//ProcessingState 0未跟踪  1已跟踪
+            }
+            if (!string.IsNullOrEmpty(begindate) && !string.IsNullOrEmpty(enddate))
+            {
+                command.AddInputParameter("@begindate", DbType.String, begindate + " 00:00:01");
+                command.AddInputParameter("@enddate", DbType.String, enddate + " 23:59:59");
+            }
+
+            //string sqlText = InquiryStatement.GetDistinctTelephone;
+            //DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
+            //if (!string.IsNullOrEmpty(operatorid))
+            //{
+            //    command.AddInputParameter("@operatorid", DbType.String, operatorid);
+            //}
+            //if (!string.IsNullOrEmpty(traceState))
+            //{
+            //    command.AddInputParameter("@TraceState", DbType.String, traceState);
+            //}
+            DataSet ds = command.ExecuteDataSet();
+            return ds;
+        }
+
+        /// <summary>
         /// 转换
         /// </summary>
         /// <param name="ds"></param>

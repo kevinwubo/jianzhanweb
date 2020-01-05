@@ -19,13 +19,13 @@ namespace DataRepository.DataAccess.User
             return result;
         }
 
-        public List<UserInfo> GetUsersByRule(string name,string nickname, int status)
+        public List<UserInfo> GetUsersByRule(string name,string nickname, int status,string roleIDs)
         {
             List<UserInfo> result = new List<UserInfo>();
             string sqlText = UserStatement.GetAllUsersByRule;
             if (!string.IsNullOrEmpty(name))
             {
-                sqlText += " AND UserName LIKE '%'+@key+'%'";
+                sqlText += " AND UserName LIKE '%'+@key+'%' or NickName LIKE '%'+@key+'%'  ";
             }
             if (!string.IsNullOrEmpty(nickname))
             {
@@ -35,7 +35,10 @@ namespace DataRepository.DataAccess.User
             {
                 sqlText += " AND Status=@Status";
             }
-
+            if (!string.IsNullOrEmpty(roleIDs))
+            {
+                sqlText += " AND RoleIDs in(" + roleIDs + ")";
+            }
 
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(sqlText, "Text"));
             if (!string.IsNullOrEmpty(name))

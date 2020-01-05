@@ -335,6 +335,30 @@ namespace Service
             return code;
         }
 
+        /// <summary>
+        /// 获取当前用户ID 手机号去重数据
+        /// </summary>
+        /// <param name="operatorid"></param>
+        /// <param name="traceState"></param>
+        /// <returns></returns>
+        public static int GetDistinctTelephone(string keywords, string tracestate, int status, string begindate, string enddate, string operatorid, string sqlwhere)
+        {
+            InquiryRepository mr = new InquiryRepository();
+            try
+            {
+                DataSet ds = mr.GetDistinctTelephone(keywords, tracestate, status, begindate, enddate, operatorid, sqlwhere);
+                if (ds != null && ds.Tables[0] != null && ds.Tables.Count > 0)
+                {
+                    return Convert.ToInt32(ds.Tables[0].Rows.Count);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return 0;
+        }
+
         public static List<DefineInquiryInfo> GetLastSaleNameBySaleName(string salenames)
         {
             InquiryRepository mr = new InquiryRepository();
@@ -619,7 +643,7 @@ namespace Service
             entity.SourceForm = info.SourceForm;
             entity.user = UserService.GetUserById(info.OperatorID.ToLong(0));
             entity.product = ProductService.GetProductByProductID(info.ProductID);
-            entity.colorStyle = StringHelper.getColorStyle(info.TraceState);
+            entity.colorStyle = info.ProcessingState.Equals("0") ? "background:#ff7308;" : StringHelper.getColorStyle(info.TraceState);
             entity.mobileColorStyle = info.ProcessingState.Equals("0") ? "background:#ff7308;" : StringHelper.getMobileColorStyle(info.TraceState);
             entity.showTelephone = getTelephone(loginUserID, entity.telphone, entity.OperatorID);
             return entity;
@@ -631,7 +655,7 @@ namespace Service
             {
                 if (!loginUserID.Equals(operatorid))
                 {
-                    return Regex.Replace(telephone, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+                    return Regex.Replace(telephone, "(\\d{2})\\d{4}(\\d{4})", "$1*****$2");
                 }
                 
             }

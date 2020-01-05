@@ -146,7 +146,8 @@
             <div class="flex-row" style="height:1.053333rem">
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">询价销售</div>
                 <div class="px25 color_9 flex-col">
-                    <select tabindex="1" class="xsselect px25" id="OperatorID" @(ViewBag.CanEdit ? "" : "disabled=disabled") name="OperatorID">
+                    <input type="hidden" value="@entity.OperatorID" id="OperatorID" name="OperatorID" />
+                    <select tabindex="1" class="xsselect px25" id="showOperatorID" @(ViewBag.CanEdit ? "" : "disabled=disabled") name="showOperatorID">
                         @if (userList != null && userList.Count > 0)
                         {
                             foreach (UserEntity item in userList)
@@ -266,4 +267,8 @@
     $("#goback").click(function () {
         window.location.href = "/Inquiry/MobileIndex";
     });
+
+    $("#showOperatorID").change(function () {
+        $("#OperatorID").val($("#showOperatorID").val());
+    })
 </script>

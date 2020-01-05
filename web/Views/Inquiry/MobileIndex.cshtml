@@ -109,7 +109,7 @@
 <body class="khzxgl">
     <div class="flex-row  navheight" style="align-items: center;background: #f8f8f8">
         <div class="flex-row pad-l-30" style="width: 1rem;align-items: center">
-            <img class="mar-r-16" style="width: .666667rem" src="/source/static/images/icon/back.png" />
+            @*<img class="mar-r-16" style="width: .666667rem" src="/source/static/images/icon/back.png" />*@
             <div class="px28 color_57"></div>
         </div>
         <div class="flex-col texta-c color_57 px38">客户咨询管理</div>
@@ -128,7 +128,9 @@
     </div>
     <div class="flex-row menu" style="padding:.3rem .4rem;align-items: center;justify-content: left;background: #f2f2f2;">
         @*<input type="checkbox" />*@
-        <div class="flex-col px22" style="margin-left: 0.1rem;">全选</div>
+        @*<div class="flex-col px22" style="margin-left: 0.1rem;">全选</div>*@
+        <div class="flex-col act px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex">所有</a></div>
+        <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
         <div class="flex-col act px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=已成交">已成交</a></div>
         <div style="margin:.1rem .05rem;width: 1px;background: #000;height: 10px;"></div>
         <div class="flex-col px22" style="margin-left: 0.1rem;"><a href="/Inquiry/MobileIndex?tracestate=有意向">有意向</a></div>
@@ -148,7 +150,7 @@
         <div class="pad-l-20 pad-r-20 pad-b-20">
             <div class="flex-row pad-l-20 pad-r-20 pad-b-20 pad-t-20" style="border-radius: 3px 3px 0 0;@(entity.mobileColorStyle); align-items: center;justify-content: left;">
                 <input type="checkbox" name="checkbox" value="@entity.PPId" />
-                <div class="color_f flex-col px22" style="margin-left: 0.1rem;">@entity.AddDate.ToString()【@entity.status】 (@entity.TraceState)</div>
+                <div class="color_f flex-col px22" style="margin-left: 0.1rem;">@entity.AddDate.ToString()@(!string.IsNullOrEmpty(entity.status) ? "【" + entity.status + "】" : "") (@entity.TraceState)</div>
                 <img style="float: right;width: .293333rem;" class="mar-r-10" src="/source/static/images/icon/input.png" />
                 <div class="color_6 px22"><a href="MobileEdit?cid=@entity.PPId">客户跟踪</a></div>
             </div>

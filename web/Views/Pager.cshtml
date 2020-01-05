@@ -10,6 +10,7 @@
     <div class="span6">
         <div class="dataTables_paginate paging_bootstrap pagination">
             <ul>
+                <li><a href="javacsript:void(0)">总数去重@(p.DistinctCount)</a></li>
                 @if (p.PageIndex > 1)
                 {
                     <li class="prev"><a href="javacsript:void(0)" onclick="return getUrl('@p.URL','@(p.PageIndex - 1)');">← 上一页</a></li>

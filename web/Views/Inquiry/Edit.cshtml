@@ -39,12 +39,12 @@
                     <div class="control-group">
                         <label class="control-label">询价销售转移</label>
                         <div class="controls">
-                            <select tabindex="1" class="span2" id="OperatorID" name="OperatorID" @(ViewBag.CanEdit ? "" : "disabled=disabled")>
+                            <select tabindex="1" class="span2" id="OperatorID" name="OperatorID" @(ViewBag.CanEdit ? "" : "readonly=readonly")>
                                 @if (userList != null && userList.Count > 0)
                                 {
                                     foreach (UserEntity item in userList)
                                     {
-                                        <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
+                                         <option value="@item.UserID" @(entity.OperatorID.Equals(item.UserID.ToString()) ? "selected" : "")>@item.NickName</option>
                                     }
                                 }
                             </select>

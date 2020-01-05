@@ -23,6 +23,8 @@ namespace Common
     {
         public string URL { get; set; }
 
+        public int DistinctCount { get; set; }
+
         //第几页 从1开始
         public int PageIndex { get; set; }
 

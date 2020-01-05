@@ -96,6 +96,8 @@ namespace DataRepository.DataAccess.News
 
         public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='0' WHERE PPId=@PPId";
 
+        public static string GetDistinctTelephone = @"select distinct telphone from  dbo.dt_proInquiry(NOLOCK) WHERE 1=1";
+
 
         #endregion
 

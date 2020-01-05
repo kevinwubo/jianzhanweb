@@ -36,7 +36,7 @@ namespace web.Controllers
             //管理者在客户询价查询库里，是不会搜索到释放库的咨询量
             if (userManagers)
             {
-                sqlwhere = " and Status!='释' ";
+                sqlwhere = " and isnull(Status,'')!='释' ";
             }
 
 
@@ -47,7 +47,7 @@ namespace web.Controllers
             pager.PageSize = PAGESIZE;
             pager.SumCount = count;
             pager.URL = "/Inquiry";
-
+            pager.DistinctCount = InquiryService.GetDistinctTelephone(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
             ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
             //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
             //{
@@ -57,7 +57,6 @@ namespace web.Controllers
             //{
             //    mList = InquiryService.GetInquiryInfoPager(pager);
             //}
-
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
             ViewBag.ModelCode = tracestate;
@@ -66,6 +65,7 @@ namespace web.Controllers
             ViewBag.Pager = pager;
             ViewBag.BeginDate = begindate;
             ViewBag.EndDate = enddate;
+            
             ViewBag.LoginUserID = CurrentUser.UserID;
             return View();
         }
@@ -112,7 +112,7 @@ namespace web.Controllers
         {
             ViewBag.InquiryModel = BaseDataService.GetBaseDataByPCode("InquiryCode");
 
-            List<UserEntity> userList = UserService.GetUserAll();
+            List<UserEntity> userList = UserService.GetUserByRule("", 1, "", "4,7"); 
 
             if (!string.IsNullOrEmpty(cid))
             {
@@ -171,7 +171,7 @@ namespace web.Controllers
             //管理者在客户询价查询库里，是不会搜索到释放库的咨询量
             if (userManagers)
             {
-                sqlwhere = " and Status!='释' ";
+                sqlwhere = " and isnull(Status,'')!='释' ";
             }
 
             int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
@@ -181,17 +181,9 @@ namespace web.Controllers
             pager.PageSize = PAGESIZE;
             pager.SumCount = count;
             pager.URL = "/Inquiry/MobileIndex";
-
-            ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态
-            //if (!string.IsNullOrEmpty(name) || status > -1 || !string.IsNullOrEmpty(tracestate))
-            //{
+            pager.DistinctCount = InquiryService.GetDistinctTelephone(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
+            ViewBag.InquiryCode = BaseDataService.GetBaseDataByPCode("InquiryS00");//跟踪状态            
             mList = InquiryService.GetInquiryInfoByRule(name, tracestate, status, begindate, enddate, operatorid, CurrentUser.UserID.ToString(), sqlwhere, pager);
-            //}
-            //else
-            //{
-            //    mList = InquiryService.GetInquiryInfoPager(pager);
-            //}
-
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
             ViewBag.ModelCode = tracestate;
@@ -255,7 +247,7 @@ namespace web.Controllers
         {
             ViewBag.InquiryModel = BaseDataService.GetBaseDataByPCode("InquiryCode");
 
-            List<UserEntity> userList = UserService.GetUserAll();
+            List<UserEntity> userList = UserService.GetUserByRule("", 1, "", "4,7");
 
             if (!string.IsNullOrEmpty(cid))
             {
