@@ -509,7 +509,7 @@ namespace Service
                     {
                         string code = GetTimeRangleCode(item.telphone, item.City);
                         UserEntity entity = GetSalesNameNew(code);
-                        sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
+
 
                         //该手机下的资讯量 转移处理
                         List<InquiryEntity> inquiryList = GetInquiryByRule("", StringHelper.ConvertBy123(item.telphone), "", "", "", "");
@@ -539,6 +539,8 @@ namespace Service
                                 #endregion    
                             }
                         }
+
+                        sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
 
                         //InquiryInfo infoU = new InquiryInfo();
                         //infoU.OperatorID = entity.UserID.ToString();

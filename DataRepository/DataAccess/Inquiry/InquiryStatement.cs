@@ -16,7 +16,7 @@ namespace DataRepository.DataAccess.News
 
         public static string GetInquiryByKey = @"SELECT * FROM dt_proInquiry(NOLOCK) WHERE PPId=@PPId";
 
-        public static string Remove = @"UPDATE dt_proInquiry SET datastatus=0 WHERE PPId=@PPId";
+        public static string Remove = @"UPDATE dt_proInquiry SET datastatus=0,ChangeDate=GETDATE() WHERE PPId=@PPId";
 
         public static string GetInquiryByKeys = @"SELECT * FROM dt_proInquiry(NOLOCK) WHERE PPId IN (#ids#)";
 
@@ -34,7 +34,7 @@ namespace DataRepository.DataAccess.News
         public static string ModifyInquiry = @"UPDATE [dbo].[dt_proInquiry]   SET [ProductID] = @ProductID,[telphone] = @telphone,[WebChartID] = @WebChartID,[InquiryContent] = @InquiryContent
                                                 ,[CommentContent] = @CommentContent,[ProcessingState] = @ProcessingState,[ProcessingTime] = @ProcessingTime,[Provence] = @Provence
                                                 ,[City] = @City,[TraceContent] = @TraceContent,[TraceState] = @TraceState,[NextVisitTime] = @NextVisitTime,[CustomerName] = @CustomerName
-                                                ,[sex] = @sex,[status] = @status,[SourceForm] = @SourceForm,[OperatorID] = @OperatorID
+                                                ,[sex] = @sex,[status] = @status,[SourceForm] = @SourceForm,[OperatorID] = @OperatorID,ChangeDate=GETDATE()
                                                  WHERE PPId=@PPId";
 
 
@@ -94,7 +94,7 @@ namespace DataRepository.DataAccess.News
 
         public static string GetLastSaleNameByOperatorID = @"select top 1 b.real_name,a.OperatorID,salesCount,0 as countCurrentDay from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and a.OperatorID in({0}) order by PPId desc ";
 
-        public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='0' WHERE PPId=@PPId";
+        public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='0',ChangeDate=GETDATE() WHERE PPId=@PPId";
 
         public static string GetDistinctTelephone = @"select distinct telphone from  dbo.dt_proInquiry(NOLOCK) WHERE 1=1";
 
