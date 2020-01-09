@@ -96,7 +96,7 @@ namespace Service
                     if (!string.IsNullOrEmpty(entity.PrivateTelephone))
                     {
                         SMSHelper.SeedSMS(entity.PrivateTelephone, SmsMess);
-                        LogHelper.WriteTextLog("sendSMS", "--私人手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                        LogHelper.WriteTextLog("sendSMS", "--私人手机号 销售：" + entity.PrivateTelephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
                     }
                     ////发送给老板
                     //SMSHelper.SeedSMS("13916116545", SmsMess);
@@ -105,12 +105,12 @@ namespace Service
                     if (entity.CityName.Equals("厦门"))
                     {
                         SMSHelper.SeedSMS("17359271665", SmsMess);
-                        LogHelper.WriteTextLog("sendSMS", "--手机号 厦门：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                        LogHelper.WriteTextLog("sendSMS", "--手机号 厦门：17359271665-询价-短信内容：" + SmsMess, DateTime.Now);
                     }
                     else if (entity.CityName.Equals("武夷山"))
                     {
                         SMSHelper.SeedSMS("13163806316", SmsMess);
-                        LogHelper.WriteTextLog("sendSMS", "--手机号 武夷山：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                        LogHelper.WriteTextLog("sendSMS", "--手机号 武夷山：13163806316-询价-短信内容：" + SmsMess, DateTime.Now);
                     }
                 }
             }

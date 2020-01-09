@@ -26,8 +26,6 @@ namespace web.Controllers
         {
             try
             {
-                InquiryService.AutoAllocation();
-
                 string urlPar = "";
                 string urlPar2 = "";
                 string pageUrl = "";
