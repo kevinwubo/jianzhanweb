@@ -884,16 +884,19 @@ namespace Service
                 foreach (DataRow dr in dt.Rows)
                 {
                     InquiryImportDataEntity entity = new InquiryImportDataEntity();
-                    entity.date = Convert.ToDateTime(dr["日期"].ToString()).ToShortDateString();
-                    entity.time = Convert.ToDateTime(dr["时间"].ToString()).ToShortTimeString();
-                    entity.telephone = dr["手机号"].ToString();
-                    entity.productID = dr["作品编号"].ToString();
-
-                    List<InquiryEntity> inquiryList = GetInquiryByRule("", StringHelper.ConvertBy123(entity.telephone), "", "", "", "");
-                    if (inquiryList == null || inquiryList.Count == 0)
+                    if (!string.IsNullOrEmpty(dr["日期"].ToString()))
                     {
-                        AddInquiry(entity.telephone, entity.productID, entity.date + " " + entity.time);
-                        count = count + 1;
+                        entity.date = Convert.ToDateTime(dr["日期"].ToString()).ToShortDateString();
+                        entity.time = Convert.ToDateTime(dr["时间"].ToString()).ToShortTimeString();
+                        entity.telephone = dr["手机号"].ToString();
+                        entity.productID = dr["作品编号"].ToString();
+
+                        List<InquiryEntity> inquiryList = GetInquiryByRule("", StringHelper.ConvertBy123(entity.telephone), "", "", "", "");
+                        if (inquiryList == null || inquiryList.Count == 0)
+                        {
+                            AddInquiry(entity.telephone, entity.productID, entity.date + " " + entity.time);
+                            count = count + 1;
+                        }
                     }
                 }
             }
@@ -907,8 +910,9 @@ namespace Service
             try
             {
                 info.ProductID = productID;
-                info.SourceForm = "91Import";
+                info.SourceForm = "MB";
                 info.ProcessingState = "0";
+                info.InquiryContent = "91import";
                 info.telphone = StringHelper.ConvertBy123(Telephone);
                 info.status = "新";
                 info.HistoryOperatorID = "2";

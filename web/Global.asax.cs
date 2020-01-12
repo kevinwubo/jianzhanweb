@@ -57,9 +57,9 @@ namespace web
                 //每天早上9点10分10秒开始执行 历史数据分配
                 if (hour == 9 && minute == 10 && second == 10)
                 {
-                    LogHelper.WriteAutoSystemLog("释放库分配", "执行自动分配--开始", DateTime.Now);
-                    InquiryHistoryService.HandHistoryInquiry();
-                    LogHelper.WriteAutoSystemLog("释放库分配", "执行自动分配--结束", DateTime.Now);
+                    //LogHelper.WriteAutoSystemLog("释放库分配", "执行自动分配--开始", DateTime.Now);
+                    //InquiryHistoryService.HandHistoryInquiry();
+                    //LogHelper.WriteAutoSystemLog("释放库分配", "执行自动分配--结束", DateTime.Now);
                 }
             }
             catch (Exception ee)
@@ -83,10 +83,13 @@ namespace web
         }
         void YourTask()
         {
-            //在这里写你需要执行的任务  
-            LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--开始", DateTime.Now);
-            InquiryService.AutoAllocation();//自动分配
-            LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--结束", DateTime.Now);   
+            if (DateTime.Now.Hour > 8 && DateTime.Now.Hour <= 22)
+            {
+                //在这里写你需要执行的任务  
+                //LogHelper.WriteAutoSystemLog("重新分配", "执行自动处理", DateTime.Now);
+                //InquiryService.AutoAllocation();//自动分配
+            }
+            //LogHelper.WriteAutoSystemLog("重新分配", "执行自动分配--结束", DateTime.Now);   
         }
 
         protected void Application_End(object sender, EventArgs e)

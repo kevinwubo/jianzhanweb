@@ -148,7 +148,7 @@ namespace DataRepository.DataAccess.News
         public long CreateSimpleInquiry(InquiryInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateSimpleInquiry, "Text"));
-            command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
+            command.AddInputParameter("@ProductID", DbType.String, !string.IsNullOrEmpty(info.ProductID) ? info.ProductID : "");
             command.AddInputParameter("@telphone", DbType.String, string.IsNullOrEmpty(info.telphone) ? "" : info.telphone);
             command.AddInputParameter("@WebChartID", DbType.String, string.IsNullOrEmpty(info.WebChartID) ? "" : info.WebChartID);
             command.AddInputParameter("@Provence", DbType.String, string.IsNullOrEmpty(info.Provence) ? "" : info.Provence);
@@ -172,7 +172,7 @@ namespace DataRepository.DataAccess.News
         public long CreateNew(InquiryInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.CreateNewInquiry, "Text"));
-            command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
+            command.AddInputParameter("@ProductID", DbType.String, !string.IsNullOrEmpty(info.ProductID) ? info.ProductID : "");
             command.AddInputParameter("@telphone", DbType.String, info.telphone);
             command.AddInputParameter("@WebChartID", DbType.String, info.WebChartID);
             command.AddInputParameter("@InquiryContent", DbType.String, info.InquiryContent);
@@ -200,7 +200,7 @@ namespace DataRepository.DataAccess.News
         public int ModifyInquiry(InquiryInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.ModifyInquiry, "Text"));
-            command.AddInputParameter("@ProductID", DbType.String, info.ProductID);
+            command.AddInputParameter("@ProductID", DbType.String, !string.IsNullOrEmpty(info.ProductID) ? info.ProductID : "");
             command.AddInputParameter("@telphone", DbType.String, info.telphone);
             command.AddInputParameter("@WebChartID", DbType.String, info.WebChartID);
             command.AddInputParameter("@InquiryContent", DbType.String, info.InquiryContent);

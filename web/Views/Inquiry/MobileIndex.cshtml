@@ -154,7 +154,7 @@
                 <img style="float: right;width: .293333rem;" class="mar-r-10" src="/source/static/images/icon/input.png" />
                 <div class="color_6 px22"><a href="MobileEdit?cid=@entity.PPId">客户跟踪</a></div>
             </div>
-            <div class="flex-row pad-l-20 pad-r-20" style="padding: .2rem;background-color: rgba(255,0,0,0.1);justify-content: left;border-radius:0 0 3px 3px;">
+            <div class="flex-row pad-l-20 pad-r-20" style="padding: .2rem;@(entity.ProcessingState.Equals("0") ? "background:#ff7308;" : "background-color: rgba(255,0,0,0.1)");justify-content: left;border-radius:0 0 3px 3px;">
                 <div class="flex-col">
                     <div class="px25 mar-b-20" style="text-align: center;">产品信息</div>
                     <div class="px23 color_9" style="text-align: center;">@entity.ProductID</div>

@@ -227,7 +227,7 @@
                            id="TraceContent" name="TraceContent" value="@entity.TraceContent" >
                 </div>
             </div>
-            <div class="flex-row" style="height:1.053333rem">
+            @*<div class="flex-row" style="height:1.053333rem">
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪状态</div>
                 <div class="px25 color_9 flex-col">
                     <select class="xsselect px25" id="TraceState" name="TraceState">
@@ -237,7 +237,24 @@
                         <option value="假号" @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("假号") ? "selected" : "")>假号</option>
                     </select>
                 </div>
+            </div>*@
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪状态</div>
+                <div class="flex-col">
+                    <input type="hidden" id="TraceState" name="TraceState" value="有意向" />
+                    <div class="px25 flex-row"                         
+                         style="border: 1px solid #ddd;height: .706667rem;background-color: #fff;width: -webkit-fill-available;">
+                        <div class="px25 flex-col @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("有意向") ? "ztact" : "")"
+                             style="line-height: .706667rem;text-align: center;border-right:1px solid #ddd" id="showTraceState1" onclick="clikeTraceState('有意向',1)">有意向</div>
+                        <div class="px25 flex-col @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("已成交") ? "ztact" : "")"
+                             style="line-height: .706667rem;text-align: center;border-right:1px solid #ddd" id="showTraceState2" onclick="clikeTraceState('已成交',2)">已成交</div>
+                        <div class="px25 flex-col @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("无意向") ? "ztact" : "")"
+                             style="line-height: .706667rem;text-align: center;border-right:1px solid #ddd" id="showTraceState3" onclick="clikeTraceState('无意向',3)">无意向</div>
+                        <div class="px25 flex-col @(!string.IsNullOrEmpty(entity.TraceState) && entity.TraceState.Equals("假号") ? "ztact" : "")" style="line-height: .706667rem;text-align: center;" id="showTraceState4" onclick="clikeTraceState('假号',4)">假号</div>
+                    </div>
+                </div>
             </div>
+
             <div class="flex-row" style="height:1.053333rem">
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">回访日期</div>
                 <div class="px25 color_9 flex-col" style="position: relative;">
@@ -271,4 +288,32 @@
     $("#showOperatorID").change(function () {
         $("#OperatorID").val($("#showOperatorID").val());
     })
+
+    function clikeTraceState(state, ii) {
+        $("#TraceState").val(state);
+        if (ii == 1) {
+            $("#showTraceState1").addClass("ztact");
+            $("#showTraceState2").removeClass("ztact");
+            $("#showTraceState3").removeClass("ztact");
+            $("#showTraceState4").removeClass("ztact");
+
+        } else if (ii == 2) {
+            $("#showTraceState2").addClass("ztact");
+            $("#showTraceState1").removeClass("ztact");
+            $("#showTraceState3").removeClass("ztact");
+            $("#showTraceState4").removeClass("ztact");
+
+        } else if (ii == 3) {
+            $("#showTraceState3").addClass("ztact");
+            $("#showTraceState1").removeClass("ztact");
+            $("#showTraceState2").removeClass("ztact");
+            $("#showTraceState4").removeClass("ztact");
+
+        } else if (ii == 4) {
+            $("#showTraceState4").addClass("ztact");
+            $("#showTraceState1").removeClass("ztact");
+            $("#showTraceState2").removeClass("ztact");
+            $("#showTraceState3").removeClass("ztact");
+        }
+    }
 </script>

@@ -126,7 +126,10 @@ namespace web.Controllers
             if (canEdit)
             {
                 int index = userList.FindIndex(p => p.UserID == CurrentUser.UserID);
-                userList.RemoveAt(index);
+                if (index > -1)
+                {
+                    userList.RemoveAt(index);
+                }
             }
             ViewBag.CanEdit = canEdit;
 
@@ -261,7 +264,10 @@ namespace web.Controllers
             if (canEdit)
             {
                 int index = userList.FindIndex(p => p.UserID == CurrentUser.UserID);
-                userList.RemoveAt(index);
+                if (index > -1)
+                {
+                    userList.RemoveAt(index);
+                }
             }
             ViewBag.UserList = userList;
             ViewBag.CanEdit = canEdit;
