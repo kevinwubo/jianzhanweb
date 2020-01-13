@@ -22,7 +22,7 @@ namespace Service
         {
 
             CreateInuiryLog(productID, Telephone, sourceform);
-
+            LogHelper.WriteTextLog("咨询手机号", "Tel:" + Telephone, DateTime.Now);
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
             CodeSEntity blackmobile = BaseDataService.GetCodeValuesByRule("BlackMobile");//手机号黑名单
             //当天同手机号同产品编号只能资讯2次

@@ -15,7 +15,6 @@
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="yes" name="apple-touch-fullscreen" />
     <meta content="telephone=no,email=no" name="format-detection" />
-    <meta content="maximum-dpr=2" name="flexible" />
     <link rel="apple-touch-icon" href="favicon.png">
     <link rel="Shortcut Icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/source/static/css/flexible_base.css" type="text/css">
@@ -139,7 +138,7 @@
                 <div class="px25 mar-r-30 color_3" style="line-height:.706667rem;width:1.466667rem;">编号名称</div>
                 <div style="line-height:.706667rem;height: .706667rem;" class="px25 color_9">
                     <input type="text" placeholder="产品名称/编号" id="ProductID" name="ProductID" style="padding: 0 .333333rem;width: -webkit-fill-available;
-                height: .706667rem;
+                height: .706667rem;text-align: left;
                 border: 1px solid #ddd;" value="@entity.ProductID">
                 </div>
             </div>
@@ -164,7 +163,7 @@
                 <div class="px25 color_9 flex-col">
                     <input type="text" id="CustomerName" name="CustomerName" value="@entity.CustomerName" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;" />
+                border: 1px solid #ddd;text-align: left;" />
                 </div>
             </div>
             <div class="flex-row" style="height:1.053333rem">
@@ -172,7 +171,7 @@
                 <div class="px25 color_9 flex-col">
                     <input type="text" id="telphone" name="telphone" value="@entity.telphone" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;" />
+                border: 1px solid #ddd;text-align: left;" />
                 </div>
             </div>
             <div class="flex-row" style="height:1.053333rem">
@@ -180,7 +179,7 @@
                 <div class="px25 color_9 flex-col">
                     <input type="text" id="CommentContent" name="CommentContent" value="@entity.CommentContent" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;" />
+                border: 1px solid #ddd;text-align: left;" />
                 </div>
             </div>
 
@@ -189,7 +188,7 @@
                 <div class="px25 color_9 flex-col">
                     <input type="text" id="WebChartID" name="WebChartID" value="@entity.WebChartID" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;">
+                border: 1px solid #ddd;text-align: left;">
                 </div>
             </div>
             <div class="flex-row" style="height:1.053333rem">
@@ -197,10 +196,10 @@
                 <div class="px25 color_9 flex-col">
                     <input type="text" id="InquiryContent" name="InquiryContent" value="@entity.InquiryContent" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;">
+                border: 1px solid #ddd;text-align: left;">
                 </div>
             </div>
-            <div class="flex-row" style="height:1.053333rem">
+            @*<div class="flex-row" style="height:1.053333rem">
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">处理状态</div>
                 <div class="px25 color_9 flex-col">
                     <select class="xsselect px25" id="ProcessingState" name="ProcessingState">
@@ -208,22 +207,37 @@
                         <option value="0" @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("0") ? "selected" : "")>未处理</option>
                     </select>
                 </div>
+            </div>*@
+
+            <div class="flex-row" style="height:1.053333rem">
+                <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪状态</div>
+                <div class="flex-col">
+                    <input type="hidden" id="ProcessingState" name="ProcessingState" value="0" />
+                    <div class="px25 flex-row"
+                         style="border: 1px solid #ddd;height: .706667rem;background-color: #fff;width: -webkit-fill-available;">
+                        <div class="px25 flex-col @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("1") ? "ztact" : "")"
+                             style="line-height: .706667rem;text-align: center;border-right:1px solid #ddd" id="showProcessingState1" onclick="clikeProcessingState(1)">已处理</div>
+                        <div class="px25 flex-col @(!string.IsNullOrEmpty(entity.ProcessingState) && entity.ProcessingState.Equals("0") ? "ztact" : "")"
+                             style="line-height: .706667rem;text-align: center;border-right:1px solid #ddd" id="showProcessingState0" onclick="clikeProcessingState(0)">未处理</div>                        
+                    </div>
+                </div>
             </div>
+
             <div class="flex-row" style="height:1.053333rem">
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">省份城市</div>
                 <div class="px25 color_9 flex-col">
                     <input type="text" placeholder="省份" id="Provence" name="Provence" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;width:110px;" value="@entity.Provence" maxlength="50">
+                border: 1px solid #ddd;width:30%;text-align: left;" value="@entity.Provence" maxlength="50">
                     <input type="text" placeholder="城市" id="City" name="City" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;width:110px;" value="@entity.City" maxlength="50">
+                border: 1px solid #ddd;width:30%;text-align: left;" value="@entity.City" maxlength="50">
                 </div>
             </div>
             <div class="flex-row" style="height:auto;margin-bottom: .346667rem;">
                 <div class="px25 mar-r-30 color_3" style="width:1.466667rem;line-height:.706667rem;">跟踪内容</div>
                 <div class="px25 color_9 flex-col">
-                    <input class="span5" type="text" placeholder="跟踪内容" style="padding: 0 .333333rem; height: 1.406667rem; border: 1px solid #ddd;width: -webkit-fill-available;line-height: 53px"
+                    <input class="span5" type="text" placeholder="跟踪内容" style="padding: 0 .333333rem; height: 1.406667rem; border: 1px solid #ddd;width: -webkit-fill-available;line-height: 53px;text-align: left;"
                            id="TraceContent" name="TraceContent" value="@entity.TraceContent" >
                 </div>
             </div>
@@ -260,7 +274,7 @@
                 <div class="px25 color_9 flex-col" style="position: relative;">
                     <input type="text" id="NextVisitTime" name="NextVisitTime" value="@(entity.NextVisitTime > Convert.ToDateTime("2000-01-01") ? entity.NextVisitTime.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" style="padding: 0 .333333rem;width: -webkit-fill-available;
                 height: .706667rem;
-                border: 1px solid #ddd;">
+                border: 1px solid #ddd;text-align: left;">
                     @*<img style="width: .293333rem;
                position: absolute;
                top: 17px;
@@ -288,6 +302,19 @@
     $("#showOperatorID").change(function () {
         $("#OperatorID").val($("#showOperatorID").val());
     })
+
+    function clikeProcessingState(ii) {
+        $("#ProcessingState").val(ii);
+        if (ii == 1) {
+            $("#showProcessingState1").addClass("ztact");
+            $("#showProcessingState0").removeClass("ztact");
+
+        } else if (ii == 0) {
+            $("#showProcessingState0").addClass("ztact");
+            $("#showProcessingState1").removeClass("ztact");
+
+        }
+    }
 
     function clikeTraceState(state, ii) {
         $("#TraceState").val(state);
