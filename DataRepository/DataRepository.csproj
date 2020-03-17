@@ -62,8 +62,10 @@
     <Compile Include="DataAccess\InquiryHistory\InquiryHistoryRepository.cs" />
     <Compile Include="DataAccess\InquiryHistory\InquiryHistoryStatement.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryMonitorRepository.cs" />
+    <Compile Include="DataAccess\InquiryHistory\InquiryLogHistoryRepository.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryRepository.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryMonitorStatement.cs" />
+    <Compile Include="DataAccess\InquiryHistory\InquiryLogHistoryStatement.cs" />
     <Compile Include="DataAccess\Inquiry\InquiryStatement.cs" />
     <Compile Include="DataAccess\News\ArticleRepository.cs" />
     <Compile Include="DataAccess\News\NewsRepository.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="DataModel\CodeSInfo.cs" />
     <Compile Include="DataModel\GroupInfo.cs" />
     <Compile Include="DataModel\InquiryHistoryInfo.cs" />
+    <Compile Include="DataModel\InquiryHistoryLogInfo.cs" />
     <Compile Include="DataModel\InquiryInfo.cs" />
     <Compile Include="DataModel\InquiryLogInfo.cs" />
     <Compile Include="DataModel\InquiryMonitorInfo.cs" />

@@ -46,14 +46,42 @@ namespace Service
                                     entity.OperatorID = userInfo.UserID.ToString();
                                     //添加到正式库
                                     AddInquiry(entity);
+                                    //记录转移日志
+                                    CreateLog(entity);
                                     //释放库删除
-                                    Remove(entity.PPId);
+                                    Remove(entity.PPId);                                    
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 转移日志处理
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void CreateLog(InquiryHistoryEntity entity)
+        {
+            InquiryLogHistoryRepository repository = new InquiryLogHistoryRepository();
+            InquiryHistoryLogInfo info = new InquiryHistoryLogInfo();
+            info.ProductID = entity.ProductID;
+            info.telphone = entity.telphone;
+            info.WebChartID = entity.WebChartID;
+            info.ProcessingState = entity.ProcessingState;
+            info.Provence = entity.Provence;
+            info.City = entity.City;
+            info.TraceState = entity.TraceState;
+            info.CustomerName = entity.CustomerName;
+            info.status = entity.status;
+            info.SourceForm = entity.SourceForm;
+            info.AddDate = entity.AddDate;
+            info.OperatorID = entity.OperatorID;
+            info.HistoryOperatorID = entity.HistoryOperatorID;
+            info.datastatus = "0";
+            info.ChangeDate = DateTime.Now;
+            repository.CreateNew(info);
         }
 
 
