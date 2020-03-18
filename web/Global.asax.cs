@@ -31,7 +31,7 @@ namespace web
             AuthConfig.RegisterAuth();
 
             //定义定时器  
-            System.Timers.Timer myTimer = new System.Timers.Timer(300000);//五分钟
+            System.Timers.Timer myTimer = new System.Timers.Timer(1500000);//十五分钟
             myTimer.Elapsed += new ElapsedEventHandler(myTimer_Elapsed);
             myTimer.Enabled = true;
             myTimer.AutoReset = true;

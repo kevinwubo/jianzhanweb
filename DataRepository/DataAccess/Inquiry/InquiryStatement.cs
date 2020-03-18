@@ -30,13 +30,13 @@ namespace DataRepository.DataAccess.News
                                             ,[City],[TraceContent],[TraceState],[NextVisitTime],[CustomerName],[sex],[status],[SourceForm],[AddDate],[OperatorID],[datastatus])
                                                  VALUES(@ProductID,@telphone,@WebChartID,@InquiryContent,@CommentContent,@ProcessingState,@ProcessingTime,@Provence,@City
                                             ,@TraceContent,@TraceState,@NextVisitTime,@CustomerName,@sex,@status,@SourceForm,@AddDate,@OperatorID,@datastatus) select @@IDENTITY";
-
+        //[SourceForm] = @SourceForm,
         public static string ModifyInquiry = @"UPDATE [dbo].[dt_proInquiry]   SET [ProductID] = @ProductID,[telphone] = @telphone,[WebChartID] = @WebChartID,[InquiryContent] = @InquiryContent
                                                 ,[CommentContent] = @CommentContent,[ProcessingState] = @ProcessingState,[ProcessingTime] = @ProcessingTime,[Provence] = @Provence
                                                 ,[City] = @City,[TraceContent] = @TraceContent,[TraceState] = @TraceState,[NextVisitTime] = @NextVisitTime,[CustomerName] = @CustomerName
-                                                ,[sex] = @sex,[status] = @status,[SourceForm] = @SourceForm,[OperatorID] = @OperatorID,ChangeDate=GETDATE()
+                                                ,[sex] = @sex,[status] = @status,[OperatorID] = @OperatorID,ChangeDate=GETDATE()
                                                  WHERE PPId=@PPId";
-
+        public static string ModifyInquiryStatus = @"UPDATE [dbo].[dt_proInquiry]   SET [CommentContent] = @CommentContent,[status] = @status    WHERE PPId=@PPId";
 
         #region 分页相关
         public static string GetInquiryCount = @"SELECT COUNT(1) AS C FROM dt_proInquiry(NOLOCK) WHERE 1=1 ";
@@ -92,7 +92,7 @@ namespace DataRepository.DataAccess.News
 
         public static string GetLastSaleNameByCodes = @"select top 1 b.real_name,salesCount,0 as countCurrentDay,a.OperatorID from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and b.real_name in({0}) order by PPId desc ";
 
-        public static string GetLastSaleNameByOperatorID = @"select top 1 b.real_name,a.OperatorID,salesCount,0 as countCurrentDay from dbo.dt_proInquiry a,dt_manager b where a.OperatorID=b.id  and status='新' and status!='Hand' and a.OperatorID in({0}) order by PPId desc ";
+        public static string GetLastSaleNameByOperatorID = @"select top 1 b.real_name,a.OperatorID,salesCount,0 as countCurrentDay from dbo.dt_proInquiry a,dt_manager b where a.HistoryOperatorID=b.id  and status='新' and status!='Hand' and a.HistoryOperatorID in({0}) order by PPId desc ";
 
         public static string UpdateOperatorIDByPPId = @"UPDATE dt_proInquiry SET OperatorID=@OperatorID,ProcessingState='0',ChangeDate=GETDATE() WHERE PPId=@PPId";
 

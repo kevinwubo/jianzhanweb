@@ -197,6 +197,15 @@ namespace DataRepository.DataAccess.News
             return Convert.ToInt64(o);
         }
 
+        public int ModifyInquiryStatus(InquiryInfo info)
+        {
+            DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.ModifyInquiryStatus, "Text"));            
+            command.AddInputParameter("@CommentContent", DbType.String, info.CommentContent);
+            command.AddInputParameter("@status", DbType.String, info.status);
+            command.AddInputParameter("@PPId", DbType.String, info.PPId);
+            return command.ExecuteNonQuery();
+        }
+
         public int ModifyInquiry(InquiryInfo info)
         {
             DataCommand command = new DataCommand(ConnectionString, GetDbCommand(InquiryStatement.ModifyInquiry, "Text"));
@@ -216,7 +225,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@sex", DbType.String, info.Sex);
 
             command.AddInputParameter("@status", DbType.String, info.status);
-            command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);            
+            //command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);            
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
             //command.AddInputParameter("@ChangeDate", DbType.String, info.ChangeDate);
             command.AddInputParameter("@PPId", DbType.String, info.PPId);

@@ -21,8 +21,13 @@ namespace Service
         public static string CreateInquiry(string Telephone, string productID, string sourceform, string contactName, string wxChartID)
         {
 
+            StringBuilder log = new StringBuilder();
+
             CreateInuiryLog(productID, Telephone, sourceform);
-            LogHelper.WriteTextLog("咨询手机号", "Tel:" + Telephone, DateTime.Now);
+            //LogHelper.WriteTextLog("咨询手机号", "Tel:" + Telephone, DateTime.Now);
+            log.Append("咨询手机号:" + Telephone + "ProductID:" + productID + "SourceForm:" + sourceform);
+            log.Append("\r\n");
+
             string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
             CodeSEntity blackmobile = BaseDataService.GetCodeValuesByRule("BlackMobile");//手机号黑名单
             //当天同手机号同产品编号只能资讯2次
@@ -44,13 +49,17 @@ namespace Service
             }
             else
             {
-                LogHelper.WriteTextLog("咨询开始","资讯手机号开始" + Telephone, DateTime.Now);
+                //LogHelper.WriteTextLog("咨询开始","资讯手机号开始" + Telephone, DateTime.Now);
+                log.Append("咨询手机号:" + "资讯手机号开始:" + Telephone);
+                log.Append("\r\n");
                 string code = GetTimeRangleCode(Telephone, "");
                 List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(Telephone) + "' or telphone='" + Telephone + "') ", "", "");
                 UserEntity entity = null;
                 bool isNew = false;
                 if(listInquiry!=null&&listInquiry.Count>0)
                 {
+                    log.Append("咨询手机号:" + "手机号已经存在，咨询条数：" + listInquiry.Count);
+                    log.Append("\r\n");
                     //手机号已经存在咨询 直接从用户表中读取销售信息
                     entity = UserService.GetUserById(listInquiry[0].OperatorID.ToLong(0));
                     isNew = false;
@@ -58,12 +67,16 @@ namespace Service
                 else
                 {
                     isNew = true;
+                    log.Append("咨询手机号:" + "新咨询量");
+                    log.Append("\r\n");
                     //新咨询量 走分配逻辑
                     entity = GetSalesNameNew(code);
                 }
 
                 InquiryInfo info = AddInquiry(Telephone, productID, sourceform, contactName, wxChartID, entity, isNew);
-                sendSMS(SmsTempletText, productID, info.smsMess, entity);
+                log.Append("咨询手机号:" + JsonHelper.ToJson(info));
+                log.Append("\r\n");
+                sendSMS(SmsTempletText, productID, info.smsMess, entity, log);
             }
             return "";
         }
@@ -74,7 +87,7 @@ namespace Service
         /// <param name="SmsTempletText"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        private static bool sendSMS(string SmsTempletText, string productID, string smsMess, UserEntity entity)
+        private static bool sendSMS(string SmsTempletText, string productID, string smsMess, UserEntity entity, StringBuilder log)
         {
             string SmsMess = string.Format(SmsTempletText, "不详", "不详", "不详", DateTime.Now.ToString());
 
@@ -91,12 +104,15 @@ namespace Service
                     SmsMess = SmsMess.Replace("-", "-");
 
                     SMSHelper.SeedSMS(entity.Telephone, SmsMess);
-                    LogHelper.WriteTextLog("sendSMS", "--工作手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
-
+                    //LogHelper.WriteTextLog("sendSMS", "--工作手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                    log.Append("短信发送："+"--工作手机号 销售：" + entity.Telephone + "-询价-短信内容：" + SmsMess);
+                    log.Append("\r\n");
                     if (!string.IsNullOrEmpty(entity.PrivateTelephone))
                     {
                         SMSHelper.SeedSMS(entity.PrivateTelephone, SmsMess);
-                        LogHelper.WriteTextLog("sendSMS", "--私人手机号 销售：" + entity.PrivateTelephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                        //LogHelper.WriteTextLog("sendSMS", "--私人手机号 销售：" + entity.PrivateTelephone + "-询价-短信内容：" + SmsMess, DateTime.Now);
+                        log.Append("短信发送：" + "--私人手机号 销售：" + entity.PrivateTelephone + "-询价-短信内容：" + SmsMess);
+                        log.Append("\r\n");
                     }
                     ////发送给老板
                     //SMSHelper.SeedSMS("13916116545", SmsMess);
@@ -105,14 +121,19 @@ namespace Service
                     if (entity.CityName.Equals("厦门"))
                     {
                         SMSHelper.SeedSMS("17359271665", SmsMess);
-                        LogHelper.WriteTextLog("sendSMS", "--手机号 厦门：17359271665-询价-短信内容：" + SmsMess, DateTime.Now);
+                        //LogHelper.WriteTextLog("sendSMS", "--手机号 厦门：17359271665-询价-短信内容：" + SmsMess, DateTime.Now);
+                        log.Append("短信发送：" + "--手机号 厦门：17359271665-询价-短信内容：" + SmsMess);
+                        log.Append("\r\n");
                     }
                     else if (entity.CityName.Equals("武夷山"))
                     {
                         SMSHelper.SeedSMS("13163806316", SmsMess);
-                        LogHelper.WriteTextLog("sendSMS", "--手机号 武夷山：13163806316-询价-短信内容：" + SmsMess, DateTime.Now);
+                        log.Append("短信发送：" + "--手机号 武夷山：13163806316-询价-短信内容：" + SmsMess);
+                        log.Append("\r\n");
+                        //LogHelper.WriteTextLog("sendSMS", "--手机号 武夷山：13163806316-询价-短信内容：" + SmsMess, DateTime.Now);
                     }
                 }
+                LogHelper.WriteTextLog("咨询日志记录", log.ToString(), DateTime.Now);
             }
             catch (Exception ex)
             {
@@ -498,15 +519,22 @@ namespace Service
         {
             List<InquiryEntity> list = new List<InquiryEntity>();
             InquiryRepository ir = new InquiryRepository();
+            StringBuilder log=new StringBuilder();
             list = GetInquiryByRule("", "", "", " AND datediff(mi,AddDate,GETDATE())>15 AND status='新' and ProcessingState='0' ", "", "");
             if (list != null && list.Count > 0)
             {
-                LogHelper.WriteAutoSystemLog("重新分配", JsonHelper.ToJson(list), DateTime.Now);
+                //LogHelper.WriteAutoSystemLog("重新分配", "待分配数量：" + list.Count, DateTime.Now);
+                log.Append("超时转移："+ "待分配数量：" + list.Count);
+                log.Append("\r\n");
                 string SmsTempletText = BaseDataService.GetCodeValuesByRule("SmsTemplate").CodeValues;//短信模板
                 foreach (InquiryEntity item in list)
                 {
                     try
                     {
+                        log.Append("超时转移："+ "ProductID：" + item.ProductID + "Adddate:" + item.AddDate + "Telphone:" + item.telphone);
+                        log.Append("\r\n");
+                        
+                        //LogHelper.WriteAutoSystemLog("重新分配", "ProductID：" + item.ProductID + "Adddate:" + item.AddDate + "Telphone:" + item.telphone, DateTime.Now);
                         string code = GetTimeRangleCode(item.telphone, item.City);
                         UserEntity entity = GetSalesNameNew(code);
 
@@ -540,7 +568,7 @@ namespace Service
                             }
                         }
 
-                        sendSMS(SmsTempletText, item.ProductID, "超时转移", entity);
+                        sendSMS(SmsTempletText, item.ProductID, "超时转移", entity, log);
 
                         //InquiryInfo infoU = new InquiryInfo();
                         //infoU.OperatorID = entity.UserID.ToString();
@@ -734,6 +762,16 @@ namespace Service
             return result > 0;
         }
 
+
+        public static void ModifyInquiryStatus(InquiryEntity entity)
+        {
+            InquiryRepository mr = new InquiryRepository();
+            InquiryInfo info=new InquiryInfo();
+            info.PPId = entity.PPId;
+            info.status = entity.status;
+            info.CommentContent = entity.CommentContent;
+            mr.ModifyInquiryStatus(info);
+        }
         /// <summary>
         /// 手动添加咨询量
         /// </summary>
@@ -891,7 +929,7 @@ namespace Service
                         entity.telephone = dr["手机号"].ToString();
                         entity.productID = dr["作品编号"].ToString();
 
-                        List<InquiryEntity> inquiryList = GetInquiryByRule("", StringHelper.ConvertBy123(entity.telephone), "", "", "", "");
+                        List<InquiryEntity> inquiryList = GetInquiryByRule("", "", "", "  and (telphone='" + StringHelper.ConvertBy123(entity.telephone) + "' or telphone='" + entity.telephone + "')  ", "", "");
                         if (inquiryList == null || inquiryList.Count == 0)
                         {
                             AddInquiry(entity.telephone, entity.productID, entity.date + " " + entity.time);

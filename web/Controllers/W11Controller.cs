@@ -20,12 +20,49 @@ namespace web.Controllers
         /// </summary>
         /// <param name="tel"></param>
         /// <returns></returns>
-        public ActionResult Tel(string tel)
+        public ActionResult Tel(string date1,string date2)
         {
-            if (!string.IsNullOrEmpty(tel))
+            if (!string.IsNullOrEmpty(date1) || !string.IsNullOrEmpty(date2))
             {
-                BaseDataService.InsertTelephone(tel);
-            }            
+                //BaseDataService.InsertTelephone(tel);
+
+                //List<InquiryEntity> list = InquiryService.GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(date1) + "' or telphone='" + date1 + "') ", "", "");
+                List<InquiryEntity> list = InquiryService.GetInquiryByRule("", "", "", " AND isnull(status,'')='' AND telphone!='' AND AddDate Between '" + date1 + " 00:00:01' and '" + date2 + " 23:59:59'", "", "");
+                List<InquiryEntity> list111 = list.FindAll(p => p.telphone.Equals("ACFMEGGBBGF"));
+                if (list != null && list.Count > 0)
+                {
+                    var groupInfo = list.GroupBy(m => m.telphone).ToList();
+                    foreach (var item in groupInfo)
+                    {
+                        List<InquiryEntity> listNew = InquiryService.GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(item.Key) + "' or telphone='" + item.Key + "') ", "", "");
+                        if (item.Key.Equals("13605772276"))
+                        {
+
+                            string trl = "";
+                        }
+                        if (listNew != null && listNew.Count > 0)
+                        {
+                            List<InquiryEntity> listXin = listNew.FindAll(p => p.status.Equals("新"));
+
+                            if (listXin.Count == 0)
+                            {
+                                List<InquiryEntity> listOrderBy = listNew.OrderBy(p => p.PPId).ToList();
+                                InquiryEntity inquiryEntity = new InquiryEntity();
+                                inquiryEntity.PPId = listOrderBy[0].PPId;
+                                inquiryEntity.status = "新";
+                                inquiryEntity.CommentContent = "Update_New";
+                                InquiryService.ModifyInquiryStatus(inquiryEntity);
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                List<InquiryEntity> listNew = InquiryService.GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(date1) + "' or telphone='" + date1 + "') ", "", "");
+            }
             return View();
         }
 
