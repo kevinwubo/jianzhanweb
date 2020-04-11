@@ -52,7 +52,11 @@ namespace Service
                 //LogHelper.WriteTextLog("咨询开始","资讯手机号开始" + Telephone, DateTime.Now);
                 log.Append("咨询手机号:" + "资讯手机号开始:" + Telephone);
                 log.Append("\r\n");
-                string code = GetTimeRangleCode(Telephone, "");
+                string code =  GetTimeRangleCode(Telephone, "");
+                if (!String.IsNullOrEmpty(productID) && "AD".Equals(productID))
+                {
+                    code = "ADSalesQueue";
+                }
                 List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(Telephone) + "' or telphone='" + Telephone + "') ", "", "");
                 UserEntity entity = null;
                 bool isNew = false;
@@ -717,7 +721,7 @@ namespace Service
                 info.AddDate = entity.AddDate;
                 info.OperatorID = entity.OperatorID;
                 info.SaleTelephone = entity.SaleTelephone;
-                info.status = entity.status;
+                //info.status = entity.status;
                 info.SourceForm = entity.SourceForm;
             }
 

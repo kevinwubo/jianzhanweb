@@ -224,7 +224,7 @@ namespace DataRepository.DataAccess.News
             command.AddInputParameter("@CustomerName", DbType.String, info.CustomerName);
             command.AddInputParameter("@sex", DbType.String, info.Sex);
 
-            command.AddInputParameter("@status", DbType.String, info.status);
+            //command.AddInputParameter("@status", DbType.String, info.status);
             //command.AddInputParameter("@SourceForm", DbType.String, info.SourceForm);            
             command.AddInputParameter("@OperatorID", DbType.String, info.OperatorID);
             //command.AddInputParameter("@ChangeDate", DbType.String, info.ChangeDate);
