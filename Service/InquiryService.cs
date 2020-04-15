@@ -56,6 +56,7 @@ namespace Service
                 if (!String.IsNullOrEmpty(productID) && "AD".Equals(productID))
                 {
                     code = "ADSalesQueue";
+                    sourceform = productID;
                 }
                 List<InquiryEntity> listInquiry = GetInquiryByRule("", "", "", " and (telphone='" + StringHelper.ConvertBy123(Telephone) + "' or telphone='" + Telephone + "') ", "", "");
                 UserEntity entity = null;

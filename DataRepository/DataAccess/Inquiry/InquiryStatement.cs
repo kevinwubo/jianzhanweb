@@ -34,7 +34,7 @@ namespace DataRepository.DataAccess.News
         public static string ModifyInquiry = @"UPDATE [dbo].[dt_proInquiry]   SET [ProductID] = @ProductID,[telphone] = @telphone,[WebChartID] = @WebChartID,[InquiryContent] = @InquiryContent
                                                 ,[CommentContent] = @CommentContent,[ProcessingState] = @ProcessingState,[ProcessingTime] = @ProcessingTime,[Provence] = @Provence
                                                 ,[City] = @City,[TraceContent] = @TraceContent,[TraceState] = @TraceState,[NextVisitTime] = @NextVisitTime,[CustomerName] = @CustomerName
-                                                ,[sex] = @sex,[status] = @status,[OperatorID] = @OperatorID,ChangeDate=GETDATE()
+                                                ,[sex] = @sex,[OperatorID] = @OperatorID,ChangeDate=GETDATE()
                                                  WHERE PPId=@PPId";
         public static string ModifyInquiryStatus = @"UPDATE [dbo].[dt_proInquiry]   SET [CommentContent] = @CommentContent,[status] = @status    WHERE PPId=@PPId";
 
