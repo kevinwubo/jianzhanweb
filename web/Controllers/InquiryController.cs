@@ -26,7 +26,7 @@ namespace web.Controllers
         /// <param name="status"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        public ActionResult Index(string name, string tracestate, int CustomerID = 0, int status = -1, string begindate = "", string enddate = "", int p = 1)
+        public ActionResult Index(string name, string tracestate, int CustomerID = 0, int status = -1, string begindate = "", string enddate = "", string sourceform = "", int pageSize=20, int p = 1)
         {
             List<InquiryEntity> mList = null;
 
@@ -38,13 +38,17 @@ namespace web.Controllers
             {
                 sqlwhere = " and isnull(Status,'')!='释' ";
             }
+            if (!String.IsNullOrEmpty(sourceform))
+            {
+                sqlwhere = " and SourceForm='" + sourceform + "'";
+            }
 
 
             int count = InquiryService.GetInquiryCount(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
 
             PagerInfo pager = new PagerInfo();
             pager.PageIndex = p;
-            pager.PageSize = PAGESIZE;
+            pager.PageSize = pageSize;
             pager.SumCount = count;
             pager.URL = "/Inquiry";
             pager.DistinctCount = InquiryService.GetDistinctTelephone(name, tracestate, status, begindate, enddate, operatorid, sqlwhere);
@@ -57,6 +61,8 @@ namespace web.Controllers
             //{
             //    mList = InquiryService.GetInquiryInfoPager(pager);
             //}
+            ViewBag.SourceForm = sourceform;
+            ViewBag.PageSize = pageSize;
             ViewBag.Name = name ?? "";
             ViewBag.Status = status;
             ViewBag.ModelCode = tracestate;

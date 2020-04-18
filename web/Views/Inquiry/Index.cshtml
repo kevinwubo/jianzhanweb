@@ -36,6 +36,25 @@
 
                                 </label>
                                 <label>
+                                    数据来源: 
+                                    <select class="span3" style="width:80px" id="sourceform" name="sourceform">
+                                        <option value="">全部</option>
+                                        <option value="PC" @(ViewBag.SourceForm == "PC" ? "selected" : "")>PC</option>
+                                        <option value="MB" @(ViewBag.SourceForm == "MB" ? "selected" : "")>MB</option>
+                                        <option value="AD" @(ViewBag.SourceForm == "AD" ? "selected" : "")>AD</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    <select tabindex="1" class="" style="width: 80px" id="pageSize" name="pageSize">
+                                        <option value="10" @(ViewBag.PageSize == 10 ? "selected" : "")>10条</option>
+                                        <option value="20" @(ViewBag.PageSize == 20 ? "selected" : "")>20条</option>
+                                        <option value="30" @(ViewBag.PageSize == 30 ? "selected" : "")>30条</option>
+                                        <option value="40" @(ViewBag.PageSize == 40 ? "selected" : "")>40条</option>
+                                        <option value="50" @(ViewBag.PageSize == 50 ? "selected" : "")>50条</option>
+                                        <option value="100" @(ViewBag.PageSize == 50 ? "selected" : "")>100条</option>
+                                    </select>
+                                </label>
+                                <label>
                                     <input type="text" aria-controls="menus" class="layui-input" style="width:200px" placeholder="咨询时间" id="begindate" value="@ViewBag.BeginDate" lay-key="1" autocomplete="off" name="begindate">
                                 </label>
                                 <label>
@@ -75,7 +94,7 @@
                                     <td class=" ">@(list[i].product != null ? list[i].product.ProductName : "")</td>
                                     <td class=" ">@(list[i].product != null ? list[i].product.Author : "")<span class="label label-warning">@list[i].status</span></td>
                                     <td class=" ">
-                                        <span class="label label-warning">手机号:</span>：@list[i].showTelephone                                     
+                                        <span class="label label-warning">手机号:</span>：@list[i].showTelephone
                                         @if (!string.IsNullOrEmpty(list[i].WebChartID))
                                         {
                                             <span class="label label-warning">微信号:</span>@list[i].WebChartID
@@ -86,7 +105,7 @@
                                     <td>
                                         @if (list[i].ProcessingState.Equals("1"))
                                         {
-                                            <span class="label label-success" >已处理</span>
+                                            <span class="label label-success">已处理</span>
                                         }
                                         else
                                         {
@@ -111,36 +130,35 @@
     </div> <!-- /widget -->
 </div>
 @section Footer{
-<script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
-<script src="~/source/layui/layui.js"></script>
-<script>
-    layui.use('laydate', function () {
+    <script type="text/javascript" src="~/source/assets/js/viewer-jquery.min.js"></script>
+    <script src="~/source/layui/layui.js"></script>
+    <script>
+        layui.use('laydate', function () {
 
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#begindate' //指定元素
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#begindate' //指定元素
+            });
+            laydate.render({
+                elem: '#enddate' //指定元素
+            });
         });
-        laydate.render({
-            elem: '#enddate' //指定元素
-        });
-    });
-    
-    $("#btn_IntoInquiry").click(function () {
-        var ppids = "";
-        $("input[name='checkbox']:checkbox:checked").each(function () {
-            ppids += $(this).val() + ",";
-        })
-        $.ajax({
-            url: "/Inquiry/IntoHistoryInquiry",
-            type: 'POST',
-            async: false,
-            data: { ppids: ppids },
-            success: function (data) {
-                alert(data);
-                window.location.reload();
-            }
-        });
-    });
-</script>
 
+        $("#btn_IntoInquiry").click(function () {
+            var ppids = "";
+            $("input[name='checkbox']:checkbox:checked").each(function () {
+                ppids += $(this).val() + ",";
+            })
+            $.ajax({
+                url: "/Inquiry/IntoHistoryInquiry",
+                type: 'POST',
+                async: false,
+                data: { ppids: ppids },
+                success: function (data) {
+                    alert(data);
+                    window.location.reload();
+                }
+            });
+        });
+    </script>
 }
